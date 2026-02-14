@@ -14,28 +14,15 @@ import { useTheme } from '../../theme';
 // ---------------------------------------------------------------------------
 
 export type ButtonVariant = 'filled' | 'outline' | 'text';
-export type ButtonSize = 'small' | 'medium' | 'large';
 
 export interface ButtonProps extends Omit<PressableProps, 'style'> {
   /** Button label text. */
   label: string;
   /** Visual variant. @default 'filled' */
   variant?: ButtonVariant;
-  /** Size preset.  Scales padding and font relative to token base. @default 'medium' */
-  size?: ButtonSize;
   /** Override background color. */
   backgroundColor?: string;
 }
-
-// ---------------------------------------------------------------------------
-// Size multipliers (relative to token base values)
-// ---------------------------------------------------------------------------
-
-const SIZE_SCALE: Record<ButtonSize, number> = {
-  small: 0.75,
-  medium: 1,
-  large: 1.25,
-};
 
 // ---------------------------------------------------------------------------
 // Component
@@ -50,14 +37,12 @@ const SIZE_SCALE: Record<ButtonSize, number> = {
 export function Button({
   label,
   variant = 'filled',
-  size = 'medium',
   backgroundColor,
   disabled = false,
   ...pressableProps
 }: ButtonProps) {
   const theme = useTheme();
   const bt = theme.component.button;
-  const scale = SIZE_SCALE[size];
 
   const [hovered, setHovered] = useState(false);
 
@@ -89,9 +74,9 @@ export function Button({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: bt.gap * scale,
-    paddingHorizontal: bt.paddingHorizontal * scale,
-    paddingVertical: bt.paddingVertical * scale,
+    gap: bt.gap,
+    paddingHorizontal: bt.paddingHorizontal,
+    paddingVertical: bt.paddingVertical,
     borderRadius: bt.cornerRadius,
     backgroundColor: resolveBackground(),
     ...(variant === 'outline' && {
@@ -108,9 +93,9 @@ export function Button({
 
   const textStyle: TextStyle = {
     color: resolveContent(),
-    fontSize: bt.textSize * scale,
+    fontSize: bt.textSize,
     fontWeight: String(bt.fontWeight) as TextStyle['fontWeight'],
-    lineHeight: bt.textSize * scale * bt.lineHeight,
+    lineHeight: bt.textSize * bt.lineHeight,
     ...(fontFamily ? { fontFamily } : {}),
   };
 

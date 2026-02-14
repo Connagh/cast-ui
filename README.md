@@ -195,8 +195,8 @@ React Native `Pressable` + `Text`. Consumes all tokens from `theme.component.but
 ```tsx
 import { Button } from 'atlas-design-system';
 
-<Button label="Get started" variant="filled" size="medium" />
-<Button label="Learn more" variant="outline" size="small" />
+<Button label="Get started" variant="filled" />
+<Button label="Learn more" variant="outline" />
 <Button label="Cancel" variant="text" disabled />
 ```
 
@@ -204,7 +204,6 @@ import { Button } from 'atlas-design-system';
 |------|------|---------|-------------|
 | `label` | `string` | required | Button text |
 | `variant` | `'filled' \| 'outline' \| 'text'` | `'filled'` | Visual variant |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Scales padding and font |
 | `disabled` | `boolean` | `false` | Disabled state |
 | `backgroundColor` | `string` | - | Override background colour |
 

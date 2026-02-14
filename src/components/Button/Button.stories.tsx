@@ -10,10 +10,6 @@ const meta: Meta<typeof Button> = {
       control: 'select',
       options: ['filled', 'outline', 'text'],
     },
-    size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-    },
     disabled: { control: 'boolean' },
     backgroundColor: { control: 'color' },
     label: { control: 'text' },
@@ -45,31 +41,6 @@ export const TextVariant: Story = {
   args: {
     label: 'Button',
     variant: 'text',
-  },
-};
-
-// ---------------------------------------------------------------------------
-// Sizes
-// ---------------------------------------------------------------------------
-
-export const Small: Story = {
-  args: {
-    label: 'Small',
-    size: 'small',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    label: 'Medium',
-    size: 'medium',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    label: 'Large',
-    size: 'large',
   },
 };
 

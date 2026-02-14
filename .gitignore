@@ -7,6 +7,7 @@
 !package.json
 !package-lock.json
 !tsconfig.json
+!tsconfig.build.json
 
 # ── Allow Storybook config ───────────────────────
 !.storybook/
@@ -15,10 +16,6 @@
 # ── Allow source code ────────────────────────────
 !src/
 !src/**
-
-# ── Allow stories ────────────────────────────────
-!stories/
-!stories/**
 
 # ── Allow design tokens ──────────────────────────
 !design-tokens/
@@ -41,3 +38,8 @@
 *.env
 *.env.*
 *.local
+
+# ── Re-ignore build artifacts ─────────────────────
+dist/
+src/tokens/generated/
+storybook-static/

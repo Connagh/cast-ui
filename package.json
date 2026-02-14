@@ -1,28 +1,47 @@
 {
   "name": "atlas-design-system",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "A cross-platform design system for React Native (iOS, Android, Web) with multi-theme support.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:tokens": "node -e \"require('ts-node').register({compilerOptions:{module:'commonjs'}});require('./src/tokens/build.ts');\"",
+    "prestorybook": "npm run build:tokens",
     "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
-    "build-storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build"
+    "prebuild-storybook": "npm run build:tokens",
+    "build-storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
+    "build": "npm run build:tokens && tsc --project tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Connagh/atlas-design-system.git"
   },
-  "keywords": [],
+  "keywords": [
+    "design-system",
+    "react-native",
+    "expo",
+    "design-tokens",
+    "theming",
+    "cross-platform",
+    "ui-components"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Connagh/atlas-design-system/issues"
   },
   "homepage": "https://github.com/Connagh/atlas-design-system#readme",
-  "dependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.72"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.2.8",
@@ -33,7 +52,13 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "chromatic": "^15.1.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-native": "^0.84.0",
+    "react-native-web": "^0.21.2",
     "storybook": "^10.2.8",
+    "style-dictionary": "^5.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }

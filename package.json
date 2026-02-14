@@ -1,0 +1,39 @@
+{
+  "name": "atlas-design-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
+    "build-storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Connagh/atlas-design-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Connagh/atlas-design-system/issues"
+  },
+  "homepage": "https://github.com/Connagh/atlas-design-system#readme",
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.2.8",
+    "@storybook/addon-docs": "^10.2.8",
+    "@storybook/addon-onboarding": "^10.2.8",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
+    "@storybook/react-webpack5": "^10.2.8",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "chromatic": "^15.1.0",
+    "storybook": "^10.2.8",
+    "typescript": "^5.9.3"
+  }
+}

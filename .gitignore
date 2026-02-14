@@ -1,0 +1,43 @@
+# Ignore everything by default
+*
+
+# ── Allow project configuration ──────────────────
+!.gitignore
+!.gitattributes
+!package.json
+!package-lock.json
+!tsconfig.json
+
+# ── Allow Storybook config ───────────────────────
+!.storybook/
+!.storybook/**
+
+# ── Allow source code ────────────────────────────
+!src/
+!src/**
+
+# ── Allow stories ────────────────────────────────
+!stories/
+!stories/**
+
+# ── Allow design tokens ──────────────────────────
+!design-tokens/
+!design-tokens/**
+
+# ── Allow documentation & repo files ─────────────
+!README.md
+!LICENSE
+!CHANGELOG.md
+!CONTRIBUTING.md
+
+# ── Allow CI/CD config ───────────────────────────
+!.github/
+!.github/**
+
+# ── Re-ignore things that should never be tracked ─
+# (catches anything accidentally un-ignored above)
+.DS_Store
+*.log
+*.env
+*.env.*
+*.local

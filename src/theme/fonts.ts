@@ -10,7 +10,7 @@
  *
  * ```ts
  * import { useFonts } from 'expo-font';
- * import { THEME_FONTS } from 'cast-ui/theme/fonts';
+ * import { THEME_FONTS } from '@castui/cast-ui/theme/fonts';
  *
  * const [loaded] = useFonts(THEME_FONTS.consumer);
  * ```

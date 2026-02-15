@@ -134,7 +134,7 @@ When themes switch, **all of the following change simultaneously**: colour palet
 Wrap your app in `CastThemeProvider`. Defaults to White Label:
 
 ```tsx
-import { CastThemeProvider, consumer } from 'cast-ui';
+import { CastThemeProvider, consumer } from '@castui/cast-ui';
 
 export default function App() {
   return (
@@ -150,7 +150,7 @@ export default function App() {
 Access the current theme inside any component:
 
 ```tsx
-import { useTheme } from 'cast-ui';
+import { useTheme } from '@castui/cast-ui';
 
 function MyComponent() {
   const theme = useTheme();
@@ -193,7 +193,7 @@ theme.component.button.*            All button tokens (padding, colours, variant
 React Native `Pressable` + `Text`. Consumes all tokens from `theme.component.button`.
 
 ```tsx
-import { Button } from 'cast-ui';
+import { Button } from '@castui/cast-ui';
 
 <Button label="Get started" variant="filled" />
 <Button label="Learn more" variant="outline" />
@@ -216,7 +216,7 @@ Components reference font families from the theme tokens. Font **loading** is th
 Load fonts via a `<link>` tag or use the helper:
 
 ```ts
-import { googleFontsUrl } from 'cast-ui';
+import { googleFontsUrl } from '@castui/cast-ui';
 
 const url = googleFontsUrl('luxury');
 // "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;700&display=swap"
@@ -228,7 +228,7 @@ Load fonts with `expo-font` before rendering:
 
 ```ts
 import { useFonts } from 'expo-font';
-import { THEME_FONT_FAMILIES } from 'cast-ui';
+import { THEME_FONT_FAMILIES } from '@castui/cast-ui';
 // THEME_FONT_FAMILIES.luxury = ['Playfair Display', 'Cormorant Garamond']
 ```
 
@@ -244,7 +244,7 @@ The **White Label** theme uses `system-ui` (platform default) and requires no fo
 ## Consumer Installation
 
 ```bash
-npm install cast-ui
+npm install @castui/cast-ui
 ```
 
 Peer dependencies: `react` (>=18), `react-native` (>=0.72).
@@ -258,7 +258,7 @@ import {
   consumer,
   corporate,
   luxury,
-} from 'cast-ui';
+} from '@castui/cast-ui';
 ```
 
 ## Storybook

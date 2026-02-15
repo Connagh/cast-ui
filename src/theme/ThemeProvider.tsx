@@ -22,8 +22,8 @@ export interface CastThemeProviderProps {
  * Wraps the component tree with the selected Cast theme.
  *
  * ```tsx
- * import { CastThemeProvider } from 'cast-ui';
- * import { consumer } from 'cast-ui/tokens/generated';
+ * import { CastThemeProvider } from '@castui/cast-ui';
+ * import { consumer } from '@castui/cast-ui/tokens/generated';
  *
  * <CastThemeProvider theme={consumer}>
  *   <App />

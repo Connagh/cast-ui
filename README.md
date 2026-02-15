@@ -33,6 +33,12 @@ Example:
 
 See [`design-tokens/DESIGN-TOKENS-SUMMARY.md`](design-tokens/DESIGN-TOKENS-SUMMARY.md) for the full token reference.
 
+## Examples
+
+For live examples showing Cast UI components and theming in action, see the companion repo:
+
+**[Connagh/cast-ui-examples](https://github.com/Connagh/cast-ui-examples)** (in progress)
+
 ## Project Structure
 
 ```
@@ -42,6 +48,9 @@ cast-ui/
       Button/
         Button.tsx              RN Pressable + Text, theme-aware
         Button.stories.tsx      Storybook stories
+      Card/
+        Card.tsx                RN View + Text, theme-aware
+        Card.stories.tsx        Storybook stories
     theme/
       types.ts                  CastTheme TypeScript interface
       ThemeProvider.tsx          React Context provider + useTheme hook
@@ -187,6 +196,7 @@ theme.semantic.paragraphSpacing.*   body, editorial
 theme.semantic.paragraphIndent.*    editorial
 theme.semantic.borderRadius.*       small, medium, large
 theme.component.button.*            All button tokens (padding, colours, variants, states)
+theme.component.card.*              All card tokens (padding, colours, typography, elevation)
 ```
 
 ## Components
@@ -209,6 +219,33 @@ import { Button } from '@castui/cast-ui';
 | `variant` | `'filled' \| 'outline' \| 'text'` | `'filled'` | Visual variant |
 | `disabled` | `boolean` | `false` | Disabled state |
 | `backgroundColor` | `string` | - | Override background colour |
+
+### Card
+
+React Native `View` + `Text`. Consumes tokens from `theme.component.card` and `theme.semantic`.
+
+```tsx
+import { Card, Button } from '@castui/cast-ui';
+
+<Card
+  title="Title"
+  subtitle="Subtitle"
+  body="Body"
+  actions={
+    <>
+      <Button label="Action 1" variant="filled" />
+      <Button label="Action 2" variant="outline" />
+    </>
+  }
+/>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | required | Card heading text |
+| `subtitle` | `string` | - | Optional subtitle below the title |
+| `body` | `string` | - | Optional body text |
+| `actions` | `React.ReactNode` | - | Optional actions row (e.g. Button components) |
 
 ## Font Handling
 

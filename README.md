@@ -69,7 +69,7 @@ cast-ui/
   .github/workflows/
     chromatic.yml               Visual regression testing on push
     adoption.yml                Zeroheight adoption tracking on push to main
-    publish.yml                 Publish to npm on GitHub Release
+    publish.yml                 Publish to npm on push to main
   dist/                         Build output (gitignored)
   tsconfig.json                 Development TypeScript config
   tsconfig.build.json           Library build config (excludes stories)
@@ -370,16 +370,19 @@ Generate these at **Zeroheight > Account Settings > Access Tokens**.
 
 ## npm Publishing
 
-The package is published to npm automatically via GitHub Actions. The workflow at `.github/workflows/publish.yml` triggers whenever you create a GitHub Release. **Chromatic must pass first** — the workflow runs a Chromatic verification before publishing, so any unreviewed visual changes will block the release.
+The package is published to npm **automatically** every time a PR is merged to `main`. Branch protection rules ensure that Chromatic visual checks must pass before a merge is allowed, so nothing reaches npm without visual approval.
 
 **To publish a new version:**
 
-1. Update the `version` field in `package.json` (e.g. `0.1.0` → `0.2.0`)
-2. Commit and push to `main`
-3. Review and accept any visual changes in the Chromatic UI
-4. Go to **GitHub → Releases → Create a new release**
-5. Create a tag matching the version (e.g. `v0.2.0`), write release notes, and publish
-6. The workflow verifies Chromatic, builds tokens + TypeScript, and runs `npm publish` automatically
+1. Create a feature branch and make your changes
+2. Update the `version` field in `package.json` (e.g. `0.1.0` → `0.2.0`)
+3. Push the branch and open a PR to `main`
+4. Chromatic runs and creates status checks on the PR
+5. Review and accept any visual changes in the Chromatic UI
+6. Once Chromatic checks pass, merge the PR
+7. The publish workflow triggers automatically: builds tokens + TypeScript and runs `npm publish`
+
+**If Chromatic changes are rejected:** Fix the code on your feature branch, push again. Chromatic re-runs with the new changes. Repeat until the visuals are right, then accept and merge.
 
 **Package details:**
 
@@ -411,7 +414,7 @@ When adding new top-level files or directories, you must add a `!path` entry to 
 |----------|---------|---------|
 | Chromatic (`.github/workflows/chromatic.yml`) | Every push | Visual regression testing via Storybook snapshots |
 | Adoption Tracking (`.github/workflows/adoption.yml`) | Push to `main` | Registers package version with Zeroheight |
-| Publish to npm (`.github/workflows/publish.yml`) | GitHub Release published | Verifies Chromatic, then builds and publishes package to npm |
+| Publish to npm (`.github/workflows/publish.yml`) | Push to `main` | Builds and publishes package to npm |
 
 **Required secrets:**
 
@@ -420,7 +423,24 @@ When adding new top-level files or directories, you must add a `!path` entry to 
 | `CHROMATIC_PROJECT_TOKEN` | Chromatic workflow |
 | `ZEROHEIGHT_CLIENT_ID` | Adoption Tracking workflow |
 | `ZEROHEIGHT_ACCESS_TOKEN` | Adoption Tracking workflow |
-| `NPM_TOKEN` | Publish workflow |
+
+The Publish workflow authenticates to npm via **OpenID Connect (OIDC)** using npm's Trusted Publishers feature — no `NPM_TOKEN` secret is needed. The trust relationship is configured at [npmjs.com](https://www.npmjs.com/) under **Package Settings → Trusted Publishers**. The `--provenance` flag attaches a verified build attestation to each published version.
+
+### Branch Protection
+
+Branch protection on `main` ensures that **no code is merged without passing Chromatic visual checks**. This is what prevents unreviewed visual changes from being published to npm.
+
+**To set up (one-time, on GitHub):**
+
+1. Go to **Settings → Branches** in your repository
+2. Click **Add branch protection rule**
+3. Set **Branch name pattern** to `main`
+4. Enable **Require a pull request before merging**
+5. Enable **Require status checks to pass before merging**
+6. Search for and select the Chromatic status checks (e.g. `UI Tests`, `UI Review`)
+7. Click **Save changes**
+
+Once enabled, you can no longer push directly to `main`. All changes go through feature branches and PRs, with Chromatic as a mandatory gate.
 
 ## Dependencies
 

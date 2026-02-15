@@ -11,6 +11,7 @@ export type {
   SemanticTokens,
   ComponentTokens,
   ButtonTokens,
+  CardTokens,
 } from './theme';
 export { THEME_FONT_FAMILIES, googleFontsUrl } from './theme';
 
@@ -25,4 +26,7 @@ export {
 // Components
 export { Button } from './components/Button/Button';
 export type { ButtonProps, ButtonVariant } from './components/Button/Button';
+
+export { Card } from './components/Card/Card';
+export type { CardProps } from './components/Card/Card';
 

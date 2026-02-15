@@ -370,19 +370,31 @@ Generate these at **Zeroheight > Account Settings > Access Tokens**.
 
 ## npm Publishing
 
-The package is published to npm **automatically** every time a PR is merged to `main`. Branch protection rules ensure that Chromatic visual checks must pass before a merge is allowed, so nothing reaches npm without visual approval.
+The publish workflow (`.github/workflows/publish.yml`) runs on every push to `main`. It **automatically checks** whether the `version` in `package.json` has changed compared to what's already on npm. If the version is the same, the workflow skips silently — no build, no publish. If the version is new, it builds and publishes.
+
+This means merging a PR to `main` does **not** automatically publish to npm. Only PRs that include a version bump in `package.json` will trigger a release.
 
 **To publish a new version:**
 
 1. Create a feature branch and make your changes
-2. Update the `version` field in `package.json` (e.g. `0.1.0` → `0.2.0`)
+2. Update the `version` field in `package.json` (e.g. `0.1.0` → `0.1.1`)
 3. Push the branch and open a PR to `main`
 4. Chromatic runs and creates status checks on the PR
 5. Review and accept any visual changes in the Chromatic UI
 6. Once Chromatic checks pass, merge the PR
-7. The publish workflow triggers automatically: builds tokens + TypeScript and runs `npm publish`
+7. The publish workflow detects the new version, builds tokens + TypeScript, and publishes to npm
+
+**If you don't bump the version:** The PR merges normally, Chromatic still runs, but the publish step is skipped. Your code is on `main` but no new npm version is created. This is useful for documentation changes, CI updates, or batching multiple changes before a release.
 
 **If Chromatic changes are rejected:** Fix the code on your feature branch, push again. Chromatic re-runs with the new changes. Repeat until the visuals are right, then accept and merge.
+
+**Version numbering guide:**
+
+| Change type | Bump | Example |
+|-------------|------|---------|
+| Bug fix or minor tweak | Patch | `0.1.0` → `0.1.1` |
+| New component or feature | Minor | `0.1.0` → `0.2.0` |
+| Breaking API change | Major | `0.1.0` → `1.0.0` |
 
 **Package details:**
 

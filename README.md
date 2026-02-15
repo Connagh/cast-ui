@@ -437,7 +437,7 @@ Branch protection on `main` ensures that **no code is merged without passing Chr
 3. Set **Branch name pattern** to `main`
 4. Enable **Require a pull request before merging**
 5. Enable **Require status checks to pass before merging**
-6. Search for and select the Chromatic status checks (e.g. `UI Tests`, `UI Review`)
+6. Search for and add **Run Chromatic** (GitHub Actions) and **UI Tests** (any source) as required checks
 7. Click **Save changes**
 
 Once enabled, you can no longer push directly to `main`. All changes go through feature branches and PRs, with Chromatic as a mandatory gate.

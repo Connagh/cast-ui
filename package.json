@@ -17,7 +17,8 @@
     "build-storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
     "build": "npm run build:tokens && tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zh:track-package": "zh-adoption track-package"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,7 @@
     "cross-platform",
     "ui-components"
   ],
-  "author": "Connagh <connagh@live.com>",
+  "author": "Connagh <connagh@users.noreply.github.com>",
   "license": "MIT",
   "type": "commonjs",
   "bugs": {

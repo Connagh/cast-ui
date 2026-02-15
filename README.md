@@ -68,6 +68,8 @@ cast-ui/
     preview-head.html           Google Fonts <link> tags
   .github/workflows/
     chromatic.yml               Visual regression testing on push
+    adoption.yml                Zeroheight adoption tracking on push to main
+    publish.yml                 Publish to npm on GitHub Release
   dist/                         Build output (gitignored)
   tsconfig.json                 Development TypeScript config
   tsconfig.build.json           Library build config (excludes stories)
@@ -113,6 +115,7 @@ Opens at `http://localhost:6006`. Use the paintbrush icon in the toolbar to swit
 | `npm run build-storybook` | Build static Storybook (auto-runs `build:tokens`) |
 | `npm run build` | Full library build: tokens + TypeScript compilation to `dist/` |
 | `npm publish` | Publish to npm (auto-runs `build` via `prepublishOnly`) |
+| `npm run zh:track-package` | Register/update package info with Zeroheight (runs automatically via CI) |
 
 ## Themes
 
@@ -297,14 +300,95 @@ The build script (`src/tokens/build.ts`) reads Figma-exported JSON from `design-
 5. Export the component and its types from `src/index.ts`
 6. If the component needs new design tokens, add them to all four `*.tokens.json` files and update `src/theme/types.ts`
 
+## Adoption Tracking
+
+Design system adoption is measured via [Zeroheight](https://zeroheight.com/). There are two sides to the setup: **this design system repo** and the **consumer app repos** that install it.
+
+### This repo (design system)
+
+The only command relevant here is `track-package`. It registers `@castui/cast-ui` and its current version with Zeroheight so the dashboard knows what the latest release is.
+
+This runs automatically on every push to `main` via the GitHub Actions workflow at `.github/workflows/adoption.yml`. You can also run it locally:
+
+```bash
+npm run zh:track-package
+```
+
+### Consumer app repos
+
+The adoption CLI is designed to be run **in the repositories that consume this design system**. These are the commands consumers (or their CI pipelines) should run:
+
+| Command | What it measures |
+|---------|-----------------|
+| `npx @zeroheight/adoption-cli analyze --component-usage` | Which Cast UI components are imported and how their props are used |
+| `npx @zeroheight/adoption-cli analyze --color-usage` | Hardcoded color values (`#hex`, `rgb()`, etc.) that should be replaced with theme tokens |
+| `npx @zeroheight/adoption-cli monitor-repo` | Which version of `@castui/cast-ui` the consumer app is on |
+
+**How color tracking works:** The `--color-usage` flag scans for *non-token* color values — raw hex, rgb, or hsl strings that a developer hardcoded instead of using `theme.semantic.color.*`. A high count means developers are bypassing the design system; a count trending to zero means strong token adoption. Running this in the design system repo itself correctly returns zero results because components only reference theme tokens, never hardcoded colours.
+
+### Consumer CI example
+
+Consumer teams can automate adoption reporting by adding a workflow to their repos:
+
+```yaml
+# .github/workflows/design-system-adoption.yml
+name: "Design System Adoption"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  adoption:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Report adoption to Zeroheight
+        env:
+          ZEROHEIGHT_CLIENT_ID: ${{ secrets.ZEROHEIGHT_CLIENT_ID }}
+          ZEROHEIGHT_ACCESS_TOKEN: ${{ secrets.ZEROHEIGHT_ACCESS_TOKEN }}
+        run: |
+          npx @zeroheight/adoption-cli analyze --component-usage --interactive false -r "${{ github.repository }}"
+          npx @zeroheight/adoption-cli analyze --color-usage --interactive false -r "${{ github.repository }}"
+          npx @zeroheight/adoption-cli monitor-repo --interactive false
+```
+
+### Required secrets
+
+All Zeroheight CLI commands in CI require two repository secrets:
+
+| Secret | Description |
+|--------|-------------|
+| `ZEROHEIGHT_CLIENT_ID` | OAuth client ID from your Zeroheight account |
+| `ZEROHEIGHT_ACCESS_TOKEN` | Access token from your Zeroheight account |
+
+Generate these at **Zeroheight > Account Settings > Access Tokens**.
+
 ## npm Publishing
 
-The package is configured for public npm publishing:
+The package is published to npm automatically via GitHub Actions. The workflow at `.github/workflows/publish.yml` triggers whenever you create a GitHub Release. **Chromatic must pass first** — the workflow runs a Chromatic verification before publishing, so any unreviewed visual changes will block the release.
+
+**To publish a new version:**
+
+1. Update the `version` field in `package.json` (e.g. `0.1.0` → `0.2.0`)
+2. Commit and push to `main`
+3. Review and accept any visual changes in the Chromatic UI
+4. Go to **GitHub → Releases → Create a new release**
+5. Create a tag matching the version (e.g. `v0.2.0`), write release notes, and publish
+6. The workflow verifies Chromatic, builds tokens + TypeScript, and runs `npm publish` automatically
+
+**Package details:**
 
 - **Entry point:** `dist/index.js` (CJS) with `dist/index.d.ts` type declarations
 - **Included files:** `dist/`, `README.md`, `LICENSE`
 - **Peer dependencies:** `react` (>=18), `react-native` (>=0.72)
 - **License:** MIT
+
+You can still publish manually if needed:
 
 ```bash
 npm login
@@ -326,8 +410,17 @@ When adding new top-level files or directories, you must add a `!path` entry to 
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
 | Chromatic (`.github/workflows/chromatic.yml`) | Every push | Visual regression testing via Storybook snapshots |
+| Adoption Tracking (`.github/workflows/adoption.yml`) | Push to `main` | Registers package version with Zeroheight |
+| Publish to npm (`.github/workflows/publish.yml`) | GitHub Release published | Verifies Chromatic, then builds and publishes package to npm |
 
-**Required secrets:** `CHROMATIC_PROJECT_TOKEN` (repository secret).
+**Required secrets:**
+
+| Secret | Used by |
+|--------|---------|
+| `CHROMATIC_PROJECT_TOKEN` | Chromatic workflow |
+| `ZEROHEIGHT_CLIENT_ID` | Adoption Tracking workflow |
+| `ZEROHEIGHT_ACCESS_TOKEN` | Adoption Tracking workflow |
+| `NPM_TOKEN` | Publish workflow |
 
 ## Dependencies
 

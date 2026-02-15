@@ -848,7 +848,7 @@
       },
       "200": {
         "$type": "number",
-        "$value": 16,
+        "$value": 20,
         "$description": "Standard padding for cards/sections.",
         "$extensions": {
           "com.figma.variableId": "VariableID:33:1934",

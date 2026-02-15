@@ -1,4 +1,4 @@
-# Atlas Design System
+# Cast UI
 
 A cross-platform design system for React Native (iOS, Android, Web) with multi-theme support. Components are built with vanilla React Native primitives and themed via design tokens exported from Figma.
 
@@ -36,14 +36,14 @@ See [`design-tokens/DESIGN-TOKENS-SUMMARY.md`](design-tokens/DESIGN-TOKENS-SUMMA
 ## Project Structure
 
 ```
-atlas-design-system/
+cast-ui/
   src/
     components/
       Button/
         Button.tsx              RN Pressable + Text, theme-aware
         Button.stories.tsx      Storybook stories
     theme/
-      types.ts                  AtlasTheme TypeScript interface
+      types.ts                  CastTheme TypeScript interface
       ThemeProvider.tsx          React Context provider + useTheme hook
       fonts.ts                  Per-theme font family helpers
       index.ts                  Barrel export
@@ -131,16 +131,16 @@ When themes switch, **all of the following change simultaneously**: colour palet
 
 ### ThemeProvider
 
-Wrap your app in `AtlasThemeProvider`. Defaults to White Label:
+Wrap your app in `CastThemeProvider`. Defaults to White Label:
 
 ```tsx
-import { AtlasThemeProvider, consumer } from 'atlas-design-system';
+import { CastThemeProvider, consumer } from 'cast-ui';
 
 export default function App() {
   return (
-    <AtlasThemeProvider theme={consumer}>
+    <CastThemeProvider theme={consumer}>
       {/* components here */}
-    </AtlasThemeProvider>
+    </CastThemeProvider>
   );
 }
 ```
@@ -150,7 +150,7 @@ export default function App() {
 Access the current theme inside any component:
 
 ```tsx
-import { useTheme } from 'atlas-design-system';
+import { useTheme } from 'cast-ui';
 
 function MyComponent() {
   const theme = useTheme();
@@ -170,7 +170,7 @@ function MyComponent() {
 
 ### Theme Object Shape
 
-Every theme conforms to the `AtlasTheme` interface (see `src/theme/types.ts`):
+Every theme conforms to the `CastTheme` interface (see `src/theme/types.ts`):
 
 ```
 theme.name                          'white-label' | 'consumer' | 'corporate' | 'luxury'
@@ -193,7 +193,7 @@ theme.component.button.*            All button tokens (padding, colours, variant
 React Native `Pressable` + `Text`. Consumes all tokens from `theme.component.button`.
 
 ```tsx
-import { Button } from 'atlas-design-system';
+import { Button } from 'cast-ui';
 
 <Button label="Get started" variant="filled" />
 <Button label="Learn more" variant="outline" />
@@ -216,7 +216,7 @@ Components reference font families from the theme tokens. Font **loading** is th
 Load fonts via a `<link>` tag or use the helper:
 
 ```ts
-import { googleFontsUrl } from 'atlas-design-system';
+import { googleFontsUrl } from 'cast-ui';
 
 const url = googleFontsUrl('luxury');
 // "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;700&display=swap"
@@ -228,7 +228,7 @@ Load fonts with `expo-font` before rendering:
 
 ```ts
 import { useFonts } from 'expo-font';
-import { THEME_FONT_FAMILIES } from 'atlas-design-system';
+import { THEME_FONT_FAMILIES } from 'cast-ui';
 // THEME_FONT_FAMILIES.luxury = ['Playfair Display', 'Cormorant Garamond']
 ```
 
@@ -244,21 +244,21 @@ The **White Label** theme uses `system-ui` (platform default) and requires no fo
 ## Consumer Installation
 
 ```bash
-npm install atlas-design-system
+npm install cast-ui
 ```
 
 Peer dependencies: `react` (>=18), `react-native` (>=0.72).
 
 ```tsx
 import {
-  AtlasThemeProvider,
+  CastThemeProvider,
   useTheme,
   Button,
   whiteLabel,
   consumer,
   corporate,
   luxury,
-} from 'atlas-design-system';
+} from 'cast-ui';
 ```
 
 ## Storybook
@@ -267,7 +267,7 @@ Storybook runs React Native components in the browser via React Native Web. The 
 
 ### Theme Switcher
 
-The toolbar provides a paintbrush dropdown to switch between all four themes live. This is configured via `globalTypes` and a decorator in `.storybook/preview.ts` that wraps every story in `AtlasThemeProvider`.
+The toolbar provides a paintbrush dropdown to switch between all four themes live. This is configured via `globalTypes` and a decorator in `.storybook/preview.ts` that wraps every story in `CastThemeProvider`.
 
 ### Chromatic
 

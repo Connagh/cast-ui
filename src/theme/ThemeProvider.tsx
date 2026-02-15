@@ -1,39 +1,39 @@
 import React, { createContext, useContext } from 'react';
-import type { AtlasTheme } from './types';
+import type { CastTheme } from './types';
 import { whiteLabel } from '../tokens/generated';
 
 // ---------------------------------------------------------------------------
 // Context
 // ---------------------------------------------------------------------------
 
-const ThemeContext = createContext<AtlasTheme>(whiteLabel);
+const ThemeContext = createContext<CastTheme>(whiteLabel);
 
 // ---------------------------------------------------------------------------
 // Provider
 // ---------------------------------------------------------------------------
 
-export interface AtlasThemeProviderProps {
+export interface CastThemeProviderProps {
   /** The theme object to provide. Defaults to White Label. */
-  theme?: AtlasTheme;
+  theme?: CastTheme;
   children: React.ReactNode;
 }
 
 /**
- * Wraps the component tree with the selected Atlas theme.
+ * Wraps the component tree with the selected Cast theme.
  *
  * ```tsx
- * import { AtlasThemeProvider } from 'atlas-design-system';
- * import { consumer } from 'atlas-design-system/tokens/generated';
+ * import { CastThemeProvider } from 'cast-ui';
+ * import { consumer } from 'cast-ui/tokens/generated';
  *
- * <AtlasThemeProvider theme={consumer}>
+ * <CastThemeProvider theme={consumer}>
  *   <App />
- * </AtlasThemeProvider>
+ * </CastThemeProvider>
  * ```
  */
-export function AtlasThemeProvider({
+export function CastThemeProvider({
   theme = whiteLabel,
   children,
-}: AtlasThemeProviderProps) {
+}: CastThemeProviderProps) {
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
   );
@@ -44,15 +44,15 @@ export function AtlasThemeProvider({
 // ---------------------------------------------------------------------------
 
 /**
- * Returns the current Atlas theme object.
+ * Returns the current Cast theme object.
  *
- * Must be called inside an `<AtlasThemeProvider>`.
+ * Must be called inside an `<CastThemeProvider>`.
  *
  * ```tsx
  * const theme = useTheme();
  * <View style={{ backgroundColor: theme.semantic.color.surface }} />
  * ```
  */
-export function useTheme(): AtlasTheme {
+export function useTheme(): CastTheme {
   return useContext(ThemeContext);
 }

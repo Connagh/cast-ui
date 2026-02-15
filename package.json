@@ -1,5 +1,5 @@
 {
-  "name": "atlas-design-system",
+  "name": "cast-ui",
   "version": "0.1.0",
   "description": "A cross-platform design system for React Native (iOS, Android, Web) with multi-theme support.",
   "main": "dist/index.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Connagh/atlas-design-system.git"
+    "url": "git+https://github.com/Connagh/cast-ui.git"
   },
   "keywords": [
     "design-system",
@@ -36,9 +36,9 @@
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Connagh/atlas-design-system/issues"
+    "url": "https://github.com/Connagh/cast-ui/issues"
   },
-  "homepage": "https://github.com/Connagh/atlas-design-system#readme",
+  "homepage": "https://github.com/Connagh/cast-ui#readme",
   "peerDependencies": {
     "react": ">=18",
     "react-native": ">=0.72"

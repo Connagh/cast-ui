@@ -1,8 +1,8 @@
-export { AtlasThemeProvider, useTheme } from './ThemeProvider';
-export type { AtlasThemeProviderProps } from './ThemeProvider';
+export { CastThemeProvider, useTheme } from './ThemeProvider';
+export type { CastThemeProviderProps } from './ThemeProvider';
 export { THEME_FONT_FAMILIES, googleFontsUrl } from './fonts';
 export type {
-  AtlasTheme,
+  CastTheme,
   ThemeName,
   SemanticTokens,
   SemanticColors,

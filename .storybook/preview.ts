@@ -1,19 +1,19 @@
 import React from 'react';
 import type { Preview } from '@storybook/react-webpack5';
-import { AtlasThemeProvider } from '../src/theme';
+import { CastThemeProvider } from '../src/theme';
 import {
   whiteLabel,
   consumer,
   corporate,
   luxury,
 } from '../src/tokens/generated';
-import type { AtlasTheme } from '../src/theme/types';
+import type { CastTheme } from '../src/theme/types';
 
 // ---------------------------------------------------------------------------
 // Theme map
 // ---------------------------------------------------------------------------
 
-const THEMES: Record<string, AtlasTheme> = {
+const THEMES: Record<string, CastTheme> = {
   'white-label': whiteLabel,
   consumer,
   corporate,
@@ -67,14 +67,15 @@ const preview: Preview = {
         minHeight: '100%',
       };
 
+      const storyContent = React.createElement(
+        'div',
+        { style: surfaceStyle },
+        React.createElement(Story)
+      );
+
       return React.createElement(
-        AtlasThemeProvider,
-        { theme },
-        React.createElement(
-          'div',
-          { style: surfaceStyle },
-          React.createElement(Story)
-        )
+        CastThemeProvider,
+        { theme, children: storyContent }
       );
     },
   ],

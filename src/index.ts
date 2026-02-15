@@ -1,12 +1,12 @@
 // ---------------------------------------------------------------------------
-// Atlas Design System – Public API
+// Cast Design System – Public API
 // ---------------------------------------------------------------------------
 
 // Theme system
-export { AtlasThemeProvider, useTheme } from './theme';
-export type { AtlasThemeProviderProps } from './theme';
+export { CastThemeProvider, useTheme } from './theme';
+export type { CastThemeProviderProps } from './theme';
 export type {
-  AtlasTheme,
+  CastTheme,
   ThemeName,
   SemanticTokens,
   ComponentTokens,
@@ -24,5 +24,5 @@ export {
 
 // Components
 export { Button } from './components/Button/Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './components/Button/Button';
+export type { ButtonProps, ButtonVariant } from './components/Button/Button';
 

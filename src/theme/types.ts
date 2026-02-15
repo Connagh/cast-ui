@@ -1,5 +1,5 @@
 /**
- * Atlas Design System theme type.
+ * Cast Design System theme type.
  *
  * Every theme (White Label, Consumer, Corporate, Luxury) conforms to this
  * interface. Components consume tokens via `useTheme()` and reference
@@ -178,7 +178,7 @@ export interface ComponentTokens {
 
 export type ThemeName = 'white-label' | 'consumer' | 'corporate' | 'luxury';
 
-export interface AtlasTheme {
+export interface CastTheme {
   name: ThemeName;
   semantic: SemanticTokens;
   component: ComponentTokens;

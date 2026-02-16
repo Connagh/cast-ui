@@ -13,7 +13,7 @@ export type {
   ButtonTokens,
   CardTokens,
 } from './theme';
-export { THEME_FONT_FAMILIES, googleFontsUrl } from './theme';
+export { THEME_FONT_FAMILIES, googleFontsUrl, resolveFont, ANDROID_WEIGHT_SUFFIX } from './theme';
 
 // Theme objects
 export {

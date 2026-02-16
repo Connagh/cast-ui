@@ -1,6 +1,6 @@
 export { CastThemeProvider, useTheme } from './ThemeProvider';
 export type { CastThemeProviderProps } from './ThemeProvider';
-export { THEME_FONT_FAMILIES, googleFontsUrl } from './fonts';
+export { THEME_FONT_FAMILIES, googleFontsUrl, resolveFont, ANDROID_WEIGHT_SUFFIX } from './fonts';
 export type {
   CastTheme,
   ThemeName,

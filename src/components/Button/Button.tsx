@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import {
   Pressable,
   Text,
-  StyleSheet,
   type ViewStyle,
   type TextStyle,
   type PressableProps,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useTheme, resolveFont } from '../../theme';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -89,14 +88,11 @@ export function Button({
     opacity: disabled ? 0.6 : 1,
   };
 
-  const fontFamily = bt.fontFamily === 'system-ui' ? undefined : bt.fontFamily;
-
   const textStyle: TextStyle = {
     color: resolveContent(),
     fontSize: bt.textSize,
-    fontWeight: String(bt.fontWeight) as TextStyle['fontWeight'],
     lineHeight: bt.textSize * bt.lineHeight,
-    ...(fontFamily ? { fontFamily } : {}),
+    ...resolveFont(bt.fontFamily, bt.fontWeight),
   };
 
   return (

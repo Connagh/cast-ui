@@ -6,7 +6,7 @@ import {
   type TextStyle,
   type ViewProps,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useTheme, resolveFont } from '../../theme';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -60,40 +60,28 @@ export function Card({
       : {}),
   };
 
-  const headingFontFamily =
-    ct.headingFontFamily === 'system-ui' ? undefined : ct.headingFontFamily;
-
   const titleStyle: TextStyle = {
     fontSize: ct.headingSize,
-    fontWeight: String(ct.headingWeight) as TextStyle['fontWeight'],
     lineHeight: ct.headingSize * sem.lineHeight.body,
     letterSpacing: sem.letterSpacing.heading,
     color: sem.color.onSurface,
-    ...(headingFontFamily ? { fontFamily: headingFontFamily } : {}),
+    ...resolveFont(ct.headingFontFamily, ct.headingWeight),
   };
-
-  const subtitleFontFamily =
-    sem.fontFamily.interface === 'system-ui' ? undefined : sem.fontFamily.interface;
 
   const subtitleStyle: TextStyle = {
     fontSize: sem.fontSize.small,
-    fontWeight: String(sem.fontWeight.body) as TextStyle['fontWeight'],
     lineHeight: sem.fontSize.small * sem.lineHeight.body,
     letterSpacing: sem.letterSpacing.body,
     color: sem.color.onSurfaceMuted,
-    ...(subtitleFontFamily ? { fontFamily: subtitleFontFamily } : {}),
+    ...resolveFont(sem.fontFamily.interface, sem.fontWeight.body),
   };
-
-  const bodyFontFamily =
-    ct.bodyFontFamily === 'system-ui' ? undefined : ct.bodyFontFamily;
 
   const bodyStyle: TextStyle = {
     fontSize: ct.bodySize,
-    fontWeight: String(ct.bodyWeight) as TextStyle['fontWeight'],
     lineHeight: ct.bodySize * sem.lineHeight.body,
     letterSpacing: sem.letterSpacing.body,
     color: sem.color.onSurfaceMuted,
-    ...(bodyFontFamily ? { fontFamily: bodyFontFamily } : {}),
+    ...resolveFont(ct.bodyFontFamily, ct.bodyWeight),
   };
 
   const actionsStyle: ViewStyle = {

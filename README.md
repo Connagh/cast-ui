@@ -264,13 +264,40 @@ const url = googleFontsUrl('luxury');
 
 ### React Native / Expo
 
-Load fonts with `expo-font` before rendering:
+Load fonts with `expo-font` before rendering. On **Android**, each weight must
+be registered under a distinct name (the Expo Google Fonts convention) because
+Android cannot combine a generic `fontFamily` with a numeric `fontWeight` for
+custom fonts.
 
 ```ts
 import { useFonts } from 'expo-font';
-import { THEME_FONT_FAMILIES } from '@castui/cast-ui';
-// THEME_FONT_FAMILIES.luxury = ['Playfair Display', 'Cormorant Garamond']
+import {
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
+
+const [loaded] = useFonts({
+  Poppins: Poppins_400Regular,           // weight 400 → bare name
+  Poppins_500Medium: Poppins_500Medium,  // weight 500
+  Poppins_700Bold: Poppins_700Bold,      // weight 700
+});
 ```
+
+The naming convention is:
+
+| Weight | Registration Key |
+|--------|-----------------|
+| 400 | `"FontName"` |
+| 500 | `"FontName_500Medium"` |
+| 700 | `"FontName_700Bold"` |
+
+Components use `resolveFont()` internally so the correct font name is selected
+automatically on each platform:
+
+- **iOS / Web** — `{ fontFamily, fontWeight }` passed through unchanged.
+- **Android** — maps to the weight-specific registered name (e.g. `"Poppins_700Bold"`) and sets `fontWeight: 'normal'`.
+- **system-ui** — omits `fontFamily` (platform default) on all platforms.
 
 The **White Label** theme uses `system-ui` (platform default) and requires no font loading.
 
@@ -280,6 +307,11 @@ The **White Label** theme uses `system-ui` (platform default) and requires no fo
 | Consumer | Poppins |
 | Corporate | Inter, Merriweather |
 | Luxury | Playfair Display, Cormorant Garamond |
+
+> **Custom Themes:** The convention works for any font — register each weight
+> under `FontName`, `FontName_500Medium`, and `FontName_700Bold` and
+> `resolveFont()` will handle the rest. The `ANDROID_WEIGHT_SUFFIX` map is
+> exported if you need to build registration keys programmatically.
 
 ## Consumer Installation
 
@@ -298,6 +330,8 @@ import {
   consumer,
   corporate,
   luxury,
+  resolveFont,
+  ANDROID_WEIGHT_SUFFIX,
 } from '@castui/cast-ui';
 ```
 

@@ -15,7 +15,7 @@ const ThemeContext = createContext<CastTheme>(defaultTheme);
 export interface CastThemeProviderProps {
   /** The theme object to provide. Defaults to the Default base theme. */
   theme?: CastTheme;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 /**

@@ -2,7 +2,9 @@
 
 ## Overview
 
-This design token system implements a professional three-tier architecture (Primitive > Semantic > Component) across four fully differentiated themes. Every token is aliased through the correct layer, every value has a clear description, and each theme delivers a distinctly different visual and typographic identity when switched in Figma.
+This design token system implements a professional three-tier architecture (Primitive > Semantic > Component). Every token is aliased through the correct layer, every value has a clear description, and the Default theme provides a neutral base for customisation via `createTheme()`.
+
+> **Example themes (Consumer, Corporate, Luxury)** have moved to the [cast-ui-examples](https://github.com/Connagh/cast-ui-examples) repo. The comparisons below are kept for reference to illustrate how the token system supports completely different visual identities.
 
 ---
 
@@ -195,7 +197,7 @@ Semantic tokens alias primitive tokens and provide the theming layer. When you s
 
 ### Colour Tokens (30 tokens per theme)
 
-| Semantic Token | Consumer | Corporate | Luxury | White Label |
+| Semantic Token | Consumer | Corporate | Luxury | Default |
 |----------------|----------|-----------|--------|-------------|
 | Surface | White | White | **Black** | White |
 | On-Surface | Violet-600 | Blue-600 | **Gold-200** | Slate-900 |
@@ -228,7 +230,7 @@ Semantic tokens alias primitive tokens and provide the theming layer. When you s
 
 #### Font Family (3 semantic tokens, mapped differently per theme)
 
-| Semantic Token | Consumer | Corporate | Luxury | White Label |
+| Semantic Token | Consumer | Corporate | Luxury | Default |
 |----------------|----------|-----------|--------|-------------|
 | **Font-Brand** | Poppins (geometric) | Merriweather (humanist) | Playfair Display (serif) | system-ui (system) |
 | **Font-Interface** | Poppins (geometric) | Inter (sans) | Cormorant Garamond (display) | system-ui (system) |
@@ -250,7 +252,7 @@ This is the key typographic differentiation: switching themes in Figma completel
 
 #### Font Weight (3 tokens)
 
-| Token | Consumer/Corporate/White Label | Luxury |
+| Token | Consumer/Corporate/Default | Luxury |
 |-------|-------------------------------|--------|
 | Weight-heading | Bold (700) | Bold (700) |
 | Weight-body | Regular (400) | Regular (400) |
@@ -274,19 +276,19 @@ This is the key typographic differentiation: switching themes in Figma completel
 
 #### Paragraph Spacing (2 tokens, theme-specific)
 
-| Token | Consumer | Corporate | Luxury | White Label |
+| Token | Consumer | Corporate | Luxury | Default |
 |-------|----------|-----------|--------|-------------|
 | **Para-body** | Para-Normal (16px) | Para-Tight (8px) | Para-Spacious (32px) | Para-Normal (16px) |
 | **Para-editorial** | Para-Loose (24px) | Para-Normal (16px) | Para-Airy (48px) | Para-Loose (24px) |
 
 **Theme personality:**
-- **Consumer/White Label**: Standard spacing for web content
+- **Consumer/Default**: Standard spacing for web content
 - **Corporate**: Tighter spacing for information density
 - **Luxury**: Very generous spacing for editorial elegance
 
 #### Paragraph Indent (1 token, theme-specific)
 
-| Token | Consumer | Corporate | Luxury | White Label |
+| Token | Consumer | Corporate | Luxury | Default |
 |-------|----------|-----------|--------|-------------|
 | **Indent-editorial** | None (0px) | None (0px) | Medium (32px) | None (0px) |
 
@@ -294,7 +296,7 @@ This is the key typographic differentiation: switching themes in Figma completel
 
 ### Border Radius (3 semantic tokens)
 
-| Semantic Token | Consumer | Corporate | Luxury | White Label |
+| Semantic Token | Consumer | Corporate | Luxury | Default |
 |----------------|----------|-----------|--------|-------------|
 | **Radius-Small** | Radius-MD (8px) | Radius-XS (2px) | Radius-None (0px) | Radius-SM (4px) |
 | **Radius-Medium** | Radius-2XL (24px) | Radius-SM (4px) | Radius-None (0px) | Radius-MD (8px) |
@@ -308,7 +310,7 @@ Component tokens reference semantic tokens to build complete, theme-aware UI com
 
 ### Button Component
 
-| Token | Description | Consumer | Corporate | Luxury | White Label |
+| Token | Description | Consumer | Corporate | Luxury | Default |
 |-------|-------------|----------|-----------|--------|-------------|
 | Padding-Horizontal | Left/right inner spacing | 16px | 24px | 32px | 16px |
 | Padding-Vertical | Top/bottom inner spacing | 12px | 12px | 16px | 8px |
@@ -339,7 +341,7 @@ Component tokens reference semantic tokens to build complete, theme-aware UI com
 
 ### Card Component
 
-| Token | Description | Consumer | Corporate | Luxury | White Label |
+| Token | Description | Consumer | Corporate | Luxury | Default |
 |-------|-------------|----------|-----------|--------|-------------|
 | Padding | Inner spacing | 24px | 16px | 32px | 16px |
 | Gap | Spacing between elements | 12px | 8px | 16px | 12px |
@@ -383,12 +385,12 @@ Component tokens reference semantic tokens to build complete, theme-aware UI com
 - **Paragraph style**: Very spacious paragraph separation (32px body, 48px editorial) with first-line indent (32px) for classic book typography
 - **Personality**: Premium, exclusive, high-end
 
-### White Label (Neutral & Minimal)
+### Default (Neutral & Minimal)
 - **Primary colour**: Slate-900 (#0F172A)
 - **Typography**: system-ui throughout — adapts to the user's OS, maximally neutral
 - **Border radius**: Moderate and balanced (buttons 8px, cards 12px)
 - **Elevation**: Minimal shadow (1px)
-- **Personality**: Clean, adaptable, ready for brand customisation
+- **Personality**: Clean, adaptable, ready for brand customisation via `createTheme()`
 
 ---
 
@@ -483,13 +485,13 @@ When adding new components, follow this pattern:
 ## File Structure
 
 ```
-Design tokens/
-├── Consumer.tokens.json       (Vibrant violet theme, Poppins typography)
-├── Corporate.tokens.json      (Professional blue theme, Merriweather + Inter)
-├── Luxury.tokens.json         (Dark gold theme, Playfair Display + Cormorant Garamond)
-├── White label.tokens.json    (Neutral slate theme, system-ui typography)
+design-tokens/
+├── Default.tokens.json        (Default base theme, system-ui typography)
 └── DESIGN-TOKENS-SUMMARY.md   (This file)
 ```
+
+> Example theme token files (Consumer, Corporate, Luxury) are available in the
+> [cast-ui-examples](https://github.com/Connagh/cast-ui-examples) repo under `themes/figma/`.
 
 ---
 

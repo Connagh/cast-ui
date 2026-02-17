@@ -1,6 +1,8 @@
 # Cast UI
 
-A cross-platform design system for React Native (iOS, Android, Web) with multi-theme support. Components are built with vanilla React Native primitives and themed via design tokens exported from Figma.
+A cross-platform design system for React Native (iOS, Android, Web) with custom theme support via `createTheme()`. Components are built with vanilla React Native primitives and themed via design tokens exported from Figma.
+
+Ships a **Default base theme** that uses system fonts and neutral styling — ready for you to customise with your brand.
 
 ## Architecture
 
@@ -35,9 +37,9 @@ See [`design-tokens/DESIGN-TOKENS-SUMMARY.md`](design-tokens/DESIGN-TOKENS-SUMMA
 
 ## Examples
 
-For live examples showing Cast UI components and theming in action, see the companion repo:
+For live examples showing Cast UI components with custom themes (Consumer, Corporate, Luxury), see the companion repo:
 
-**[Connagh/cast-ui-examples](https://github.com/Connagh/cast-ui-examples)** (in progress)
+**[Connagh/cast-ui-examples](https://github.com/Connagh/cast-ui-examples)** — includes a multi-theme website, Expo Snack, and an example Storybook demonstrating how to set up `createTheme()` with your own brand.
 
 ## Project Structure
 
@@ -53,33 +55,30 @@ cast-ui/
         Card.stories.tsx        Storybook stories
     theme/
       types.ts                  CastTheme TypeScript interface
+      createTheme.ts            Deep-merge utility for custom themes
       ThemeProvider.tsx          React Context provider + useTheme hook
-      fonts.ts                  Per-theme font family helpers
+      fonts.ts                  Dynamic font family helpers
       index.ts                  Barrel export
     tokens/
       build.ts                  Reads Figma JSON, generates TS theme objects
       generated/                Auto-generated (gitignored)
-        white-label.ts
-        consumer.ts
-        corporate.ts
-        luxury.ts
+        default.ts
+        default.reference.json  Copy-paste starting point for custom themes
         index.ts
     index.ts                    Public API
   design-tokens/                Source of truth (Figma export)
-    White label.tokens.json     Default theme (system-ui, slate neutrals)
-    Consumer.tokens.json        Vibrant violet, Poppins
-    Corporate.tokens.json       Professional blue, Merriweather + Inter
-    Luxury.tokens.json          Dark gold, Playfair Display + Cormorant Garamond
+    Default.tokens.json         Default theme (system-ui, slate neutrals)
     DESIGN-TOKENS-SUMMARY.md    Complete token reference
   .storybook/
     main.ts                     Webpack config with react-native-web alias
-    preview.ts                  Theme switcher toolbar + decorator
-    preview-head.html           Google Fonts <link> tags
+    preview.ts                  Decorator wrapping stories in default theme
+    preview-head.html           (empty — default theme uses system fonts)
   .github/workflows/
     chromatic.yml               Visual regression testing on push
     adoption.yml                Zeroheight adoption tracking on push to main
     publish.yml                 Publish to npm on push to main
   dist/                         Build output (gitignored)
+    default.reference.json      Shipped in package for consumers
   tsconfig.json                 Development TypeScript config
   tsconfig.build.json           Library build config (excludes stories)
 ```
@@ -99,7 +98,7 @@ npm install
 
 ### Build Tokens
 
-Generates TypeScript theme objects from the Figma JSON files in `design-tokens/`:
+Generates the TypeScript theme object and reference JSON from the Figma token file in `design-tokens/`:
 
 ```bash
 npm run build:tokens
@@ -113,7 +112,7 @@ This writes to `src/tokens/generated/` (gitignored). Runs automatically before S
 npm run storybook
 ```
 
-Opens at `http://localhost:6006`. Use the paintbrush icon in the toolbar to switch between all four themes.
+Opens at `http://localhost:6006` showing components in the Default theme. For a multi-theme Storybook with custom themes, see the [example Storybook](https://github.com/Connagh/cast-ui-examples/tree/main/storybook-example) in the examples repo.
 
 ## Scripts
 
@@ -122,39 +121,96 @@ Opens at `http://localhost:6006`. Use the paintbrush icon in the toolbar to swit
 | `npm run build:tokens` | Generate TypeScript theme files from Figma token JSON |
 | `npm run storybook` | Start Storybook dev server (auto-runs `build:tokens`) |
 | `npm run build-storybook` | Build static Storybook (auto-runs `build:tokens`) |
-| `npm run build` | Full library build: tokens + TypeScript compilation to `dist/` |
+| `npm run build` | Full library build: tokens + TypeScript compilation + reference JSON to `dist/` |
 | `npm publish` | Publish to npm (auto-runs `build` via `prepublishOnly`) |
 | `npm run zh:track-package` | Register/update package info with Zeroheight (runs automatically via CI) |
 
-## Themes
+## Creating a Custom Theme
 
-Four themes share the same component API but produce completely different visual identities:
+Cast UI ships a **Default base theme** that uses system fonts, slate neutrals, and moderate border radii. Create your own branded theme in three steps:
 
-| Theme | Primary Colour | Typography | Border Radius | Character |
-|-------|---------------|------------|---------------|-----------|
-| **White Label** (default) | Slate-900 | system-ui | Moderate (8px buttons) | Neutral, adaptable |
-| **Consumer** | Violet-600 | Poppins | Rounded (24px pill buttons) | Vibrant, friendly |
-| **Corporate** | Blue-600 | Merriweather + Inter | Crisp (4px buttons) | Professional, structured |
-| **Luxury** | Gold-400 on Black | Playfair Display + Cormorant Garamond | Zero (sharp edges) | Premium, elegant |
+### 1. Copy the reference JSON
 
-When themes switch, **all of the following change simultaneously**: colour palette, font families, border radius, spacing rhythm, elevation, font weight, paragraph spacing, and paragraph indent.
+The package includes `default.reference.json` — a complete snapshot of all theme values. Copy it into your project as a starting point:
+
+```bash
+cp node_modules/@castui/cast-ui/dist/default.reference.json ./my-brand-theme.json
+```
+
+### 2. Modify desired values
+
+Edit `my-brand-theme.json` to change only the values you want. You only need to include the properties you're overriding — everything else inherits from the Default theme:
+
+```json
+{
+  "name": "my-brand",
+  "semantic": {
+    "color": {
+      "primary": "#553C9A",
+      "onPrimary": "#FFFFFF",
+      "primaryHover": "#6B46C1",
+      "primaryPressed": "#44337A"
+    },
+    "fontFamily": {
+      "brand": "Poppins",
+      "interface": "Poppins"
+    },
+    "borderRadius": {
+      "small": 12,
+      "medium": 16,
+      "large": 24
+    }
+  }
+}
+```
+
+### 3. Create the theme and provide it
+
+```tsx
+import { CastThemeProvider, createTheme, googleFontsUrl } from '@castui/cast-ui';
+import overrides from './my-brand-theme.json';
+
+const myTheme = createTheme(overrides);
+
+// Load any custom fonts (web)
+const fontUrl = googleFontsUrl(myTheme);
+if (fontUrl) {
+  const link = document.createElement('link');
+  link.href = fontUrl;
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
+}
+
+export default function App() {
+  return (
+    <CastThemeProvider theme={myTheme}>
+      {/* your app */}
+    </CastThemeProvider>
+  );
+}
+```
+
+`createTheme()` deep-merges your partial overrides with the Default theme, producing a complete `CastTheme` object. You can also pass a second argument to merge against a different base: `createTheme(overrides, otherBaseTheme)`.
 
 ## Theme System
 
 ### ThemeProvider
 
-Wrap your app in `CastThemeProvider`. Defaults to White Label:
+Wrap your app in `CastThemeProvider`. Defaults to the Default base theme:
 
 ```tsx
-import { CastThemeProvider, consumer } from '@castui/cast-ui';
+import { CastThemeProvider, defaultTheme, createTheme } from '@castui/cast-ui';
 
-export default function App() {
-  return (
-    <CastThemeProvider theme={consumer}>
-      {/* components here */}
-    </CastThemeProvider>
-  );
-}
+// Use the default theme as-is...
+<CastThemeProvider theme={defaultTheme}>
+  <App />
+</CastThemeProvider>
+
+// ...or create a custom theme
+const myTheme = createTheme({ name: 'my-brand', semantic: { color: { primary: '#FF0000' } } });
+<CastThemeProvider theme={myTheme}>
+  <App />
+</CastThemeProvider>
 ```
 
 ### useTheme
@@ -185,7 +241,7 @@ function MyComponent() {
 Every theme conforms to the `CastTheme` interface (see `src/theme/types.ts`):
 
 ```
-theme.name                          'white-label' | 'consumer' | 'corporate' | 'luxury'
+theme.name                          string (e.g. 'default', 'my-brand')
 theme.semantic.color.*              30 semantic colours (surface, primary, error, etc.)
 theme.semantic.fontFamily.*         brand, interface, data
 theme.semantic.fontSize.*           display, h1, h2, h3, body, small, button
@@ -253,13 +309,25 @@ Components reference font families from the theme tokens. Font **loading** is th
 
 ### Web
 
-Load fonts via a `<link>` tag or use the helper:
+Use `googleFontsUrl()` to generate a Google Fonts `<link>` href for any theme:
 
 ```ts
 import { googleFontsUrl } from '@castui/cast-ui';
 
-const url = googleFontsUrl('luxury');
-// "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;700&display=swap"
+const url = googleFontsUrl(myTheme);
+// Returns null for themes using only system-ui, or a Google Fonts URL for custom fonts
+```
+
+### Discovering theme fonts
+
+Use `getThemeFontFamilies()` to dynamically extract all custom font families from any theme:
+
+```ts
+import { getThemeFontFamilies } from '@castui/cast-ui';
+
+const families = getThemeFontFamilies(myTheme);
+// → ['Poppins'] or ['Inter', 'Merriweather'] etc.
+// → [] for the Default theme (system-ui only)
 ```
 
 ### React Native / Expo
@@ -299,14 +367,7 @@ automatically on each platform:
 - **Android** — maps to the weight-specific registered name (e.g. `"Poppins_700Bold"`) and sets `fontWeight: 'normal'`.
 - **system-ui** — omits `fontFamily` (platform default) on all platforms.
 
-The **White Label** theme uses `system-ui` (platform default) and requires no font loading.
-
-| Theme | Fonts to Load |
-|-------|---------------|
-| White Label | None (system default) |
-| Consumer | Poppins |
-| Corporate | Inter, Merriweather |
-| Luxury | Playfair Display, Cormorant Garamond |
+The **Default** theme uses `system-ui` (platform default) and requires no font loading.
 
 > **Custom Themes:** The convention works for any font — register each weight
 > under `FontName`, `FontName_500Medium`, and `FontName_700Bold` and
@@ -326,22 +387,23 @@ import {
   CastThemeProvider,
   useTheme,
   Button,
-  whiteLabel,
-  consumer,
-  corporate,
-  luxury,
+  Card,
+  defaultTheme,
+  createTheme,
+  googleFontsUrl,
+  getThemeFontFamilies,
   resolveFont,
   ANDROID_WEIGHT_SUFFIX,
 } from '@castui/cast-ui';
+
+import type { CastTheme, DeepPartial } from '@castui/cast-ui';
 ```
 
 ## Storybook
 
 Storybook runs React Native components in the browser via React Native Web. The webpack config in `.storybook/main.ts` aliases `react-native` to `react-native-web`.
 
-### Theme Switcher
-
-The toolbar provides a paintbrush dropdown to switch between all four themes live. This is configured via `globalTypes` and a decorator in `.storybook/preview.ts` that wraps every story in `CastThemeProvider`.
+The built-in Storybook shows components in the **Default theme** only. For a multi-theme Storybook demonstrating custom themes via `createTheme()`, see the [example Storybook](https://github.com/Connagh/cast-ui-examples/tree/main/storybook-example) in the examples repo.
 
 ### Chromatic
 
@@ -349,18 +411,18 @@ Visual regression testing runs on every push via the GitHub Actions workflow at 
 
 ## Token Build Pipeline
 
-The build script (`src/tokens/build.ts`) reads Figma-exported JSON from `design-tokens/` and generates fully-resolved TypeScript theme objects.
+The build script (`src/tokens/build.ts`) reads the Figma-exported JSON from `design-tokens/` and generates a fully-resolved TypeScript theme object plus a reference JSON.
 
 **What it does:**
 
-1. Reads each `*.tokens.json` file
+1. Reads `Default.tokens.json`
 2. Recursively resolves all `{Primitive.Colour.Slate-900}` style alias references through the three-tier chain
 3. Extracts hex values from Figma's colour object format (`{ colorSpace, components, hex }`)
-4. Outputs typed TypeScript files to `src/tokens/generated/`
+4. Outputs `default.ts` (typed theme object) and `default.reference.json` (copy-paste starting point) to `src/tokens/generated/`
 
-**When to re-run:** After updating any `design-tokens/*.tokens.json` file. The script runs automatically before Storybook and library builds.
+**When to re-run:** After updating `design-tokens/Default.tokens.json`. The script runs automatically before Storybook and library builds.
 
-**Adding a new theme:** Add a new `.tokens.json` file to `design-tokens/`, add an entry to the `THEMES` array in `src/tokens/build.ts`, add the theme name to the `ThemeName` union in `src/theme/types.ts`, and update the toolbar items in `.storybook/preview.ts`.
+**Creating a custom theme:** Copy `default.reference.json` from the published package, modify the values you want, and pass the overrides to `createTheme()`. See [Creating a Custom Theme](#creating-a-custom-theme) above.
 
 ## Adding a New Component
 
@@ -369,7 +431,7 @@ The build script (`src/tokens/build.ts`) reads Figma-exported JSON from `design-
 3. Use only React Native primitives (`View`, `Text`, `Pressable`, `ScrollView`, etc.)
 4. Create `ComponentName.stories.tsx` alongside the component
 5. Export the component and its types from `src/index.ts`
-6. If the component needs new design tokens, add them to all four `*.tokens.json` files and update `src/theme/types.ts`
+6. If the component needs new design tokens, add them to `Default.tokens.json` and update `src/theme/types.ts`
 
 ## Adoption Tracking
 
@@ -448,7 +510,7 @@ This means merging a PR to `main` does **not** automatically publish to npm. Onl
 **To publish a new version:**
 
 1. Create a feature branch and make your changes
-2. Update the `version` field in `package.json` (e.g. `0.1.0` → `0.1.1`)
+2. Update the `version` field in `package.json` (e.g. `0.3.0` → `0.4.0`)
 3. Push the branch and open a PR to `main`
 4. Chromatic runs and creates status checks on the PR
 5. Review and accept any visual changes in the Chromatic UI
@@ -463,9 +525,9 @@ This means merging a PR to `main` does **not** automatically publish to npm. Onl
 
 | Change type | Bump | Example |
 |-------------|------|---------|
-| Bug fix or minor tweak | Patch | `0.1.0` → `0.1.1` |
-| New component or feature | Minor | `0.1.0` → `0.2.0` |
-| Breaking API change | Major | `0.1.0` → `1.0.0` |
+| Bug fix or minor tweak | Patch | `0.3.0` → `0.3.1` |
+| New component or feature | Minor | `0.3.0` → `0.4.0` |
+| Breaking API change | Major | `0.9.0` → `1.0.0` |
 
 **Package details:**
 

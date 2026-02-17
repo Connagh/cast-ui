@@ -1,6 +1,8 @@
 export { CastThemeProvider, useTheme } from './ThemeProvider';
 export type { CastThemeProviderProps } from './ThemeProvider';
-export { THEME_FONT_FAMILIES, googleFontsUrl, resolveFont, ANDROID_WEIGHT_SUFFIX } from './fonts';
+export { createTheme } from './createTheme';
+export type { DeepPartial } from './createTheme';
+export { getThemeFontFamilies, googleFontsUrl, resolveFont, ANDROID_WEIGHT_SUFFIX } from './fonts';
 export type {
   CastTheme,
   ThemeName,

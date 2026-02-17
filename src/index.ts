@@ -13,15 +13,12 @@ export type {
   ButtonTokens,
   CardTokens,
 } from './theme';
-export { THEME_FONT_FAMILIES, googleFontsUrl, resolveFont, ANDROID_WEIGHT_SUFFIX } from './theme';
+export { createTheme } from './theme';
+export type { DeepPartial } from './theme';
+export { getThemeFontFamilies, googleFontsUrl, resolveFont, ANDROID_WEIGHT_SUFFIX } from './theme';
 
 // Theme objects
-export {
-  whiteLabel,
-  consumer,
-  corporate,
-  luxury,
-} from './tokens/generated';
+export { defaultTheme } from './tokens/generated';
 
 // Components
 export { Button } from './components/Button/Button';
@@ -29,4 +26,3 @@ export type { ButtonProps, ButtonVariant } from './components/Button/Button';
 
 export { Card } from './components/Card/Card';
 export type { CardProps } from './components/Card/Card';
-

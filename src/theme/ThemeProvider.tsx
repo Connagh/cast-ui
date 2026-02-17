@@ -1,19 +1,19 @@
 import React, { createContext, useContext } from 'react';
 import type { CastTheme } from './types';
-import { whiteLabel } from '../tokens/generated';
+import { defaultTheme } from '../tokens/generated';
 
 // ---------------------------------------------------------------------------
 // Context
 // ---------------------------------------------------------------------------
 
-const ThemeContext = createContext<CastTheme>(whiteLabel);
+const ThemeContext = createContext<CastTheme>(defaultTheme);
 
 // ---------------------------------------------------------------------------
 // Provider
 // ---------------------------------------------------------------------------
 
 export interface CastThemeProviderProps {
-  /** The theme object to provide. Defaults to White Label. */
+  /** The theme object to provide. Defaults to the Default base theme. */
   theme?: CastTheme;
   children: React.ReactNode;
 }
@@ -22,16 +22,18 @@ export interface CastThemeProviderProps {
  * Wraps the component tree with the selected Cast theme.
  *
  * ```tsx
- * import { CastThemeProvider } from '@castui/cast-ui';
- * import { consumer } from '@castui/cast-ui/tokens/generated';
+ * import { CastThemeProvider, createTheme } from '@castui/cast-ui';
+ * import overrides from './my-brand.json';
  *
- * <CastThemeProvider theme={consumer}>
+ * const myTheme = createTheme(overrides);
+ *
+ * <CastThemeProvider theme={myTheme}>
  *   <App />
  * </CastThemeProvider>
  * ```
  */
 export function CastThemeProvider({
-  theme = whiteLabel,
+  theme = defaultTheme,
   children,
 }: CastThemeProviderProps) {
   return (

@@ -1,0 +1,58 @@
+{
+  "name": "consumer",
+  "semantic": {
+    "color": {
+      "onSurface": "#553C9A",
+      "primary": "#553C9A",
+      "primaryHover": "#9F7AEA",
+      "primaryPressed": "#D6BCFA",
+      "secondary": "#D6BCFA",
+      "onSecondary": "#553C9A",
+      "success": "#3DC253",
+      "error": "#E46262",
+      "warning": "#CAAD5F",
+      "onWarning": "#000000",
+      "primaryContainer": "#F5F0FF",
+      "onPrimaryContainer": "#3B2870",
+      "secondaryContainer": "#F5F0FF",
+      "onSecondaryContainer": "#3B2870"
+    },
+    "fontFamily": {
+      "brand": "Poppins",
+      "interface": "Poppins"
+    },
+    "borderRadius": {
+      "small": 8,
+      "medium": 24,
+      "large": 16
+    }
+  },
+  "component": {
+    "button": {
+      "paddingVertical": 12,
+      "cornerRadius": 24,
+      "fontFamily": "Poppins",
+      "filled": {
+        "background": "#553C9A"
+      },
+      "outline": {
+        "border": "#553C9A",
+        "content": "#553C9A"
+      },
+      "text": {
+        "content": "#553C9A"
+      },
+      "state": {
+        "hoverBackground": "#9F7AEA",
+        "pressedBackground": "#D6BCFA"
+      }
+    },
+    "card": {
+      "padding": 24,
+      "cornerRadius": 16,
+      "elevation": 4,
+      "headingFontFamily": "Poppins",
+      "bodyFontFamily": "Poppins"
+    }
+  }
+}

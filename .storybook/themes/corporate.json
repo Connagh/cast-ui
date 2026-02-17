@@ -1,0 +1,61 @@
+{
+  "name": "corporate",
+  "semantic": {
+    "color": {
+      "onSurface": "#0C346F",
+      "primary": "#0C346F",
+      "primaryHover": "#628BE4",
+      "primaryPressed": "#9EC2E9",
+      "secondary": "#475569",
+      "onSecondary": "#FFFFFF",
+      "border": "#9EC2E9",
+      "borderSubtle": "#E2E8F0",
+      "primaryContainer": "#EBF2FB",
+      "onPrimaryContainer": "#072350",
+      "secondaryContainer": "#E2E8F0"
+    },
+    "fontFamily": {
+      "brand": "Merriweather",
+      "interface": "Inter"
+    },
+    "paragraphSpacing": {
+      "body": 8,
+      "editorial": 16
+    },
+    "borderRadius": {
+      "small": 2,
+      "medium": 4,
+      "large": 8
+    }
+  },
+  "component": {
+    "button": {
+      "paddingHorizontal": 24,
+      "paddingVertical": 12,
+      "cornerRadius": 4,
+      "fontFamily": "Inter",
+      "filled": {
+        "background": "#0C346F"
+      },
+      "outline": {
+        "border": "#0C346F",
+        "content": "#0C346F"
+      },
+      "text": {
+        "content": "#0C346F"
+      },
+      "state": {
+        "hoverBackground": "#628BE4",
+        "pressedBackground": "#9EC2E9"
+      }
+    },
+    "card": {
+      "gap": 8,
+      "stroke": "#9EC2E9",
+      "cornerRadius": 8,
+      "elevation": 2,
+      "headingFontFamily": "Merriweather",
+      "bodyFontFamily": "Inter"
+    }
+  }
+}

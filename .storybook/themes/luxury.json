@@ -1,0 +1,101 @@
+{
+  "name": "luxury",
+  "semantic": {
+    "color": {
+      "surface": "#000000",
+      "onSurface": "#E9D8A6",
+      "onSurfaceMuted": "#B1B1B1",
+      "surfaceContainer": "#696969",
+      "primary": "#CAAD5F",
+      "onPrimary": "#000000",
+      "primaryHover": "#E9D8A6",
+      "primaryPressed": "#947C3E",
+      "secondary": "#B1B1B1",
+      "onSecondary": "#000000",
+      "success": "#3DC253",
+      "onSuccess": "#000000",
+      "error": "#E46262",
+      "onError": "#000000",
+      "warning": "#CAAD5F",
+      "onWarning": "#000000",
+      "border": "#947C3E",
+      "borderSubtle": "#696969",
+      "disabledContainer": "#696969",
+      "onDisabled": "#B1B1B1",
+      "primaryContainer": "#6B592D",
+      "onPrimaryContainer": "#E9D8A6",
+      "secondaryContainer": "#3D3D3D",
+      "onSecondaryContainer": "#D8D8D8",
+      "errorContainer": "#4A0808",
+      "onErrorContainer": "#E99E9E",
+      "successContainer": "#084A14",
+      "onSuccessContainer": "#9EE9A1",
+      "warningContainer": "#6B592D",
+      "onWarningContainer": "#E9D8A6"
+    },
+    "fontFamily": {
+      "brand": "Playfair Display",
+      "interface": "Cormorant Garamond"
+    },
+    "fontSize": {
+      "button": 12.8
+    },
+    "fontWeight": {
+      "button": 700
+    },
+    "paragraphSpacing": {
+      "body": 32,
+      "editorial": 48
+    },
+    "paragraphIndent": {
+      "editorial": 32
+    },
+    "borderRadius": {
+      "small": 0,
+      "medium": 0,
+      "large": 0
+    }
+  },
+  "component": {
+    "button": {
+      "paddingHorizontal": 32,
+      "paddingVertical": 16,
+      "gap": 12,
+      "cornerRadius": 0,
+      "textSize": 12.8,
+      "fontWeight": 700,
+      "fontFamily": "Cormorant Garamond",
+      "filled": {
+        "background": "#CAAD5F",
+        "content": "#000000"
+      },
+      "outline": {
+        "background": "#000000",
+        "border": "#CAAD5F",
+        "content": "#CAAD5F"
+      },
+      "text": {
+        "background": "#000000",
+        "content": "#CAAD5F"
+      },
+      "state": {
+        "hoverBackground": "#E9D8A6",
+        "pressedBackground": "#947C3E",
+        "disabledBackground": "#696969",
+        "disabledContent": "#B1B1B1"
+      }
+    },
+    "card": {
+      "padding": 32,
+      "gap": 16,
+      "background": "#696969",
+      "stroke": "#947C3E",
+      "strokeWidth": 1,
+      "cornerRadius": 0,
+      "elevation": 0,
+      "headingSize": 25,
+      "headingFontFamily": "Playfair Display",
+      "bodyFontFamily": "Cormorant Garamond"
+    }
+  }
+}

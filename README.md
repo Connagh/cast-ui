@@ -39,7 +39,7 @@ See [`design-tokens/DESIGN-TOKENS-SUMMARY.md`](design-tokens/DESIGN-TOKENS-SUMMA
 
 For live examples showing Cast UI components with custom themes (Consumer, Corporate, Luxury), see the companion repo:
 
-**[Connagh/cast-ui-examples](https://github.com/Connagh/cast-ui-examples)** — includes a multi-theme website, Expo Snack, and an example Storybook demonstrating how to set up `createTheme()` with your own brand.
+**[Connagh/cast-ui-examples](https://github.com/Connagh/cast-ui-examples)** — includes an Expo Snack demo showing `createTheme()` with custom themes running cross-platform (iOS, Android, Web).
 
 ## Project Structure
 
@@ -112,7 +112,7 @@ This writes to `src/tokens/generated/` (gitignored). Runs automatically before S
 npm run storybook
 ```
 
-Opens at `http://localhost:6006` showing components in the Default theme. For a multi-theme Storybook with custom themes, see the [example Storybook](https://github.com/Connagh/cast-ui-examples/tree/main/storybook-example) in the examples repo.
+Opens at `http://localhost:6006` showing components in the Default theme.
 
 ## Scripts
 
@@ -403,7 +403,7 @@ import type { CastTheme, DeepPartial } from '@castui/cast-ui';
 
 Storybook runs React Native components in the browser via React Native Web. The webpack config in `.storybook/main.ts` aliases `react-native` to `react-native-web`.
 
-The built-in Storybook shows components in the **Default theme** only. For a multi-theme Storybook demonstrating custom themes via `createTheme()`, see the [example Storybook](https://github.com/Connagh/cast-ui-examples/tree/main/storybook-example) in the examples repo.
+The built-in Storybook shows components in the **Default theme**. For a cross-platform demo with custom themes, see the [Expo Snack](https://github.com/Connagh/cast-ui-examples/tree/main/expo-snack) in the examples repo.
 
 ### Chromatic
 

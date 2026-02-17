@@ -1,22 +1,19 @@
 /**
  * Font-loading helpers.
  *
- * Each theme may require custom fonts.  This module exports a map of
- * font-family names to `require()`-able assets (for Expo) or Google Fonts
- * URLs (for web).
+ * Provides utilities for loading custom fonts used by any Cast UI theme.
  *
- * **React Native / Expo consumers** – use `expo-font` to load fonts before
- * rendering themed components:
+ * **Web** – use `googleFontsUrl(theme)` to generate a `<link>` href:
  *
  * ```ts
- * import { useFonts } from 'expo-font';
- * import { THEME_FONTS } from '@castui/cast-ui/theme/fonts';
+ * import { googleFontsUrl } from '@castui/cast-ui';
  *
- * const [loaded] = useFonts(THEME_FONTS.consumer);
+ * const url = googleFontsUrl(myTheme);
+ * if (url) document.head.innerHTML += `<link href="${url}" rel="stylesheet" />`;
  * ```
  *
- * **Web / Storybook** – fonts are loaded via `<link>` tags in
- * `.storybook/preview-head.html`.  No runtime font loading is needed.
+ * **React Native / Expo** – use `getThemeFontFamilies(theme)` to discover
+ * which font families need loading, then pass them to `expo-font`.
  *
  * ### Android font registration convention
  *
@@ -35,26 +32,73 @@
  */
 
 import { Platform, type TextStyle } from 'react-native';
-import type { ThemeName } from './types';
+import type { CastTheme } from './types';
 
 /**
- * Map of Google Fonts family names used by each theme.
- * The `system-ui` entry means "use the platform default" and requires
- * no explicit loading.
+ * Dynamically extract all non-`system-ui` font families from a theme object.
+ *
+ * Scans both the semantic `fontFamily` layer and component-level font
+ * properties to discover every custom font the theme uses. Returns a
+ * deduplicated array of family names suitable for loading via Google Fonts
+ * or `expo-font`.
+ *
+ * @param theme – Any complete `CastTheme` object.
+ * @returns Array of unique font family names (excluding `system-ui`).
+ *
+ * @example
+ * ```ts
+ * const families = getThemeFontFamilies(myTheme);
+ * // → ['Poppins'] or ['Inter', 'Merriweather'] etc.
+ * ```
  */
-export const THEME_FONT_FAMILIES: Record<ThemeName, string[]> = {
-  'white-label': [],                                             // system-ui only
-  consumer: ['Poppins'],                                         // geometric sans
-  corporate: ['Inter', 'Merriweather'],                          // sans + humanist serif
-  luxury: ['Playfair Display', 'Cormorant Garamond'],            // serif + display
-};
+export function getThemeFontFamilies(theme: CastTheme): string[] {
+  const families = new Set<string>();
+
+  // Semantic font families
+  const sf = theme.semantic.fontFamily;
+  for (const key of Object.keys(sf) as (keyof typeof sf)[]) {
+    const family = sf[key];
+    if (family && family !== 'system-ui') {
+      families.add(family);
+    }
+  }
+
+  // Component-level font families
+  const { button, card } = theme.component;
+  if (button.fontFamily && button.fontFamily !== 'system-ui') {
+    families.add(button.fontFamily);
+  }
+  if (card.headingFontFamily && card.headingFontFamily !== 'system-ui') {
+    families.add(card.headingFontFamily);
+  }
+  if (card.bodyFontFamily && card.bodyFontFamily !== 'system-ui') {
+    families.add(card.bodyFontFamily);
+  }
+
+  return Array.from(families);
+}
 
 /**
  * Google Fonts `<link>` href for a given theme.
- * Useful if you need to programmatically inject font links on the web.
+ *
+ * Dynamically inspects the theme to discover which font families are needed.
+ * Returns `null` if the theme uses only system fonts.
+ *
+ * @param theme – Any complete `CastTheme` object.
+ *
+ * @example
+ * ```ts
+ * const url = googleFontsUrl(myTheme);
+ * if (url) {
+ *   const link = document.createElement('link');
+ *   link.href = url;
+ *   link.rel = 'stylesheet';
+ *   document.head.appendChild(link);
+ * }
+ * ```
  */
-export function googleFontsUrl(themeName: ThemeName): string | null {
-  const families = THEME_FONT_FAMILIES[themeName];
+export function googleFontsUrl(theme: CastTheme): string | null {
+  const families = getThemeFontFamilies(theme);
   if (families.length === 0) return null;
 
   const params = families

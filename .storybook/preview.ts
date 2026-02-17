@@ -1,51 +1,13 @@
 import React from 'react';
 import type { Preview } from '@storybook/react-webpack5';
 import { CastThemeProvider } from '../src/theme';
-import {
-  whiteLabel,
-  consumer,
-  corporate,
-  luxury,
-} from '../src/tokens/generated';
-import type { CastTheme } from '../src/theme/types';
+import { defaultTheme } from '../src/tokens/generated';
 
 // ---------------------------------------------------------------------------
-// Theme map
-// ---------------------------------------------------------------------------
-
-const THEMES: Record<string, CastTheme> = {
-  'white-label': whiteLabel,
-  consumer,
-  corporate,
-  luxury,
-};
-
-// ---------------------------------------------------------------------------
-// Global types (toolbar controls)
+// Preview configuration
 // ---------------------------------------------------------------------------
 
 const preview: Preview = {
-  globalTypes: {
-    theme: {
-      name: 'Theme',
-      description: 'Switch design system theme',
-      toolbar: {
-        icon: 'paintbrush',
-        items: [
-          { value: 'white-label', title: 'White Label (Default)' },
-          { value: 'consumer', title: 'Consumer' },
-          { value: 'corporate', title: 'Corporate' },
-          { value: 'luxury', title: 'Luxury' },
-        ],
-        dynamicTitle: true,
-      },
-    },
-  },
-
-  initialGlobals: {
-    theme: 'white-label',
-  },
-
   parameters: {
     controls: {
       matchers: {
@@ -56,13 +18,9 @@ const preview: Preview = {
   },
 
   decorators: [
-    (Story, context) => {
-      const themeName = context.globals.theme || 'white-label';
-      const theme = THEMES[themeName] || whiteLabel;
-
-      // Apply surface background to the story container on web
+    (Story) => {
       const surfaceStyle = {
-        backgroundColor: theme.semantic.color.surface,
+        backgroundColor: defaultTheme.semantic.color.surface,
         padding: 24,
         minHeight: '100%',
       };
@@ -75,7 +33,7 @@ const preview: Preview = {
 
       return React.createElement(
         CastThemeProvider,
-        { theme, children: storyContent }
+        { theme: defaultTheme, children: storyContent }
       );
     },
   ],

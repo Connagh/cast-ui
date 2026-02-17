@@ -1,8 +1,9 @@
 /**
  * Cast Design System theme type.
  *
- * Every theme (White Label, Consumer, Corporate, Luxury) conforms to this
- * interface. Components consume tokens via `useTheme()` and reference
+ * Every theme conforms to this interface. The library ships a Default base
+ * theme; consumers create custom themes via `createTheme()` with partial
+ * overrides. Components consume tokens via `useTheme()` and reference
  * properties from the semantic and component layers.
  *
  * Generated theme objects resolve all Figma token aliases to final values.
@@ -176,7 +177,7 @@ export interface ComponentTokens {
 // Full theme
 // ---------------------------------------------------------------------------
 
-export type ThemeName = 'white-label' | 'consumer' | 'corporate' | 'luxury';
+export type ThemeName = string;
 
 export interface CastTheme {
   name: ThemeName;

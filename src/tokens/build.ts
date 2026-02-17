@@ -1,8 +1,12 @@
 /**
  * Token build script.
  *
- * Reads Figma design-token JSON files from `design-tokens/` and generates
- * typed TypeScript theme objects in `src/tokens/generated/`.
+ * Reads the Figma design-token JSON from `design-tokens/Default.tokens.json`
+ * and generates:
+ *   1. A typed TypeScript theme object (`default.ts`)
+ *   2. A barrel index (`index.ts`)
+ *   3. A reference JSON (`default.reference.json`) — copy-paste starting
+ *      point for consumers creating custom themes via `createTheme()`.
  *
  * Usage:  npx ts-node src/tokens/build.ts
  *
@@ -87,15 +91,12 @@ function resolve(root: Record<string, unknown>, tokenPath: string): string | num
 
 interface ThemeConfig {
   file: string;
-  name: 'white-label' | 'consumer' | 'corporate' | 'luxury';
+  name: string;
   exportName: string;
 }
 
 const THEMES: ThemeConfig[] = [
-  { file: 'White label.tokens.json', name: 'white-label', exportName: 'whiteLabel' },
-  { file: 'Consumer.tokens.json', name: 'consumer', exportName: 'consumer' },
-  { file: 'Corporate.tokens.json', name: 'corporate', exportName: 'corporate' },
-  { file: 'Luxury.tokens.json', name: 'luxury', exportName: 'luxury' },
+  { file: 'Default.tokens.json', name: 'default', exportName: 'defaultTheme' },
 ];
 
 function buildThemeSource(config: ThemeConfig, tokens: Record<string, unknown>): string {
@@ -251,6 +252,142 @@ export const ${config.exportName}: CastTheme = {
 `;
 }
 
+/**
+ * Build a resolved JSON reference file for the given theme.
+ * Consumers copy this as a starting point and modify values.
+ */
+function buildReferenceJson(config: ThemeConfig, tokens: Record<string, unknown>): string {
+  const r = (p: string) => resolve(tokens, p);
+
+  const reference = {
+    name: config.name,
+    semantic: {
+      color: {
+        surface: r('Semantic.Colour.Surface'),
+        onSurface: r('Semantic.Colour.On-Surface'),
+        onSurfaceMuted: r('Semantic.Colour.On-Surface-Muted'),
+        surfaceContainer: r('Semantic.Colour.Surface-Container'),
+        primary: r('Semantic.Colour.Primary'),
+        onPrimary: r('Semantic.Colour.On-Primary'),
+        primaryHover: r('Semantic.Colour.Primary-Hover'),
+        primaryPressed: r('Semantic.Colour.Primary-Pressed'),
+        secondary: r('Semantic.Colour.Secondary'),
+        onSecondary: r('Semantic.Colour.On-Secondary'),
+        success: r('Semantic.Colour.Success'),
+        onSuccess: r('Semantic.Colour.On-Success'),
+        error: r('Semantic.Colour.Error'),
+        onError: r('Semantic.Colour.On-Error'),
+        warning: r('Semantic.Colour.Warning'),
+        onWarning: r('Semantic.Colour.On-Warning'),
+        border: r('Semantic.Colour.Border'),
+        borderSubtle: r('Semantic.Colour.Border-Subtle'),
+        disabledContainer: r('Semantic.Colour.Disabled-Container'),
+        onDisabled: r('Semantic.Colour.On-Disabled'),
+        primaryContainer: r('Semantic.Colour.Primary-Container'),
+        onPrimaryContainer: r('Semantic.Colour.On-Primary-Container'),
+        secondaryContainer: r('Semantic.Colour.Secondary-Container'),
+        onSecondaryContainer: r('Semantic.Colour.On-Secondary-Container'),
+        errorContainer: r('Semantic.Colour.Error-Container'),
+        onErrorContainer: r('Semantic.Colour.On-Error-Container'),
+        successContainer: r('Semantic.Colour.Success-Container'),
+        onSuccessContainer: r('Semantic.Colour.On-Success-Container'),
+        warningContainer: r('Semantic.Colour.Warning-Container'),
+        onWarningContainer: r('Semantic.Colour.On-Warning-Container'),
+      },
+      fontFamily: {
+        brand: r('Semantic.Font family.Font-Brand'),
+        interface: r('Semantic.Font family.Font-Interface'),
+        data: r('Semantic.Font family.Font-Data'),
+      },
+      fontSize: {
+        display: r('Semantic.Text size.Text-size-display'),
+        h1: r('Semantic.Text size.Text-size-h1'),
+        h2: r('Semantic.Text size.Text-size-h2'),
+        h3: r('Semantic.Text size.Text-size-h3'),
+        body: r('Semantic.Text size.Text-size-body'),
+        small: r('Semantic.Text size.Text-size-small'),
+        button: r('Semantic.Text size.Text-size-button'),
+      },
+      fontWeight: {
+        heading: r('Semantic.Font weight.Weight-heading'),
+        body: r('Semantic.Font weight.Weight-body'),
+        button: r('Semantic.Font weight.Weight-button'),
+      },
+      lineHeight: {
+        heading: r('Semantic.Line height.Line-Height-heading'),
+        body: r('Semantic.Line height.Line-Height-body'),
+        uiLabel: r('Semantic.Line height.Line-Height-UI-label'),
+      },
+      letterSpacing: {
+        heading: r('Semantic.Letter spacing.Tracking-heading'),
+        body: r('Semantic.Letter spacing.Tracking-body'),
+        label: r('Semantic.Letter spacing.Tracking-label'),
+      },
+      paragraphSpacing: {
+        body: r('Semantic.Paragraph spacing.Para-body'),
+        editorial: r('Semantic.Paragraph spacing.Para-editorial'),
+      },
+      paragraphIndent: {
+        editorial: r('Semantic.Paragraph indent.Indent-editorial'),
+      },
+      borderRadius: {
+        small: r('Semantic.Border radius.Radius-Small'),
+        medium: r('Semantic.Border radius.Radius-Medium'),
+        large: r('Semantic.Border radius.Radius-Large'),
+      },
+    },
+    component: {
+      button: {
+        paddingHorizontal: r('Component.Button.Padding-Horizontal'),
+        paddingVertical: r('Component.Button.Padding-Vertical'),
+        gap: r('Component.Button.Gap'),
+        cornerRadius: r('Component.Button.Corner-Radius'),
+        borderWidth: r('Component.Button.Border-Width'),
+        textSize: r('Component.Button.Text-Size'),
+        fontWeight: r('Component.Button.Font-Weight'),
+        lineHeight: r('Component.Button.Line-Height'),
+        fontFamily: r('Component.Button.Font-Family'),
+        filled: {
+          background: r('Component.Button.Filled.Background'),
+          content: r('Component.Button.Filled.Content'),
+        },
+        outline: {
+          background: r('Component.Button.Outline.Background'),
+          border: r('Component.Button.Outline.Border'),
+          content: r('Component.Button.Outline.Content'),
+        },
+        text: {
+          background: r('Component.Button.Text.Background'),
+          content: r('Component.Button.Text.Content'),
+        },
+        state: {
+          hoverBackground: r('Component.Button.State.Hover-Background'),
+          pressedBackground: r('Component.Button.State.Pressed-Background'),
+          disabledBackground: r('Component.Button.State.Disabled-Background'),
+          disabledContent: r('Component.Button.State.Disabled-Content'),
+        },
+      },
+      card: {
+        padding: r('Component.Card.Padding'),
+        gap: r('Component.Card.Gap'),
+        background: r('Component.Card.Background'),
+        stroke: r('Component.Card.Stroke'),
+        strokeWidth: r('Component.Card.Stroke-Width'),
+        cornerRadius: r('Component.Card.Corner-Radius'),
+        elevation: r('Component.Card.Elevation'),
+        headingSize: r('Component.Card.Heading-Size'),
+        headingWeight: r('Component.Card.Heading-Weight'),
+        headingFontFamily: r('Component.Card.Heading-Font-Family'),
+        bodySize: r('Component.Card.Body-Size'),
+        bodyWeight: r('Component.Card.Body-Weight'),
+        bodyFontFamily: r('Component.Card.Body-Font-Family'),
+      },
+    },
+  };
+
+  return JSON.stringify(reference, null, 2) + '\n';
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -270,12 +407,19 @@ function main(): void {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const tokens = JSON.parse(raw);
 
+    // Generate TypeScript theme object
     const source = buildThemeSource(theme, tokens);
     const outFile = path.join(outDir, `${theme.name}.ts`);
     fs.writeFileSync(outFile, source, 'utf-8');
 
+    // Generate reference JSON
+    const refJson = buildReferenceJson(theme, tokens);
+    const refFile = path.join(outDir, `${theme.name}.reference.json`);
+    fs.writeFileSync(refFile, refJson, 'utf-8');
+
     exports.push(`export { ${theme.exportName} } from './${theme.name}';`);
     console.log(`  ✓ ${theme.name} → ${path.relative(rootDir, outFile)}`);
+    console.log(`  ✓ ${theme.name}.reference.json → ${path.relative(rootDir, refFile)}`);
   }
 
   // Write barrel index

@@ -62,25 +62,25 @@ export function Card({
 
   const titleStyle: TextStyle = {
     fontSize: ct.headingSize,
-    lineHeight: ct.headingSize * sem.lineHeight.body,
+    lineHeight: sem.lineHeight.heading,
     letterSpacing: sem.letterSpacing.heading,
-    color: sem.color.onSurface,
+    color: ct.headingColor,
     ...resolveFont(ct.headingFontFamily, ct.headingWeight),
   };
 
   const subtitleStyle: TextStyle = {
     fontSize: sem.fontSize.small,
-    lineHeight: sem.fontSize.small * sem.lineHeight.body,
+    lineHeight: sem.lineHeight.body,
     letterSpacing: sem.letterSpacing.body,
-    color: sem.color.onSurfaceMuted,
+    color: ct.bodyColor,
     ...resolveFont(sem.fontFamily.interface, sem.fontWeight.body),
   };
 
   const bodyStyle: TextStyle = {
     fontSize: ct.bodySize,
-    lineHeight: ct.bodySize * sem.lineHeight.body,
+    lineHeight: sem.lineHeight.body,
     letterSpacing: sem.letterSpacing.body,
-    color: sem.color.onSurfaceMuted,
+    color: ct.bodyColor,
     ...resolveFont(ct.bodyFontFamily, ct.bodyWeight),
   };
 

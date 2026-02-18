@@ -91,7 +91,7 @@ export function Button({
   const textStyle: TextStyle = {
     color: resolveContent(),
     fontSize: bt.textSize,
-    lineHeight: bt.textSize * bt.lineHeight,
+    lineHeight: bt.lineHeight,
     ...resolveFont(bt.fontFamily, bt.fontWeight),
   };
 

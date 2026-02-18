@@ -9,7 +9,12 @@
  * import { googleFontsUrl } from '@castui/cast-ui';
  *
  * const url = googleFontsUrl(myTheme);
- * if (url) document.head.innerHTML += `<link href="${url}" rel="stylesheet" />`;
+ * if (url) {
+ *   const link = document.createElement('link');
+ *   link.rel = 'stylesheet';
+ *   link.href = url;
+ *   document.head.appendChild(link);
+ * }
  * ```
  *
  * **React Native / Expo** – use `getThemeFontFamilies(theme)` to discover

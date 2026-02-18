@@ -31,9 +31,9 @@ Changing a semantic token updates every component that references it. Changing a
 
 ---
 
-## Primitive Tokens (Shared Base)
+## Primitive Tokens (Per-Theme Palette)
 
-These raw values are identical across all themes. They are never used directly in designs — they are only referenced by semantic tokens.
+Each theme brings its own set of primitive tokens. The default theme uses Slate/Grey neutrals, but themed variants bring brand-specific palettes (Violet for Consumer, Blue for Corporate, Gold for Luxury). Primitives are never used directly in designs — they are only referenced by semantic tokens. cast-sync discovers primitives dynamically at export/import time, so adding new colour scales requires no code changes.
 
 ### Colours (40 tokens)
 
@@ -827,27 +827,26 @@ Main FAB uses `component.fab.*` tokens; these are for secondary actions.
 
 ```
 design-tokens/
-├── Default.tokens.json        (Default base theme, system-ui typography)
+├── Default.tokens.json        (Default base theme — cast-sync flat export, system-ui typography)
 └── DESIGN-TOKENS-SUMMARY.md   (This file)
 ```
 
-> Example theme token files (Consumer, Corporate, Luxury) are available in the
-> [cast-ui-examples](https://github.com/Connagh/cast-ui-examples) repo under `themes/figma/`.
+> Example theme token files (Consumer, Corporate, Luxury) are available in
+> `cast-ui/.storybook/themes/` and `cast-ui-examples/expo-snack/themes/` (identical files in both locations).
 
 ---
 
 ## Technical Notes
 
-- All files use Figma Variables format with proper `$extensions`
+- `Default.tokens.json` uses the cast-sync **flat export format** — all values are pre-resolved (no alias references to parse)
+- The `_aliases` section in each theme JSON records the design-intent alias chains (component → semantic → primitive) for round-trip fidelity with Figma
 - Token naming follows **industry best practices**:
   - `White` and `Black` (not `-000`) as standalone constants
   - Brand colors use 5-stop scales (50-800)
   - Neutrals (Grey, Slate) use 6-stop scales (50-900) for finer text/UI control
-- Alias references use curly brace syntax: `{Category.Group.Token}`
-- All four themes share identical primitive tokens (DRY principle)
-- Semantic tokens provide the theming layer — they are the only tokens that differ between themes
+- **Primitive sets are per-theme** — each theme brings its own colour palette and can define additional stops or entirely different colour families. cast-sync discovers primitives dynamically
+- Semantic tokens provide the theming layer — they map design intent to the theme's specific primitives
 - Component tokens ensure consistency across the design system
-- Every token includes a clear `$description` for designer and developer documentation
 - Border radius flows through all three tiers: Primitive scale > Semantic size > Component application
 - Typography flows through all three tiers: Primitive fonts > Semantic roles > Component usage
-- Button Outline and Text variant backgrounds use `{Semantic.Colour.Surface}` to automatically adapt to light/dark themes
+- Button Outline and Text variant backgrounds use `semantic.color.surface` to automatically adapt to light/dark themes

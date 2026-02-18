@@ -1,3827 +1,758 @@
 {
-  "Primitive": {
-    "Colour": {
-      "Blue-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9215999841690063,
-            0.9490000009536743,
-            0.9843000173568726
-          ],
-          "alpha": 1,
-          "hex": "#EBF2FB"
-        },
-        "$description": "Lightest blue tint for backgrounds and highlights.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1893",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Blue-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.6196078658103943,
-            0.7607843279838562,
-            0.9137254953384399
-          ],
-          "alpha": 1,
-          "hex": "#9EC2E9"
-        },
-        "$description": "Soft blue for secondary fills and accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1894",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Blue-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.3832951486110687,
-            0.5451627969741821,
-            0.894456148147583
-          ],
-          "alpha": 1,
-          "hex": "#628BE4"
-        },
-        "$description": "Medium blue for interactive elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1895",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Blue-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.0470588244497776,
-            0.20392157137393951,
-            0.43529412150382996
-          ],
-          "alpha": 1,
-          "hex": "#0C346F"
-        },
-        "$description": "Deep blue for primary brand and text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1896",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Blue-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.027499999850988388,
-            0.13729999959468842,
-            0.31369999051094055
-          ],
-          "alpha": 1,
-          "hex": "#072350"
-        },
-        "$description": "Darkest blue for high-contrast text and emphasis.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1897",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Red-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9922000169754028,
-            0.9490000009536743,
-            0.9490000009536743
-          ],
-          "alpha": 1,
-          "hex": "#FDF2F2"
-        },
-        "$description": "Lightest red tint for error backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1898",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Red-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9137254953384399,
-            0.6196078658103943,
-            0.6196078658103943
-          ],
-          "alpha": 1,
-          "hex": "#E99E9E"
-        },
-        "$description": "Soft red for secondary error accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1899",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Red-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.894456148147583,
-            0.3832951486110687,
-            0.3832951486110687
-          ],
-          "alpha": 1,
-          "hex": "#E46262"
-        },
-        "$description": "Medium red for error indicators.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1900",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Red-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.4348520040512085,
-            0.048231594264507294,
-            0.048231594264507294
-          ],
-          "alpha": 1,
-          "hex": "#6F0C0C"
-        },
-        "$description": "Deep red for critical error states.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1901",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Red-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.29019999504089355,
-            0.03139999881386757,
-            0.03139999881386757
-          ],
-          "alpha": 1,
-          "hex": "#4A0808"
-        },
-        "$description": "Darkest red for high-contrast error emphasis.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1902",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Green-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9412000179290771,
-            0.9922000169754028,
-            0.9451000094413757
-          ],
-          "alpha": 1,
-          "hex": "#F0FDF1"
-        },
-        "$description": "Lightest green tint for success backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1903",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Green-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.6196078658103943,
-            0.9137254953384399,
-            0.6294118165969849
-          ],
-          "alpha": 1,
-          "hex": "#9EE9A1"
-        },
-        "$description": "Soft green for secondary success accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1904",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Green-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.24027688801288605,
-            0.7597092986106873,
-            0.32684892416000366
-          ],
-          "alpha": 1,
-          "hex": "#3DC253"
-        },
-        "$description": "Medium green for success indicators.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1905",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Green-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.048231594264507294,
-            0.4348520040512085,
-            0.11911199986934662
-          ],
-          "alpha": 1,
-          "hex": "#0C6F1E"
-        },
-        "$description": "Deep green for confirmed success states.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1906",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Green-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.03139999881386757,
-            0.29019999504089355,
-            0.07840000092983246
-          ],
-          "alpha": 1,
-          "hex": "#084A14"
-        },
-        "$description": "Darkest green for high-contrast success emphasis.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1907",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Gold-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9922000169754028,
-            0.9725000262260437,
-            0.9215999841690063
-          ],
-          "alpha": 1,
-          "hex": "#FDF8EB"
-        },
-        "$description": "Lightest gold tint for warning backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1908",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Gold-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9137254953384399,
-            0.8470588326454163,
-            0.6509804129600525
-          ],
-          "alpha": 1,
-          "hex": "#E9D8A6"
-        },
-        "$description": "Soft gold for secondary warning accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1909",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Gold-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.7921568751335144,
-            0.6784313917160034,
-            0.37254902720451355
-          ],
-          "alpha": 1,
-          "hex": "#CAAD5F"
-        },
-        "$description": "Medium gold for warning indicators and luxury accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1910",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Gold-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.5803921818733215,
-            0.48627451062202454,
-            0.24313725531101227
-          ],
-          "alpha": 1,
-          "hex": "#947C3E"
-        },
-        "$description": "Deep gold for prominent warning states.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1911",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Gold-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.4196000099182129,
-            0.3490000069141388,
-            0.17649999260902405
-          ],
-          "alpha": 1,
-          "hex": "#6B592D"
-        },
-        "$description": "Darkest gold for high-contrast emphasis.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1912",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Grey-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9685999751091003,
-            0.9685999751091003,
-            0.9685999751091003
-          ],
-          "alpha": 1,
-          "hex": "#F7F7F7"
-        },
-        "$description": "Lightest grey for subtle backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1913",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Grey-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.8463792204856873,
-            0.8463792204856873,
-            0.8463792204856873
-          ],
-          "alpha": 1,
-          "hex": "#D8D8D8"
-        },
-        "$description": "Soft grey for borders and dividers.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1914",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Grey-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.6945988535881042,
-            0.6945988535881042,
-            0.6945988535881042
-          ],
-          "alpha": 1,
-          "hex": "#B1B1B1"
-        },
-        "$description": "Medium grey for placeholder and muted text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1915",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Grey-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.41201546788215637,
-            0.41201546788215637,
-            0.41201546788215637
-          ],
-          "alpha": 1,
-          "hex": "#696969"
-        },
-        "$description": "Deep grey for secondary content.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1916",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Grey-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.23919999599456787,
-            0.23919999599456787,
-            0.23919999599456787
-          ],
-          "alpha": 1,
-          "hex": "#3D3D3D"
-        },
-        "$description": "Darkest grey for high-contrast elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1917",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Grey-900": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.13330000638961792,
-            0.13330000638961792,
-            0.13330000638961792
-          ],
-          "alpha": 1,
-          "hex": "#222222"
-        },
-        "$description": "Near-black grey for maximum depth on light surfaces.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1918",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Violet-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9607999920845032,
-            0.9412000179290771,
-            1
-          ],
-          "alpha": 1,
-          "hex": "#F5F0FF"
-        },
-        "$description": "Lightest violet tint for accent backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1919",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Violet-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.8392156958580017,
-            0.7372549176216125,
-            0.9803921580314636
-          ],
-          "alpha": 1,
-          "hex": "#D6BCFA"
-        },
-        "$description": "Soft violet for secondary accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1920",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Violet-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.6235294342041016,
-            0.47843137383461,
-            0.9176470637321472
-          ],
-          "alpha": 1,
-          "hex": "#9F7AEA"
-        },
-        "$description": "Medium violet for interactive accents.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1921",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Violet-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.3333333432674408,
-            0.23529411852359772,
-            0.6039215922355652
-          ],
-          "alpha": 1,
-          "hex": "#553C9A"
-        },
-        "$description": "Deep violet for primary brand elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1922",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Violet-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.2313999980688095,
-            0.15690000355243683,
-            0.4392000138759613
-          ],
-          "alpha": 1,
-          "hex": "#3B2870"
-        },
-        "$description": "Darkest violet for high-contrast brand emphasis.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1923",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "White": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            1,
-            1,
-            1
-          ],
-          "alpha": 1,
-          "hex": "#FFFFFF"
-        },
-        "$description": "Pure white for light backgrounds and contrast text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1924",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Black": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0,
-            0,
-            0
-          ],
-          "alpha": 1,
-          "hex": "#000000"
-        },
-        "$description": "Pure black for dark backgrounds and high-contrast text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1925",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Slate-50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.9725490212440491,
-            0.9803921580314636,
-            0.9882352948188782
-          ],
-          "alpha": 1,
-          "hex": "#F8FAFC"
-        },
-        "$description": "Lightest slate for subtle background fills.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1926",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Slate-200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.886274516582489,
-            0.9098039269447327,
-            0.9411764740943909
-          ],
-          "alpha": 1,
-          "hex": "#E2E8F0"
-        },
-        "$description": "Soft slate for borders and card backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1927",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Slate-400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.5803921818733215,
-            0.6392157077789307,
-            0.7215686440467834
-          ],
-          "alpha": 1,
-          "hex": "#94A3B8"
-        },
-        "$description": "Medium slate for muted text and icons.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1928",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Slate-600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.27843138575553894,
-            0.3333333432674408,
-            0.4117647111415863
-          ],
-          "alpha": 1,
-          "hex": "#475569"
-        },
-        "$description": "Deep slate for secondary body text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1929",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Slate-800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.11764705926179886,
-            0.16078431904315948,
-            0.23137255012989044
-          ],
-          "alpha": 1,
-          "hex": "#1E293B"
-        },
-        "$description": "Dark slate for headings and emphasis.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1930",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Slate-900": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.05882352963089943,
-            0.09019608050584793,
-            0.16470588743686676
-          ],
-          "alpha": 1,
-          "hex": "#0F172A"
-        },
-        "$description": "Darkest slate for primary text on light surfaces.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1931",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+  "name": "starter",
+  "_aliases": {
+    "semantic.color.surface": "primitive.color.white",
+    "semantic.color.onSurface": "primitive.color.slate900",
+    "semantic.color.onSurfaceMuted": "primitive.color.slate600",
+    "semantic.color.surfaceContainer": "primitive.color.slate50",
+    "semantic.color.primary": "primitive.color.slate900",
+    "semantic.color.onPrimary": "primitive.color.white",
+    "semantic.color.primaryHover": "primitive.color.slate800",
+    "semantic.color.primaryPressed": "primitive.color.slate600",
+    "semantic.color.secondary": "primitive.color.slate200",
+    "semantic.color.onSecondary": "primitive.color.slate900",
+    "semantic.color.success": "primitive.color.green800",
+    "semantic.color.onSuccess": "primitive.color.white",
+    "semantic.color.error": "primitive.color.red800",
+    "semantic.color.onError": "primitive.color.white",
+    "semantic.color.warning": "primitive.color.amber700",
+    "semantic.color.onWarning": "primitive.color.white",
+    "semantic.color.border": "primitive.color.slate200",
+    "semantic.color.borderSubtle": "primitive.color.slate50",
+    "semantic.color.disabledContainer": "primitive.color.slate200",
+    "semantic.color.onDisabled": "primitive.color.slate400",
+    "semantic.color.primaryContainer": "primitive.color.slate200",
+    "semantic.color.onPrimaryContainer": "primitive.color.slate900",
+    "semantic.color.secondaryContainer": "primitive.color.slate50",
+    "semantic.color.onSecondaryContainer": "primitive.color.slate800",
+    "semantic.color.errorContainer": "primitive.color.red50",
+    "semantic.color.onErrorContainer": "primitive.color.red950",
+    "semantic.color.successContainer": "primitive.color.green50",
+    "semantic.color.onSuccessContainer": "primitive.color.green900",
+    "semantic.color.warningContainer": "primitive.color.amber50",
+    "semantic.color.onWarningContainer": "primitive.color.amber800",
+    "semantic.color.overlay": "primitive.color.black",
+    "semantic.fontFamily.brand": "primitive.fontFamily.systemUi",
+    "semantic.fontFamily.interface": "primitive.fontFamily.systemUi",
+    "semantic.fontFamily.data": "primitive.fontFamily.jetBrainsMono",
+    "semantic.fontSize.display": "primitive.fontSize.display",
+    "semantic.fontSize.h1": "primitive.fontSize.h1",
+    "semantic.fontSize.h2": "primitive.fontSize.h2",
+    "semantic.fontSize.h3": "primitive.fontSize.h3",
+    "semantic.fontSize.body": "primitive.fontSize.base",
+    "semantic.fontSize.small": "primitive.fontSize.small",
+    "semantic.fontSize.button": "primitive.fontSize.base",
+    "semantic.fontWeight.heading": "primitive.fontWeight.bold",
+    "semantic.fontWeight.body": "primitive.fontWeight.regular",
+    "semantic.fontWeight.button": "primitive.fontWeight.medium",
+    "semantic.lineHeight.heading": "primitive.lineHeight.tight",
+    "semantic.lineHeight.body": "primitive.lineHeight.normal",
+    "semantic.lineHeight.uiLabel": "primitive.lineHeight.none",
+    "semantic.letterSpacing.heading": "primitive.letterSpacing.tight",
+    "semantic.letterSpacing.body": "primitive.letterSpacing.normal",
+    "semantic.letterSpacing.label": "primitive.letterSpacing.wide",
+    "semantic.paragraphSpacing.body": "primitive.paragraphSpacing.base",
+    "semantic.paragraphSpacing.editorial": "primitive.paragraphSpacing.large",
+    "semantic.paragraphIndent.editorial": "primitive.paragraphIndent.none",
+    "semantic.borderRadius.small": "primitive.borderRadius.4",
+    "semantic.borderRadius.medium": "primitive.borderRadius.8",
+    "semantic.borderRadius.large": "primitive.borderRadius.12",
+    "semantic.borderRadius.full": "primitive.borderRadius.full",
+    "semantic.spacing.xs": "primitive.spacing.4",
+    "semantic.spacing.sm": "primitive.spacing.8",
+    "semantic.spacing.md": "primitive.spacing.12",
+    "semantic.spacing.lg": "primitive.spacing.16",
+    "semantic.spacing.xl": "primitive.spacing.24",
+    "semantic.borderWidth.thin": "primitive.borderWidth.1",
+    "semantic.borderWidth.medium": "primitive.borderWidth.2",
+    "semantic.elevation.none": "primitive.elevation.0",
+    "semantic.elevation.xs": "primitive.elevation.1",
+    "semantic.elevation.sm": "primitive.elevation.2",
+    "semantic.elevation.md": "primitive.elevation.3",
+    "semantic.elevation.lg": "primitive.elevation.4",
+    "semantic.elevation.xl": "primitive.elevation.6",
+    "semantic.size.xs": "primitive.size.2",
+    "semantic.size.sm": "primitive.size.4",
+    "semantic.size.md": "primitive.size.16",
+    "semantic.size.lg": "primitive.size.24",
+    "semantic.size.xl": "primitive.size.32",
+    "semantic.size.xxl": "primitive.size.48",
+    "semantic.size.xxxl": "primitive.size.64",
+    "semantic.opacity.disabled": "primitive.opacity.40",
+    "semantic.opacity.overlay": "primitive.opacity.50",
+    "component.button.paddingHorizontal": "semantic.spacing.lg",
+    "component.button.paddingVertical": "semantic.spacing.sm",
+    "component.button.gap": "semantic.spacing.sm",
+    "component.button.cornerRadius": "semantic.borderRadius.medium",
+    "component.button.borderWidth": "semantic.borderWidth.medium",
+    "component.button.textSize": "semantic.fontSize.button",
+    "component.button.fontWeight": "semantic.fontWeight.button",
+    "component.button.lineHeight": "semantic.lineHeight.uiLabel",
+    "component.button.fontFamily": "semantic.fontFamily.interface",
+    "component.button.filled.background": "semantic.color.primary",
+    "component.button.filled.content": "semantic.color.onPrimary",
+    "component.button.outline.background": "semantic.color.surface",
+    "component.button.outline.border": "semantic.color.primary",
+    "component.button.outline.content": "semantic.color.primary",
+    "component.button.text.background": "semantic.color.surface",
+    "component.button.text.content": "semantic.color.primary",
+    "component.button.state.hoverBackground": "semantic.color.primaryHover",
+    "component.button.state.pressedBackground": "semantic.color.primaryPressed",
+    "component.button.state.disabledBackground": "semantic.color.disabledContainer",
+    "component.button.state.disabledContent": "semantic.color.onDisabled",
+    "component.card.padding": "semantic.spacing.lg",
+    "component.card.gap": "semantic.spacing.md",
+    "component.card.background": "semantic.color.surfaceContainer",
+    "component.card.stroke": "semantic.color.border",
+    "component.card.strokeWidth": "semantic.borderWidth.medium",
+    "component.card.cornerRadius": "semantic.borderRadius.large",
+    "component.card.elevation": "semantic.elevation.xs",
+    "component.card.headingSize": "semantic.fontSize.h3",
+    "component.card.headingWeight": "semantic.fontWeight.heading",
+    "component.card.headingFontFamily": "semantic.fontFamily.interface",
+    "component.card.bodySize": "semantic.fontSize.body",
+    "component.card.bodyWeight": "semantic.fontWeight.body",
+    "component.card.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.card.headingColor": "semantic.color.onSurface",
+    "component.card.bodyColor": "semantic.color.onSurfaceMuted",
+    "component.textField.paddingHorizontal": "semantic.spacing.md",
+    "component.textField.paddingVertical": "semantic.spacing.sm",
+    "component.textField.cornerRadius": "semantic.borderRadius.medium",
+    "component.textField.borderWidth": "semantic.borderWidth.medium",
+    "component.textField.background": "semantic.color.surface",
+    "component.textField.borderColor": "semantic.color.border",
+    "component.textField.focusBorderColor": "semantic.color.primary",
+    "component.textField.errorBorderColor": "semantic.color.error",
+    "component.textField.textColor": "semantic.color.onSurface",
+    "component.textField.placeholderColor": "semantic.color.onSurfaceMuted",
+    "component.textField.textSize": "semantic.fontSize.body",
+    "component.textField.fontFamily": "semantic.fontFamily.interface",
+    "component.textField.labelColor": "semantic.color.onSurface",
+    "component.textField.labelSize": "semantic.fontSize.small",
+    "component.textField.helperColor": "semantic.color.onSurfaceMuted",
+    "component.textField.errorColor": "semantic.color.error",
+    "component.textField.helperSize": "semantic.fontSize.small",
+    "component.checkbox.size": "semantic.size.md",
+    "component.checkbox.cornerRadius": "semantic.borderRadius.small",
+    "component.checkbox.borderWidth": "semantic.borderWidth.medium",
+    "component.checkbox.gap": "semantic.spacing.sm",
+    "component.checkbox.borderColor": "semantic.color.border",
+    "component.checkbox.checkedBackground": "semantic.color.primary",
+    "component.checkbox.checkedIconColor": "semantic.color.onPrimary",
+    "component.checkbox.labelColor": "semantic.color.onSurface",
+    "component.checkbox.labelSize": "semantic.fontSize.body",
+    "component.checkbox.labelFontFamily": "semantic.fontFamily.interface",
+    "component.checkbox.disabledOpacity": "semantic.opacity.disabled",
+    "component.fab.size": "semantic.size.xxl",
+    "component.fab.cornerRadius": "semantic.borderRadius.full",
+    "component.fab.background": "semantic.color.primary",
+    "component.fab.iconColor": "semantic.color.onPrimary",
+    "component.fab.iconSize": "semantic.size.lg",
+    "component.fab.hoverBackground": "semantic.color.primaryHover",
+    "component.fab.pressedBackground": "semantic.color.primaryPressed",
+    "component.fab.elevation": "semantic.elevation.lg",
+    "component.fab.extendedPaddingHorizontal": "semantic.spacing.lg",
+    "component.fab.extendedGap": "semantic.spacing.sm",
+    "component.autocomplete.dropdownBackground": "semantic.color.surface",
+    "component.autocomplete.dropdownCornerRadius": "semantic.borderRadius.medium",
+    "component.autocomplete.dropdownElevation": "semantic.elevation.sm",
+    "component.autocomplete.optionHoverBackground": "semantic.color.surfaceContainer",
+    "component.autocomplete.optionTextColor": "semantic.color.onSurface",
+    "component.autocomplete.optionTextSize": "semantic.fontSize.body",
+    "component.autocomplete.optionPaddingHorizontal": "semantic.spacing.lg",
+    "component.autocomplete.optionPaddingVertical": "semantic.spacing.sm",
+    "component.autocomplete.fontFamily": "semantic.fontFamily.interface",
+    "component.select.dropdownBackground": "semantic.color.surface",
+    "component.select.dropdownCornerRadius": "semantic.borderRadius.medium",
+    "component.select.dropdownElevation": "semantic.elevation.sm",
+    "component.select.optionHoverBackground": "semantic.color.surfaceContainer",
+    "component.select.indicatorColor": "semantic.color.onSurfaceMuted",
+    "component.select.optionTextColor": "semantic.color.onSurface",
+    "component.select.optionTextSize": "semantic.fontSize.body",
+    "component.select.optionPaddingHorizontal": "semantic.spacing.lg",
+    "component.select.optionPaddingVertical": "semantic.spacing.sm",
+    "component.select.fontFamily": "semantic.fontFamily.interface",
+    "component.select.selectedOptionBackground": "semantic.color.primaryContainer",
+    "component.switch.trackWidth": "semantic.size.xxl",
+    "component.switch.trackHeight": "semantic.size.lg",
+    "component.switch.trackCornerRadius": "semantic.borderRadius.full",
+    "component.switch.trackOffBackground": "semantic.color.secondary",
+    "component.switch.trackOnBackground": "semantic.color.primary",
+    "component.switch.thumbSize": "semantic.size.md",
+    "component.switch.thumbCornerRadius": "semantic.borderRadius.full",
+    "component.switch.thumbOffBackground": "semantic.color.surface",
+    "component.switch.thumbOnBackground": "semantic.color.surface",
+    "component.switch.thumbOffset": "semantic.size.sm",
+    "component.switch.labelColor": "semantic.color.onSurface",
+    "component.switch.labelSize": "semantic.fontSize.body",
+    "component.switch.labelFontFamily": "semantic.fontFamily.interface",
+    "component.switch.gap": "semantic.spacing.sm",
+    "component.badge.minSize": "semantic.size.md",
+    "component.badge.paddingHorizontal": "semantic.spacing.xs",
+    "component.badge.cornerRadius": "semantic.borderRadius.full",
+    "component.badge.background": "semantic.color.error",
+    "component.badge.contentColor": "semantic.color.onError",
+    "component.badge.textSize": "semantic.fontSize.small",
+    "component.badge.fontWeight": "semantic.fontWeight.button",
+    "component.badge.fontFamily": "semantic.fontFamily.interface",
+    "component.chip.paddingHorizontal": "semantic.spacing.md",
+    "component.chip.paddingVertical": "semantic.spacing.xs",
+    "component.chip.gap": "semantic.spacing.xs",
+    "component.chip.cornerRadius": "semantic.borderRadius.small",
+    "component.chip.background": "semantic.color.surfaceContainer",
+    "component.chip.contentColor": "semantic.color.onSecondaryContainer",
+    "component.chip.selectedBackground": "semantic.color.secondary",
+    "component.chip.selectedContentColor": "semantic.color.onSecondary",
+    "component.chip.borderWidth": "semantic.borderWidth.medium",
+    "component.chip.borderColor": "semantic.color.border",
+    "component.chip.textSize": "semantic.fontSize.small",
+    "component.chip.fontFamily": "semantic.fontFamily.interface",
+    "component.divider.color": "semantic.color.border",
+    "component.divider.thickness": "semantic.borderWidth.thin",
+    "component.divider.margin": "semantic.spacing.sm",
+    "component.icon.sizeSmall": "semantic.size.md",
+    "component.icon.sizeMedium": "semantic.size.lg",
+    "component.icon.sizeLarge": "semantic.size.xl",
+    "component.table.headerBackground": "semantic.color.surfaceContainer",
+    "component.table.headerTextColor": "semantic.color.onSurface",
+    "component.table.headerFontWeight": "semantic.fontWeight.heading",
+    "component.table.headerTextSize": "semantic.fontSize.small",
+    "component.table.cellTextColor": "semantic.color.onSurface",
+    "component.table.cellTextSize": "semantic.fontSize.body",
+    "component.table.cellPaddingHorizontal": "semantic.spacing.md",
+    "component.table.cellPaddingVertical": "semantic.spacing.sm",
+    "component.table.rowBorderColor": "semantic.color.borderSubtle",
+    "component.table.rowBorderWidth": "semantic.borderWidth.thin",
+    "component.table.rowHoverBackground": "semantic.color.surfaceContainer",
+    "component.table.cornerRadius": "semantic.borderRadius.medium",
+    "component.table.fontFamily": "semantic.fontFamily.interface",
+    "component.alert.padding": "semantic.spacing.lg",
+    "component.alert.gap": "semantic.spacing.sm",
+    "component.alert.cornerRadius": "semantic.borderRadius.medium",
+    "component.alert.borderWidth": "semantic.borderWidth.medium",
+    "component.alert.background": "semantic.color.surfaceContainer",
+    "component.alert.borderColor": "semantic.color.border",
+    "component.alert.titleColor": "semantic.color.onSurface",
+    "component.alert.bodyColor": "semantic.color.onSurface",
+    "component.alert.iconColor": "semantic.color.onSurface",
+    "component.alert.fontFamily": "semantic.fontFamily.interface",
+    "component.alert.iconSize": "semantic.size.lg",
+    "component.alert.titleSize": "semantic.fontSize.body",
+    "component.alert.titleFontWeight": "semantic.fontWeight.heading",
+    "component.alert.bodySize": "semantic.fontSize.small",
+    "component.backdrop.color": "semantic.color.overlay",
+    "component.backdrop.opacity": "semantic.opacity.overlay",
+    "component.skeleton.background": "semantic.color.surfaceContainer",
+    "component.skeleton.highlight": "semantic.color.surfaceContainer",
+    "component.skeleton.cornerRadius": "semantic.borderRadius.small",
+    "component.skeleton.circleSize": "semantic.size.xl",
+    "component.snackbar.background": "semantic.color.onSurface",
+    "component.snackbar.contentColor": "semantic.color.surface",
+    "component.snackbar.actionColor": "semantic.color.primaryHover",
+    "component.snackbar.padding": "semantic.spacing.lg",
+    "component.snackbar.gap": "semantic.spacing.sm",
+    "component.snackbar.cornerRadius": "semantic.borderRadius.medium",
+    "component.snackbar.elevation": "semantic.elevation.md",
+    "component.snackbar.textSize": "semantic.fontSize.body",
+    "component.snackbar.fontWeight": "semantic.fontWeight.body",
+    "component.snackbar.fontFamily": "semantic.fontFamily.interface",
+    "component.dialog.background": "semantic.color.surface",
+    "component.dialog.cornerRadius": "semantic.borderRadius.large",
+    "component.dialog.padding": "semantic.spacing.xl",
+    "component.dialog.gap": "semantic.spacing.lg",
+    "component.dialog.elevation": "semantic.elevation.xl",
+    "component.dialog.titleSize": "semantic.fontSize.h3",
+    "component.dialog.titleFontWeight": "semantic.fontWeight.heading",
+    "component.dialog.titleFontFamily": "semantic.fontFamily.interface",
+    "component.dialog.titleColor": "semantic.color.onSurface",
+    "component.dialog.bodySize": "semantic.fontSize.body",
+    "component.dialog.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.dialog.bodyColor": "semantic.color.onSurface",
+    "component.appBar.height": "semantic.size.xxxl",
+    "component.appBar.paddingHorizontal": "semantic.spacing.lg",
+    "component.appBar.background": "semantic.color.surface",
+    "component.appBar.titleColor": "semantic.color.onSurface",
+    "component.appBar.titleSize": "semantic.fontSize.h3",
+    "component.appBar.titleFontWeight": "semantic.fontWeight.heading",
+    "component.appBar.titleFontFamily": "semantic.fontFamily.interface",
+    "component.appBar.iconColor": "semantic.color.onSurface",
+    "component.appBar.borderColor": "semantic.color.borderSubtle",
+    "component.appBar.elevation": "semantic.elevation.none",
+    "component.link.color": "semantic.color.primary",
+    "component.link.hoverColor": "semantic.color.primaryHover",
+    "component.link.visitedColor": "semantic.color.onSurfaceMuted",
+    "component.link.underlineOffset": "semantic.size.xs",
+    "component.link.fontWeight": "semantic.fontWeight.body",
+    "component.speedDial.actionSize": "semantic.size.xl",
+    "component.speedDial.actionBackground": "semantic.color.surfaceContainer",
+    "component.speedDial.actionIconColor": "semantic.color.onSurface",
+    "component.speedDial.actionIconSize": "semantic.size.lg",
+    "component.speedDial.actionCornerRadius": "semantic.borderRadius.full",
+    "component.speedDial.gap": "semantic.spacing.sm",
+    "component.speedDial.actionElevation": "semantic.elevation.sm"
+  },
+  "primitive": {
+    "color": {
+      "white": "#FFFFFF",
+      "black": "#000000",
+      "slate50": "#F8FAFC",
+      "slate200": "#E2E8F0",
+      "slate400": "#94A3B8",
+      "slate600": "#475569",
+      "slate800": "#1E293B",
+      "slate900": "#0F172A",
+      "green50": "#F0FDF1",
+      "green800": "#0C6F1E",
+      "green900": "#084A14",
+      "red50": "#FDF2F2",
+      "red800": "#6F0C0C",
+      "red950": "#4A0808",
+      "amber50": "#FDF8EB",
+      "amber700": "#947C3E",
+      "amber800": "#6B592D"
     },
-    "Spacing": {
-      "100": {
-        "$type": "number",
-        "$value": 8,
-        "$description": "Standard gap between elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1932",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "150": {
-        "$type": "number",
-        "$value": 12,
-        "$description": "Comfortable internal padding.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1933",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "200": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Standard padding for cards/sections.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1934",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "300": {
-        "$type": "number",
-        "$value": 24,
-        "$description": "Large section spacing.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1935",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "400": {
-        "$type": "number",
-        "$value": 32,
-        "$description": "Major layout breathing room.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1936",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "600": {
-        "$type": "number",
-        "$value": 48,
-        "$description": "Vertical section spacing on Web.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1937",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "800": {
-        "$type": "number",
-        "$value": 64,
-        "$description": "Hero section margins.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1938",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "025": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Micro-adjustments (hairlines, tight borders).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1939",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "050": {
-        "$type": "number",
-        "$value": 4,
-        "$description": "Small gaps (label to input, icon to text).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1940",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "fontFamily": {
+      "systemUi": "system-ui",
+      "jetBrainsMono": "JetBrains Mono"
     },
-    "Text size": {
-      "Text-size-100": {
-        "$type": "number",
-        "$value": 12.800000190734863,
-        "$description": "Smallest text for fine print and labels.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1941",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-200": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Base body text size.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1942",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-300": {
-        "$type": "number",
-        "$value": 20,
-        "$description": "Slightly larger for sub-headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1943",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-400": {
-        "$type": "number",
-        "$value": 25,
-        "$description": "Mid-range heading size.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1944",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-500": {
-        "$type": "number",
-        "$value": 31,
-        "$description": "Large heading for page titles.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1945",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-600": {
-        "$type": "number",
-        "$value": 39,
-        "$description": "Extra-large display text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1946",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "base": 16,
+      "small": 12.8
     },
-    "Font weight": {
-      "Weight-Regular": {
-        "$type": "number",
-        "$value": 400,
-        "$description": "Standard weight for body text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1947",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Weight-Medium": {
-        "$type": "number",
-        "$value": 500,
-        "$description": "Medium emphasis for buttons and labels.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1948",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Weight-Bold": {
-        "$type": "number",
-        "$value": 700,
-        "$description": "Strong emphasis for headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1949",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "fontWeight": {
+      "bold": 700,
+      "regular": 400,
+      "medium": 500
     },
-    "Line height": {
-      "Line-Height-None": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Solid/Illustrative",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1950",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Line-Height-Tight": {
-        "$type": "number",
-        "$value": 24,
-        "$description": "Headings",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1951",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Line-Height-Base": {
-        "$type": "number",
-        "$value": 24,
-        "$description": "Body Text",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1952",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "lineHeight": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "none": 1
     },
-    "Letter spacing": {
-      "Tracking-Tight": {
-        "$type": "number",
-        "$value": -0.019999999552965164,
-        "$description": "Tight letter spacing for large headings (-2%).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1953",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Tracking-Normal": {
-        "$type": "number",
-        "$value": 0,
-        "$description": "Default letter spacing (0%).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1954",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Tracking-Wide": {
-        "$type": "number",
-        "$value": 0.019999999552965164,
-        "$description": "Wide letter spacing for small text or uppercase (+2%).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1955",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Tracking-Wider": {
-        "$type": "number",
-        "$value": 0.05000000074505806,
-        "$description": "Extra-wide tracking for labels and small caps (+5%).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1956",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Tracking-Widest": {
-        "$type": "number",
-        "$value": 0.10000000149011612,
-        "$description": "Maximum tracking for dramatic display text (+10%).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1957",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "letterSpacing": {
+      "tight": -0.02,
+      "normal": 0,
+      "wide": 0.02
     },
-    "Paragraph spacing": {
-      "Para-None": {
-        "$type": "number",
-        "$value": 0,
-        "$description": "No space between paragraphs.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1958",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Para-Tight": {
-        "$type": "number",
-        "$value": 8,
-        "$description": "Tight paragraph spacing (8px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1959",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Para-Normal": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Standard paragraph spacing (16px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1960",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Para-Loose": {
-        "$type": "number",
-        "$value": 24,
-        "$description": "Generous paragraph spacing (24px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1961",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Para-Spacious": {
-        "$type": "number",
-        "$value": 32,
-        "$description": "Spacious paragraph separation (32px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1962",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Para-Airy": {
-        "$type": "number",
-        "$value": 48,
-        "$description": "Very airy paragraph spacing for editorial layouts (48px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1963",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "paragraphSpacing": {
+      "base": 16,
+      "large": 24
     },
-    "Paragraph indent": {
-      "Indent-None": {
-        "$type": "number",
-        "$value": 0,
-        "$description": "No first-line indent.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1964",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Indent-Small": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Small first-line indent (16px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1965",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Indent-Medium": {
-        "$type": "number",
-        "$value": 32,
-        "$description": "Medium first-line indent for book-style typography (32px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1966",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Indent-Large": {
-        "$type": "number",
-        "$value": 48,
-        "$description": "Large first-line indent for dramatic editorial style (48px).",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1967",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "paragraphIndent": {
+      "none": 0
     },
-    "Font family": {
-      "Font-sans": {
-        "$type": "string",
-        "$value": "Inter",
-        "$description": "Clean, modern sans-serif for UI and body text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1968",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-serif": {
-        "$type": "string",
-        "$value": "Playfair Display",
-        "$description": "Classic serif for editorial headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1969",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-mono": {
-        "$type": "string",
-        "$value": "JetBrains Mono",
-        "$description": "Monospaced font for code and data.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1970",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-geometric": {
-        "$type": "string",
-        "$value": "Poppins",
-        "$description": "Rounded geometric sans-serif for friendly brands.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1971",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-humanist": {
-        "$type": "string",
-        "$value": "Merriweather",
-        "$description": "Traditional humanist serif for professional brands.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1972",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-display": {
-        "$type": "string",
-        "$value": "Cormorant Garamond",
-        "$description": "Elegant display serif for luxury headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1973",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-system": {
-        "$type": "string",
-        "$value": "system-ui",
-        "$description": "Native OS typeface for maximum neutrality.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1974",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      }
+    "borderRadius": {
+      "4": 4,
+      "8": 8,
+      "12": 12,
+      "full": 9999
     },
-    "Border radius": {
-      "Radius-None": {
-        "$type": "number",
-        "$value": 0,
-        "$description": "Sharp corners with no rounding.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1975",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-XS": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Minimal rounding for subtle softness.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1976",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-SM": {
-        "$type": "number",
-        "$value": 4,
-        "$description": "Small rounding for inputs and chips.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1977",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-MD": {
-        "$type": "number",
-        "$value": 8,
-        "$description": "Standard rounding for buttons and cards.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1978",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-LG": {
-        "$type": "number",
-        "$value": 12,
-        "$description": "Generous rounding for prominent containers.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1979",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-XL": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Large rounding for featured elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1980",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-2XL": {
-        "$type": "number",
-        "$value": 24,
-        "$description": "Extra-large rounding for pill shapes.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1981",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-Full": {
-        "$type": "number",
-        "$value": 9999,
-        "$description": "Fully circular for avatars and badges.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1982",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "spacing": {
+      "4": 4,
+      "8": 8,
+      "12": 12,
+      "16": 16,
+      "24": 24
+    },
+    "borderWidth": {
+      "1": 1,
+      "2": 2
+    },
+    "elevation": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "6": 6
+    },
+    "size": {
+      "2": 2,
+      "4": 4,
+      "16": 16,
+      "24": 24,
+      "32": 32,
+      "48": 48,
+      "64": 64
+    },
+    "opacity": {
+      "40": 0.4,
+      "50": 0.5
     }
   },
-  "Semantic": {
-    "Colour": {
-      "Surface": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.White}",
-        "$description": "Main app background.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1983",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Surface": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-900}",
-        "$description": "Primary text/icons on Surface.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1984",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Surface-Muted": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-600}",
-        "$description": "Secondary text on Surface.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1985",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Surface-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-50}",
-        "$description": "Card and section background.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1986",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Primary": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-900}",
-        "$description": "Base brand action colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1987",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Primary": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.White}",
-        "$description": "Content colour on Primary backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1988",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Primary-Hover": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-800}",
-        "$description": "Subtle shift for cursor hover.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1989",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Primary-Pressed": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-600}",
-        "$description": "Deeper shift for touch/click active states.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1990",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Secondary": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-200}",
-        "$description": "Secondary action colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1991",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Secondary": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-900}",
-        "$description": "Content on Secondary backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1992",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Success": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Green-600}",
-        "$description": "Positive feedback colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1993",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Success": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.White}",
-        "$description": "Content on Success backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1994",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Error": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Red-600}",
-        "$description": "Error and critical state colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1995",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Error": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.White}",
-        "$description": "Content on Error backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1996",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Warning": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Gold-600}",
-        "$description": "Warning and caution colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1997",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Warning": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.White}",
-        "$description": "Content on Warning backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1998",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Border": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-200}",
-        "$description": "Standard border and divider colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:1999",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Border-Subtle": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-50}",
-        "$description": "Subtle border colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2000",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Disabled-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-200}",
-        "$description": "Background for inactive elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2001",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Disabled": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-400}",
-        "$description": "Text/Icon color for inactive elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2002",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Primary-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-200}",
-        "$description": "Tinted background for low-emphasis primary elements like tonal buttons and chips.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2061",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Primary-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-900}",
-        "$description": "Text and icons on Primary-Container backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2062",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Secondary-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-50}",
-        "$description": "Tinted background for low-emphasis secondary elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2063",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Secondary-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Slate-800}",
-        "$description": "Text and icons on Secondary-Container backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2064",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Error-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Red-50}",
-        "$description": "Tinted background for error-related content areas.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2065",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Error-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Red-800}",
-        "$description": "Text and icons on Error-Container backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2066",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Success-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Green-50}",
-        "$description": "Tinted background for success-related content areas.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2067",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Success-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Green-800}",
-        "$description": "Text and icons on Success-Container backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2068",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Warning-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Gold-50}",
-        "$description": "Tinted background for warning-related content areas.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2069",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "On-Warning-Container": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Gold-800}",
-        "$description": "Text and icons on Warning-Container backgrounds.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2070",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Overlay": {
-        "$type": "color",
-        "$value": "{Primitive.Colour.Black}",
-        "$description": "Backdrop/dialog overlay scrim colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2071",
-          "com.figma.scopes": [
-            "ALL_FILLS"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+  "semantic": {
+    "color": {
+      "surface": "#FFFFFF",
+      "onSurface": "#0F172A",
+      "onSurfaceMuted": "#475569",
+      "surfaceContainer": "#F8FAFC",
+      "primary": "#0F172A",
+      "onPrimary": "#FFFFFF",
+      "primaryHover": "#1E293B",
+      "primaryPressed": "#475569",
+      "secondary": "#E2E8F0",
+      "onSecondary": "#0F172A",
+      "success": "#0C6F1E",
+      "onSuccess": "#FFFFFF",
+      "error": "#6F0C0C",
+      "onError": "#FFFFFF",
+      "warning": "#947C3E",
+      "onWarning": "#FFFFFF",
+      "border": "#E2E8F0",
+      "borderSubtle": "#F8FAFC",
+      "disabledContainer": "#E2E8F0",
+      "onDisabled": "#94A3B8",
+      "primaryContainer": "#E2E8F0",
+      "onPrimaryContainer": "#0F172A",
+      "secondaryContainer": "#F8FAFC",
+      "onSecondaryContainer": "#1E293B",
+      "errorContainer": "#FDF2F2",
+      "onErrorContainer": "#4A0808",
+      "successContainer": "#F0FDF1",
+      "onSuccessContainer": "#084A14",
+      "warningContainer": "#FDF8EB",
+      "onWarningContainer": "#6B592D",
+      "overlay": "#000000"
     },
-    "Font family": {
-      "Font-Brand": {
-        "$type": "string",
-        "$value": "{Primitive.Font family.Font-system}",
-        "$description": "Brand typeface for headlines and marketing.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2003",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-Interface": {
-        "$type": "string",
-        "$value": "{Primitive.Font family.Font-system}",
-        "$description": "UI typeface for body text and controls.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2004",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-Data": {
-        "$type": "string",
-        "$value": "{Primitive.Font family.Font-mono}",
-        "$description": "Tabular typeface for code and numeric data.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2005",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      }
+    "fontFamily": {
+      "brand": "system-ui",
+      "interface": "system-ui",
+      "data": "JetBrains Mono"
     },
-    "Text size": {
-      "Text-size-display": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-600}",
-        "$description": "Extra large display text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2006",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-h1": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-500}",
-        "$description": "Main page headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2007",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-h2": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-400}",
-        "$description": "Section headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2008",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-h3": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-300}",
-        "$description": "Subsection headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2009",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-body": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-200}",
-        "$description": "Standard paragraph text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2010",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-small": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-100}",
-        "$description": "Small text for captions and labels.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2011",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-size-button": {
-        "$type": "number",
-        "$value": "{Primitive.Text size.Text-size-200}",
-        "$description": "Button and CTA text size.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2012",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "body": 16,
+      "small": 12.8,
+      "button": 16
     },
-    "Font weight": {
-      "Weight-heading": {
-        "$type": "number",
-        "$value": "{Primitive.Font weight.Weight-Bold}",
-        "$description": "Emphasis weight for all headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2013",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Weight-body": {
-        "$type": "number",
-        "$value": "{Primitive.Font weight.Weight-Regular}",
-        "$description": "Default weight for body content.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2014",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Weight-button": {
-        "$type": "number",
-        "$value": "{Primitive.Font weight.Weight-Medium}",
-        "$description": "Action weight for buttons and CTAs.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2015",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "fontWeight": {
+      "heading": 700,
+      "body": 400,
+      "button": 500
     },
-    "Line height": {
-      "Line-Height-heading": {
-        "$type": "number",
-        "$value": "{Primitive.Line height.Line-Height-Tight}",
-        "$description": "Tight line height for headings.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2016",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Line-Height-body": {
-        "$type": "number",
-        "$value": "{Primitive.Line height.Line-Height-Base}",
-        "$description": "Comfortable line height for reading.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2017",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Line-Height-UI-label": {
-        "$type": "number",
-        "$value": "{Primitive.Line height.Line-Height-None}",
-        "$description": "Compact line height for single-line UI labels.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2018",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "lineHeight": {
+      "heading": 1.2,
+      "body": 1.5,
+      "uiLabel": 1
     },
-    "Letter spacing": {
-      "Tracking-heading": {
-        "$type": "number",
-        "$value": "{Primitive.Letter spacing.Tracking-Tight}",
-        "$description": "Letter spacing for headings and large text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2019",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Tracking-body": {
-        "$type": "number",
-        "$value": "{Primitive.Letter spacing.Tracking-Normal}",
-        "$description": "Letter spacing for body text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2020",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Tracking-label": {
-        "$type": "number",
-        "$value": "{Primitive.Letter spacing.Tracking-Wide}",
-        "$description": "Letter spacing for labels and UI elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2021",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "letterSpacing": {
+      "heading": -0.02,
+      "body": 0,
+      "label": 0.02
     },
-    "Paragraph spacing": {
-      "Para-body": {
-        "$type": "number",
-        "$value": "{Primitive.Paragraph spacing.Para-Normal}",
-        "$description": "Spacing between body paragraphs.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2022",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Para-editorial": {
-        "$type": "number",
-        "$value": "{Primitive.Paragraph spacing.Para-Loose}",
-        "$description": "Spacing for long-form editorial content.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2023",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "paragraphSpacing": {
+      "body": 16,
+      "editorial": 24
     },
-    "Paragraph indent": {
-      "Indent-editorial": {
-        "$type": "number",
-        "$value": "{Primitive.Paragraph indent.Indent-None}",
-        "$description": "First-line indent for editorial content.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2024",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "paragraphIndent": {
+      "editorial": 0
     },
-    "Border radius": {
-      "Radius-Small": {
-        "$type": "number",
-        "$value": "{Primitive.Border radius.Radius-SM}",
-        "$description": "Corner rounding for small elements like badges and chips.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2025",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-Medium": {
-        "$type": "number",
-        "$value": "{Primitive.Border radius.Radius-MD}",
-        "$description": "Corner rounding for medium elements like buttons and inputs.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2026",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-Large": {
-        "$type": "number",
-        "$value": "{Primitive.Border radius.Radius-LG}",
-        "$description": "Corner rounding for large elements like cards and modals.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2027",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Radius-Full": {
-        "$type": "number",
-        "$value": "{Primitive.Border radius.Radius-Full}",
-        "$description": "Fully circular rounding for avatars, badges, FAB, and switches.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2072",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      }
+    "borderRadius": {
+      "small": 4,
+      "medium": 8,
+      "large": 12,
+      "full": 9999
     },
-    "Spacing": {
-      "Spacing-XS": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.050}",
-        "$description": "Extra-small spacing (4px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Spacing-SM": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Small spacing (8px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Spacing-MD": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.150}",
-        "$description": "Medium spacing (12px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Spacing-LG": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Large spacing (16px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Spacing-XL": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.300}",
-        "$description": "Extra-large spacing (24px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      }
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24
     },
-    "Border width": {
-      "Border-Width-Thin": {
-        "$type": "number",
-        "$value": 1,
-        "$description": "Thin border width (1px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Border-Width-Medium": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Medium border width (2px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      }
+    "borderWidth": {
+      "thin": 1,
+      "medium": 2
     },
-    "Elevation": {
-      "Elevation-None": {
-        "$type": "number",
-        "$value": 0,
-        "$description": "No elevation.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Elevation-XS": {
-        "$type": "number",
-        "$value": 1,
-        "$description": "Extra-small elevation.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Elevation-SM": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Small elevation.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Elevation-MD": {
-        "$type": "number",
-        "$value": 3,
-        "$description": "Medium elevation.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Elevation-LG": {
-        "$type": "number",
-        "$value": 4,
-        "$description": "Large elevation.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Elevation-XL": {
-        "$type": "number",
-        "$value": 6,
-        "$description": "Extra-large elevation.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      }
+    "elevation": {
+      "none": 0,
+      "xs": 1,
+      "sm": 2,
+      "md": 3,
+      "lg": 4,
+      "xl": 6
     },
-    "Size": {
-      "Size-XS": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Extra-small size (2px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Size-SM": {
-        "$type": "number",
-        "$value": 4,
-        "$description": "Small size (4px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Size-MD": {
-        "$type": "number",
-        "$value": 16,
-        "$description": "Medium size (16px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Size-LG": {
-        "$type": "number",
-        "$value": 24,
-        "$description": "Large size (24px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Size-XL": {
-        "$type": "number",
-        "$value": 32,
-        "$description": "Extra-large size (32px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Size-2XL": {
-        "$type": "number",
-        "$value": 48,
-        "$description": "2XL size (48px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Size-3XL": {
-        "$type": "number",
-        "$value": 64,
-        "$description": "3XL size (64px).",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      }
+    "size": {
+      "xs": 2,
+      "sm": 4,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64
     },
-    "Opacity": {
-      "Opacity-Disabled": {
-        "$type": "number",
-        "$value": 0.4,
-        "$description": "Opacity for disabled elements.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Opacity-Overlay": {
-        "$type": "number",
-        "$value": 0.5,
-        "$description": "Opacity for overlay/backdrop.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      }
+    "opacity": {
+      "disabled": 0.4,
+      "overlay": 0.5
     }
   },
-  "Component": {
-    "Button": {
-      "Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Left and right inner spacing.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2028",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
+  "component": {
+    "button": {
+      "paddingHorizontal": 16,
+      "paddingVertical": 8,
+      "gap": 8,
+      "cornerRadius": 8,
+      "borderWidth": 2,
+      "textSize": 16,
+      "fontWeight": 500,
+      "lineHeight": 1,
+      "fontFamily": "system-ui",
+      "filled": {
+        "background": "#0F172A",
+        "content": "#FFFFFF"
       },
-      "Padding-Vertical": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Top and bottom inner spacing.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2029",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
+      "outline": {
+        "background": "#FFFFFF",
+        "border": "#0F172A",
+        "content": "#0F172A"
       },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Space between icon and text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2030",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
+      "text": {
+        "background": "#FFFFFF",
+        "content": "#0F172A"
       },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Button corner rounding.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2031",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Border-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Outline button border thickness.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2032",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-button}",
-        "$description": "Size of button label text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2033",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-button}",
-        "$description": "Weight of button label text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2034",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Line-Height": {
-        "$type": "number",
-        "$value": "{Semantic.Line height.Line-Height-UI-label}",
-        "$description": "Line height for button text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2035",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for button label text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2036",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Filled": {
-        "Background": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Primary}",
-          "$description": "Solid button fill colour.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2037",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Content": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.On-Primary}",
-          "$description": "Text and icon colour on filled button.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2038",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        }
-      },
-      "Outline": {
-        "Background": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Surface}",
-          "$description": "Outline button background.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2039",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Border": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Primary}",
-          "$description": "Outline button border colour.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2040",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Content": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Primary}",
-          "$description": "Text and icon colour on outline button.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2041",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        }
-      },
-      "Text": {
-        "Background": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Surface}",
-          "$description": "Text button background (transparent).",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2042",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Content": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Primary}",
-          "$description": "Text button label colour.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2043",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        }
-      },
-      "State": {
-        "Hover-Background": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Primary-Hover}",
-          "$description": "Button fill on hover.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2044",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Pressed-Background": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Primary-Pressed}",
-          "$description": "Button fill when pressed.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2045",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Disabled-Background": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.Disabled-Container}",
-          "$description": "Fill for inactive button.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2046",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        },
-        "Disabled-Content": {
-          "$type": "color",
-          "$value": "{Semantic.Colour.On-Disabled}",
-          "$description": "Text colour for inactive button.",
-          "$extensions": {
-            "com.figma.variableId": "VariableID:33:2047",
-            "com.figma.scopes": [
-              "ALL_SCOPES"
-            ],
-            "com.figma.isOverride": true
-          }
-        }
+      "state": {
+        "hoverBackground": "#1E293B",
+        "pressedBackground": "#475569",
+        "disabledBackground": "#E2E8F0",
+        "disabledContent": "#94A3B8"
       }
     },
-    "Card": {
-      "Padding": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Inner spacing for card content.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2048",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.150}",
-        "$description": "Spacing between card elements.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2049",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Card background fill.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2050",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Stroke": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Card border colour.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2051",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Stroke-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Card border thickness.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2052",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Large}",
-        "$description": "Card corner rounding.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2053",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Elevation": {
-        "$type": "number",
-        "$value": 1,
-        "$description": "Shadow depth for elevation effect.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2054",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Heading-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-h3}",
-        "$description": "Card title text size.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2055",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Heading-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-heading}",
-        "$description": "Card title text weight.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2056",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Heading-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Brand}",
-        "$description": "Font family for card title text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2057",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Heading-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Card heading text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Body-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Card body text size.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2058",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Body-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-body}",
-        "$description": "Card body text weight.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2059",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.isOverride": true
-        }
-      },
-      "Body-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for card body text.",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:33:2060",
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.type": "string",
-          "com.figma.isOverride": true
-        }
-      },
-      "Body-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface-Muted}",
-        "$description": "Card body text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      }
+    "card": {
+      "padding": 16,
+      "gap": 12,
+      "background": "#F8FAFC",
+      "stroke": "#E2E8F0",
+      "strokeWidth": 2,
+      "cornerRadius": 12,
+      "elevation": 1,
+      "headingSize": 20,
+      "headingWeight": 700,
+      "headingFontFamily": "system-ui",
+      "bodySize": 16,
+      "bodyWeight": 400,
+      "bodyFontFamily": "system-ui",
+      "headingColor": "#0F172A",
+      "bodyColor": "#475569"
     },
-    "TextField": {
-      "Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.150}",
-        "$description": "Left and right inner spacing for text inputs.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2100", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Padding-Vertical": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Top and bottom inner spacing for text inputs.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2101", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Corner rounding for text inputs.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2102", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Border-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Border thickness for text inputs.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2103", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "Text input background fill.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2104", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Default border colour for text inputs.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2105", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Focus-Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary}",
-        "$description": "Border colour when text input is focused.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2106", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Error-Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Error}",
-        "$description": "Border colour when text input has an error.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2107", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Text-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Input text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2108", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Placeholder-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface-Muted}",
-        "$description": "Placeholder text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2109", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Font size for input text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2110", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for input text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2111", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      },
-      "Label-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Label text colour above the input.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2112", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Label-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-small}",
-        "$description": "Label text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2113", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Helper-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface-Muted}",
-        "$description": "Helper text colour below the input.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2114", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Helper-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-small}",
-        "$description": "Helper text font size.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Error-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Error}",
-        "$description": "Error message text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2115", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      }
+    "textField": {
+      "paddingHorizontal": 12,
+      "paddingVertical": 8,
+      "cornerRadius": 8,
+      "borderWidth": 2,
+      "background": "#FFFFFF",
+      "borderColor": "#E2E8F0",
+      "focusBorderColor": "#0F172A",
+      "errorBorderColor": "#6F0C0C",
+      "textColor": "#0F172A",
+      "placeholderColor": "#475569",
+      "textSize": 16,
+      "fontFamily": "system-ui",
+      "labelColor": "#0F172A",
+      "labelSize": 12.8,
+      "helperColor": "#475569",
+      "errorColor": "#6F0C0C",
+      "helperSize": 12.8
     },
-    "Checkbox": {
-      "Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Checkbox box dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2116", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Small}",
-        "$description": "Corner rounding for checkbox.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2117", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Border-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Border thickness for unchecked state.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2118", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Space between checkbox and label.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2119", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Unchecked checkbox border colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2120", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Checked-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary}",
-        "$description": "Background fill when checked.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2121", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Checked-Icon-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Primary}",
-        "$description": "Checkmark icon colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2122", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Label-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Checkbox label text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2123", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Label-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Checkbox label text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2124", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Label-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for checkbox label.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2125", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      },
-      "Disabled-Opacity": {
-        "$type": "number",
-        "$value": 0.4,
-        "$description": "Opacity for disabled checkbox state.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2126", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "checkbox": {
+      "size": 16,
+      "cornerRadius": 4,
+      "borderWidth": 2,
+      "gap": 8,
+      "borderColor": "#E2E8F0",
+      "checkedBackground": "#0F172A",
+      "checkedIconColor": "#FFFFFF",
+      "labelColor": "#0F172A",
+      "labelSize": 16,
+      "labelFontFamily": "system-ui",
+      "disabledOpacity": 0.4
     },
-    "FAB": {
-      "Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.600}",
-        "$description": "FAB container dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2127", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Full}",
-        "$description": "Corner rounding for FAB (fully circular).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2128", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary}",
-        "$description": "FAB background fill.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2129", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Icon-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Primary}",
-        "$description": "FAB icon colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2130", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Icon-Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.300}",
-        "$description": "FAB icon dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2131", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Hover-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary-Hover}",
-        "$description": "FAB background on hover.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2132", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Pressed-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary-Pressed}",
-        "$description": "FAB background when pressed.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2133", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Elevation": {
-        "$type": "number",
-        "$value": 4,
-        "$description": "Shadow depth for FAB.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2134", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Extended-Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Horizontal padding for extended FAB with label.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2135", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Extended-Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Gap between icon and label in extended FAB.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2136", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "fab": {
+      "size": 48,
+      "cornerRadius": 9999,
+      "background": "#0F172A",
+      "iconColor": "#FFFFFF",
+      "iconSize": 24,
+      "hoverBackground": "#1E293B",
+      "pressedBackground": "#475569",
+      "elevation": 4,
+      "extendedPaddingHorizontal": 16,
+      "extendedGap": 8
     },
-    "Autocomplete": {
-      "Dropdown-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "Autocomplete dropdown panel background.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2137", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Dropdown-Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Corner rounding for dropdown panel.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2138", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Dropdown-Elevation": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Shadow depth for dropdown panel.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2139", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Option-Hover-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Background for hovered option.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2140", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Option-Text-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Option text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Option-Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Option text font size.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Option-Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Semantic.Spacing.Spacing-LG}",
-        "$description": "Horizontal padding for options.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Option-Padding-Vertical": {
-        "$type": "number",
-        "$value": "{Semantic.Spacing.Spacing-SM}",
-        "$description": "Vertical padding for options.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for autocomplete options.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string" }
-      }
+    "autocomplete": {
+      "dropdownBackground": "#FFFFFF",
+      "dropdownCornerRadius": 8,
+      "dropdownElevation": 2,
+      "optionHoverBackground": "#F8FAFC",
+      "optionTextColor": "#0F172A",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "system-ui"
     },
-    "Select": {
-      "Dropdown-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "Select dropdown panel background.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2141", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Dropdown-Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Corner rounding for dropdown panel.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2142", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Dropdown-Elevation": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Shadow depth for dropdown panel.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2143", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Option-Hover-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Background for hovered option.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2144", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Indicator-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface-Muted}",
-        "$description": "Dropdown indicator arrow colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2145", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Option-Text-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Option text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Option-Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Option text font size.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Option-Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Semantic.Spacing.Spacing-LG}",
-        "$description": "Horizontal padding for options.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Option-Padding-Vertical": {
-        "$type": "number",
-        "$value": "{Semantic.Spacing.Spacing-SM}",
-        "$description": "Vertical padding for options.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for select options.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string" }
-      },
-      "Selected-Option-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary-Container}",
-        "$description": "Background for currently selected option.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      }
+    "select": {
+      "dropdownBackground": "#FFFFFF",
+      "dropdownCornerRadius": 8,
+      "dropdownElevation": 2,
+      "optionHoverBackground": "#F8FAFC",
+      "indicatorColor": "#475569",
+      "optionTextColor": "#0F172A",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "system-ui",
+      "selectedOptionBackground": "#E2E8F0"
     },
-    "Switch": {
-      "Track-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.600}",
-        "$description": "Width of switch track.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2146", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Track-Height": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.300}",
-        "$description": "Height of switch track.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2147", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Track-Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Full}",
-        "$description": "Corner rounding for switch track.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2148", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Track-Off-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Track background when switch is off.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2149", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Track-On-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary}",
-        "$description": "Track background when switch is on.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2150", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Thumb-Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Thumb circle dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2151", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Thumb-Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Full}",
-        "$description": "Corner rounding for thumb (fully circular).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2152", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Thumb-Off-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "Thumb colour when switch is off.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2153", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Thumb-On-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Primary}",
-        "$description": "Thumb colour when switch is on.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2154", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Thumb-Offset": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.050}",
-        "$description": "Inset offset of thumb from track edge.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2155", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Label-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Switch label text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2156", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Label-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Switch label font size.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Label-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Switch label font family.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string" }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Space between switch and label.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2157", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "switch": {
+      "trackWidth": 48,
+      "trackHeight": 24,
+      "trackCornerRadius": 9999,
+      "trackOffBackground": "#E2E8F0",
+      "trackOnBackground": "#0F172A",
+      "thumbSize": 16,
+      "thumbCornerRadius": 9999,
+      "thumbOffBackground": "#FFFFFF",
+      "thumbOnBackground": "#FFFFFF",
+      "thumbOffset": 4,
+      "labelColor": "#0F172A",
+      "labelSize": 16,
+      "labelFontFamily": "system-ui",
+      "gap": 8
     },
-    "Badge": {
-      "Min-Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Minimum badge dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2158", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.050}",
-        "$description": "Left and right padding inside badge.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2159", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Full}",
-        "$description": "Corner rounding for badge (pill shape).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2160", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Error}",
-        "$description": "Badge background fill.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2161", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Content-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Error}",
-        "$description": "Badge text/icon colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2162", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-small}",
-        "$description": "Badge text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2163", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-button}",
-        "$description": "Badge text weight.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2164", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for badge text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2165", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      }
+    "badge": {
+      "minSize": 16,
+      "paddingHorizontal": 4,
+      "cornerRadius": 9999,
+      "background": "#6F0C0C",
+      "contentColor": "#FFFFFF",
+      "textSize": 12.8,
+      "fontWeight": 500,
+      "fontFamily": "system-ui"
     },
-    "Chip": {
-      "Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.150}",
-        "$description": "Left and right padding inside chip.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2166", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Padding-Vertical": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.050}",
-        "$description": "Top and bottom padding inside chip.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2167", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.050}",
-        "$description": "Space between chip icon and text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2168", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Small}",
-        "$description": "Corner rounding for chip.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2169", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Secondary-Container}",
-        "$description": "Default chip background fill.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2170", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Content-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Secondary-Container}",
-        "$description": "Default chip text/icon colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2171", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Selected-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary-Container}",
-        "$description": "Background fill for selected chip.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2172", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Selected-Content-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Primary-Container}",
-        "$description": "Text/icon colour for selected chip.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2173", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Border-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Chip border thickness.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2174", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Chip border colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-small}",
-        "$description": "Chip label text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2175", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for chip text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2176", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      }
+    "chip": {
+      "paddingHorizontal": 12,
+      "paddingVertical": 4,
+      "gap": 4,
+      "cornerRadius": 4,
+      "background": "#F8FAFC",
+      "contentColor": "#1E293B",
+      "selectedBackground": "#E2E8F0",
+      "selectedContentColor": "#0F172A",
+      "borderWidth": 2,
+      "borderColor": "#E2E8F0",
+      "textSize": 12.8,
+      "fontFamily": "system-ui"
     },
-    "Divider": {
-      "Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Divider line colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2177", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Thickness": {
-        "$type": "number",
-        "$value": 1,
-        "$description": "Divider line thickness.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2178", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Margin": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Vertical margin above and below divider.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2179", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "divider": {
+      "color": "#E2E8F0",
+      "thickness": 1,
+      "margin": 8
     },
-    "Icon": {
-      "Size-Small": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Small icon size (16px).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2180", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Size-Medium": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.300}",
-        "$description": "Medium icon size (24px).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2181", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Size-Large": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.400}",
-        "$description": "Large icon size (32px).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2182", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "icon": {
+      "sizeSmall": 16,
+      "sizeMedium": 24,
+      "sizeLarge": 32
     },
-    "Table": {
-      "Header-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Table header row background.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2183", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Header-Text-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Table header text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2184", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Header-Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-heading}",
-        "$description": "Table header text weight.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2185", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Header-Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-small}",
-        "$description": "Table header text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2186", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Cell-Text-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Table cell text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2187", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Cell-Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Table cell text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2188", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Cell-Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.150}",
-        "$description": "Left and right cell padding.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2189", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Cell-Padding-Vertical": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Top and bottom cell padding.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2190", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Row-Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border-Subtle}",
-        "$description": "Horizontal border between rows.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2191", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Row-Border-Width": {
-        "$type": "number",
-        "$value": 1,
-        "$description": "Row border thickness.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2192", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Row-Hover-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Row background on hover.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2193", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Corner rounding for table container.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2194", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for table text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2195", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      }
+    "table": {
+      "headerBackground": "#F8FAFC",
+      "headerTextColor": "#0F172A",
+      "headerFontWeight": 700,
+      "headerTextSize": 12.8,
+      "cellTextColor": "#0F172A",
+      "cellTextSize": 16,
+      "cellPaddingHorizontal": 12,
+      "cellPaddingVertical": 8,
+      "rowBorderColor": "#F8FAFC",
+      "rowBorderWidth": 1,
+      "rowHoverBackground": "#F8FAFC",
+      "cornerRadius": 8,
+      "fontFamily": "system-ui"
     },
-    "Alert": {
-      "Padding": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Inner spacing for alert content.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2196", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Space between alert icon and text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2197", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Corner rounding for alert container.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2198", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Border-Width": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Alert container border thickness.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2199", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Alert container background colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border}",
-        "$description": "Alert container border colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Title-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Alert title text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Body-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Alert body text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Icon-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Alert icon colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for alert text.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string" }
-      },
-      "Icon-Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.300}",
-        "$description": "Alert icon dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2200", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Alert title text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2201", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-heading}",
-        "$description": "Alert title text weight.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2202", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Body-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-small}",
-        "$description": "Alert body text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2203", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "alert": {
+      "padding": 16,
+      "gap": 8,
+      "cornerRadius": 8,
+      "borderWidth": 2,
+      "background": "#F8FAFC",
+      "borderColor": "#E2E8F0",
+      "titleColor": "#0F172A",
+      "bodyColor": "#0F172A",
+      "iconColor": "#0F172A",
+      "fontFamily": "system-ui",
+      "iconSize": 24,
+      "titleSize": 16,
+      "titleFontWeight": 700,
+      "bodySize": 12.8
     },
-    "Backdrop": {
-      "Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Overlay}",
-        "$description": "Backdrop overlay scrim colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2204", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Opacity": {
-        "$type": "number",
-        "$value": 0.5,
-        "$description": "Backdrop overlay opacity.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2205", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "backdrop": {
+      "color": "#000000",
+      "opacity": 0.5
     },
-    "Skeleton": {
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Skeleton placeholder base colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2206", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Highlight": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border-Subtle}",
-        "$description": "Skeleton shimmer highlight colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2207", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Small}",
-        "$description": "Corner rounding for skeleton shapes.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2208", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Circle-Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.400}",
-        "$description": "Diameter for circular skeleton (avatar placeholder).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2209", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "skeleton": {
+      "background": "#F8FAFC",
+      "highlight": "#F8FAFC",
+      "cornerRadius": 4,
+      "circleSize": 32
     },
-    "Snackbar": {
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Snackbar background (inverted surface).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2210", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Content-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "Snackbar text colour (inverted).",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2211", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Action-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary-Hover}",
-        "$description": "Snackbar action button colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2212", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Padding": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Inner spacing for snackbar content.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2213", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Space between snackbar text and action.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2214", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Medium}",
-        "$description": "Corner rounding for snackbar container.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2215", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Elevation": {
-        "$type": "number",
-        "$value": 3,
-        "$description": "Shadow depth for snackbar.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2216", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Text-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Snackbar message text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2217", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-body}",
-        "$description": "Snackbar message text weight.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for snackbar text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2218", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      }
+    "snackbar": {
+      "background": "#0F172A",
+      "contentColor": "#FFFFFF",
+      "actionColor": "#1E293B",
+      "padding": 16,
+      "gap": 8,
+      "cornerRadius": 8,
+      "elevation": 3,
+      "textSize": 16,
+      "fontWeight": 400,
+      "fontFamily": "system-ui"
     },
-    "Dialog": {
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "Dialog panel background.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2219", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Large}",
-        "$description": "Corner rounding for dialog panel.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2220", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Padding": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.300}",
-        "$description": "Inner spacing for dialog content.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2221", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Space between dialog sections.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2222", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Elevation": {
-        "$type": "number",
-        "$value": 6,
-        "$description": "Shadow depth for dialog.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2223", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-h3}",
-        "$description": "Dialog title text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2224", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-heading}",
-        "$description": "Dialog title text weight.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2225", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Brand}",
-        "$description": "Font family for dialog title.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2226", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      },
-      "Title-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Dialog title text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      },
-      "Body-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-body}",
-        "$description": "Dialog body text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2227", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Body-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Interface}",
-        "$description": "Font family for dialog body text.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2228", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      },
-      "Body-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Dialog body text colour.",
-        "$extensions": { "com.figma.scopes": ["ALL_FILLS"] }
-      }
+    "dialog": {
+      "background": "#FFFFFF",
+      "cornerRadius": 12,
+      "padding": 24,
+      "gap": 16,
+      "elevation": 6,
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "system-ui",
+      "titleColor": "#0F172A",
+      "bodySize": 16,
+      "bodyFontFamily": "system-ui",
+      "bodyColor": "#0F172A"
     },
-    "AppBar": {
-      "Height": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.800}",
-        "$description": "App bar height.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2229", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Padding-Horizontal": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.200}",
-        "$description": "Left and right padding for app bar.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2230", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface}",
-        "$description": "App bar background fill.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2231", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Title-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "App bar title text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2232", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Title-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Text size.Text-size-h3}",
-        "$description": "App bar title text size.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2233", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-heading}",
-        "$description": "App bar title text weight.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2234", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Title-Font-Family": {
-        "$type": "string",
-        "$value": "{Semantic.Font family.Font-Brand}",
-        "$description": "Font family for app bar title.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2235", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.type": "string", "com.figma.isOverride": true }
-      },
-      "Icon-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "App bar icon colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2236", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Border-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Border-Subtle}",
-        "$description": "App bar bottom border colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2237", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Elevation": {
-        "$type": "number",
-        "$value": 0,
-        "$description": "Shadow depth for app bar.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2238", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "appBar": {
+      "height": 64,
+      "paddingHorizontal": 16,
+      "background": "#FFFFFF",
+      "titleColor": "#0F172A",
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "system-ui",
+      "iconColor": "#0F172A",
+      "borderColor": "#F8FAFC",
+      "elevation": 0
     },
-    "Link": {
-      "Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary}",
-        "$description": "Default link text colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2239", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Hover-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Primary-Hover}",
-        "$description": "Link text colour on hover.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2240", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Visited-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface-Muted}",
-        "$description": "Link text colour after visiting.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2241", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Underline-Offset": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.025}",
-        "$description": "Distance of underline from text baseline.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2242", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Font-Weight": {
-        "$type": "number",
-        "$value": "{Semantic.Font weight.Weight-body}",
-        "$description": "Link text weight.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2243", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "link": {
+      "color": "#0F172A",
+      "hoverColor": "#1E293B",
+      "visitedColor": "#475569",
+      "underlineOffset": 2,
+      "fontWeight": 400
     },
-    "SpeedDial": {
-      "Action-Size": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.400}",
-        "$description": "Secondary action button dimensions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2244", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Action-Background": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.Surface-Container}",
-        "$description": "Secondary action button background.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2245", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Action-Icon-Color": {
-        "$type": "color",
-        "$value": "{Semantic.Colour.On-Surface}",
-        "$description": "Secondary action button icon colour.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2246", "com.figma.scopes": ["ALL_FILLS"], "com.figma.isOverride": true }
-      },
-      "Action-Icon-Size": {
-        "$type": "number",
-        "$value": "{Semantic.Size.Size-LG}",
-        "$description": "Secondary action button icon size.",
-        "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
-      },
-      "Action-Corner-Radius": {
-        "$type": "number",
-        "$value": "{Semantic.Border radius.Radius-Full}",
-        "$description": "Corner rounding for secondary action buttons.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2247", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Gap": {
-        "$type": "number",
-        "$value": "{Primitive.Spacing.100}",
-        "$description": "Space between speed dial actions.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2248", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      },
-      "Action-Elevation": {
-        "$type": "number",
-        "$value": 2,
-        "$description": "Shadow depth for secondary action buttons.",
-        "$extensions": { "com.figma.variableId": "VariableID:33:2249", "com.figma.scopes": ["ALL_SCOPES"], "com.figma.isOverride": true }
-      }
+    "speedDial": {
+      "actionSize": 32,
+      "actionBackground": "#F8FAFC",
+      "actionIconColor": "#0F172A",
+      "actionIconSize": 24,
+      "actionCornerRadius": 9999,
+      "gap": 8,
+      "actionElevation": 2
     }
-  },
-  "$extensions": {
-    "com.figma.modeName": "White label"
   }
 }

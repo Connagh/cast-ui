@@ -45,9 +45,6 @@
     "semantic.fontWeight.heading": "primitive.fontWeight.bold",
     "semantic.fontWeight.body": "primitive.fontWeight.regular",
     "semantic.fontWeight.button": "primitive.fontWeight.bold",
-    "semantic.lineHeight.heading": "primitive.lineHeight.tight",
-    "semantic.lineHeight.body": "primitive.lineHeight.normal",
-    "semantic.lineHeight.uiLabel": "primitive.lineHeight.none",
     "semantic.letterSpacing.heading": "primitive.letterSpacing.tight",
     "semantic.letterSpacing.body": "primitive.letterSpacing.normal",
     "semantic.letterSpacing.label": "primitive.letterSpacing.extraWide",
@@ -87,7 +84,7 @@
     "component.button.borderWidth": "semantic.borderWidth.medium",
     "component.button.textSize": "semantic.fontSize.button",
     "component.button.fontWeight": "semantic.fontWeight.button",
-    "component.button.lineHeight": "semantic.lineHeight.uiLabel",
+    "component.button.lineHeight": "semantic.lineHeight.button",
     "component.button.fontFamily": "semantic.fontFamily.interface",
     "component.button.filled.background": "semantic.color.primary",
     "component.button.filled.content": "semantic.color.onPrimary",
@@ -115,7 +112,14 @@
     "component.card.bodyFontFamily": "semantic.fontFamily.interface",
     "component.dialog.titleFontFamily": "semantic.fontFamily.brand",
     "component.dialog.bodyFontFamily": "semantic.fontFamily.interface",
-    "component.appBar.titleFontFamily": "semantic.fontFamily.brand"
+    "component.appBar.titleFontFamily": "semantic.fontFamily.brand",
+    "semantic.lineHeight.display": "primitive.lineHeight.48",
+    "semantic.lineHeight.h1": "primitive.lineHeight.40",
+    "semantic.lineHeight.h2": "primitive.lineHeight.32",
+    "semantic.lineHeight.h3": "primitive.lineHeight.24",
+    "semantic.lineHeight.body": "primitive.lineHeight.24",
+    "semantic.lineHeight.small": "primitive.lineHeight.20",
+    "semantic.lineHeight.button": "primitive.lineHeight.16"
   },
   "primitive": {
     "color": {
@@ -157,9 +161,12 @@
       "medium": 500
     },
     "lineHeight": {
-      "tight": 1.2,
-      "normal": 1.5,
-      "none": 1
+      "16": 16,
+      "20": 20,
+      "24": 24,
+      "32": 32,
+      "40": 40,
+      "48": 48
     },
     "letterSpacing": {
       "tight": -0.02,
@@ -260,9 +267,13 @@
       "button": 700
     },
     "lineHeight": {
-      "heading": 1.2,
-      "body": 1.5,
-      "uiLabel": 1
+      "display": 48,
+      "h1": 40,
+      "h2": 32,
+      "h3": 24,
+      "body": 24,
+      "small": 20,
+      "button": 16
     },
     "letterSpacing": {
       "heading": -0.02,
@@ -324,7 +335,7 @@
       "borderWidth": 1,
       "textSize": 12.8,
       "fontWeight": 700,
-      "lineHeight": 1,
+      "lineHeight": 16,
       "fontFamily": "Cormorant Garamond",
       "filled": {
         "background": "#CAAD5F",

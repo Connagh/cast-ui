@@ -246,7 +246,7 @@ theme.semantic.color.*              30 semantic colours (surface, primary, error
 theme.semantic.fontFamily.*         brand, interface, data
 theme.semantic.fontSize.*           display, h1, h2, h3, body, small, button
 theme.semantic.fontWeight.*         heading, body, button
-theme.semantic.lineHeight.*         heading, body, uiLabel
+theme.semantic.lineHeight.*         display, h1, h2, h3, body, small, button (px)
 theme.semantic.letterSpacing.*      heading, body, label
 theme.semantic.paragraphSpacing.*   body, editorial
 theme.semantic.paragraphIndent.*    editorial

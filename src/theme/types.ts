@@ -68,8 +68,12 @@ export interface SemanticFontSize {
   h1: number;
   h2: number;
   h3: number;
+  subtitle: number;
   body: number;
   small: number;
+  caption: number;
+  overline: number;
+  label: number;
   button: number;
 }
 
@@ -80,9 +84,17 @@ export interface SemanticFontWeight {
 }
 
 export interface SemanticLineHeight {
-  heading: number;
+  display: number;
+  h1: number;
+  h2: number;
+  h3: number;
+  subtitle: number;
   body: number;
-  uiLabel: number;
+  small: number;
+  caption: number;
+  overline: number;
+  label: number;
+  button: number;
 }
 
 export interface SemanticLetterSpacing {

@@ -108,40 +108,40 @@ export interface SemanticBorderRadius {
 }
 
 export interface SemanticSpacing {
-  xs: number;   // 4
-  sm: number;   // 8
-  md: number;   // 12
-  lg: number;   // 16
-  xl: number;   // 24
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
 }
 
 export interface SemanticBorderWidth {
-  thin: number;   // 1
-  medium: number;  // 2
+  thin: number;
+  medium: number;
 }
 
 export interface SemanticElevation {
-  none: number;  // 0
-  xs: number;    // 1
-  sm: number;    // 2
-  md: number;    // 3
-  lg: number;    // 4
-  xl: number;    // 6
+  none: number;
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
 }
 
 export interface SemanticSize {
-  xs: number;    // 2
-  sm: number;    // 4
-  md: number;    // 16
-  lg: number;    // 24
-  xl: number;    // 32
-  xxl: number;   // 48
-  xxxl: number;  // 64
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+  xxl: number;
+  xxxl: number;
 }
 
 export interface SemanticOpacity {
-  disabled: number;  // 0.4
-  overlay: number;   // 0.5
+  disabled: number;
+  overlay: number;
 }
 
 export interface SemanticTokens {
@@ -164,6 +164,8 @@ export interface SemanticTokens {
 // ---------------------------------------------------------------------------
 // Component layer
 // ---------------------------------------------------------------------------
+
+// -- Button -----------------------------------------------------------------
 
 export interface ButtonVariantTokens {
   background: string;
@@ -197,6 +199,8 @@ export interface ButtonTokens {
   state: ButtonStateTokens;
 }
 
+// -- Card -------------------------------------------------------------------
+
 export interface CardTokens {
   padding: number;
   gap: number;
@@ -214,6 +218,8 @@ export interface CardTokens {
   bodyFontFamily: string;
   bodyColor: string;
 }
+
+// -- TextField --------------------------------------------------------------
 
 export interface TextFieldTokens {
   paddingHorizontal: number;
@@ -235,6 +241,8 @@ export interface TextFieldTokens {
   errorColor: string;
 }
 
+// -- Checkbox ---------------------------------------------------------------
+
 export interface CheckboxTokens {
   size: number;
   cornerRadius: number;
@@ -249,6 +257,8 @@ export interface CheckboxTokens {
   disabledOpacity: number;
 }
 
+// -- FAB --------------------------------------------------------------------
+
 export interface FABTokens {
   size: number;
   cornerRadius: number;
@@ -262,6 +272,8 @@ export interface FABTokens {
   extendedGap: number;
 }
 
+// -- Autocomplete -----------------------------------------------------------
+
 export interface AutocompleteTokens {
   dropdownBackground: string;
   dropdownCornerRadius: number;
@@ -273,6 +285,8 @@ export interface AutocompleteTokens {
   optionPaddingVertical: number;
   fontFamily: string;
 }
+
+// -- Select -----------------------------------------------------------------
 
 export interface SelectTokens {
   dropdownBackground: string;
@@ -287,6 +301,8 @@ export interface SelectTokens {
   fontFamily: string;
   selectedOptionBackground: string;
 }
+
+// -- Switch -----------------------------------------------------------------
 
 export interface SwitchTokens {
   trackWidth: number;
@@ -305,6 +321,8 @@ export interface SwitchTokens {
   gap: number;
 }
 
+// -- Badge ------------------------------------------------------------------
+
 export interface BadgeTokens {
   minSize: number;
   paddingHorizontal: number;
@@ -315,6 +333,8 @@ export interface BadgeTokens {
   fontWeight: number;
   fontFamily: string;
 }
+
+// -- Chip -------------------------------------------------------------------
 
 export interface ChipTokens {
   paddingHorizontal: number;
@@ -331,17 +351,23 @@ export interface ChipTokens {
   fontFamily: string;
 }
 
+// -- Divider ----------------------------------------------------------------
+
 export interface DividerTokens {
   color: string;
   thickness: number;
   margin: number;
 }
 
+// -- Icon -------------------------------------------------------------------
+
 export interface IconTokens {
   sizeSmall: number;
   sizeMedium: number;
   sizeLarge: number;
 }
+
+// -- Table ------------------------------------------------------------------
 
 export interface TableTokens {
   headerBackground: string;
@@ -358,6 +384,8 @@ export interface TableTokens {
   cornerRadius: number;
   fontFamily: string;
 }
+
+// -- Alert ------------------------------------------------------------------
 
 export interface AlertTokens {
   padding: number;
@@ -376,10 +404,14 @@ export interface AlertTokens {
   bodySize: number;
 }
 
+// -- Backdrop ---------------------------------------------------------------
+
 export interface BackdropTokens {
   color: string;
   opacity: number;
 }
+
+// -- Skeleton ---------------------------------------------------------------
 
 export interface SkeletonTokens {
   background: string;
@@ -387,6 +419,8 @@ export interface SkeletonTokens {
   cornerRadius: number;
   circleSize: number;
 }
+
+// -- Snackbar ---------------------------------------------------------------
 
 export interface SnackbarTokens {
   background: string;
@@ -400,6 +434,8 @@ export interface SnackbarTokens {
   fontWeight: number;
   fontFamily: string;
 }
+
+// -- Dialog -----------------------------------------------------------------
 
 export interface DialogTokens {
   background: string;
@@ -416,6 +452,8 @@ export interface DialogTokens {
   bodyColor: string;
 }
 
+// -- AppBar -----------------------------------------------------------------
+
 export interface AppBarTokens {
   height: number;
   paddingHorizontal: number;
@@ -429,6 +467,8 @@ export interface AppBarTokens {
   elevation: number;
 }
 
+// -- Link -------------------------------------------------------------------
+
 export interface LinkTokens {
   color: string;
   hoverColor: string;
@@ -436,6 +476,8 @@ export interface LinkTokens {
   underlineOffset: number;
   fontWeight: number;
 }
+
+// -- SpeedDial --------------------------------------------------------------
 
 export interface SpeedDialTokens {
   actionSize: number;
@@ -446,6 +488,8 @@ export interface SpeedDialTokens {
   gap: number;
   actionElevation: number;
 }
+
+// -- ComponentTokens (aggregate) --------------------------------------------
 
 export interface ComponentTokens {
   button: ButtonTokens;

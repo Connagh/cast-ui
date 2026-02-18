@@ -86,6 +86,25 @@ function resolve(root: Record<string, unknown>, tokenPath: string): string | num
 }
 
 // ---------------------------------------------------------------------------
+// Serialisation helpers
+// ---------------------------------------------------------------------------
+
+/** Recursively serialise a plain JS value to TypeScript source with indentation. */
+function toTS(value: unknown, indent: number = 2): string {
+  if (typeof value === 'string') return JSON.stringify(value);
+  if (typeof value === 'number') return String(value);
+  if (typeof value === 'object' && value !== null) {
+    const entries = Object.entries(value as Record<string, unknown>);
+    const pad = ' '.repeat(indent);
+    const inner = entries
+      .map(([k, v]) => `${pad}${k}: ${toTS(v, indent + 2)},`)
+      .join('\n');
+    return `{\n${inner}\n${' '.repeat(indent - 2)}}`;
+  }
+  return String(value);
+}
+
+// ---------------------------------------------------------------------------
 // Theme builder
 // ---------------------------------------------------------------------------
 
@@ -99,430 +118,493 @@ const THEMES: ThemeConfig[] = [
   { file: 'Default.tokens.json', name: 'default', exportName: 'defaultTheme' },
 ];
 
-function buildThemeSource(config: ThemeConfig, tokens: Record<string, unknown>): string {
+/**
+ * Build a fully-resolved theme object from Figma design-token JSON.
+ *
+ * Tokens that exist in Default.tokens.json are resolved through the alias
+ * chain. Semantic categories and component tokens not yet defined in Figma
+ * are derived from resolved semantic values to keep the output consistent.
+ */
+function buildResolvedTheme(
+  config: ThemeConfig,
+  tokens: Record<string, unknown>,
+): Record<string, unknown> {
   const r = (p: string) => resolve(tokens, p);
-  const s = (p: string) => JSON.stringify(r(p)); // string-safe for codegen
 
+  // -- Semantic layer (resolved from Figma tokens) --------------------------
+
+  const color = {
+    surface: r('Semantic.Colour.Surface') as string,
+    onSurface: r('Semantic.Colour.On-Surface') as string,
+    onSurfaceMuted: r('Semantic.Colour.On-Surface-Muted') as string,
+    surfaceContainer: r('Semantic.Colour.Surface-Container') as string,
+
+    primary: r('Semantic.Colour.Primary') as string,
+    onPrimary: r('Semantic.Colour.On-Primary') as string,
+    primaryHover: r('Semantic.Colour.Primary-Hover') as string,
+    primaryPressed: r('Semantic.Colour.Primary-Pressed') as string,
+
+    secondary: r('Semantic.Colour.Secondary') as string,
+    onSecondary: r('Semantic.Colour.On-Secondary') as string,
+
+    success: r('Semantic.Colour.Success') as string,
+    onSuccess: r('Semantic.Colour.On-Success') as string,
+    error: r('Semantic.Colour.Error') as string,
+    onError: r('Semantic.Colour.On-Error') as string,
+    warning: r('Semantic.Colour.Warning') as string,
+    onWarning: r('Semantic.Colour.On-Warning') as string,
+
+    border: r('Semantic.Colour.Border') as string,
+    borderSubtle: r('Semantic.Colour.Border-Subtle') as string,
+
+    disabledContainer: r('Semantic.Colour.Disabled-Container') as string,
+    onDisabled: r('Semantic.Colour.On-Disabled') as string,
+
+    primaryContainer: r('Semantic.Colour.Primary-Container') as string,
+    onPrimaryContainer: r('Semantic.Colour.On-Primary-Container') as string,
+    secondaryContainer: r('Semantic.Colour.Secondary-Container') as string,
+    onSecondaryContainer: r('Semantic.Colour.On-Secondary-Container') as string,
+    errorContainer: r('Semantic.Colour.Error-Container') as string,
+    onErrorContainer: r('Semantic.Colour.On-Error-Container') as string,
+    successContainer: r('Semantic.Colour.Success-Container') as string,
+    onSuccessContainer: r('Semantic.Colour.On-Success-Container') as string,
+    warningContainer: r('Semantic.Colour.Warning-Container') as string,
+    onWarningContainer: r('Semantic.Colour.On-Warning-Container') as string,
+
+    overlay: r('Primitive.Colour.Black') as string,
+  };
+
+  const fontFamily = {
+    brand: r('Semantic.Font family.Font-Brand') as string,
+    interface: r('Semantic.Font family.Font-Interface') as string,
+    data: r('Semantic.Font family.Font-Data') as string,
+  };
+
+  const fontSize = {
+    display: r('Semantic.Text size.Text-size-display') as number,
+    h1: r('Semantic.Text size.Text-size-h1') as number,
+    h2: r('Semantic.Text size.Text-size-h2') as number,
+    h3: r('Semantic.Text size.Text-size-h3') as number,
+    body: r('Semantic.Text size.Text-size-body') as number,
+    small: r('Semantic.Text size.Text-size-small') as number,
+    button: r('Semantic.Text size.Text-size-button') as number,
+  };
+
+  const fontWeight = {
+    heading: r('Semantic.Font weight.Weight-heading') as number,
+    body: r('Semantic.Font weight.Weight-body') as number,
+    button: r('Semantic.Font weight.Weight-button') as number,
+  };
+
+  const lineHeight = {
+    heading: r('Semantic.Line height.Line-Height-heading') as number,
+    body: r('Semantic.Line height.Line-Height-body') as number,
+    uiLabel: r('Semantic.Line height.Line-Height-UI-label') as number,
+  };
+
+  const letterSpacing = {
+    heading: r('Semantic.Letter spacing.Tracking-heading') as number,
+    body: r('Semantic.Letter spacing.Tracking-body') as number,
+    label: r('Semantic.Letter spacing.Tracking-label') as number,
+  };
+
+  const paragraphSpacing = {
+    body: r('Semantic.Paragraph spacing.Para-body') as number,
+    editorial: r('Semantic.Paragraph spacing.Para-editorial') as number,
+  };
+
+  const paragraphIndent = {
+    editorial: r('Semantic.Paragraph indent.Indent-editorial') as number,
+  };
+
+  const borderRadius = {
+    small: r('Semantic.Border radius.Radius-Small') as number,
+    medium: r('Semantic.Border radius.Radius-Medium') as number,
+    large: r('Semantic.Border radius.Radius-Large') as number,
+    full: r('Primitive.Border radius.Radius-Full') as number,
+  };
+
+  // -- Semantic categories derived from Primitive tokens --------------------
+
+  const spacing = {
+    xs: r('Primitive.Spacing.050') as number,
+    sm: r('Primitive.Spacing.100') as number,
+    md: r('Primitive.Spacing.150') as number,
+    lg: r('Primitive.Spacing.200') as number,
+    xl: r('Primitive.Spacing.300') as number,
+  };
+
+  const borderWidth = {
+    thin: 1,
+    medium: r('Primitive.Spacing.025') as number,
+  };
+
+  const elevation = {
+    none: 0,
+    xs: 1,
+    sm: 2,
+    md: 3,
+    lg: 4,
+    xl: 6,
+  };
+
+  const size = {
+    xs: r('Primitive.Spacing.025') as number,
+    sm: r('Primitive.Spacing.050') as number,
+    md: r('Primitive.Spacing.200') as number,
+    lg: r('Primitive.Spacing.300') as number,
+    xl: r('Primitive.Spacing.400') as number,
+    xxl: r('Primitive.Spacing.600') as number,
+    xxxl: r('Primitive.Spacing.800') as number,
+  };
+
+  const opacity = {
+    disabled: 0.4,
+    overlay: 0.5,
+  };
+
+  const semantic = {
+    color,
+    fontFamily,
+    fontSize,
+    fontWeight,
+    lineHeight,
+    letterSpacing,
+    paragraphSpacing,
+    paragraphIndent,
+    borderRadius,
+    spacing,
+    borderWidth,
+    elevation,
+    size,
+    opacity,
+  };
+
+  // -- Component layer ------------------------------------------------------
+  // Button and Card are resolved from Figma tokens; the remaining components
+  // derive defaults from the resolved semantic values above.
+
+  const button = {
+    paddingHorizontal: r('Component.Button.Padding-Horizontal') as number,
+    paddingVertical: r('Component.Button.Padding-Vertical') as number,
+    gap: r('Component.Button.Gap') as number,
+    cornerRadius: r('Component.Button.Corner-Radius') as number,
+    borderWidth: r('Component.Button.Border-Width') as number,
+    textSize: r('Component.Button.Text-Size') as number,
+    fontWeight: r('Component.Button.Font-Weight') as number,
+    lineHeight: r('Component.Button.Line-Height') as number,
+    fontFamily: r('Component.Button.Font-Family') as string,
+
+    filled: {
+      background: r('Component.Button.Filled.Background') as string,
+      content: r('Component.Button.Filled.Content') as string,
+    },
+    outline: {
+      background: r('Component.Button.Outline.Background') as string,
+      border: r('Component.Button.Outline.Border') as string,
+      content: r('Component.Button.Outline.Content') as string,
+    },
+    text: {
+      background: r('Component.Button.Text.Background') as string,
+      content: r('Component.Button.Text.Content') as string,
+    },
+    state: {
+      hoverBackground: r('Component.Button.State.Hover-Background') as string,
+      pressedBackground: r('Component.Button.State.Pressed-Background') as string,
+      disabledBackground: r('Component.Button.State.Disabled-Background') as string,
+      disabledContent: r('Component.Button.State.Disabled-Content') as string,
+    },
+  };
+
+  const card = {
+    padding: r('Component.Card.Padding') as number,
+    gap: r('Component.Card.Gap') as number,
+    background: r('Component.Card.Background') as string,
+    stroke: r('Component.Card.Stroke') as string,
+    strokeWidth: r('Component.Card.Stroke-Width') as number,
+    cornerRadius: r('Component.Card.Corner-Radius') as number,
+    elevation: r('Component.Card.Elevation') as number,
+    headingSize: r('Component.Card.Heading-Size') as number,
+    headingWeight: r('Component.Card.Heading-Weight') as number,
+    headingFontFamily: r('Component.Card.Heading-Font-Family') as string,
+    headingColor: color.onSurface,
+    bodySize: r('Component.Card.Body-Size') as number,
+    bodyWeight: r('Component.Card.Body-Weight') as number,
+    bodyFontFamily: r('Component.Card.Body-Font-Family') as string,
+    bodyColor: color.onSurfaceMuted,
+  };
+
+  const textField = {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    cornerRadius: borderRadius.medium,
+    borderWidth: borderWidth.medium,
+    background: color.surface,
+    borderColor: color.border,
+    focusBorderColor: color.primary,
+    errorBorderColor: color.error,
+    textColor: color.onSurface,
+    placeholderColor: color.onSurfaceMuted,
+    textSize: fontSize.body,
+    fontFamily: fontFamily.interface,
+    labelColor: color.onSurface,
+    labelSize: fontSize.small,
+    helperColor: color.onSurfaceMuted,
+    helperSize: fontSize.small,
+    errorColor: color.error,
+  };
+
+  const checkbox = {
+    size: size.md,
+    cornerRadius: borderRadius.small,
+    borderWidth: borderWidth.medium,
+    gap: spacing.sm,
+    borderColor: color.border,
+    checkedBackground: color.primary,
+    checkedIconColor: color.onPrimary,
+    labelColor: color.onSurface,
+    labelSize: fontSize.body,
+    labelFontFamily: fontFamily.interface,
+    disabledOpacity: opacity.disabled,
+  };
+
+  const fab = {
+    size: size.xxl,
+    cornerRadius: borderRadius.full,
+    background: color.primary,
+    iconColor: color.onPrimary,
+    iconSize: size.lg,
+    hoverBackground: color.primaryHover,
+    pressedBackground: color.primaryPressed,
+    elevation: elevation.lg,
+    extendedPaddingHorizontal: spacing.lg,
+    extendedGap: spacing.sm,
+  };
+
+  const autocomplete = {
+    dropdownBackground: color.surface,
+    dropdownCornerRadius: borderRadius.medium,
+    dropdownElevation: elevation.sm,
+    optionHoverBackground: color.surfaceContainer,
+    optionTextColor: color.onSurface,
+    optionTextSize: fontSize.body,
+    optionPaddingHorizontal: spacing.lg,
+    optionPaddingVertical: spacing.sm,
+    fontFamily: fontFamily.interface,
+  };
+
+  const select = {
+    dropdownBackground: color.surface,
+    dropdownCornerRadius: borderRadius.medium,
+    dropdownElevation: elevation.sm,
+    optionHoverBackground: color.surfaceContainer,
+    indicatorColor: color.onSurfaceMuted,
+    optionTextColor: color.onSurface,
+    optionTextSize: fontSize.body,
+    optionPaddingHorizontal: spacing.lg,
+    optionPaddingVertical: spacing.sm,
+    fontFamily: fontFamily.interface,
+    selectedOptionBackground: color.primaryContainer,
+  };
+
+  const switchTokens = {
+    trackWidth: size.xxl,
+    trackHeight: size.lg,
+    trackCornerRadius: borderRadius.full,
+    trackOffBackground: color.border,
+    trackOnBackground: color.primary,
+    thumbSize: size.md,
+    thumbCornerRadius: borderRadius.full,
+    thumbOffBackground: color.surface,
+    thumbOnBackground: color.surface,
+    thumbOffset: spacing.xs,
+    labelColor: color.onSurface,
+    labelSize: fontSize.body,
+    labelFontFamily: fontFamily.interface,
+    gap: spacing.sm,
+  };
+
+  const badge = {
+    minSize: size.md,
+    paddingHorizontal: spacing.xs,
+    cornerRadius: borderRadius.full,
+    background: color.error,
+    contentColor: color.onError,
+    textSize: fontSize.small,
+    fontWeight: fontWeight.button,
+    fontFamily: fontFamily.interface,
+  };
+
+  const chip = {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    gap: spacing.xs,
+    cornerRadius: borderRadius.small,
+    background: color.surfaceContainer,
+    contentColor: color.onSecondaryContainer,
+    selectedBackground: color.primaryContainer,
+    selectedContentColor: color.onPrimaryContainer,
+    borderWidth: borderWidth.medium,
+    borderColor: color.border,
+    textSize: fontSize.small,
+    fontFamily: fontFamily.interface,
+  };
+
+  const divider = {
+    color: color.border,
+    thickness: borderWidth.thin,
+    margin: spacing.sm,
+  };
+
+  const icon = {
+    sizeSmall: size.md,
+    sizeMedium: size.lg,
+    sizeLarge: size.xl,
+  };
+
+  const table = {
+    headerBackground: color.surfaceContainer,
+    headerTextColor: color.onSurface,
+    headerFontWeight: fontWeight.heading,
+    headerTextSize: fontSize.small,
+    cellTextColor: color.onSurface,
+    cellTextSize: fontSize.body,
+    cellPaddingHorizontal: spacing.md,
+    cellPaddingVertical: spacing.sm,
+    rowBorderColor: color.surfaceContainer,
+    rowBorderWidth: borderWidth.thin,
+    rowHoverBackground: color.surfaceContainer,
+    cornerRadius: borderRadius.medium,
+    fontFamily: fontFamily.interface,
+  };
+
+  const alert = {
+    padding: spacing.lg,
+    gap: spacing.sm,
+    cornerRadius: borderRadius.medium,
+    borderWidth: borderWidth.medium,
+    background: color.surfaceContainer,
+    borderColor: color.border,
+    titleColor: color.onSurface,
+    bodyColor: color.onSurface,
+    iconColor: color.onSurface,
+    fontFamily: fontFamily.interface,
+    iconSize: size.lg,
+    titleSize: fontSize.body,
+    titleFontWeight: fontWeight.heading,
+    bodySize: fontSize.small,
+  };
+
+  const backdrop = {
+    color: color.overlay,
+    opacity: opacity.overlay,
+  };
+
+  const skeleton = {
+    background: color.surfaceContainer,
+    highlight: color.surfaceContainer,
+    cornerRadius: borderRadius.small,
+    circleSize: size.xl,
+  };
+
+  const snackbar = {
+    background: color.primary,
+    contentColor: color.onPrimary,
+    actionColor: color.primaryHover,
+    padding: spacing.lg,
+    gap: spacing.sm,
+    cornerRadius: borderRadius.medium,
+    elevation: elevation.md,
+    textSize: fontSize.body,
+    fontWeight: fontWeight.body,
+    fontFamily: fontFamily.interface,
+  };
+
+  const dialog = {
+    background: color.surface,
+    cornerRadius: borderRadius.large,
+    padding: spacing.xl,
+    gap: spacing.lg,
+    elevation: elevation.xl,
+    titleSize: fontSize.h3,
+    titleFontWeight: fontWeight.heading,
+    titleFontFamily: fontFamily.interface,
+    titleColor: color.onSurface,
+    bodySize: fontSize.body,
+    bodyFontFamily: fontFamily.interface,
+    bodyColor: color.onSurface,
+  };
+
+  const appBar = {
+    height: size.xxxl,
+    paddingHorizontal: spacing.lg,
+    background: color.surface,
+    titleColor: color.onSurface,
+    titleSize: fontSize.h3,
+    titleFontWeight: fontWeight.heading,
+    titleFontFamily: fontFamily.interface,
+    iconColor: color.onSurface,
+    borderColor: color.borderSubtle,
+    elevation: elevation.none,
+  };
+
+  const link = {
+    color: color.primary,
+    hoverColor: color.primaryHover,
+    visitedColor: color.onSurfaceMuted,
+    underlineOffset: size.xs,
+    fontWeight: fontWeight.body,
+  };
+
+  const speedDial = {
+    actionSize: size.xl,
+    actionBackground: color.surfaceContainer,
+    actionIconColor: color.onSurface,
+    actionIconSize: size.lg,
+    actionCornerRadius: borderRadius.full,
+    gap: spacing.sm,
+    actionElevation: elevation.sm,
+  };
+
+  const component = {
+    button,
+    card,
+    textField,
+    checkbox,
+    fab,
+    autocomplete,
+    select,
+    switch: switchTokens,
+    badge,
+    chip,
+    divider,
+    icon,
+    table,
+    alert,
+    backdrop,
+    skeleton,
+    snackbar,
+    dialog,
+    appBar,
+    link,
+    speedDial,
+  };
+
+  return { name: config.name, semantic, component };
+}
+
+/**
+ * Serialise a resolved theme object to a TypeScript source file.
+ */
+function buildThemeSource(
+  config: ThemeConfig,
+  tokens: Record<string, unknown>,
+): string {
+  const theme = buildResolvedTheme(config, tokens);
   return `// Auto-generated by src/tokens/build.ts – DO NOT EDIT
 import type { CastTheme } from '../../theme/types';
 
-export const ${config.exportName}: CastTheme = {
-  name: '${config.name}',
-
-  semantic: {
-    color: {
-      surface: ${s('Semantic.Colour.Surface')},
-      onSurface: ${s('Semantic.Colour.On-Surface')},
-      onSurfaceMuted: ${s('Semantic.Colour.On-Surface-Muted')},
-      surfaceContainer: ${s('Semantic.Colour.Surface-Container')},
-
-      primary: ${s('Semantic.Colour.Primary')},
-      onPrimary: ${s('Semantic.Colour.On-Primary')},
-      primaryHover: ${s('Semantic.Colour.Primary-Hover')},
-      primaryPressed: ${s('Semantic.Colour.Primary-Pressed')},
-
-      secondary: ${s('Semantic.Colour.Secondary')},
-      onSecondary: ${s('Semantic.Colour.On-Secondary')},
-
-      success: ${s('Semantic.Colour.Success')},
-      onSuccess: ${s('Semantic.Colour.On-Success')},
-      error: ${s('Semantic.Colour.Error')},
-      onError: ${s('Semantic.Colour.On-Error')},
-      warning: ${s('Semantic.Colour.Warning')},
-      onWarning: ${s('Semantic.Colour.On-Warning')},
-
-      border: ${s('Semantic.Colour.Border')},
-      borderSubtle: ${s('Semantic.Colour.Border-Subtle')},
-
-      disabledContainer: ${s('Semantic.Colour.Disabled-Container')},
-      onDisabled: ${s('Semantic.Colour.On-Disabled')},
-
-      primaryContainer: ${s('Semantic.Colour.Primary-Container')},
-      onPrimaryContainer: ${s('Semantic.Colour.On-Primary-Container')},
-      secondaryContainer: ${s('Semantic.Colour.Secondary-Container')},
-      onSecondaryContainer: ${s('Semantic.Colour.On-Secondary-Container')},
-      errorContainer: ${s('Semantic.Colour.Error-Container')},
-      onErrorContainer: ${s('Semantic.Colour.On-Error-Container')},
-      successContainer: ${s('Semantic.Colour.Success-Container')},
-      onSuccessContainer: ${s('Semantic.Colour.On-Success-Container')},
-      warningContainer: ${s('Semantic.Colour.Warning-Container')},
-      onWarningContainer: ${s('Semantic.Colour.On-Warning-Container')},
-
-      overlay: ${s('Semantic.Colour.Overlay')},
-    },
-
-    fontFamily: {
-      brand: ${s('Semantic.Font family.Font-Brand')},
-      interface: ${s('Semantic.Font family.Font-Interface')},
-      data: ${s('Semantic.Font family.Font-Data')},
-    },
-
-    fontSize: {
-      display: ${r('Semantic.Text size.Text-size-display')},
-      h1: ${r('Semantic.Text size.Text-size-h1')},
-      h2: ${r('Semantic.Text size.Text-size-h2')},
-      h3: ${r('Semantic.Text size.Text-size-h3')},
-      body: ${r('Semantic.Text size.Text-size-body')},
-      small: ${r('Semantic.Text size.Text-size-small')},
-      button: ${r('Semantic.Text size.Text-size-button')},
-    },
-
-    fontWeight: {
-      heading: ${r('Semantic.Font weight.Weight-heading')},
-      body: ${r('Semantic.Font weight.Weight-body')},
-      button: ${r('Semantic.Font weight.Weight-button')},
-    },
-
-    lineHeight: {
-      heading: ${r('Semantic.Line height.Line-Height-heading')},
-      body: ${r('Semantic.Line height.Line-Height-body')},
-      uiLabel: ${r('Semantic.Line height.Line-Height-UI-label')},
-    },
-
-    letterSpacing: {
-      heading: ${r('Semantic.Letter spacing.Tracking-heading')},
-      body: ${r('Semantic.Letter spacing.Tracking-body')},
-      label: ${r('Semantic.Letter spacing.Tracking-label')},
-    },
-
-    paragraphSpacing: {
-      body: ${r('Semantic.Paragraph spacing.Para-body')},
-      editorial: ${r('Semantic.Paragraph spacing.Para-editorial')},
-    },
-
-    paragraphIndent: {
-      editorial: ${r('Semantic.Paragraph indent.Indent-editorial')},
-    },
-
-    borderRadius: {
-      small: ${r('Semantic.Border radius.Radius-Small')},
-      medium: ${r('Semantic.Border radius.Radius-Medium')},
-      large: ${r('Semantic.Border radius.Radius-Large')},
-      full: ${r('Semantic.Border radius.Radius-Full')},
-    },
-
-    spacing: {
-      xs: ${r('Semantic.Spacing.Spacing-XS')},
-      sm: ${r('Semantic.Spacing.Spacing-SM')},
-      md: ${r('Semantic.Spacing.Spacing-MD')},
-      lg: ${r('Semantic.Spacing.Spacing-LG')},
-      xl: ${r('Semantic.Spacing.Spacing-XL')},
-    },
-
-    borderWidth: {
-      thin: ${r('Semantic.Border width.Border-Width-Thin')},
-      medium: ${r('Semantic.Border width.Border-Width-Medium')},
-    },
-
-    elevation: {
-      none: ${r('Semantic.Elevation.Elevation-None')},
-      xs: ${r('Semantic.Elevation.Elevation-XS')},
-      sm: ${r('Semantic.Elevation.Elevation-SM')},
-      md: ${r('Semantic.Elevation.Elevation-MD')},
-      lg: ${r('Semantic.Elevation.Elevation-LG')},
-      xl: ${r('Semantic.Elevation.Elevation-XL')},
-    },
-
-    size: {
-      xs: ${r('Semantic.Size.Size-XS')},
-      sm: ${r('Semantic.Size.Size-SM')},
-      md: ${r('Semantic.Size.Size-MD')},
-      lg: ${r('Semantic.Size.Size-LG')},
-      xl: ${r('Semantic.Size.Size-XL')},
-      xxl: ${r('Semantic.Size.Size-2XL')},
-      xxxl: ${r('Semantic.Size.Size-3XL')},
-    },
-
-    opacity: {
-      disabled: ${r('Semantic.Opacity.Opacity-Disabled')},
-      overlay: ${r('Semantic.Opacity.Opacity-Overlay')},
-    },
-  },
-
-  component: {
-    button: {
-      paddingHorizontal: ${r('Component.Button.Padding-Horizontal')},
-      paddingVertical: ${r('Component.Button.Padding-Vertical')},
-      gap: ${r('Component.Button.Gap')},
-      cornerRadius: ${r('Component.Button.Corner-Radius')},
-      borderWidth: ${r('Component.Button.Border-Width')},
-      textSize: ${r('Component.Button.Text-Size')},
-      fontWeight: ${r('Component.Button.Font-Weight')},
-      lineHeight: ${r('Component.Button.Line-Height')},
-      fontFamily: ${s('Component.Button.Font-Family')},
-
-      filled: {
-        background: ${s('Component.Button.Filled.Background')},
-        content: ${s('Component.Button.Filled.Content')},
-      },
-      outline: {
-        background: ${s('Component.Button.Outline.Background')},
-        border: ${s('Component.Button.Outline.Border')},
-        content: ${s('Component.Button.Outline.Content')},
-      },
-      text: {
-        background: ${s('Component.Button.Text.Background')},
-        content: ${s('Component.Button.Text.Content')},
-      },
-      state: {
-        hoverBackground: ${s('Component.Button.State.Hover-Background')},
-        pressedBackground: ${s('Component.Button.State.Pressed-Background')},
-        disabledBackground: ${s('Component.Button.State.Disabled-Background')},
-        disabledContent: ${s('Component.Button.State.Disabled-Content')},
-      },
-    },
-
-    card: {
-      padding: ${r('Component.Card.Padding')},
-      gap: ${r('Component.Card.Gap')},
-      background: ${s('Component.Card.Background')},
-      stroke: ${s('Component.Card.Stroke')},
-      strokeWidth: ${r('Component.Card.Stroke-Width')},
-      cornerRadius: ${r('Component.Card.Corner-Radius')},
-      elevation: ${r('Component.Card.Elevation')},
-      headingSize: ${r('Component.Card.Heading-Size')},
-      headingWeight: ${r('Component.Card.Heading-Weight')},
-      headingFontFamily: ${s('Component.Card.Heading-Font-Family')},
-      headingColor: ${s('Component.Card.Heading-Color')},
-      bodySize: ${r('Component.Card.Body-Size')},
-      bodyWeight: ${r('Component.Card.Body-Weight')},
-      bodyFontFamily: ${s('Component.Card.Body-Font-Family')},
-      bodyColor: ${s('Component.Card.Body-Color')},
-    },
-
-    textField: {
-      paddingHorizontal: ${r('Component.TextField.Padding-Horizontal')},
-      paddingVertical: ${r('Component.TextField.Padding-Vertical')},
-      cornerRadius: ${r('Component.TextField.Corner-Radius')},
-      borderWidth: ${r('Component.TextField.Border-Width')},
-      background: ${s('Component.TextField.Background')},
-      borderColor: ${s('Component.TextField.Border-Color')},
-      focusBorderColor: ${s('Component.TextField.Focus-Border-Color')},
-      errorBorderColor: ${s('Component.TextField.Error-Border-Color')},
-      textColor: ${s('Component.TextField.Text-Color')},
-      placeholderColor: ${s('Component.TextField.Placeholder-Color')},
-      textSize: ${r('Component.TextField.Text-Size')},
-      fontFamily: ${s('Component.TextField.Font-Family')},
-      labelColor: ${s('Component.TextField.Label-Color')},
-      labelSize: ${r('Component.TextField.Label-Size')},
-      helperColor: ${s('Component.TextField.Helper-Color')},
-      helperSize: ${r('Component.TextField.Helper-Size')},
-      errorColor: ${s('Component.TextField.Error-Color')},
-    },
-
-    checkbox: {
-      size: ${r('Component.Checkbox.Size')},
-      cornerRadius: ${r('Component.Checkbox.Corner-Radius')},
-      borderWidth: ${r('Component.Checkbox.Border-Width')},
-      gap: ${r('Component.Checkbox.Gap')},
-      borderColor: ${s('Component.Checkbox.Border-Color')},
-      checkedBackground: ${s('Component.Checkbox.Checked-Background')},
-      checkedIconColor: ${s('Component.Checkbox.Checked-Icon-Color')},
-      labelColor: ${s('Component.Checkbox.Label-Color')},
-      labelSize: ${r('Component.Checkbox.Label-Size')},
-      labelFontFamily: ${s('Component.Checkbox.Label-Font-Family')},
-      disabledOpacity: ${r('Component.Checkbox.Disabled-Opacity')},
-    },
-
-    fab: {
-      size: ${r('Component.FAB.Size')},
-      cornerRadius: ${r('Component.FAB.Corner-Radius')},
-      background: ${s('Component.FAB.Background')},
-      iconColor: ${s('Component.FAB.Icon-Color')},
-      iconSize: ${r('Component.FAB.Icon-Size')},
-      hoverBackground: ${s('Component.FAB.Hover-Background')},
-      pressedBackground: ${s('Component.FAB.Pressed-Background')},
-      elevation: ${r('Component.FAB.Elevation')},
-      extendedPaddingHorizontal: ${r('Component.FAB.Extended-Padding-Horizontal')},
-      extendedGap: ${r('Component.FAB.Extended-Gap')},
-    },
-
-    autocomplete: {
-      dropdownBackground: ${s('Component.Autocomplete.Dropdown-Background')},
-      dropdownCornerRadius: ${r('Component.Autocomplete.Dropdown-Corner-Radius')},
-      dropdownElevation: ${r('Component.Autocomplete.Dropdown-Elevation')},
-      optionHoverBackground: ${s('Component.Autocomplete.Option-Hover-Background')},
-      optionTextColor: ${s('Component.Autocomplete.Option-Text-Color')},
-      optionTextSize: ${r('Component.Autocomplete.Option-Text-Size')},
-      optionPaddingHorizontal: ${r('Component.Autocomplete.Option-Padding-Horizontal')},
-      optionPaddingVertical: ${r('Component.Autocomplete.Option-Padding-Vertical')},
-      fontFamily: ${s('Component.Autocomplete.Font-Family')},
-    },
-
-    select: {
-      dropdownBackground: ${s('Component.Select.Dropdown-Background')},
-      dropdownCornerRadius: ${r('Component.Select.Dropdown-Corner-Radius')},
-      dropdownElevation: ${r('Component.Select.Dropdown-Elevation')},
-      optionHoverBackground: ${s('Component.Select.Option-Hover-Background')},
-      indicatorColor: ${s('Component.Select.Indicator-Color')},
-      optionTextColor: ${s('Component.Select.Option-Text-Color')},
-      optionTextSize: ${r('Component.Select.Option-Text-Size')},
-      optionPaddingHorizontal: ${r('Component.Select.Option-Padding-Horizontal')},
-      optionPaddingVertical: ${r('Component.Select.Option-Padding-Vertical')},
-      fontFamily: ${s('Component.Select.Font-Family')},
-      selectedOptionBackground: ${s('Component.Select.Selected-Option-Background')},
-    },
-
-    switch: {
-      trackWidth: ${r('Component.Switch.Track-Width')},
-      trackHeight: ${r('Component.Switch.Track-Height')},
-      trackCornerRadius: ${r('Component.Switch.Track-Corner-Radius')},
-      trackOffBackground: ${s('Component.Switch.Track-Off-Background')},
-      trackOnBackground: ${s('Component.Switch.Track-On-Background')},
-      thumbSize: ${r('Component.Switch.Thumb-Size')},
-      thumbCornerRadius: ${r('Component.Switch.Thumb-Corner-Radius')},
-      thumbOffBackground: ${s('Component.Switch.Thumb-Off-Background')},
-      thumbOnBackground: ${s('Component.Switch.Thumb-On-Background')},
-      thumbOffset: ${r('Component.Switch.Thumb-Offset')},
-      labelColor: ${s('Component.Switch.Label-Color')},
-      labelSize: ${r('Component.Switch.Label-Size')},
-      labelFontFamily: ${s('Component.Switch.Label-Font-Family')},
-      gap: ${r('Component.Switch.Gap')},
-    },
-
-    badge: {
-      minSize: ${r('Component.Badge.Min-Size')},
-      paddingHorizontal: ${r('Component.Badge.Padding-Horizontal')},
-      cornerRadius: ${r('Component.Badge.Corner-Radius')},
-      background: ${s('Component.Badge.Background')},
-      contentColor: ${s('Component.Badge.Content-Color')},
-      textSize: ${r('Component.Badge.Text-Size')},
-      fontWeight: ${r('Component.Badge.Font-Weight')},
-      fontFamily: ${s('Component.Badge.Font-Family')},
-    },
-
-    chip: {
-      paddingHorizontal: ${r('Component.Chip.Padding-Horizontal')},
-      paddingVertical: ${r('Component.Chip.Padding-Vertical')},
-      gap: ${r('Component.Chip.Gap')},
-      cornerRadius: ${r('Component.Chip.Corner-Radius')},
-      background: ${s('Component.Chip.Background')},
-      contentColor: ${s('Component.Chip.Content-Color')},
-      selectedBackground: ${s('Component.Chip.Selected-Background')},
-      selectedContentColor: ${s('Component.Chip.Selected-Content-Color')},
-      borderWidth: ${r('Component.Chip.Border-Width')},
-      borderColor: ${s('Component.Chip.Border-Color')},
-      textSize: ${r('Component.Chip.Text-Size')},
-      fontFamily: ${s('Component.Chip.Font-Family')},
-    },
-
-    divider: {
-      color: ${s('Component.Divider.Color')},
-      thickness: ${r('Component.Divider.Thickness')},
-      margin: ${r('Component.Divider.Margin')},
-    },
-
-    icon: {
-      sizeSmall: ${r('Component.Icon.Size-Small')},
-      sizeMedium: ${r('Component.Icon.Size-Medium')},
-      sizeLarge: ${r('Component.Icon.Size-Large')},
-    },
-
-    table: {
-      headerBackground: ${s('Component.Table.Header-Background')},
-      headerTextColor: ${s('Component.Table.Header-Text-Color')},
-      headerFontWeight: ${r('Component.Table.Header-Font-Weight')},
-      headerTextSize: ${r('Component.Table.Header-Text-Size')},
-      cellTextColor: ${s('Component.Table.Cell-Text-Color')},
-      cellTextSize: ${r('Component.Table.Cell-Text-Size')},
-      cellPaddingHorizontal: ${r('Component.Table.Cell-Padding-Horizontal')},
-      cellPaddingVertical: ${r('Component.Table.Cell-Padding-Vertical')},
-      rowBorderColor: ${s('Component.Table.Row-Border-Color')},
-      rowBorderWidth: ${r('Component.Table.Row-Border-Width')},
-      rowHoverBackground: ${s('Component.Table.Row-Hover-Background')},
-      cornerRadius: ${r('Component.Table.Corner-Radius')},
-      fontFamily: ${s('Component.Table.Font-Family')},
-    },
-
-    alert: {
-      padding: ${r('Component.Alert.Padding')},
-      gap: ${r('Component.Alert.Gap')},
-      cornerRadius: ${r('Component.Alert.Corner-Radius')},
-      borderWidth: ${r('Component.Alert.Border-Width')},
-      background: ${s('Component.Alert.Background')},
-      borderColor: ${s('Component.Alert.Border-Color')},
-      titleColor: ${s('Component.Alert.Title-Color')},
-      bodyColor: ${s('Component.Alert.Body-Color')},
-      iconColor: ${s('Component.Alert.Icon-Color')},
-      fontFamily: ${s('Component.Alert.Font-Family')},
-      iconSize: ${r('Component.Alert.Icon-Size')},
-      titleSize: ${r('Component.Alert.Title-Size')},
-      titleFontWeight: ${r('Component.Alert.Title-Font-Weight')},
-      bodySize: ${r('Component.Alert.Body-Size')},
-    },
-
-    backdrop: {
-      color: ${s('Component.Backdrop.Color')},
-      opacity: ${r('Component.Backdrop.Opacity')},
-    },
-
-    skeleton: {
-      background: ${s('Component.Skeleton.Background')},
-      highlight: ${s('Component.Skeleton.Highlight')},
-      cornerRadius: ${r('Component.Skeleton.Corner-Radius')},
-      circleSize: ${r('Component.Skeleton.Circle-Size')},
-    },
-
-    snackbar: {
-      background: ${s('Component.Snackbar.Background')},
-      contentColor: ${s('Component.Snackbar.Content-Color')},
-      actionColor: ${s('Component.Snackbar.Action-Color')},
-      padding: ${r('Component.Snackbar.Padding')},
-      gap: ${r('Component.Snackbar.Gap')},
-      cornerRadius: ${r('Component.Snackbar.Corner-Radius')},
-      elevation: ${r('Component.Snackbar.Elevation')},
-      textSize: ${r('Component.Snackbar.Text-Size')},
-      fontWeight: ${r('Component.Snackbar.Font-Weight')},
-      fontFamily: ${s('Component.Snackbar.Font-Family')},
-    },
-
-    dialog: {
-      background: ${s('Component.Dialog.Background')},
-      cornerRadius: ${r('Component.Dialog.Corner-Radius')},
-      padding: ${r('Component.Dialog.Padding')},
-      gap: ${r('Component.Dialog.Gap')},
-      elevation: ${r('Component.Dialog.Elevation')},
-      titleSize: ${r('Component.Dialog.Title-Size')},
-      titleFontWeight: ${r('Component.Dialog.Title-Font-Weight')},
-      titleFontFamily: ${s('Component.Dialog.Title-Font-Family')},
-      titleColor: ${s('Component.Dialog.Title-Color')},
-      bodySize: ${r('Component.Dialog.Body-Size')},
-      bodyFontFamily: ${s('Component.Dialog.Body-Font-Family')},
-      bodyColor: ${s('Component.Dialog.Body-Color')},
-    },
-
-    appBar: {
-      height: ${r('Component.AppBar.Height')},
-      paddingHorizontal: ${r('Component.AppBar.Padding-Horizontal')},
-      background: ${s('Component.AppBar.Background')},
-      titleColor: ${s('Component.AppBar.Title-Color')},
-      titleSize: ${r('Component.AppBar.Title-Size')},
-      titleFontWeight: ${r('Component.AppBar.Title-Font-Weight')},
-      titleFontFamily: ${s('Component.AppBar.Title-Font-Family')},
-      iconColor: ${s('Component.AppBar.Icon-Color')},
-      borderColor: ${s('Component.AppBar.Border-Color')},
-      elevation: ${r('Component.AppBar.Elevation')},
-    },
-
-    link: {
-      color: ${s('Component.Link.Color')},
-      hoverColor: ${s('Component.Link.Hover-Color')},
-      visitedColor: ${s('Component.Link.Visited-Color')},
-      underlineOffset: ${r('Component.Link.Underline-Offset')},
-      fontWeight: ${r('Component.Link.Font-Weight')},
-    },
-
-    speedDial: {
-      actionSize: ${r('Component.SpeedDial.Action-Size')},
-      actionBackground: ${s('Component.SpeedDial.Action-Background')},
-      actionIconColor: ${s('Component.SpeedDial.Action-Icon-Color')},
-      actionIconSize: ${r('Component.SpeedDial.Action-Icon-Size')},
-      actionCornerRadius: ${r('Component.SpeedDial.Action-Corner-Radius')},
-      gap: ${r('Component.SpeedDial.Gap')},
-      actionElevation: ${r('Component.SpeedDial.Action-Elevation')},
-    },
-  },
-};
+export const ${config.exportName}: CastTheme = ${toTS(theme, 2)};
 `;
 }
 
@@ -530,385 +612,12 @@ export const ${config.exportName}: CastTheme = {
  * Build a resolved JSON reference file for the given theme.
  * Consumers copy this as a starting point and modify values.
  */
-function buildReferenceJson(config: ThemeConfig, tokens: Record<string, unknown>): string {
-  const r = (p: string) => resolve(tokens, p);
-
-  const reference = {
-    name: config.name,
-    semantic: {
-      color: {
-        surface: r('Semantic.Colour.Surface'),
-        onSurface: r('Semantic.Colour.On-Surface'),
-        onSurfaceMuted: r('Semantic.Colour.On-Surface-Muted'),
-        surfaceContainer: r('Semantic.Colour.Surface-Container'),
-        primary: r('Semantic.Colour.Primary'),
-        onPrimary: r('Semantic.Colour.On-Primary'),
-        primaryHover: r('Semantic.Colour.Primary-Hover'),
-        primaryPressed: r('Semantic.Colour.Primary-Pressed'),
-        secondary: r('Semantic.Colour.Secondary'),
-        onSecondary: r('Semantic.Colour.On-Secondary'),
-        success: r('Semantic.Colour.Success'),
-        onSuccess: r('Semantic.Colour.On-Success'),
-        error: r('Semantic.Colour.Error'),
-        onError: r('Semantic.Colour.On-Error'),
-        warning: r('Semantic.Colour.Warning'),
-        onWarning: r('Semantic.Colour.On-Warning'),
-        border: r('Semantic.Colour.Border'),
-        borderSubtle: r('Semantic.Colour.Border-Subtle'),
-        disabledContainer: r('Semantic.Colour.Disabled-Container'),
-        onDisabled: r('Semantic.Colour.On-Disabled'),
-        primaryContainer: r('Semantic.Colour.Primary-Container'),
-        onPrimaryContainer: r('Semantic.Colour.On-Primary-Container'),
-        secondaryContainer: r('Semantic.Colour.Secondary-Container'),
-        onSecondaryContainer: r('Semantic.Colour.On-Secondary-Container'),
-        errorContainer: r('Semantic.Colour.Error-Container'),
-        onErrorContainer: r('Semantic.Colour.On-Error-Container'),
-        successContainer: r('Semantic.Colour.Success-Container'),
-        onSuccessContainer: r('Semantic.Colour.On-Success-Container'),
-        warningContainer: r('Semantic.Colour.Warning-Container'),
-        onWarningContainer: r('Semantic.Colour.On-Warning-Container'),
-        overlay: r('Semantic.Colour.Overlay'),
-      },
-      fontFamily: {
-        brand: r('Semantic.Font family.Font-Brand'),
-        interface: r('Semantic.Font family.Font-Interface'),
-        data: r('Semantic.Font family.Font-Data'),
-      },
-      fontSize: {
-        display: r('Semantic.Text size.Text-size-display'),
-        h1: r('Semantic.Text size.Text-size-h1'),
-        h2: r('Semantic.Text size.Text-size-h2'),
-        h3: r('Semantic.Text size.Text-size-h3'),
-        body: r('Semantic.Text size.Text-size-body'),
-        small: r('Semantic.Text size.Text-size-small'),
-        button: r('Semantic.Text size.Text-size-button'),
-      },
-      fontWeight: {
-        heading: r('Semantic.Font weight.Weight-heading'),
-        body: r('Semantic.Font weight.Weight-body'),
-        button: r('Semantic.Font weight.Weight-button'),
-      },
-      lineHeight: {
-        heading: r('Semantic.Line height.Line-Height-heading'),
-        body: r('Semantic.Line height.Line-Height-body'),
-        uiLabel: r('Semantic.Line height.Line-Height-UI-label'),
-      },
-      letterSpacing: {
-        heading: r('Semantic.Letter spacing.Tracking-heading'),
-        body: r('Semantic.Letter spacing.Tracking-body'),
-        label: r('Semantic.Letter spacing.Tracking-label'),
-      },
-      paragraphSpacing: {
-        body: r('Semantic.Paragraph spacing.Para-body'),
-        editorial: r('Semantic.Paragraph spacing.Para-editorial'),
-      },
-      paragraphIndent: {
-        editorial: r('Semantic.Paragraph indent.Indent-editorial'),
-      },
-      borderRadius: {
-        small: r('Semantic.Border radius.Radius-Small'),
-        medium: r('Semantic.Border radius.Radius-Medium'),
-        large: r('Semantic.Border radius.Radius-Large'),
-        full: r('Semantic.Border radius.Radius-Full'),
-      },
-      spacing: {
-        xs: r('Semantic.Spacing.Spacing-XS'),
-        sm: r('Semantic.Spacing.Spacing-SM'),
-        md: r('Semantic.Spacing.Spacing-MD'),
-        lg: r('Semantic.Spacing.Spacing-LG'),
-        xl: r('Semantic.Spacing.Spacing-XL'),
-      },
-      borderWidth: {
-        thin: r('Semantic.Border width.Border-Width-Thin'),
-        medium: r('Semantic.Border width.Border-Width-Medium'),
-      },
-      elevation: {
-        none: r('Semantic.Elevation.Elevation-None'),
-        xs: r('Semantic.Elevation.Elevation-XS'),
-        sm: r('Semantic.Elevation.Elevation-SM'),
-        md: r('Semantic.Elevation.Elevation-MD'),
-        lg: r('Semantic.Elevation.Elevation-LG'),
-        xl: r('Semantic.Elevation.Elevation-XL'),
-      },
-      size: {
-        xs: r('Semantic.Size.Size-XS'),
-        sm: r('Semantic.Size.Size-SM'),
-        md: r('Semantic.Size.Size-MD'),
-        lg: r('Semantic.Size.Size-LG'),
-        xl: r('Semantic.Size.Size-XL'),
-        xxl: r('Semantic.Size.Size-2XL'),
-        xxxl: r('Semantic.Size.Size-3XL'),
-      },
-      opacity: {
-        disabled: r('Semantic.Opacity.Opacity-Disabled'),
-        overlay: r('Semantic.Opacity.Opacity-Overlay'),
-      },
-    },
-    component: {
-      button: {
-        paddingHorizontal: r('Component.Button.Padding-Horizontal'),
-        paddingVertical: r('Component.Button.Padding-Vertical'),
-        gap: r('Component.Button.Gap'),
-        cornerRadius: r('Component.Button.Corner-Radius'),
-        borderWidth: r('Component.Button.Border-Width'),
-        textSize: r('Component.Button.Text-Size'),
-        fontWeight: r('Component.Button.Font-Weight'),
-        lineHeight: r('Component.Button.Line-Height'),
-        fontFamily: r('Component.Button.Font-Family'),
-        filled: {
-          background: r('Component.Button.Filled.Background'),
-          content: r('Component.Button.Filled.Content'),
-        },
-        outline: {
-          background: r('Component.Button.Outline.Background'),
-          border: r('Component.Button.Outline.Border'),
-          content: r('Component.Button.Outline.Content'),
-        },
-        text: {
-          background: r('Component.Button.Text.Background'),
-          content: r('Component.Button.Text.Content'),
-        },
-        state: {
-          hoverBackground: r('Component.Button.State.Hover-Background'),
-          pressedBackground: r('Component.Button.State.Pressed-Background'),
-          disabledBackground: r('Component.Button.State.Disabled-Background'),
-          disabledContent: r('Component.Button.State.Disabled-Content'),
-        },
-      },
-      card: {
-        padding: r('Component.Card.Padding'),
-        gap: r('Component.Card.Gap'),
-        background: r('Component.Card.Background'),
-        stroke: r('Component.Card.Stroke'),
-        strokeWidth: r('Component.Card.Stroke-Width'),
-        cornerRadius: r('Component.Card.Corner-Radius'),
-        elevation: r('Component.Card.Elevation'),
-        headingSize: r('Component.Card.Heading-Size'),
-        headingWeight: r('Component.Card.Heading-Weight'),
-        headingFontFamily: r('Component.Card.Heading-Font-Family'),
-        headingColor: r('Component.Card.Heading-Color'),
-        bodySize: r('Component.Card.Body-Size'),
-        bodyWeight: r('Component.Card.Body-Weight'),
-        bodyFontFamily: r('Component.Card.Body-Font-Family'),
-        bodyColor: r('Component.Card.Body-Color'),
-      },
-      textField: {
-        paddingHorizontal: r('Component.TextField.Padding-Horizontal'),
-        paddingVertical: r('Component.TextField.Padding-Vertical'),
-        cornerRadius: r('Component.TextField.Corner-Radius'),
-        borderWidth: r('Component.TextField.Border-Width'),
-        background: r('Component.TextField.Background'),
-        borderColor: r('Component.TextField.Border-Color'),
-        focusBorderColor: r('Component.TextField.Focus-Border-Color'),
-        errorBorderColor: r('Component.TextField.Error-Border-Color'),
-        textColor: r('Component.TextField.Text-Color'),
-        placeholderColor: r('Component.TextField.Placeholder-Color'),
-        textSize: r('Component.TextField.Text-Size'),
-        fontFamily: r('Component.TextField.Font-Family'),
-        labelColor: r('Component.TextField.Label-Color'),
-        labelSize: r('Component.TextField.Label-Size'),
-        helperColor: r('Component.TextField.Helper-Color'),
-        helperSize: r('Component.TextField.Helper-Size'),
-        errorColor: r('Component.TextField.Error-Color'),
-      },
-      checkbox: {
-        size: r('Component.Checkbox.Size'),
-        cornerRadius: r('Component.Checkbox.Corner-Radius'),
-        borderWidth: r('Component.Checkbox.Border-Width'),
-        gap: r('Component.Checkbox.Gap'),
-        borderColor: r('Component.Checkbox.Border-Color'),
-        checkedBackground: r('Component.Checkbox.Checked-Background'),
-        checkedIconColor: r('Component.Checkbox.Checked-Icon-Color'),
-        labelColor: r('Component.Checkbox.Label-Color'),
-        labelSize: r('Component.Checkbox.Label-Size'),
-        labelFontFamily: r('Component.Checkbox.Label-Font-Family'),
-        disabledOpacity: r('Component.Checkbox.Disabled-Opacity'),
-      },
-      fab: {
-        size: r('Component.FAB.Size'),
-        cornerRadius: r('Component.FAB.Corner-Radius'),
-        background: r('Component.FAB.Background'),
-        iconColor: r('Component.FAB.Icon-Color'),
-        iconSize: r('Component.FAB.Icon-Size'),
-        hoverBackground: r('Component.FAB.Hover-Background'),
-        pressedBackground: r('Component.FAB.Pressed-Background'),
-        elevation: r('Component.FAB.Elevation'),
-        extendedPaddingHorizontal: r('Component.FAB.Extended-Padding-Horizontal'),
-        extendedGap: r('Component.FAB.Extended-Gap'),
-      },
-      autocomplete: {
-        dropdownBackground: r('Component.Autocomplete.Dropdown-Background'),
-        dropdownCornerRadius: r('Component.Autocomplete.Dropdown-Corner-Radius'),
-        dropdownElevation: r('Component.Autocomplete.Dropdown-Elevation'),
-        optionHoverBackground: r('Component.Autocomplete.Option-Hover-Background'),
-        optionTextColor: r('Component.Autocomplete.Option-Text-Color'),
-        optionTextSize: r('Component.Autocomplete.Option-Text-Size'),
-        optionPaddingHorizontal: r('Component.Autocomplete.Option-Padding-Horizontal'),
-        optionPaddingVertical: r('Component.Autocomplete.Option-Padding-Vertical'),
-        fontFamily: r('Component.Autocomplete.Font-Family'),
-      },
-      select: {
-        dropdownBackground: r('Component.Select.Dropdown-Background'),
-        dropdownCornerRadius: r('Component.Select.Dropdown-Corner-Radius'),
-        dropdownElevation: r('Component.Select.Dropdown-Elevation'),
-        optionHoverBackground: r('Component.Select.Option-Hover-Background'),
-        indicatorColor: r('Component.Select.Indicator-Color'),
-        optionTextColor: r('Component.Select.Option-Text-Color'),
-        optionTextSize: r('Component.Select.Option-Text-Size'),
-        optionPaddingHorizontal: r('Component.Select.Option-Padding-Horizontal'),
-        optionPaddingVertical: r('Component.Select.Option-Padding-Vertical'),
-        fontFamily: r('Component.Select.Font-Family'),
-        selectedOptionBackground: r('Component.Select.Selected-Option-Background'),
-      },
-      switch: {
-        trackWidth: r('Component.Switch.Track-Width'),
-        trackHeight: r('Component.Switch.Track-Height'),
-        trackCornerRadius: r('Component.Switch.Track-Corner-Radius'),
-        trackOffBackground: r('Component.Switch.Track-Off-Background'),
-        trackOnBackground: r('Component.Switch.Track-On-Background'),
-        thumbSize: r('Component.Switch.Thumb-Size'),
-        thumbCornerRadius: r('Component.Switch.Thumb-Corner-Radius'),
-        thumbOffBackground: r('Component.Switch.Thumb-Off-Background'),
-        thumbOnBackground: r('Component.Switch.Thumb-On-Background'),
-        thumbOffset: r('Component.Switch.Thumb-Offset'),
-        labelColor: r('Component.Switch.Label-Color'),
-        labelSize: r('Component.Switch.Label-Size'),
-        labelFontFamily: r('Component.Switch.Label-Font-Family'),
-        gap: r('Component.Switch.Gap'),
-      },
-      badge: {
-        minSize: r('Component.Badge.Min-Size'),
-        paddingHorizontal: r('Component.Badge.Padding-Horizontal'),
-        cornerRadius: r('Component.Badge.Corner-Radius'),
-        background: r('Component.Badge.Background'),
-        contentColor: r('Component.Badge.Content-Color'),
-        textSize: r('Component.Badge.Text-Size'),
-        fontWeight: r('Component.Badge.Font-Weight'),
-        fontFamily: r('Component.Badge.Font-Family'),
-      },
-      chip: {
-        paddingHorizontal: r('Component.Chip.Padding-Horizontal'),
-        paddingVertical: r('Component.Chip.Padding-Vertical'),
-        gap: r('Component.Chip.Gap'),
-        cornerRadius: r('Component.Chip.Corner-Radius'),
-        background: r('Component.Chip.Background'),
-        contentColor: r('Component.Chip.Content-Color'),
-        selectedBackground: r('Component.Chip.Selected-Background'),
-        selectedContentColor: r('Component.Chip.Selected-Content-Color'),
-        borderWidth: r('Component.Chip.Border-Width'),
-        borderColor: r('Component.Chip.Border-Color'),
-        textSize: r('Component.Chip.Text-Size'),
-        fontFamily: r('Component.Chip.Font-Family'),
-      },
-      divider: {
-        color: r('Component.Divider.Color'),
-        thickness: r('Component.Divider.Thickness'),
-        margin: r('Component.Divider.Margin'),
-      },
-      icon: {
-        sizeSmall: r('Component.Icon.Size-Small'),
-        sizeMedium: r('Component.Icon.Size-Medium'),
-        sizeLarge: r('Component.Icon.Size-Large'),
-      },
-      table: {
-        headerBackground: r('Component.Table.Header-Background'),
-        headerTextColor: r('Component.Table.Header-Text-Color'),
-        headerFontWeight: r('Component.Table.Header-Font-Weight'),
-        headerTextSize: r('Component.Table.Header-Text-Size'),
-        cellTextColor: r('Component.Table.Cell-Text-Color'),
-        cellTextSize: r('Component.Table.Cell-Text-Size'),
-        cellPaddingHorizontal: r('Component.Table.Cell-Padding-Horizontal'),
-        cellPaddingVertical: r('Component.Table.Cell-Padding-Vertical'),
-        rowBorderColor: r('Component.Table.Row-Border-Color'),
-        rowBorderWidth: r('Component.Table.Row-Border-Width'),
-        rowHoverBackground: r('Component.Table.Row-Hover-Background'),
-        cornerRadius: r('Component.Table.Corner-Radius'),
-        fontFamily: r('Component.Table.Font-Family'),
-      },
-      alert: {
-        padding: r('Component.Alert.Padding'),
-        gap: r('Component.Alert.Gap'),
-        cornerRadius: r('Component.Alert.Corner-Radius'),
-        borderWidth: r('Component.Alert.Border-Width'),
-        background: r('Component.Alert.Background'),
-        borderColor: r('Component.Alert.Border-Color'),
-        titleColor: r('Component.Alert.Title-Color'),
-        bodyColor: r('Component.Alert.Body-Color'),
-        iconColor: r('Component.Alert.Icon-Color'),
-        fontFamily: r('Component.Alert.Font-Family'),
-        iconSize: r('Component.Alert.Icon-Size'),
-        titleSize: r('Component.Alert.Title-Size'),
-        titleFontWeight: r('Component.Alert.Title-Font-Weight'),
-        bodySize: r('Component.Alert.Body-Size'),
-      },
-      backdrop: {
-        color: r('Component.Backdrop.Color'),
-        opacity: r('Component.Backdrop.Opacity'),
-      },
-      skeleton: {
-        background: r('Component.Skeleton.Background'),
-        highlight: r('Component.Skeleton.Highlight'),
-        cornerRadius: r('Component.Skeleton.Corner-Radius'),
-        circleSize: r('Component.Skeleton.Circle-Size'),
-      },
-      snackbar: {
-        background: r('Component.Snackbar.Background'),
-        contentColor: r('Component.Snackbar.Content-Color'),
-        actionColor: r('Component.Snackbar.Action-Color'),
-        padding: r('Component.Snackbar.Padding'),
-        gap: r('Component.Snackbar.Gap'),
-        cornerRadius: r('Component.Snackbar.Corner-Radius'),
-        elevation: r('Component.Snackbar.Elevation'),
-        textSize: r('Component.Snackbar.Text-Size'),
-        fontWeight: r('Component.Snackbar.Font-Weight'),
-        fontFamily: r('Component.Snackbar.Font-Family'),
-      },
-      dialog: {
-        background: r('Component.Dialog.Background'),
-        cornerRadius: r('Component.Dialog.Corner-Radius'),
-        padding: r('Component.Dialog.Padding'),
-        gap: r('Component.Dialog.Gap'),
-        elevation: r('Component.Dialog.Elevation'),
-        titleSize: r('Component.Dialog.Title-Size'),
-        titleFontWeight: r('Component.Dialog.Title-Font-Weight'),
-        titleFontFamily: r('Component.Dialog.Title-Font-Family'),
-        titleColor: r('Component.Dialog.Title-Color'),
-        bodySize: r('Component.Dialog.Body-Size'),
-        bodyFontFamily: r('Component.Dialog.Body-Font-Family'),
-        bodyColor: r('Component.Dialog.Body-Color'),
-      },
-      appBar: {
-        height: r('Component.AppBar.Height'),
-        paddingHorizontal: r('Component.AppBar.Padding-Horizontal'),
-        background: r('Component.AppBar.Background'),
-        titleColor: r('Component.AppBar.Title-Color'),
-        titleSize: r('Component.AppBar.Title-Size'),
-        titleFontWeight: r('Component.AppBar.Title-Font-Weight'),
-        titleFontFamily: r('Component.AppBar.Title-Font-Family'),
-        iconColor: r('Component.AppBar.Icon-Color'),
-        borderColor: r('Component.AppBar.Border-Color'),
-        elevation: r('Component.AppBar.Elevation'),
-      },
-      link: {
-        color: r('Component.Link.Color'),
-        hoverColor: r('Component.Link.Hover-Color'),
-        visitedColor: r('Component.Link.Visited-Color'),
-        underlineOffset: r('Component.Link.Underline-Offset'),
-        fontWeight: r('Component.Link.Font-Weight'),
-      },
-      speedDial: {
-        actionSize: r('Component.SpeedDial.Action-Size'),
-        actionBackground: r('Component.SpeedDial.Action-Background'),
-        actionIconColor: r('Component.SpeedDial.Action-Icon-Color'),
-        actionIconSize: r('Component.SpeedDial.Action-Icon-Size'),
-        actionCornerRadius: r('Component.SpeedDial.Action-Corner-Radius'),
-        gap: r('Component.SpeedDial.Gap'),
-        actionElevation: r('Component.SpeedDial.Action-Elevation'),
-      },
-    },
-  };
-
-  return JSON.stringify(reference, null, 2) + '\n';
+function buildReferenceJson(
+  _config: ThemeConfig,
+  tokens: Record<string, unknown>,
+  theme: Record<string, unknown>,
+): string {
+  return JSON.stringify(theme, null, 2) + '\n';
 }
 
 // ---------------------------------------------------------------------------
@@ -930,13 +639,16 @@ function main(): void {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const tokens = JSON.parse(raw);
 
+    // Build resolved theme once, reuse for both outputs
+    const resolved = buildResolvedTheme(theme, tokens);
+
     // Generate TypeScript theme object
     const source = buildThemeSource(theme, tokens);
     const outFile = path.join(outDir, `${theme.name}.ts`);
     fs.writeFileSync(outFile, source, 'utf-8');
 
     // Generate reference JSON
-    const refJson = buildReferenceJson(theme, tokens);
+    const refJson = buildReferenceJson(theme, tokens, resolved);
     const refFile = path.join(outDir, `${theme.name}.reference.json`);
     fs.writeFileSync(refFile, refJson, 'utf-8');
 

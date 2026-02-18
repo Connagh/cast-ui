@@ -126,13 +126,16 @@ Brand colors provide a 5-stop scale (50 = lightest tint, 800 = darkest shade). N
 | Weight-Medium | 500 | Medium emphasis for buttons and labels |
 | Weight-Bold | 700 | Strong emphasis for headings |
 
-### Line Height (3 tokens)
+### Line Height (6 tokens, pixel values)
 
 | Token | Value | Purpose |
 |-------|-------|---------|
-| Line-Height-None | 16 | Solid / illustrative |
-| Line-Height-Tight | 24 | Headings |
-| Line-Height-Base | 24 | Body text |
+| 16 | 16px | Tight / UI labels, buttons |
+| 20 | 20px | Small text |
+| 24 | 24px | Body text, h3 headings |
+| 32 | 32px | h2 headings |
+| 40 | 40px | h1 headings |
+| 48 | 48px | Display headings |
 
 ### Letter Spacing (5 tokens)
 
@@ -238,7 +241,7 @@ Semantic tokens alias primitive tokens and provide the theming layer. When you s
 
 This is the key typographic differentiation: switching themes in Figma completely changes the typefaces used throughout the design. Developers can consume `Font-Brand` and `Font-Interface` from Figma tokens to apply the correct font for each theme.
 
-#### Text Size (7 tokens, consistent mapping across themes)
+#### Text Size (11 tokens, consistent mapping across themes)
 
 | Token | Maps to | Resolves to |
 |-------|---------|-------------|
@@ -246,8 +249,12 @@ This is the key typographic differentiation: switching themes in Figma completel
 | Text-size-h1 | Text-size-500 | 31px |
 | Text-size-h2 | Text-size-400 | 25px |
 | Text-size-h3 | Text-size-300 | 20px |
+| Text-size-subtitle | Text-size-300 | 20px |
 | Text-size-body | Text-size-200 | 16px |
 | Text-size-small | Text-size-100 | 12.8px |
+| Text-size-caption | Text-size-100 | 12.8px |
+| Text-size-overline | Text-size-100 | 12.8px |
+| Text-size-label | Text-size-100 | 12.8px |
 | Text-size-button | Text-size-200 (most) / Text-size-100 (Luxury) | 16px / 12.8px |
 
 #### Font Weight (3 tokens)
@@ -258,13 +265,21 @@ This is the key typographic differentiation: switching themes in Figma completel
 | Weight-body | Regular (400) | Regular (400) |
 | Weight-button | Medium (500) | **Bold (700)** |
 
-#### Line Height (3 tokens, consistent across themes)
+#### Line Height (11 tokens, pixel values, consistent across themes)
 
 | Token | Maps to | Value |
 |-------|---------|-------|
-| Line-Height-heading | Line-Height-Tight | 24 |
-| Line-Height-body | Line-Height-Base | 24 |
-| Line-Height-UI-label | Line-Height-None | 16 |
+| Line-Height-display | 48 | 48px |
+| Line-Height-h1 | 40 | 40px |
+| Line-Height-h2 | 32 | 32px |
+| Line-Height-h3 | 24 | 24px |
+| Line-Height-subtitle | 24 | 24px |
+| Line-Height-body | 24 | 24px |
+| Line-Height-small | 20 | 20px |
+| Line-Height-caption | 16 | 16px |
+| Line-Height-overline | 16 | 16px |
+| Line-Height-label | 16 | 16px |
+| Line-Height-button | 16 | 16px |
 
 #### Letter Spacing (3 tokens, consistent across themes)
 
@@ -373,7 +388,7 @@ Component tokens reference semantic tokens to build complete, theme-aware UI com
 | Border-Width | Outline button border | 2px | 2px | 2px | 2px |
 | Text-Size | `{Semantic.Text size.Text-size-button}` | 16px | 16px | 12.8px | 16px |
 | Font-Weight | `{Semantic.Font weight.Weight-button}` | 500 | 500 | 700 | 500 |
-| Line-Height | `{Semantic.Line height.Line-Height-UI-label}` | 16 | 16 | 16 | 16 |
+| Line-Height | `{Semantic.Line height.Line-Height-button}` | 16px | 16px | 16px | 16px |
 | **Font-Family** | `{Semantic.Font family.Font-Interface}` | Poppins | Inter | Cormorant Garamond | system-ui |
 
 #### Button Variants
@@ -797,7 +812,7 @@ Main FAB uses `component.fab.*` tokens; these are for secondary actions.
 | Layer | Tokens |
 |-------|--------|
 | Primitive | 90 |
-| Semantic | 79 (colour 31, typography 19, border radius 4, spacing 5, border width 2, elevation 6, size 7, opacity 2, overlay 1, paragraph 3) |
+| Semantic | 87 (colour 31, typography 27, border radius 4, spacing 5, border width 2, elevation 6, size 7, opacity 2, overlay 1, paragraph 3) |
 | Component — Button | 26 |
 | Component — Card | 16 |
 | Component — TextField | 17 |
@@ -819,7 +834,7 @@ Main FAB uses `component.fab.*` tokens; these are for secondary actions.
 | Component — AppBar | 10 |
 | Component — Link | 5 |
 | Component — SpeedDial | 7 |
-| **Grand Total** | **386** |
+| **Grand Total** | **394** |
 
 ---
 

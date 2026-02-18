@@ -1,58 +1,587 @@
 {
   "name": "consumer",
+  "_aliases": {
+    "semantic.color.surface": "primitive.color.white",
+    "semantic.color.onSurface": "primitive.color.purple950",
+    "semantic.color.onSurfaceMuted": "primitive.color.purple600",
+    "semantic.color.surfaceContainer": "primitive.color.purple50",
+    "semantic.color.primary": "primitive.color.purple700",
+    "semantic.color.onPrimary": "primitive.color.white",
+    "semantic.color.primaryHover": "primitive.color.purple600",
+    "semantic.color.primaryPressed": "primitive.color.purple900",
+    "semantic.color.secondary": "primitive.color.purple200",
+    "semantic.color.onSecondary": "primitive.color.purple900",
+    "semantic.color.success": "primitive.color.green600",
+    "semantic.color.onSuccess": "primitive.color.white",
+    "semantic.color.error": "primitive.color.red600",
+    "semantic.color.onError": "primitive.color.white",
+    "semantic.color.warning": "primitive.color.amber500",
+    "semantic.color.onWarning": "primitive.color.black",
+    "semantic.color.border": "primitive.color.purple200",
+    "semantic.color.borderSubtle": "primitive.color.purple100",
+    "semantic.color.disabledContainer": "primitive.color.purple100",
+    "semantic.color.onDisabled": "primitive.color.purple300",
+    "semantic.color.primaryContainer": "primitive.color.purple100",
+    "semantic.color.onPrimaryContainer": "primitive.color.purple900",
+    "semantic.color.secondaryContainer": "primitive.color.purple50",
+    "semantic.color.onSecondaryContainer": "primitive.color.purple800",
+    "semantic.color.errorContainer": "primitive.color.red50",
+    "semantic.color.onErrorContainer": "primitive.color.red900",
+    "semantic.color.successContainer": "primitive.color.green50",
+    "semantic.color.onSuccessContainer": "primitive.color.green900",
+    "semantic.color.warningContainer": "primitive.color.amber50",
+    "semantic.color.onWarningContainer": "primitive.color.amber800",
+    "semantic.color.overlay": "primitive.color.purple950",
+    "semantic.fontFamily.brand": "primitive.fontFamily.poppins",
+    "semantic.fontFamily.interface": "primitive.fontFamily.poppins",
+    "semantic.fontFamily.data": "primitive.fontFamily.jetBrainsMono",
+    "semantic.fontSize.display": "primitive.fontSize.display",
+    "semantic.fontSize.h1": "primitive.fontSize.h1",
+    "semantic.fontSize.h2": "primitive.fontSize.h2",
+    "semantic.fontSize.h3": "primitive.fontSize.h3",
+    "semantic.fontSize.body": "primitive.fontSize.base",
+    "semantic.fontSize.small": "primitive.fontSize.small",
+    "semantic.fontSize.button": "primitive.fontSize.base",
+    "semantic.fontWeight.heading": "primitive.fontWeight.bold",
+    "semantic.fontWeight.body": "primitive.fontWeight.regular",
+    "semantic.fontWeight.button": "primitive.fontWeight.medium",
+    "semantic.lineHeight.heading": "primitive.lineHeight.tight",
+    "semantic.lineHeight.body": "primitive.lineHeight.normal",
+    "semantic.lineHeight.uiLabel": "primitive.lineHeight.none",
+    "semantic.letterSpacing.heading": "primitive.letterSpacing.tight",
+    "semantic.letterSpacing.body": "primitive.letterSpacing.normal",
+    "semantic.letterSpacing.label": "primitive.letterSpacing.wide",
+    "semantic.paragraphSpacing.body": "primitive.paragraphSpacing.base",
+    "semantic.paragraphSpacing.editorial": "primitive.paragraphSpacing.large",
+    "semantic.paragraphIndent.editorial": "primitive.paragraphIndent.none",
+    "semantic.borderRadius.small": "primitive.borderRadius.8",
+    "semantic.borderRadius.medium": "primitive.borderRadius.16",
+    "semantic.borderRadius.large": "primitive.borderRadius.24",
+    "semantic.borderRadius.full": "primitive.borderRadius.full",
+    "semantic.spacing.xs": "primitive.spacing.4",
+    "semantic.spacing.sm": "primitive.spacing.8",
+    "semantic.spacing.md": "primitive.spacing.12",
+    "semantic.spacing.lg": "primitive.spacing.16",
+    "semantic.spacing.xl": "primitive.spacing.24",
+    "semantic.borderWidth.thin": "primitive.borderWidth.1",
+    "semantic.borderWidth.medium": "primitive.borderWidth.2",
+    "semantic.elevation.none": "primitive.elevation.0",
+    "semantic.elevation.xs": "primitive.elevation.1",
+    "semantic.elevation.sm": "primitive.elevation.2",
+    "semantic.elevation.md": "primitive.elevation.4",
+    "semantic.elevation.lg": "primitive.elevation.6",
+    "semantic.elevation.xl": "primitive.elevation.8",
+    "semantic.size.xs": "primitive.size.2",
+    "semantic.size.sm": "primitive.size.4",
+    "semantic.size.md": "primitive.size.16",
+    "semantic.size.lg": "primitive.size.24",
+    "semantic.size.xl": "primitive.size.32",
+    "semantic.size.xxl": "primitive.size.48",
+    "semantic.size.xxxl": "primitive.size.64",
+    "semantic.opacity.disabled": "primitive.opacity.40",
+    "semantic.opacity.overlay": "primitive.opacity.50",
+    "component.button.paddingHorizontal": "semantic.spacing.lg",
+    "component.button.paddingVertical": "semantic.spacing.sm",
+    "component.button.gap": "semantic.spacing.sm",
+    "component.button.cornerRadius": "semantic.borderRadius.medium",
+    "component.button.borderWidth": "semantic.borderWidth.medium",
+    "component.button.textSize": "semantic.fontSize.button",
+    "component.button.fontWeight": "semantic.fontWeight.button",
+    "component.button.lineHeight": "semantic.lineHeight.uiLabel",
+    "component.button.fontFamily": "semantic.fontFamily.interface",
+    "component.button.filled.background": "semantic.color.primary",
+    "component.button.filled.content": "semantic.color.onPrimary",
+    "component.button.outline.background": "semantic.color.surface",
+    "component.button.outline.border": "semantic.color.primary",
+    "component.button.outline.content": "semantic.color.primary",
+    "component.button.text.background": "semantic.color.surface",
+    "component.button.text.content": "semantic.color.primary",
+    "component.button.state.hoverBackground": "semantic.color.primaryHover",
+    "component.button.state.pressedBackground": "semantic.color.primaryPressed",
+    "component.button.state.disabledBackground": "semantic.color.disabledContainer",
+    "component.button.state.disabledContent": "semantic.color.onDisabled",
+    "component.card.padding": "semantic.spacing.xl",
+    "component.card.gap": "semantic.spacing.md",
+    "component.card.background": "semantic.color.surfaceContainer",
+    "component.card.stroke": "semantic.color.border",
+    "component.card.strokeWidth": "semantic.borderWidth.medium",
+    "component.card.cornerRadius": "semantic.borderRadius.large",
+    "component.card.elevation": "semantic.elevation.md",
+    "component.card.headingSize": "semantic.fontSize.h3",
+    "component.card.headingWeight": "semantic.fontWeight.heading",
+    "component.card.headingFontFamily": "semantic.fontFamily.brand",
+    "component.card.bodySize": "semantic.fontSize.body",
+    "component.card.bodyWeight": "semantic.fontWeight.body",
+    "component.card.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.dialog.titleFontFamily": "semantic.fontFamily.brand",
+    "component.dialog.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.appBar.titleFontFamily": "semantic.fontFamily.brand"
+  },
+  "primitive": {
+    "color": {
+      "white": "#FFFFFF",
+      "black": "#000000",
+      "purple50": "#FAF8FF",
+      "purple100": "#F0EAFF",
+      "purple200": "#D6BCFA",
+      "purple300": "#A78BDB",
+      "purple600": "#6B4FBA",
+      "purple700": "#553C9A",
+      "purple800": "#4A3580",
+      "purple900": "#3B2870",
+      "purple950": "#1A1235",
+      "green50": "#DCFCE7",
+      "green600": "#16A34A",
+      "green900": "#166534",
+      "red50": "#FEE2E2",
+      "red600": "#DC2626",
+      "red900": "#991B1B",
+      "amber50": "#FEF9C3",
+      "amber500": "#CA8A04",
+      "amber800": "#854D0E"
+    },
+    "fontFamily": {
+      "poppins": "Poppins",
+      "jetBrainsMono": "JetBrains Mono"
+    },
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "base": 16,
+      "small": 12.8
+    },
+    "fontWeight": {
+      "bold": 700,
+      "regular": 400,
+      "medium": 500
+    },
+    "lineHeight": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "none": 1
+    },
+    "letterSpacing": {
+      "tight": -0.02,
+      "normal": 0,
+      "wide": 0.02
+    },
+    "paragraphSpacing": {
+      "base": 16,
+      "large": 24
+    },
+    "paragraphIndent": {
+      "none": 0
+    },
+    "borderRadius": {
+      "8": 8,
+      "16": 16,
+      "24": 24,
+      "full": 9999
+    },
+    "spacing": {
+      "4": 4,
+      "8": 8,
+      "12": 12,
+      "16": 16,
+      "24": 24
+    },
+    "borderWidth": {
+      "1": 1,
+      "2": 2
+    },
+    "elevation": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "4": 4,
+      "6": 6,
+      "8": 8
+    },
+    "size": {
+      "2": 2,
+      "4": 4,
+      "16": 16,
+      "24": 24,
+      "32": 32,
+      "48": 48,
+      "64": 64
+    },
+    "opacity": {
+      "40": 0.4,
+      "50": 0.5
+    }
+  },
   "semantic": {
     "color": {
-      "onSurface": "#553C9A",
+      "surface": "#FFFFFF",
+      "onSurface": "#1A1235",
+      "onSurfaceMuted": "#6B4FBA",
+      "surfaceContainer": "#FAF8FF",
       "primary": "#553C9A",
-      "primaryHover": "#9F7AEA",
-      "primaryPressed": "#D6BCFA",
+      "onPrimary": "#FFFFFF",
+      "primaryHover": "#6B4FBA",
+      "primaryPressed": "#3B2870",
       "secondary": "#D6BCFA",
-      "onSecondary": "#553C9A",
-      "success": "#3DC253",
-      "error": "#E46262",
-      "warning": "#CAAD5F",
+      "onSecondary": "#3B2870",
+      "success": "#16A34A",
+      "onSuccess": "#FFFFFF",
+      "error": "#DC2626",
+      "onError": "#FFFFFF",
+      "warning": "#CA8A04",
       "onWarning": "#000000",
-      "primaryContainer": "#F5F0FF",
+      "border": "#D6BCFA",
+      "borderSubtle": "#F0EAFF",
+      "disabledContainer": "#F0EAFF",
+      "onDisabled": "#A78BDB",
+      "primaryContainer": "#F0EAFF",
       "onPrimaryContainer": "#3B2870",
-      "secondaryContainer": "#F5F0FF",
-      "onSecondaryContainer": "#3B2870"
+      "secondaryContainer": "#FAF8FF",
+      "onSecondaryContainer": "#4A3580",
+      "errorContainer": "#FEE2E2",
+      "onErrorContainer": "#991B1B",
+      "successContainer": "#DCFCE7",
+      "onSuccessContainer": "#166534",
+      "warningContainer": "#FEF9C3",
+      "onWarningContainer": "#854D0E",
+      "overlay": "#1A1235"
     },
     "fontFamily": {
       "brand": "Poppins",
-      "interface": "Poppins"
+      "interface": "Poppins",
+      "data": "JetBrains Mono"
+    },
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "body": 16,
+      "small": 12.8,
+      "button": 16
+    },
+    "fontWeight": {
+      "heading": 700,
+      "body": 400,
+      "button": 500
+    },
+    "lineHeight": {
+      "heading": 1.2,
+      "body": 1.5,
+      "uiLabel": 1
+    },
+    "letterSpacing": {
+      "heading": -0.02,
+      "body": 0,
+      "label": 0.02
+    },
+    "paragraphSpacing": {
+      "body": 16,
+      "editorial": 24
+    },
+    "paragraphIndent": {
+      "editorial": 0
     },
     "borderRadius": {
       "small": 8,
-      "medium": 24,
-      "large": 16
+      "medium": 16,
+      "large": 24,
+      "full": 9999
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24
+    },
+    "borderWidth": {
+      "thin": 1,
+      "medium": 2
+    },
+    "elevation": {
+      "none": 0,
+      "xs": 1,
+      "sm": 2,
+      "md": 4,
+      "lg": 6,
+      "xl": 8
+    },
+    "size": {
+      "xs": 2,
+      "sm": 4,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64
+    },
+    "opacity": {
+      "disabled": 0.4,
+      "overlay": 0.5
     }
   },
   "component": {
     "button": {
-      "paddingVertical": 12,
-      "cornerRadius": 24,
+      "paddingHorizontal": 16,
+      "paddingVertical": 8,
+      "gap": 8,
+      "cornerRadius": 16,
+      "borderWidth": 2,
+      "textSize": 16,
+      "fontWeight": 500,
+      "lineHeight": 1,
       "fontFamily": "Poppins",
       "filled": {
-        "background": "#553C9A"
+        "background": "#553C9A",
+        "content": "#FFFFFF"
       },
       "outline": {
+        "background": "#FFFFFF",
         "border": "#553C9A",
         "content": "#553C9A"
       },
       "text": {
+        "background": "#FFFFFF",
         "content": "#553C9A"
       },
       "state": {
-        "hoverBackground": "#9F7AEA",
-        "pressedBackground": "#D6BCFA"
+        "hoverBackground": "#6B4FBA",
+        "pressedBackground": "#3B2870",
+        "disabledBackground": "#F0EAFF",
+        "disabledContent": "#A78BDB"
       }
     },
     "card": {
       "padding": 24,
+      "gap": 12,
+      "background": "#FAF8FF",
+      "stroke": "#D6BCFA",
+      "strokeWidth": 2,
+      "cornerRadius": 24,
+      "elevation": 4,
+      "headingSize": 20,
+      "headingWeight": 700,
+      "headingFontFamily": "Poppins",
+      "bodySize": 16,
+      "bodyWeight": 400,
+      "bodyFontFamily": "Poppins",
+      "headingColor": "#1A1235",
+      "bodyColor": "#6B4FBA"
+    },
+    "textField": {
+      "paddingHorizontal": 12,
+      "paddingVertical": 8,
+      "cornerRadius": 16,
+      "borderWidth": 2,
+      "background": "#FFFFFF",
+      "borderColor": "#D6BCFA",
+      "focusBorderColor": "#553C9A",
+      "errorBorderColor": "#DC2626",
+      "textColor": "#1A1235",
+      "placeholderColor": "#6B4FBA",
+      "textSize": 16,
+      "fontFamily": "Poppins",
+      "labelColor": "#1A1235",
+      "labelSize": 12.8,
+      "helperColor": "#6B4FBA",
+      "helperSize": 12.8,
+      "errorColor": "#DC2626"
+    },
+    "checkbox": {
+      "size": 16,
+      "cornerRadius": 8,
+      "borderWidth": 2,
+      "gap": 8,
+      "borderColor": "#D6BCFA",
+      "checkedBackground": "#553C9A",
+      "checkedIconColor": "#FFFFFF",
+      "labelColor": "#1A1235",
+      "labelSize": 16,
+      "labelFontFamily": "Poppins",
+      "disabledOpacity": 0.4
+    },
+    "fab": {
+      "size": 48,
+      "cornerRadius": 9999,
+      "background": "#553C9A",
+      "iconColor": "#FFFFFF",
+      "iconSize": 24,
+      "hoverBackground": "#6B4FBA",
+      "pressedBackground": "#3B2870",
+      "elevation": 6,
+      "extendedPaddingHorizontal": 16,
+      "extendedGap": 8
+    },
+    "autocomplete": {
+      "dropdownBackground": "#FFFFFF",
+      "dropdownCornerRadius": 16,
+      "dropdownElevation": 2,
+      "optionHoverBackground": "#FAF8FF",
+      "optionTextColor": "#1A1235",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "Poppins"
+    },
+    "select": {
+      "dropdownBackground": "#FFFFFF",
+      "dropdownCornerRadius": 16,
+      "dropdownElevation": 2,
+      "optionHoverBackground": "#FAF8FF",
+      "indicatorColor": "#6B4FBA",
+      "optionTextColor": "#1A1235",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "Poppins",
+      "selectedOptionBackground": "#D6BCFA"
+    },
+    "switch": {
+      "trackWidth": 48,
+      "trackHeight": 24,
+      "trackCornerRadius": 9999,
+      "trackOffBackground": "#D6BCFA",
+      "trackOnBackground": "#553C9A",
+      "thumbSize": 16,
+      "thumbCornerRadius": 9999,
+      "thumbOffBackground": "#FFFFFF",
+      "thumbOnBackground": "#FFFFFF",
+      "thumbOffset": 4,
+      "labelColor": "#1A1235",
+      "labelSize": 16,
+      "labelFontFamily": "Poppins",
+      "gap": 8
+    },
+    "badge": {
+      "minSize": 16,
+      "paddingHorizontal": 4,
+      "cornerRadius": 9999,
+      "background": "#DC2626",
+      "contentColor": "#FFFFFF",
+      "textSize": 12.8,
+      "fontWeight": 500,
+      "fontFamily": "Poppins"
+    },
+    "chip": {
+      "paddingHorizontal": 12,
+      "paddingVertical": 4,
+      "gap": 4,
+      "cornerRadius": 8,
+      "background": "#FAF8FF",
+      "contentColor": "#4A3580",
+      "selectedBackground": "#D6BCFA",
+      "selectedContentColor": "#3B2870",
+      "borderWidth": 2,
+      "borderColor": "#D6BCFA",
+      "textSize": 12.8,
+      "fontFamily": "Poppins"
+    },
+    "divider": {
+      "color": "#D6BCFA",
+      "thickness": 1,
+      "margin": 8
+    },
+    "icon": {
+      "sizeSmall": 16,
+      "sizeMedium": 24,
+      "sizeLarge": 32
+    },
+    "table": {
+      "headerBackground": "#FAF8FF",
+      "headerTextColor": "#1A1235",
+      "headerFontWeight": 700,
+      "headerTextSize": 12.8,
+      "cellTextColor": "#1A1235",
+      "cellTextSize": 16,
+      "cellPaddingHorizontal": 12,
+      "cellPaddingVertical": 8,
+      "rowBorderColor": "#F0EAFF",
+      "rowBorderWidth": 1,
+      "rowHoverBackground": "#FAF8FF",
+      "cornerRadius": 16,
+      "fontFamily": "Poppins"
+    },
+    "alert": {
+      "padding": 16,
+      "gap": 8,
+      "cornerRadius": 16,
+      "borderWidth": 2,
+      "background": "#FAF8FF",
+      "borderColor": "#D6BCFA",
+      "titleColor": "#1A1235",
+      "bodyColor": "#1A1235",
+      "iconColor": "#1A1235",
+      "fontFamily": "Poppins",
+      "iconSize": 24,
+      "titleSize": 16,
+      "titleFontWeight": 700,
+      "bodySize": 12.8
+    },
+    "backdrop": {
+      "color": "#1A1235",
+      "opacity": 0.5
+    },
+    "skeleton": {
+      "background": "#FAF8FF",
+      "highlight": "#F0EAFF",
+      "cornerRadius": 8,
+      "circleSize": 32
+    },
+    "snackbar": {
+      "background": "#1A1235",
+      "contentColor": "#FFFFFF",
+      "actionColor": "#6B4FBA",
+      "padding": 16,
+      "gap": 8,
       "cornerRadius": 16,
       "elevation": 4,
-      "headingFontFamily": "Poppins",
-      "bodyFontFamily": "Poppins"
+      "textSize": 16,
+      "fontWeight": 400,
+      "fontFamily": "Poppins"
+    },
+    "dialog": {
+      "background": "#FFFFFF",
+      "cornerRadius": 24,
+      "padding": 24,
+      "gap": 16,
+      "elevation": 8,
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "Poppins",
+      "bodySize": 16,
+      "bodyFontFamily": "Poppins",
+      "titleColor": "#1A1235",
+      "bodyColor": "#1A1235"
+    },
+    "appBar": {
+      "height": 64,
+      "paddingHorizontal": 16,
+      "background": "#FFFFFF",
+      "titleColor": "#1A1235",
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "Poppins",
+      "iconColor": "#1A1235",
+      "borderColor": "#F0EAFF",
+      "elevation": 0
+    },
+    "link": {
+      "color": "#553C9A",
+      "hoverColor": "#6B4FBA",
+      "visitedColor": "#6B4FBA",
+      "underlineOffset": 2,
+      "fontWeight": 400
+    },
+    "speedDial": {
+      "actionSize": 32,
+      "actionBackground": "#FAF8FF",
+      "actionIconColor": "#1A1235",
+      "actionIconSize": 24,
+      "actionCornerRadius": 9999,
+      "gap": 8,
+      "actionElevation": 2
     }
   }
 }

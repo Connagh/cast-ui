@@ -1,61 +1,588 @@
 {
   "name": "corporate",
+  "_aliases": {
+    "semantic.color.surface": "primitive.color.white",
+    "semantic.color.onSurface": "primitive.color.blue900",
+    "semantic.color.onSurfaceMuted": "primitive.color.blue500",
+    "semantic.color.surfaceContainer": "primitive.color.blue50",
+    "semantic.color.primary": "primitive.color.blue900",
+    "semantic.color.onPrimary": "primitive.color.white",
+    "semantic.color.primaryHover": "primitive.color.blue800",
+    "semantic.color.primaryPressed": "primitive.color.blue950",
+    "semantic.color.secondary": "primitive.color.blue500",
+    "semantic.color.onSecondary": "primitive.color.white",
+    "semantic.color.success": "primitive.color.green800",
+    "semantic.color.onSuccess": "primitive.color.white",
+    "semantic.color.error": "primitive.color.red700",
+    "semantic.color.onError": "primitive.color.white",
+    "semantic.color.warning": "primitive.color.amber700",
+    "semantic.color.onWarning": "primitive.color.white",
+    "semantic.color.border": "primitive.color.blue200",
+    "semantic.color.borderSubtle": "primitive.color.blue100",
+    "semantic.color.disabledContainer": "primitive.color.blue100",
+    "semantic.color.onDisabled": "primitive.color.blue300",
+    "semantic.color.primaryContainer": "primitive.color.blue100",
+    "semantic.color.onPrimaryContainer": "primitive.color.blue950",
+    "semantic.color.secondaryContainer": "primitive.color.blue50",
+    "semantic.color.onSecondaryContainer": "primitive.color.blue700",
+    "semantic.color.errorContainer": "primitive.color.red50",
+    "semantic.color.onErrorContainer": "primitive.color.red900",
+    "semantic.color.successContainer": "primitive.color.green50",
+    "semantic.color.onSuccessContainer": "primitive.color.green900",
+    "semantic.color.warningContainer": "primitive.color.amber50",
+    "semantic.color.onWarningContainer": "primitive.color.amber800",
+    "semantic.color.overlay": "primitive.color.blue900",
+    "semantic.fontFamily.brand": "primitive.fontFamily.merriweather",
+    "semantic.fontFamily.interface": "primitive.fontFamily.inter",
+    "semantic.fontFamily.data": "primitive.fontFamily.jetBrainsMono",
+    "semantic.fontSize.display": "primitive.fontSize.display",
+    "semantic.fontSize.h1": "primitive.fontSize.h1",
+    "semantic.fontSize.h2": "primitive.fontSize.h2",
+    "semantic.fontSize.h3": "primitive.fontSize.h3",
+    "semantic.fontSize.body": "primitive.fontSize.base",
+    "semantic.fontSize.small": "primitive.fontSize.small",
+    "semantic.fontSize.button": "primitive.fontSize.base",
+    "semantic.fontWeight.heading": "primitive.fontWeight.bold",
+    "semantic.fontWeight.body": "primitive.fontWeight.regular",
+    "semantic.fontWeight.button": "primitive.fontWeight.medium",
+    "semantic.lineHeight.heading": "primitive.lineHeight.tight",
+    "semantic.lineHeight.body": "primitive.lineHeight.normal",
+    "semantic.lineHeight.uiLabel": "primitive.lineHeight.none",
+    "semantic.letterSpacing.heading": "primitive.letterSpacing.tight",
+    "semantic.letterSpacing.body": "primitive.letterSpacing.normal",
+    "semantic.letterSpacing.label": "primitive.letterSpacing.wide",
+    "semantic.paragraphSpacing.body": "primitive.paragraphSpacing.small",
+    "semantic.paragraphSpacing.editorial": "primitive.paragraphSpacing.base",
+    "semantic.paragraphIndent.editorial": "primitive.paragraphIndent.none",
+    "semantic.borderRadius.small": "primitive.borderRadius.2",
+    "semantic.borderRadius.medium": "primitive.borderRadius.4",
+    "semantic.borderRadius.large": "primitive.borderRadius.8",
+    "semantic.borderRadius.full": "primitive.borderRadius.full",
+    "semantic.spacing.xs": "primitive.spacing.4",
+    "semantic.spacing.sm": "primitive.spacing.8",
+    "semantic.spacing.md": "primitive.spacing.12",
+    "semantic.spacing.lg": "primitive.spacing.16",
+    "semantic.spacing.xl": "primitive.spacing.24",
+    "semantic.borderWidth.thin": "primitive.borderWidth.1",
+    "semantic.borderWidth.medium": "primitive.borderWidth.2",
+    "semantic.elevation.none": "primitive.elevation.0",
+    "semantic.elevation.xs": "primitive.elevation.1",
+    "semantic.elevation.sm": "primitive.elevation.2",
+    "semantic.elevation.md": "primitive.elevation.3",
+    "semantic.elevation.lg": "primitive.elevation.4",
+    "semantic.elevation.xl": "primitive.elevation.6",
+    "semantic.size.xs": "primitive.size.2",
+    "semantic.size.sm": "primitive.size.4",
+    "semantic.size.md": "primitive.size.16",
+    "semantic.size.lg": "primitive.size.24",
+    "semantic.size.xl": "primitive.size.32",
+    "semantic.size.xxl": "primitive.size.48",
+    "semantic.size.xxxl": "primitive.size.64",
+    "semantic.opacity.disabled": "primitive.opacity.40",
+    "semantic.opacity.overlay": "primitive.opacity.50",
+    "component.button.paddingHorizontal": "semantic.spacing.lg",
+    "component.button.paddingVertical": "semantic.spacing.sm",
+    "component.button.gap": "semantic.spacing.sm",
+    "component.button.cornerRadius": "semantic.borderRadius.medium",
+    "component.button.borderWidth": "semantic.borderWidth.medium",
+    "component.button.textSize": "semantic.fontSize.button",
+    "component.button.fontWeight": "semantic.fontWeight.button",
+    "component.button.lineHeight": "semantic.lineHeight.uiLabel",
+    "component.button.fontFamily": "semantic.fontFamily.interface",
+    "component.button.filled.background": "semantic.color.primary",
+    "component.button.filled.content": "semantic.color.onPrimary",
+    "component.button.outline.background": "semantic.color.surface",
+    "component.button.outline.border": "semantic.color.primary",
+    "component.button.outline.content": "semantic.color.primary",
+    "component.button.text.background": "semantic.color.surface",
+    "component.button.text.content": "semantic.color.primary",
+    "component.button.state.hoverBackground": "semantic.color.primaryHover",
+    "component.button.state.pressedBackground": "semantic.color.primaryPressed",
+    "component.button.state.disabledBackground": "semantic.color.disabledContainer",
+    "component.button.state.disabledContent": "semantic.color.onDisabled",
+    "component.card.padding": "semantic.spacing.lg",
+    "component.card.gap": "semantic.spacing.sm",
+    "component.card.background": "semantic.color.surfaceContainer",
+    "component.card.stroke": "semantic.color.border",
+    "component.card.strokeWidth": "semantic.borderWidth.medium",
+    "component.card.cornerRadius": "semantic.borderRadius.large",
+    "component.card.elevation": "semantic.elevation.sm",
+    "component.card.headingSize": "semantic.fontSize.h3",
+    "component.card.headingWeight": "semantic.fontWeight.heading",
+    "component.card.headingFontFamily": "semantic.fontFamily.brand",
+    "component.card.bodySize": "semantic.fontSize.body",
+    "component.card.bodyWeight": "semantic.fontWeight.body",
+    "component.card.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.dialog.titleFontFamily": "semantic.fontFamily.brand",
+    "component.dialog.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.appBar.titleFontFamily": "semantic.fontFamily.brand"
+  },
+  "primitive": {
+    "color": {
+      "white": "#FFFFFF",
+      "black": "#000000",
+      "blue50": "#F0F5FB",
+      "blue100": "#D6E3F1",
+      "blue200": "#B8CEE8",
+      "blue300": "#8FAED3",
+      "blue500": "#4A6FA5",
+      "blue700": "#2C4A75",
+      "blue800": "#0A2A59",
+      "blue900": "#0C346F",
+      "blue950": "#072350",
+      "green50": "#DCFCE7",
+      "green800": "#1B7A3D",
+      "green900": "#14532D",
+      "red50": "#FDE8E8",
+      "red700": "#B91C1C",
+      "red900": "#7F1D1D",
+      "amber50": "#FEF3C7",
+      "amber700": "#92680A",
+      "amber800": "#713F12"
+    },
+    "fontFamily": {
+      "inter": "Inter",
+      "merriweather": "Merriweather",
+      "jetBrainsMono": "JetBrains Mono"
+    },
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "base": 16,
+      "small": 12.8
+    },
+    "fontWeight": {
+      "bold": 700,
+      "regular": 400,
+      "medium": 500
+    },
+    "lineHeight": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "none": 1
+    },
+    "letterSpacing": {
+      "tight": -0.02,
+      "normal": 0,
+      "wide": 0.02
+    },
+    "paragraphSpacing": {
+      "small": 8,
+      "base": 16
+    },
+    "paragraphIndent": {
+      "none": 0
+    },
+    "borderRadius": {
+      "2": 2,
+      "4": 4,
+      "8": 8,
+      "full": 9999
+    },
+    "spacing": {
+      "4": 4,
+      "8": 8,
+      "12": 12,
+      "16": 16,
+      "24": 24
+    },
+    "borderWidth": {
+      "1": 1,
+      "2": 2
+    },
+    "elevation": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "6": 6
+    },
+    "size": {
+      "2": 2,
+      "4": 4,
+      "16": 16,
+      "24": 24,
+      "32": 32,
+      "48": 48,
+      "64": 64
+    },
+    "opacity": {
+      "40": 0.4,
+      "50": 0.5
+    }
+  },
   "semantic": {
     "color": {
+      "surface": "#FFFFFF",
       "onSurface": "#0C346F",
+      "onSurfaceMuted": "#4A6FA5",
+      "surfaceContainer": "#F0F5FB",
       "primary": "#0C346F",
-      "primaryHover": "#628BE4",
-      "primaryPressed": "#9EC2E9",
-      "secondary": "#475569",
+      "onPrimary": "#FFFFFF",
+      "primaryHover": "#0A2A59",
+      "primaryPressed": "#072350",
+      "secondary": "#4A6FA5",
       "onSecondary": "#FFFFFF",
-      "border": "#9EC2E9",
-      "borderSubtle": "#E2E8F0",
-      "primaryContainer": "#EBF2FB",
+      "success": "#1B7A3D",
+      "onSuccess": "#FFFFFF",
+      "error": "#B91C1C",
+      "onError": "#FFFFFF",
+      "warning": "#92680A",
+      "onWarning": "#FFFFFF",
+      "border": "#B8CEE8",
+      "borderSubtle": "#D6E3F1",
+      "disabledContainer": "#D6E3F1",
+      "onDisabled": "#8FAED3",
+      "primaryContainer": "#D6E3F1",
       "onPrimaryContainer": "#072350",
-      "secondaryContainer": "#E2E8F0"
+      "secondaryContainer": "#F0F5FB",
+      "onSecondaryContainer": "#2C4A75",
+      "errorContainer": "#FDE8E8",
+      "onErrorContainer": "#7F1D1D",
+      "successContainer": "#DCFCE7",
+      "onSuccessContainer": "#14532D",
+      "warningContainer": "#FEF3C7",
+      "onWarningContainer": "#713F12",
+      "overlay": "#0C346F"
     },
     "fontFamily": {
       "brand": "Merriweather",
-      "interface": "Inter"
+      "interface": "Inter",
+      "data": "JetBrains Mono"
+    },
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "body": 16,
+      "small": 12.8,
+      "button": 16
+    },
+    "fontWeight": {
+      "heading": 700,
+      "body": 400,
+      "button": 500
+    },
+    "lineHeight": {
+      "heading": 1.2,
+      "body": 1.5,
+      "uiLabel": 1
+    },
+    "letterSpacing": {
+      "heading": -0.02,
+      "body": 0,
+      "label": 0.02
     },
     "paragraphSpacing": {
       "body": 8,
       "editorial": 16
     },
+    "paragraphIndent": {
+      "editorial": 0
+    },
     "borderRadius": {
       "small": 2,
       "medium": 4,
-      "large": 8
+      "large": 8,
+      "full": 9999
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24
+    },
+    "borderWidth": {
+      "thin": 1,
+      "medium": 2
+    },
+    "elevation": {
+      "none": 0,
+      "xs": 1,
+      "sm": 2,
+      "md": 3,
+      "lg": 4,
+      "xl": 6
+    },
+    "size": {
+      "xs": 2,
+      "sm": 4,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64
+    },
+    "opacity": {
+      "disabled": 0.4,
+      "overlay": 0.5
     }
   },
   "component": {
     "button": {
-      "paddingHorizontal": 24,
-      "paddingVertical": 12,
+      "paddingHorizontal": 16,
+      "paddingVertical": 8,
+      "gap": 8,
       "cornerRadius": 4,
+      "borderWidth": 2,
+      "textSize": 16,
+      "fontWeight": 500,
+      "lineHeight": 1,
       "fontFamily": "Inter",
       "filled": {
-        "background": "#0C346F"
+        "background": "#0C346F",
+        "content": "#FFFFFF"
       },
       "outline": {
+        "background": "#FFFFFF",
         "border": "#0C346F",
         "content": "#0C346F"
       },
       "text": {
+        "background": "#FFFFFF",
         "content": "#0C346F"
       },
       "state": {
-        "hoverBackground": "#628BE4",
-        "pressedBackground": "#9EC2E9"
+        "hoverBackground": "#0A2A59",
+        "pressedBackground": "#072350",
+        "disabledBackground": "#D6E3F1",
+        "disabledContent": "#8FAED3"
       }
     },
     "card": {
+      "padding": 16,
       "gap": 8,
-      "stroke": "#9EC2E9",
+      "background": "#F0F5FB",
+      "stroke": "#B8CEE8",
+      "strokeWidth": 2,
       "cornerRadius": 8,
       "elevation": 2,
+      "headingSize": 20,
+      "headingWeight": 700,
       "headingFontFamily": "Merriweather",
-      "bodyFontFamily": "Inter"
+      "bodySize": 16,
+      "bodyWeight": 400,
+      "bodyFontFamily": "Inter",
+      "headingColor": "#0C346F",
+      "bodyColor": "#4A6FA5"
+    },
+    "textField": {
+      "paddingHorizontal": 12,
+      "paddingVertical": 8,
+      "cornerRadius": 4,
+      "borderWidth": 2,
+      "background": "#FFFFFF",
+      "borderColor": "#B8CEE8",
+      "focusBorderColor": "#0C346F",
+      "errorBorderColor": "#B91C1C",
+      "textColor": "#0C346F",
+      "placeholderColor": "#4A6FA5",
+      "textSize": 16,
+      "fontFamily": "Inter",
+      "labelColor": "#0C346F",
+      "labelSize": 12.8,
+      "helperColor": "#4A6FA5",
+      "helperSize": 12.8,
+      "errorColor": "#B91C1C"
+    },
+    "checkbox": {
+      "size": 16,
+      "cornerRadius": 2,
+      "borderWidth": 2,
+      "gap": 8,
+      "borderColor": "#B8CEE8",
+      "checkedBackground": "#0C346F",
+      "checkedIconColor": "#FFFFFF",
+      "labelColor": "#0C346F",
+      "labelSize": 16,
+      "labelFontFamily": "Inter",
+      "disabledOpacity": 0.4
+    },
+    "fab": {
+      "size": 48,
+      "cornerRadius": 9999,
+      "background": "#0C346F",
+      "iconColor": "#FFFFFF",
+      "iconSize": 24,
+      "hoverBackground": "#0A2A59",
+      "pressedBackground": "#072350",
+      "elevation": 4,
+      "extendedPaddingHorizontal": 16,
+      "extendedGap": 8
+    },
+    "autocomplete": {
+      "dropdownBackground": "#FFFFFF",
+      "dropdownCornerRadius": 4,
+      "dropdownElevation": 2,
+      "optionHoverBackground": "#F0F5FB",
+      "optionTextColor": "#0C346F",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "Inter"
+    },
+    "select": {
+      "dropdownBackground": "#FFFFFF",
+      "dropdownCornerRadius": 4,
+      "dropdownElevation": 2,
+      "optionHoverBackground": "#F0F5FB",
+      "indicatorColor": "#4A6FA5",
+      "optionTextColor": "#0C346F",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "Inter",
+      "selectedOptionBackground": "#D6E3F1"
+    },
+    "switch": {
+      "trackWidth": 48,
+      "trackHeight": 24,
+      "trackCornerRadius": 9999,
+      "trackOffBackground": "#B8CEE8",
+      "trackOnBackground": "#0C346F",
+      "thumbSize": 16,
+      "thumbCornerRadius": 9999,
+      "thumbOffBackground": "#FFFFFF",
+      "thumbOnBackground": "#FFFFFF",
+      "thumbOffset": 4,
+      "labelColor": "#0C346F",
+      "labelSize": 16,
+      "labelFontFamily": "Inter",
+      "gap": 8
+    },
+    "badge": {
+      "minSize": 16,
+      "paddingHorizontal": 4,
+      "cornerRadius": 9999,
+      "background": "#B91C1C",
+      "contentColor": "#FFFFFF",
+      "textSize": 12.8,
+      "fontWeight": 500,
+      "fontFamily": "Inter"
+    },
+    "chip": {
+      "paddingHorizontal": 12,
+      "paddingVertical": 4,
+      "gap": 4,
+      "cornerRadius": 2,
+      "background": "#F0F5FB",
+      "contentColor": "#2C4A75",
+      "selectedBackground": "#D6E3F1",
+      "selectedContentColor": "#0C346F",
+      "borderWidth": 2,
+      "borderColor": "#B8CEE8",
+      "textSize": 12.8,
+      "fontFamily": "Inter"
+    },
+    "divider": {
+      "color": "#B8CEE8",
+      "thickness": 1,
+      "margin": 8
+    },
+    "icon": {
+      "sizeSmall": 16,
+      "sizeMedium": 24,
+      "sizeLarge": 32
+    },
+    "table": {
+      "headerBackground": "#F0F5FB",
+      "headerTextColor": "#0C346F",
+      "headerFontWeight": 700,
+      "headerTextSize": 12.8,
+      "cellTextColor": "#0C346F",
+      "cellTextSize": 16,
+      "cellPaddingHorizontal": 12,
+      "cellPaddingVertical": 8,
+      "rowBorderColor": "#D6E3F1",
+      "rowBorderWidth": 1,
+      "rowHoverBackground": "#F0F5FB",
+      "cornerRadius": 4,
+      "fontFamily": "Inter"
+    },
+    "alert": {
+      "padding": 16,
+      "gap": 8,
+      "cornerRadius": 4,
+      "borderWidth": 2,
+      "background": "#F0F5FB",
+      "borderColor": "#B8CEE8",
+      "titleColor": "#0C346F",
+      "bodyColor": "#0C346F",
+      "iconColor": "#0C346F",
+      "fontFamily": "Inter",
+      "iconSize": 24,
+      "titleSize": 16,
+      "titleFontWeight": 700,
+      "bodySize": 12.8
+    },
+    "backdrop": {
+      "color": "#0C346F",
+      "opacity": 0.5
+    },
+    "skeleton": {
+      "background": "#F0F5FB",
+      "highlight": "#D6E3F1",
+      "cornerRadius": 2,
+      "circleSize": 32
+    },
+    "snackbar": {
+      "background": "#0C346F",
+      "contentColor": "#FFFFFF",
+      "actionColor": "#0A2A59",
+      "padding": 16,
+      "gap": 8,
+      "cornerRadius": 4,
+      "elevation": 3,
+      "textSize": 16,
+      "fontWeight": 400,
+      "fontFamily": "Inter"
+    },
+    "dialog": {
+      "background": "#FFFFFF",
+      "cornerRadius": 8,
+      "padding": 24,
+      "gap": 16,
+      "elevation": 6,
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "Merriweather",
+      "bodySize": 16,
+      "bodyFontFamily": "Inter",
+      "titleColor": "#0C346F",
+      "bodyColor": "#0C346F"
+    },
+    "appBar": {
+      "height": 64,
+      "paddingHorizontal": 16,
+      "background": "#FFFFFF",
+      "titleColor": "#0C346F",
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "Merriweather",
+      "iconColor": "#0C346F",
+      "borderColor": "#D6E3F1",
+      "elevation": 0
+    },
+    "link": {
+      "color": "#0C346F",
+      "hoverColor": "#0A2A59",
+      "visitedColor": "#4A6FA5",
+      "underlineOffset": 2,
+      "fontWeight": 400
+    },
+    "speedDial": {
+      "actionSize": 32,
+      "actionBackground": "#F0F5FB",
+      "actionIconColor": "#0C346F",
+      "actionIconSize": 24,
+      "actionCornerRadius": 9999,
+      "gap": 8,
+      "actionElevation": 2
     }
   }
 }

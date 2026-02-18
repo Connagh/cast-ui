@@ -1,47 +1,273 @@
 {
   "name": "luxury",
+  "_aliases": {
+    "semantic.color.surface": "primitive.color.nearBlack",
+    "semantic.color.onSurface": "primitive.color.champagne",
+    "semantic.color.onSurfaceMuted": "primitive.color.silver",
+    "semantic.color.surfaceContainer": "primitive.color.charcoal",
+    "semantic.color.primary": "primitive.color.gold",
+    "semantic.color.onPrimary": "primitive.color.nearBlack",
+    "semantic.color.primaryHover": "primitive.color.goldLight",
+    "semantic.color.primaryPressed": "primitive.color.goldDark",
+    "semantic.color.secondary": "primitive.color.silver",
+    "semantic.color.onSecondary": "primitive.color.nearBlack",
+    "semantic.color.success": "primitive.color.greenMuted",
+    "semantic.color.onSuccess": "primitive.color.nearBlack",
+    "semantic.color.error": "primitive.color.redMuted",
+    "semantic.color.onError": "primitive.color.nearBlack",
+    "semantic.color.warning": "primitive.color.gold",
+    "semantic.color.onWarning": "primitive.color.nearBlack",
+    "semantic.color.border": "primitive.color.goldDark",
+    "semantic.color.borderSubtle": "primitive.color.darkGray",
+    "semantic.color.disabledContainer": "primitive.color.darkGray",
+    "semantic.color.onDisabled": "primitive.color.gray",
+    "semantic.color.primaryContainer": "primitive.color.goldDeep",
+    "semantic.color.onPrimaryContainer": "primitive.color.champagne",
+    "semantic.color.secondaryContainer": "primitive.color.darkGray",
+    "semantic.color.onSecondaryContainer": "primitive.color.lightGray",
+    "semantic.color.errorContainer": "primitive.color.redDeep",
+    "semantic.color.onErrorContainer": "primitive.color.redLight",
+    "semantic.color.successContainer": "primitive.color.greenDeep",
+    "semantic.color.onSuccessContainer": "primitive.color.greenLight",
+    "semantic.color.warningContainer": "primitive.color.goldDeep",
+    "semantic.color.onWarningContainer": "primitive.color.champagne",
+    "semantic.color.overlay": "primitive.color.black",
+    "semantic.fontFamily.brand": "primitive.fontFamily.playfairDisplay",
+    "semantic.fontFamily.interface": "primitive.fontFamily.cormorantGaramond",
+    "semantic.fontFamily.data": "primitive.fontFamily.jetBrainsMono",
+    "semantic.fontSize.display": "primitive.fontSize.display",
+    "semantic.fontSize.h1": "primitive.fontSize.h1",
+    "semantic.fontSize.h2": "primitive.fontSize.h2",
+    "semantic.fontSize.h3": "primitive.fontSize.h3",
+    "semantic.fontSize.body": "primitive.fontSize.base",
+    "semantic.fontSize.small": "primitive.fontSize.small",
+    "semantic.fontSize.button": "primitive.fontSize.small",
+    "semantic.fontWeight.heading": "primitive.fontWeight.bold",
+    "semantic.fontWeight.body": "primitive.fontWeight.regular",
+    "semantic.fontWeight.button": "primitive.fontWeight.bold",
+    "semantic.lineHeight.heading": "primitive.lineHeight.tight",
+    "semantic.lineHeight.body": "primitive.lineHeight.normal",
+    "semantic.lineHeight.uiLabel": "primitive.lineHeight.none",
+    "semantic.letterSpacing.heading": "primitive.letterSpacing.tight",
+    "semantic.letterSpacing.body": "primitive.letterSpacing.normal",
+    "semantic.letterSpacing.label": "primitive.letterSpacing.extraWide",
+    "semantic.paragraphSpacing.body": "primitive.paragraphSpacing.large",
+    "semantic.paragraphSpacing.editorial": "primitive.paragraphSpacing.xlarge",
+    "semantic.paragraphIndent.editorial": "primitive.paragraphIndent.medium",
+    "semantic.borderRadius.small": "primitive.borderRadius.0",
+    "semantic.borderRadius.medium": "primitive.borderRadius.0",
+    "semantic.borderRadius.large": "primitive.borderRadius.0",
+    "semantic.borderRadius.full": "primitive.borderRadius.0",
+    "semantic.spacing.xs": "primitive.spacing.4",
+    "semantic.spacing.sm": "primitive.spacing.8",
+    "semantic.spacing.md": "primitive.spacing.16",
+    "semantic.spacing.lg": "primitive.spacing.24",
+    "semantic.spacing.xl": "primitive.spacing.32",
+    "semantic.borderWidth.thin": "primitive.borderWidth.1",
+    "semantic.borderWidth.medium": "primitive.borderWidth.1",
+    "semantic.elevation.none": "primitive.elevation.0",
+    "semantic.elevation.xs": "primitive.elevation.0",
+    "semantic.elevation.sm": "primitive.elevation.0",
+    "semantic.elevation.md": "primitive.elevation.0",
+    "semantic.elevation.lg": "primitive.elevation.0",
+    "semantic.elevation.xl": "primitive.elevation.0",
+    "semantic.size.xs": "primitive.size.2",
+    "semantic.size.sm": "primitive.size.4",
+    "semantic.size.md": "primitive.size.16",
+    "semantic.size.lg": "primitive.size.24",
+    "semantic.size.xl": "primitive.size.32",
+    "semantic.size.xxl": "primitive.size.48",
+    "semantic.size.xxxl": "primitive.size.64",
+    "semantic.opacity.disabled": "primitive.opacity.30",
+    "semantic.opacity.overlay": "primitive.opacity.70",
+    "component.button.paddingHorizontal": "semantic.spacing.lg",
+    "component.button.paddingVertical": "semantic.spacing.md",
+    "component.button.gap": "semantic.spacing.sm",
+    "component.button.cornerRadius": "semantic.borderRadius.medium",
+    "component.button.borderWidth": "semantic.borderWidth.medium",
+    "component.button.textSize": "semantic.fontSize.button",
+    "component.button.fontWeight": "semantic.fontWeight.button",
+    "component.button.lineHeight": "semantic.lineHeight.uiLabel",
+    "component.button.fontFamily": "semantic.fontFamily.interface",
+    "component.button.filled.background": "semantic.color.primary",
+    "component.button.filled.content": "semantic.color.onPrimary",
+    "component.button.outline.background": "semantic.color.surface",
+    "component.button.outline.border": "semantic.color.primary",
+    "component.button.outline.content": "semantic.color.primary",
+    "component.button.text.background": "semantic.color.surface",
+    "component.button.text.content": "semantic.color.primary",
+    "component.button.state.hoverBackground": "semantic.color.primaryHover",
+    "component.button.state.pressedBackground": "semantic.color.primaryPressed",
+    "component.button.state.disabledBackground": "semantic.color.disabledContainer",
+    "component.button.state.disabledContent": "semantic.color.onDisabled",
+    "component.card.padding": "semantic.spacing.lg",
+    "component.card.gap": "semantic.spacing.md",
+    "component.card.background": "semantic.color.surfaceContainer",
+    "component.card.stroke": "semantic.color.border",
+    "component.card.strokeWidth": "semantic.borderWidth.thin",
+    "component.card.cornerRadius": "semantic.borderRadius.large",
+    "component.card.elevation": "semantic.elevation.none",
+    "component.card.headingSize": "semantic.fontSize.h2",
+    "component.card.headingWeight": "semantic.fontWeight.heading",
+    "component.card.headingFontFamily": "semantic.fontFamily.brand",
+    "component.card.bodySize": "semantic.fontSize.body",
+    "component.card.bodyWeight": "semantic.fontWeight.body",
+    "component.card.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.dialog.titleFontFamily": "semantic.fontFamily.brand",
+    "component.dialog.bodyFontFamily": "semantic.fontFamily.interface",
+    "component.appBar.titleFontFamily": "semantic.fontFamily.brand"
+  },
+  "primitive": {
+    "color": {
+      "black": "#000000",
+      "nearBlack": "#0A0A0A",
+      "charcoal": "#1A1A1A",
+      "darkGray": "#2A2A2A",
+      "gray": "#666666",
+      "silver": "#A8A8A8",
+      "lightGray": "#D8D8D8",
+      "champagne": "#E9D8A6",
+      "gold": "#CAAD5F",
+      "goldLight": "#E0C878",
+      "goldDark": "#947C3E",
+      "goldDeep": "#2E2610",
+      "greenMuted": "#5DA97A",
+      "greenDeep": "#102E18",
+      "greenLight": "#A0E8B0",
+      "redMuted": "#C75050",
+      "redDeep": "#2E1010",
+      "redLight": "#E8A0A0"
+    },
+    "fontFamily": {
+      "playfairDisplay": "Playfair Display",
+      "cormorantGaramond": "Cormorant Garamond",
+      "jetBrainsMono": "JetBrains Mono"
+    },
+    "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "base": 16,
+      "small": 12.8
+    },
+    "fontWeight": {
+      "bold": 700,
+      "regular": 400,
+      "medium": 500
+    },
+    "lineHeight": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "none": 1
+    },
+    "letterSpacing": {
+      "tight": -0.02,
+      "normal": 0,
+      "wide": 0.02,
+      "extraWide": 0.08
+    },
+    "paragraphSpacing": {
+      "large": 32,
+      "xlarge": 48
+    },
+    "paragraphIndent": {
+      "none": 0,
+      "medium": 32
+    },
+    "borderRadius": {
+      "0": 0,
+      "full": 9999
+    },
+    "spacing": {
+      "4": 4,
+      "8": 8,
+      "16": 16,
+      "24": 24,
+      "32": 32
+    },
+    "borderWidth": {
+      "1": 1
+    },
+    "elevation": {
+      "0": 0
+    },
+    "size": {
+      "2": 2,
+      "4": 4,
+      "16": 16,
+      "24": 24,
+      "32": 32,
+      "48": 48,
+      "64": 64
+    },
+    "opacity": {
+      "30": 0.3,
+      "70": 0.7
+    }
+  },
   "semantic": {
     "color": {
-      "surface": "#000000",
+      "surface": "#0A0A0A",
       "onSurface": "#E9D8A6",
-      "onSurfaceMuted": "#B1B1B1",
-      "surfaceContainer": "#696969",
+      "onSurfaceMuted": "#A8A8A8",
+      "surfaceContainer": "#1A1A1A",
       "primary": "#CAAD5F",
-      "onPrimary": "#000000",
-      "primaryHover": "#E9D8A6",
+      "onPrimary": "#0A0A0A",
+      "primaryHover": "#E0C878",
       "primaryPressed": "#947C3E",
-      "secondary": "#B1B1B1",
-      "onSecondary": "#000000",
-      "success": "#3DC253",
-      "onSuccess": "#000000",
-      "error": "#E46262",
-      "onError": "#000000",
+      "secondary": "#A8A8A8",
+      "onSecondary": "#0A0A0A",
+      "success": "#5DA97A",
+      "onSuccess": "#0A0A0A",
+      "error": "#C75050",
+      "onError": "#0A0A0A",
       "warning": "#CAAD5F",
-      "onWarning": "#000000",
+      "onWarning": "#0A0A0A",
       "border": "#947C3E",
-      "borderSubtle": "#696969",
-      "disabledContainer": "#696969",
-      "onDisabled": "#B1B1B1",
-      "primaryContainer": "#6B592D",
+      "borderSubtle": "#2A2A2A",
+      "disabledContainer": "#2A2A2A",
+      "onDisabled": "#666666",
+      "primaryContainer": "#2E2610",
       "onPrimaryContainer": "#E9D8A6",
-      "secondaryContainer": "#3D3D3D",
+      "secondaryContainer": "#2A2A2A",
       "onSecondaryContainer": "#D8D8D8",
-      "errorContainer": "#4A0808",
-      "onErrorContainer": "#E99E9E",
-      "successContainer": "#084A14",
-      "onSuccessContainer": "#9EE9A1",
-      "warningContainer": "#6B592D",
-      "onWarningContainer": "#E9D8A6"
+      "errorContainer": "#2E1010",
+      "onErrorContainer": "#E8A0A0",
+      "successContainer": "#102E18",
+      "onSuccessContainer": "#A0E8B0",
+      "warningContainer": "#2E2610",
+      "onWarningContainer": "#E9D8A6",
+      "overlay": "#000000"
     },
     "fontFamily": {
       "brand": "Playfair Display",
-      "interface": "Cormorant Garamond"
+      "interface": "Cormorant Garamond",
+      "data": "JetBrains Mono"
     },
     "fontSize": {
+      "display": 39,
+      "h1": 31,
+      "h2": 25,
+      "h3": 20,
+      "body": 16,
+      "small": 12.8,
       "button": 12.8
     },
     "fontWeight": {
+      "heading": 700,
+      "body": 400,
       "button": 700
+    },
+    "lineHeight": {
+      "heading": 1.2,
+      "body": 1.5,
+      "uiLabel": 1
+    },
+    "letterSpacing": {
+      "heading": -0.02,
+      "body": 0,
+      "label": 0.08
     },
     "paragraphSpacing": {
       "body": 32,
@@ -53,49 +279,302 @@
     "borderRadius": {
       "small": 0,
       "medium": 0,
-      "large": 0
+      "large": 0,
+      "full": 0
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32
+    },
+    "borderWidth": {
+      "thin": 1,
+      "medium": 1
+    },
+    "elevation": {
+      "none": 0,
+      "xs": 0,
+      "sm": 0,
+      "md": 0,
+      "lg": 0,
+      "xl": 0
+    },
+    "size": {
+      "xs": 2,
+      "sm": 4,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48,
+      "xxxl": 64
+    },
+    "opacity": {
+      "disabled": 0.3,
+      "overlay": 0.7
     }
   },
   "component": {
     "button": {
-      "paddingHorizontal": 32,
+      "paddingHorizontal": 24,
       "paddingVertical": 16,
-      "gap": 12,
+      "gap": 8,
       "cornerRadius": 0,
+      "borderWidth": 1,
       "textSize": 12.8,
       "fontWeight": 700,
+      "lineHeight": 1,
       "fontFamily": "Cormorant Garamond",
       "filled": {
         "background": "#CAAD5F",
-        "content": "#000000"
+        "content": "#0A0A0A"
       },
       "outline": {
-        "background": "#000000",
+        "background": "#0A0A0A",
         "border": "#CAAD5F",
         "content": "#CAAD5F"
       },
       "text": {
-        "background": "#000000",
+        "background": "#0A0A0A",
         "content": "#CAAD5F"
       },
       "state": {
-        "hoverBackground": "#E9D8A6",
+        "hoverBackground": "#E0C878",
         "pressedBackground": "#947C3E",
-        "disabledBackground": "#696969",
-        "disabledContent": "#B1B1B1"
+        "disabledBackground": "#2A2A2A",
+        "disabledContent": "#666666"
       }
     },
     "card": {
-      "padding": 32,
+      "padding": 24,
       "gap": 16,
-      "background": "#696969",
+      "background": "#1A1A1A",
       "stroke": "#947C3E",
       "strokeWidth": 1,
       "cornerRadius": 0,
       "elevation": 0,
       "headingSize": 25,
+      "headingWeight": 700,
       "headingFontFamily": "Playfair Display",
-      "bodyFontFamily": "Cormorant Garamond"
+      "bodySize": 16,
+      "bodyWeight": 400,
+      "bodyFontFamily": "Cormorant Garamond",
+      "headingColor": "#E9D8A6",
+      "bodyColor": "#A8A8A8"
+    },
+    "textField": {
+      "paddingHorizontal": 16,
+      "paddingVertical": 8,
+      "cornerRadius": 0,
+      "borderWidth": 1,
+      "background": "#0A0A0A",
+      "borderColor": "#947C3E",
+      "focusBorderColor": "#CAAD5F",
+      "errorBorderColor": "#C75050",
+      "textColor": "#E9D8A6",
+      "placeholderColor": "#A8A8A8",
+      "textSize": 16,
+      "fontFamily": "Cormorant Garamond",
+      "labelColor": "#E9D8A6",
+      "labelSize": 12.8,
+      "helperColor": "#A8A8A8",
+      "helperSize": 12.8,
+      "errorColor": "#C75050"
+    },
+    "checkbox": {
+      "size": 16,
+      "cornerRadius": 0,
+      "borderWidth": 1,
+      "gap": 8,
+      "borderColor": "#947C3E",
+      "checkedBackground": "#CAAD5F",
+      "checkedIconColor": "#0A0A0A",
+      "labelColor": "#E9D8A6",
+      "labelSize": 16,
+      "labelFontFamily": "Cormorant Garamond",
+      "disabledOpacity": 0.3
+    },
+    "fab": {
+      "size": 48,
+      "cornerRadius": 0,
+      "background": "#CAAD5F",
+      "iconColor": "#0A0A0A",
+      "iconSize": 24,
+      "hoverBackground": "#E0C878",
+      "pressedBackground": "#947C3E",
+      "elevation": 0,
+      "extendedPaddingHorizontal": 24,
+      "extendedGap": 8
+    },
+    "autocomplete": {
+      "dropdownBackground": "#0A0A0A",
+      "dropdownCornerRadius": 0,
+      "dropdownElevation": 0,
+      "optionHoverBackground": "#1A1A1A",
+      "optionTextColor": "#E9D8A6",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "Cormorant Garamond"
+    },
+    "select": {
+      "dropdownBackground": "#0A0A0A",
+      "dropdownCornerRadius": 0,
+      "dropdownElevation": 0,
+      "optionHoverBackground": "#1A1A1A",
+      "indicatorColor": "#CAAD5F",
+      "optionTextColor": "#E9D8A6",
+      "optionTextSize": 16,
+      "optionPaddingHorizontal": 16,
+      "optionPaddingVertical": 8,
+      "fontFamily": "Cormorant Garamond",
+      "selectedOptionBackground": "#2E2610"
+    },
+    "switch": {
+      "trackWidth": 48,
+      "trackHeight": 24,
+      "trackCornerRadius": 0,
+      "trackOffBackground": "#947C3E",
+      "trackOnBackground": "#CAAD5F",
+      "thumbSize": 16,
+      "thumbCornerRadius": 0,
+      "thumbOffBackground": "#0A0A0A",
+      "thumbOnBackground": "#0A0A0A",
+      "thumbOffset": 4,
+      "labelColor": "#E9D8A6",
+      "labelSize": 16,
+      "labelFontFamily": "Cormorant Garamond",
+      "gap": 8
+    },
+    "badge": {
+      "minSize": 16,
+      "paddingHorizontal": 4,
+      "cornerRadius": 0,
+      "background": "#C75050",
+      "contentColor": "#0A0A0A",
+      "textSize": 12.8,
+      "fontWeight": 700,
+      "fontFamily": "Cormorant Garamond"
+    },
+    "chip": {
+      "paddingHorizontal": 16,
+      "paddingVertical": 4,
+      "gap": 4,
+      "cornerRadius": 0,
+      "background": "#2A2A2A",
+      "contentColor": "#D8D8D8",
+      "selectedBackground": "#2E2610",
+      "selectedContentColor": "#E9D8A6",
+      "borderWidth": 1,
+      "borderColor": "#947C3E",
+      "textSize": 12.8,
+      "fontFamily": "Cormorant Garamond"
+    },
+    "divider": {
+      "color": "#947C3E",
+      "thickness": 1,
+      "margin": 8
+    },
+    "icon": {
+      "sizeSmall": 16,
+      "sizeMedium": 24,
+      "sizeLarge": 32
+    },
+    "table": {
+      "headerBackground": "#1A1A1A",
+      "headerTextColor": "#E9D8A6",
+      "headerFontWeight": 700,
+      "headerTextSize": 12.8,
+      "cellTextColor": "#E9D8A6",
+      "cellTextSize": 16,
+      "cellPaddingHorizontal": 16,
+      "cellPaddingVertical": 8,
+      "rowBorderColor": "#2A2A2A",
+      "rowBorderWidth": 1,
+      "rowHoverBackground": "#1A1A1A",
+      "cornerRadius": 0,
+      "fontFamily": "Cormorant Garamond"
+    },
+    "alert": {
+      "padding": 24,
+      "gap": 8,
+      "cornerRadius": 0,
+      "borderWidth": 1,
+      "background": "#1A1A1A",
+      "borderColor": "#947C3E",
+      "titleColor": "#E9D8A6",
+      "bodyColor": "#E9D8A6",
+      "iconColor": "#E9D8A6",
+      "fontFamily": "Cormorant Garamond",
+      "iconSize": 24,
+      "titleSize": 16,
+      "titleFontWeight": 700,
+      "bodySize": 12.8
+    },
+    "backdrop": {
+      "color": "#000000",
+      "opacity": 0.7
+    },
+    "skeleton": {
+      "background": "#2A2A2A",
+      "highlight": "#1A1A1A",
+      "cornerRadius": 0,
+      "circleSize": 32
+    },
+    "snackbar": {
+      "background": "#E9D8A6",
+      "contentColor": "#0A0A0A",
+      "actionColor": "#CAAD5F",
+      "padding": 24,
+      "gap": 8,
+      "cornerRadius": 0,
+      "elevation": 0,
+      "textSize": 16,
+      "fontWeight": 400,
+      "fontFamily": "Cormorant Garamond"
+    },
+    "dialog": {
+      "background": "#0A0A0A",
+      "cornerRadius": 0,
+      "padding": 32,
+      "gap": 24,
+      "elevation": 0,
+      "titleSize": 25,
+      "titleFontWeight": 700,
+      "titleFontFamily": "Playfair Display",
+      "bodySize": 16,
+      "bodyFontFamily": "Cormorant Garamond",
+      "titleColor": "#E9D8A6",
+      "bodyColor": "#E9D8A6"
+    },
+    "appBar": {
+      "height": 64,
+      "paddingHorizontal": 24,
+      "background": "#0A0A0A",
+      "titleColor": "#E9D8A6",
+      "titleSize": 20,
+      "titleFontWeight": 700,
+      "titleFontFamily": "Playfair Display",
+      "iconColor": "#CAAD5F",
+      "borderColor": "#947C3E",
+      "elevation": 0
+    },
+    "link": {
+      "color": "#CAAD5F",
+      "hoverColor": "#E0C878",
+      "visitedColor": "#A8A8A8",
+      "underlineOffset": 2,
+      "fontWeight": 400
+    },
+    "speedDial": {
+      "actionSize": 32,
+      "actionBackground": "#2A2A2A",
+      "actionIconColor": "#E9D8A6",
+      "actionIconSize": 24,
+      "actionCornerRadius": 0,
+      "gap": 8,
+      "actionElevation": 0
     }
   }
 }

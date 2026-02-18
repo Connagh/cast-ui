@@ -130,9 +130,9 @@ Brand colors provide a 5-stop scale (50 = lightest tint, 800 = darkest shade). N
 
 | Token | Value | Purpose |
 |-------|-------|---------|
-| Line-Height-None | 1.0 | Solid / illustrative |
-| Line-Height-Tight | 1.2 | Headings |
-| Line-Height-Base | 1.5 | Body text |
+| Line-Height-None | 16 | Solid / illustrative |
+| Line-Height-Tight | 24 | Headings |
+| Line-Height-Base | 24 | Body text |
 
 ### Letter Spacing (5 tokens)
 
@@ -262,9 +262,9 @@ This is the key typographic differentiation: switching themes in Figma completel
 
 | Token | Maps to | Value |
 |-------|---------|-------|
-| Line-Height-heading | Line-Height-Tight | 1.2 |
-| Line-Height-body | Line-Height-Base | 1.5 |
-| Line-Height-UI-label | Line-Height-None | 1.0 |
+| Line-Height-heading | Line-Height-Tight | 24 |
+| Line-Height-body | Line-Height-Base | 24 |
+| Line-Height-UI-label | Line-Height-None | 16 |
 
 #### Letter Spacing (3 tokens, consistent across themes)
 
@@ -294,13 +294,67 @@ This is the key typographic differentiation: switching themes in Figma completel
 
 **Luxury stands alone** with first-line indents for traditional book-style editorial typography. Other themes use modern block paragraphs.
 
-### Border Radius (3 semantic tokens)
+### Border Radius (4 semantic tokens)
 
 | Semantic Token | Consumer | Corporate | Luxury | Default |
 |----------------|----------|-----------|--------|-------------|
 | **Radius-Small** | Radius-MD (8px) | Radius-XS (2px) | Radius-None (0px) | Radius-SM (4px) |
 | **Radius-Medium** | Radius-2XL (24px) | Radius-SM (4px) | Radius-None (0px) | Radius-MD (8px) |
 | **Radius-Large** | Radius-XL (16px) | Radius-MD (8px) | Radius-None (0px) | Radius-LG (12px) |
+| **Radius-Full** | Radius-Full (9999px) | Radius-Full (9999px) | Radius-None (0px) | Radius-Full (9999px) |
+
+### Overlay (1 semantic token)
+
+| Semantic Token | Default |
+|----------------|---------|
+| **Overlay** | Black (#000000) — used with a separate opacity value for backdrop scrim |
+
+### Spacing (5 semantic tokens)
+
+| Semantic Token | Maps to | Value |
+|----------------|---------|-------|
+| **Spacing-XS** | Primitive Spacing 050 | 4px |
+| **Spacing-SM** | Primitive Spacing 100 | 8px |
+| **Spacing-MD** | Primitive Spacing 150 | 12px |
+| **Spacing-LG** | Primitive Spacing 200 | 16px |
+| **Spacing-XL** | Primitive Spacing 300 | 24px |
+
+### Border Width (2 semantic tokens)
+
+| Semantic Token | Value |
+|----------------|-------|
+| **Border-Width-Thin** | 1px |
+| **Border-Width-Medium** | 2px |
+
+### Elevation (6 semantic tokens)
+
+| Semantic Token | Value |
+|----------------|-------|
+| **Elevation-None** | 0 |
+| **Elevation-XS** | 1 |
+| **Elevation-SM** | 2 |
+| **Elevation-MD** | 3 |
+| **Elevation-LG** | 4 |
+| **Elevation-XL** | 6 |
+
+### Size (7 semantic tokens)
+
+| Semantic Token | Value |
+|----------------|-------|
+| **Size-XS** | 2px |
+| **Size-SM** | 4px |
+| **Size-MD** | 16px |
+| **Size-LG** | 24px |
+| **Size-XL** | 32px |
+| **Size-2XL** | 48px |
+| **Size-3XL** | 64px |
+
+### Opacity (2 semantic tokens)
+
+| Semantic Token | Value |
+|----------------|-------|
+| **Opacity-Disabled** | 0.4 |
+| **Opacity-Overlay** | 0.5 |
 
 ---
 
@@ -319,7 +373,7 @@ Component tokens reference semantic tokens to build complete, theme-aware UI com
 | Border-Width | Outline button border | 2px | 2px | 2px | 2px |
 | Text-Size | `{Semantic.Text size.Text-size-button}` | 16px | 16px | 12.8px | 16px |
 | Font-Weight | `{Semantic.Font weight.Weight-button}` | 500 | 500 | 700 | 500 |
-| Line-Height | `{Semantic.Line height.Line-Height-UI-label}` | 1.0 | 1.0 | 1.0 | 1.0 |
+| Line-Height | `{Semantic.Line height.Line-Height-UI-label}` | 16 | 16 | 16 | 16 |
 | **Font-Family** | `{Semantic.Font family.Font-Interface}` | Poppins | Inter | Cormorant Garamond | system-ui |
 
 #### Button Variants
@@ -356,6 +410,8 @@ Component tokens reference semantic tokens to build complete, theme-aware UI com
 | Body-Size | Card body size | 16px | 16px | 16px | 16px |
 | Body-Weight | `{Semantic.Font weight.Weight-body}` | Regular | Regular | Regular | Regular |
 | **Body-Font-Family** | `{Semantic.Font family.Font-Interface}` | Poppins | Inter | Cormorant Garamond | system-ui |
+| **Heading-Color** | `{Semantic.Colour.On-Surface}` | Per theme | Per theme | Per theme | Slate-900 |
+| **Body-Color** | `{Semantic.Colour.On-Surface-Muted}` | Per theme | Per theme | Per theme | Slate-600 |
 
 ---
 
@@ -448,37 +504,322 @@ Developers can consume these tokens through Figma's token export or tools like S
 />
 ```
 
+### TextField Component (17 tokens)
+
+Shared input base used by Autocomplete and Select.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Padding-Horizontal | number | `{Primitive.Spacing.150}` (12) |
+| Padding-Vertical | number | `{Primitive.Spacing.100}` (8) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Medium}` (8) |
+| Border-Width | number | `{Primitive.Spacing.025}` (2) |
+| Background | color | `{Semantic.Colour.Surface}` |
+| Border-Color | color | `{Semantic.Colour.Border}` |
+| Focus-Border-Color | color | `{Semantic.Colour.Primary}` |
+| Error-Border-Color | color | `{Semantic.Colour.Error}` |
+| Text-Color | color | `{Semantic.Colour.On-Surface}` |
+| Placeholder-Color | color | `{Semantic.Colour.On-Surface-Muted}` |
+| Text-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+| Label-Color | color | `{Semantic.Colour.On-Surface}` |
+| Label-Size | number | `{Semantic.Text size.Text-size-small}` (12.8) |
+| Helper-Color | color | `{Semantic.Colour.On-Surface-Muted}` |
+| Helper-Size | number | `{Semantic.Text size.Text-size-small}` (12.8) |
+| Error-Color | color | `{Semantic.Colour.Error}` |
+
+### Checkbox Component (11 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Size | number | `{Primitive.Spacing.200}` (16) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Small}` (4) |
+| Border-Width | number | `{Primitive.Spacing.025}` (2) |
+| Gap | number | `{Primitive.Spacing.100}` (8) |
+| Border-Color | color | `{Semantic.Colour.Border}` |
+| Checked-Background | color | `{Semantic.Colour.Primary}` |
+| Checked-Icon-Color | color | `{Semantic.Colour.On-Primary}` |
+| Label-Color | color | `{Semantic.Colour.On-Surface}` |
+| Label-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Label-Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+| Disabled-Opacity | number | 0.4 |
+
+### FAB Component (10 tokens)
+
+Floating Action Button.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Size | number | `{Primitive.Spacing.600}` (48) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Full}` (9999) |
+| Background | color | `{Semantic.Colour.Primary}` |
+| Icon-Color | color | `{Semantic.Colour.On-Primary}` |
+| Icon-Size | number | `{Primitive.Spacing.300}` (24) |
+| Hover-Background | color | `{Semantic.Colour.Primary-Hover}` |
+| Pressed-Background | color | `{Semantic.Colour.Primary-Pressed}` |
+| Elevation | number | 4 |
+| Extended-Padding-Horizontal | number | `{Primitive.Spacing.200}` (16) |
+| Extended-Gap | number | `{Primitive.Spacing.100}` (8) |
+
+### Autocomplete Component (9 tokens)
+
+Input uses TextField tokens; these are dropdown-specific.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Dropdown-Background | color | `{Semantic.Colour.Surface}` |
+| Dropdown-Corner-Radius | number | `{Semantic.Border radius.Radius-Medium}` (8) |
+| Dropdown-Elevation | number | 2 |
+| Option-Hover-Background | color | `{Semantic.Colour.Surface-Container}` |
+| Option-Text-Color | color | `{Semantic.Colour.On-Surface}` |
+| Option-Text-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Option-Padding-Horizontal | number | `{Semantic.Spacing.Spacing-LG}` (16) |
+| Option-Padding-Vertical | number | `{Semantic.Spacing.Spacing-SM}` (8) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+
+### Select Component (11 tokens)
+
+Input uses TextField tokens; these are dropdown-specific.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Dropdown-Background | color | `{Semantic.Colour.Surface}` |
+| Dropdown-Corner-Radius | number | `{Semantic.Border radius.Radius-Medium}` (8) |
+| Dropdown-Elevation | number | 2 |
+| Option-Hover-Background | color | `{Semantic.Colour.Surface-Container}` |
+| Indicator-Color | color | `{Semantic.Colour.On-Surface-Muted}` |
+| Option-Text-Color | color | `{Semantic.Colour.On-Surface}` |
+| Option-Text-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Option-Padding-Horizontal | number | `{Semantic.Spacing.Spacing-LG}` (16) |
+| Option-Padding-Vertical | number | `{Semantic.Spacing.Spacing-SM}` (8) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+| Selected-Option-Background | color | `{Semantic.Colour.Primary-Container}` |
+
+### Switch Component (14 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Track-Width | number | `{Primitive.Spacing.600}` (48) |
+| Track-Height | number | `{Primitive.Spacing.300}` (24) |
+| Track-Corner-Radius | number | `{Semantic.Border radius.Radius-Full}` (9999) |
+| Track-Off-Background | color | `{Semantic.Colour.Border}` |
+| Track-On-Background | color | `{Semantic.Colour.Primary}` |
+| Thumb-Size | number | `{Primitive.Spacing.200}` (16) |
+| Thumb-Corner-Radius | number | `{Semantic.Border radius.Radius-Full}` (9999) |
+| Thumb-Off-Background | color | `{Semantic.Colour.Surface}` |
+| Thumb-On-Background | color | `{Semantic.Colour.On-Primary}` |
+| Thumb-Offset | number | `{Primitive.Spacing.050}` (4) |
+| Label-Color | color | `{Semantic.Colour.On-Surface}` |
+| Label-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Label-Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+| Gap | number | `{Primitive.Spacing.100}` (8) |
+
+### Badge Component (8 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Min-Size | number | `{Primitive.Spacing.200}` (16) |
+| Padding-Horizontal | number | `{Primitive.Spacing.050}` (4) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Full}` (9999) |
+| Background | color | `{Semantic.Colour.Error}` |
+| Content-Color | color | `{Semantic.Colour.On-Error}` |
+| Text-Size | number | `{Semantic.Text size.Text-size-small}` (12.8) |
+| Font-Weight | number | `{Semantic.Font weight.Weight-button}` (500) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+
+### Chip Component (12 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Padding-Horizontal | number | `{Primitive.Spacing.150}` (12) |
+| Padding-Vertical | number | `{Primitive.Spacing.050}` (4) |
+| Gap | number | `{Primitive.Spacing.050}` (4) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Small}` (4) |
+| Background | color | `{Semantic.Colour.Secondary-Container}` |
+| Content-Color | color | `{Semantic.Colour.On-Secondary-Container}` |
+| Selected-Background | color | `{Semantic.Colour.Primary-Container}` |
+| Selected-Content-Color | color | `{Semantic.Colour.On-Primary-Container}` |
+| Border-Width | number | `{Primitive.Spacing.025}` (2) |
+| Border-Color | color | `{Semantic.Colour.Border}` |
+| Text-Size | number | `{Semantic.Text size.Text-size-small}` (12.8) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+
+### Divider Component (3 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Color | color | `{Semantic.Colour.Border}` |
+| Thickness | number | 1 |
+| Margin | number | `{Primitive.Spacing.100}` (8) |
+
+### Icon Component (3 tokens)
+
+Icon colour is inherited from parent component — only sizes are tokenized.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Size-Small | number | `{Primitive.Spacing.200}` (16) |
+| Size-Medium | number | `{Primitive.Spacing.300}` (24) |
+| Size-Large | number | `{Primitive.Spacing.400}` (32) |
+
+### Table Component (13 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Header-Background | color | `{Semantic.Colour.Surface-Container}` |
+| Header-Text-Color | color | `{Semantic.Colour.On-Surface}` |
+| Header-Font-Weight | number | `{Semantic.Font weight.Weight-heading}` (700) |
+| Header-Text-Size | number | `{Semantic.Text size.Text-size-small}` (12.8) |
+| Cell-Text-Color | color | `{Semantic.Colour.On-Surface}` |
+| Cell-Text-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Cell-Padding-Horizontal | number | `{Primitive.Spacing.150}` (12) |
+| Cell-Padding-Vertical | number | `{Primitive.Spacing.100}` (8) |
+| Row-Border-Color | color | `{Semantic.Colour.Border-Subtle}` |
+| Row-Border-Width | number | 1 |
+| Row-Hover-Background | color | `{Semantic.Colour.Surface-Container}` |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Medium}` (8) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+
+### Alert Component (14 tokens)
+
+Severity colours (success/error/warning) are read from semantic container tokens at runtime.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Padding | number | `{Primitive.Spacing.200}` (16) |
+| Gap | number | `{Primitive.Spacing.100}` (8) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Medium}` (8) |
+| Border-Width | number | `{Primitive.Spacing.025}` (2) |
+| Background | color | `{Semantic.Colour.Surface-Container}` |
+| Border-Color | color | `{Semantic.Colour.Border}` |
+| Title-Color | color | `{Semantic.Colour.On-Surface}` |
+| Body-Color | color | `{Semantic.Colour.On-Surface}` |
+| Icon-Color | color | `{Semantic.Colour.On-Surface}` |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+| Icon-Size | number | `{Primitive.Spacing.300}` (24) |
+| Title-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Title-Font-Weight | number | `{Semantic.Font weight.Weight-heading}` (700) |
+| Body-Size | number | `{Semantic.Text size.Text-size-small}` (12.8) |
+
+### Backdrop Component (2 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Color | color | `{Semantic.Colour.Overlay}` |
+| Opacity | number | 0.5 |
+
+### Skeleton Component (4 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Background | color | `{Semantic.Colour.Surface-Container}` |
+| Highlight | color | `{Semantic.Colour.Border-Subtle}` |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Small}` (4) |
+| Circle-Size | number | `{Primitive.Spacing.400}` (32) |
+
+### Snackbar Component (10 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Background | color | `{Semantic.Colour.On-Surface}` (inverted) |
+| Content-Color | color | `{Semantic.Colour.Surface}` (inverted) |
+| Action-Color | color | `{Semantic.Colour.Primary-Hover}` |
+| Padding | number | `{Primitive.Spacing.200}` (16) |
+| Gap | number | `{Primitive.Spacing.100}` (8) |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Medium}` (8) |
+| Elevation | number | 3 |
+| Text-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Font-Weight | number | `{Semantic.Font weight.Weight-body}` (400) |
+| Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+
+### Dialog Component (12 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Background | color | `{Semantic.Colour.Surface}` |
+| Corner-Radius | number | `{Semantic.Border radius.Radius-Large}` (12) |
+| Padding | number | `{Primitive.Spacing.300}` (24) |
+| Gap | number | `{Primitive.Spacing.200}` (16) |
+| Elevation | number | 6 |
+| Title-Size | number | `{Semantic.Text size.Text-size-h3}` (20) |
+| Title-Font-Weight | number | `{Semantic.Font weight.Weight-heading}` (700) |
+| Title-Font-Family | string | `{Semantic.Font family.Font-Brand}` |
+| Title-Color | color | `{Semantic.Colour.On-Surface}` |
+| Body-Size | number | `{Semantic.Text size.Text-size-body}` (16) |
+| Body-Font-Family | string | `{Semantic.Font family.Font-Interface}` |
+| Body-Color | color | `{Semantic.Colour.On-Surface}` |
+
+### AppBar Component (10 tokens)
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Height | number | `{Primitive.Spacing.800}` (64) |
+| Padding-Horizontal | number | `{Primitive.Spacing.200}` (16) |
+| Background | color | `{Semantic.Colour.Surface}` |
+| Title-Color | color | `{Semantic.Colour.On-Surface}` |
+| Title-Size | number | `{Semantic.Text size.Text-size-h3}` (20) |
+| Title-Font-Weight | number | `{Semantic.Font weight.Weight-heading}` (700) |
+| Title-Font-Family | string | `{Semantic.Font family.Font-Brand}` |
+| Icon-Color | color | `{Semantic.Colour.On-Surface}` |
+| Border-Color | color | `{Semantic.Colour.Border-Subtle}` |
+| Elevation | number | 0 |
+
+### Link Component (5 tokens)
+
+Link inherits font size and family from surrounding text.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Color | color | `{Semantic.Colour.Primary}` |
+| Hover-Color | color | `{Semantic.Colour.Primary-Hover}` |
+| Visited-Color | color | `{Semantic.Colour.On-Surface-Muted}` |
+| Underline-Offset | number | `{Primitive.Spacing.025}` (2) |
+| Font-Weight | number | `{Semantic.Font weight.Weight-body}` (400) |
+
+### SpeedDial Component (7 tokens)
+
+Main FAB uses `component.fab.*` tokens; these are for secondary actions.
+
+| Token | Type | Default Reference |
+|-------|------|-------------------|
+| Action-Size | number | `{Primitive.Spacing.400}` (32) |
+| Action-Background | color | `{Semantic.Colour.Surface-Container}` |
+| Action-Icon-Color | color | `{Semantic.Colour.On-Surface}` |
+| Action-Icon-Size | number | `{Semantic.Size.Size-LG}` (24) |
+| Action-Corner-Radius | number | `{Semantic.Border radius.Radius-Full}` (9999) |
+| Gap | number | `{Primitive.Spacing.100}` (8) |
+| Action-Elevation | number | 2 |
+
 ---
 
-## Future Expansion
+## Token Count Summary
 
-When adding new components, follow this pattern:
-
-```json
-"Input": {
-  "Padding": "{Primitive.Spacing.150}",
-  "Corner-Radius": "{Semantic.Border radius.Radius-Medium}",
-  "Background": "{Semantic.Colour.Surface}",
-  "Border": "{Semantic.Colour.Border}",
-  "Text-Size": "{Semantic.Text size.Text-size-body}",
-  "Font-Family": "{Semantic.Font family.Font-Interface}",
-  "State": {
-    "Focus-Border": "{Semantic.Colour.Primary}",
-    "Error-Border": "{Semantic.Colour.Error}",
-    "Disabled-Background": "{Semantic.Colour.Disabled-Container}"
-  }
-}
-```
-
-### Recommended Components to Add Next
-1. Input / TextField
-2. Checkbox / Radio
-3. Select / Dropdown
-4. Modal / Dialog
-5. Navigation
-6. Badge / Tag
-7. Toast / Notification
-8. Table
+| Layer | Tokens |
+|-------|--------|
+| Primitive | 90 |
+| Semantic | 79 (colour 31, typography 19, border radius 4, spacing 5, border width 2, elevation 6, size 7, opacity 2, overlay 1, paragraph 3) |
+| Component — Button | 26 |
+| Component — Card | 16 |
+| Component — TextField | 17 |
+| Component — Checkbox | 11 |
+| Component — FAB | 10 |
+| Component — Autocomplete | 9 |
+| Component — Select | 11 |
+| Component — Switch | 14 |
+| Component — Badge | 8 |
+| Component — Chip | 12 |
+| Component — Divider | 3 |
+| Component — Icon | 3 |
+| Component — Table | 13 |
+| Component — Alert | 14 |
+| Component — Backdrop | 2 |
+| Component — Skeleton | 4 |
+| Component — Snackbar | 10 |
+| Component — Dialog | 12 |
+| Component — AppBar | 10 |
+| Component — Link | 5 |
+| Component — SpeedDial | 7 |
+| **Grand Total** | **386** |
 
 ---
 

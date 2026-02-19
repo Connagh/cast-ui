@@ -1,6 +1,6 @@
 {
   "name": "@castui/cast-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A cross-platform design system for React Native (iOS, Android, Web) with multi-theme support.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -15,8 +15,7 @@ export type TypographyVariant =
   | 'small'
   | 'caption'
   | 'overline'
-  | 'label'
-  | 'button';
+  | 'label';
 
 export interface TypographyProps extends Omit<TextProps, 'style'> {
   /** Text style variant. @default 'body' */
@@ -54,7 +53,6 @@ const VARIANT_MAP: Record<TypographyVariant, VariantMapping> = {
   caption:  { fontWeight: 'body',    letterSpacing: 'body',    fontFamily: 'interface' },
   overline: { fontWeight: 'button',  letterSpacing: 'label',   fontFamily: 'interface' },
   label:    { fontWeight: 'button',  letterSpacing: 'body',    fontFamily: 'interface' },
-  button:   { fontWeight: 'button',  letterSpacing: 'label',   fontFamily: 'interface' },
 };
 
 // ---------------------------------------------------------------------------

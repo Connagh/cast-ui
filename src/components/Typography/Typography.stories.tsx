@@ -21,7 +21,6 @@ const meta: Meta<typeof Typography> = {
         'caption',
         'overline',
         'label',
-        'button',
       ],
     },
     color: { control: 'color' },
@@ -79,10 +78,6 @@ export const Label: Story = {
   args: { variant: 'label', children: 'Label text' },
 };
 
-export const ButtonVariant: Story = {
-  args: { variant: 'button', children: 'Button text' },
-};
-
 // ---------------------------------------------------------------------------
 // All variants
 // ---------------------------------------------------------------------------
@@ -100,7 +95,6 @@ export const AllVariants: Story = {
       <Typography variant="caption">Caption</Typography>
       <Typography variant="overline">Overline</Typography>
       <Typography variant="label">Label</Typography>
-      <Typography variant="button">Button</Typography>
     </View>
   ),
 };

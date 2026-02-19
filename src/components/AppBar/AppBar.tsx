@@ -45,6 +45,7 @@ export function AppBar({ title, leading, trailing }: AppBarProps) {
   const titleStyle: TextStyle = {
     flex: 1,
     fontSize: ab.titleSize,
+    lineHeight: ab.titleLineHeight,
     color: ab.titleColor,
     ...resolveFont(ab.titleFontFamily, ab.titleFontWeight),
   };

@@ -26,15 +26,16 @@ export interface LinkProps {
 export function Link({ href, children, onPress }: LinkProps) {
   const theme = useTheme();
   const lk = theme.component.link;
-  const sem = theme.semantic;
 
   const [hovered, setHovered] = useState(false);
 
   const textStyle: TextStyle = {
+    fontSize: lk.fontSize,
+    lineHeight: lk.lineHeight,
     color: hovered ? lk.hoverColor : lk.color,
     textDecorationLine: 'underline',
     ...({ textUnderlineOffset: lk.underlineOffset } as Record<string, unknown>),
-    ...resolveFont(sem.fontFamily.interface, lk.fontWeight),
+    ...resolveFont(lk.fontFamily, lk.fontWeight),
   };
 
   return (

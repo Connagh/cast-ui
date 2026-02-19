@@ -57,6 +57,7 @@ export function Snackbar({
   const messageStyle: TextStyle = {
     flex: 1,
     fontSize: sn.textSize,
+    lineHeight: sn.lineHeight,
     color: sn.contentColor,
     ...resolveFont(sn.fontFamily, sn.fontWeight),
   };

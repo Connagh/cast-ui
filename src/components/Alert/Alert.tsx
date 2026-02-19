@@ -48,7 +48,6 @@ export function Alert({
 }: AlertProps) {
   const theme = useTheme();
   const al = theme.component.alert;
-  const sem = theme.semantic;
 
   const containerStyle: ViewStyle = {
     flexDirection: 'row',
@@ -74,14 +73,16 @@ export function Alert({
 
   const titleStyle: TextStyle = {
     fontSize: al.titleSize,
+    lineHeight: al.titleLineHeight,
     color: al.titleColor,
     ...resolveFont(al.fontFamily, al.titleFontWeight),
   };
 
   const bodyStyle: TextStyle = {
     fontSize: al.bodySize,
+    lineHeight: al.bodyLineHeight,
     color: al.bodyColor,
-    ...resolveFont(al.fontFamily, sem.fontWeight.body),
+    ...resolveFont(al.fontFamily, al.bodyFontWeight),
   };
 
   const dismissStyle: TextStyle = {

@@ -65,8 +65,9 @@ export function TextField({
 
   const labelStyle: TextStyle = {
     fontSize: tf.labelSize,
+    lineHeight: tf.labelLineHeight,
     color: tf.labelColor,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.button),
+    ...resolveFont(tf.labelFontFamily, tf.labelFontWeight),
   };
 
   const inputContainerStyle: ViewStyle = {
@@ -80,15 +81,17 @@ export function TextField({
 
   const inputStyle: TextStyle = {
     fontSize: tf.textSize,
+    lineHeight: tf.textLineHeight,
     color: tf.textColor,
     padding: 0,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.body),
+    ...resolveFont(tf.fontFamily, tf.textFontWeight),
   };
 
   const helperStyle: TextStyle = {
     fontSize: tf.helperSize,
+    lineHeight: tf.helperLineHeight,
     color: error ? tf.errorColor : tf.helperColor,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.body),
+    ...resolveFont(tf.helperFontFamily, tf.helperFontWeight),
   };
 
   return (

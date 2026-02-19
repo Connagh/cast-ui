@@ -36,7 +36,6 @@ export function Dialog({
 }: DialogProps) {
   const theme = useTheme();
   const dl = theme.component.dialog;
-  const sem = theme.semantic;
 
   if (!visible) return null;
 
@@ -53,14 +52,16 @@ export function Dialog({
 
   const titleStyle: TextStyle = {
     fontSize: dl.titleSize,
+    lineHeight: dl.titleLineHeight,
     color: dl.titleColor,
     ...resolveFont(dl.titleFontFamily, dl.titleFontWeight),
   };
 
   const bodyStyle: TextStyle = {
     fontSize: dl.bodySize,
+    lineHeight: dl.bodyLineHeight,
     color: dl.bodyColor,
-    ...resolveFont(dl.bodyFontFamily, sem.fontWeight.body),
+    ...resolveFont(dl.bodyFontFamily, dl.bodyFontWeight),
   };
 
   const actionsStyle: ViewStyle = {

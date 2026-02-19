@@ -223,10 +223,12 @@ export interface CardTokens {
   elevation: number;
   headingSize: number;
   headingWeight: number;
+  headingLineHeight: number;
   headingFontFamily: string;
   headingColor: string;
   bodySize: number;
   bodyWeight: number;
+  bodyLineHeight: number;
   bodyFontFamily: string;
   bodyColor: string;
 }
@@ -245,11 +247,19 @@ export interface TextFieldTokens {
   textColor: string;
   placeholderColor: string;
   textSize: number;
+  textFontWeight: number;
+  textLineHeight: number;
   fontFamily: string;
   labelColor: string;
   labelSize: number;
+  labelFontWeight: number;
+  labelLineHeight: number;
+  labelFontFamily: string;
   helperColor: string;
   helperSize: number;
+  helperFontWeight: number;
+  helperLineHeight: number;
+  helperFontFamily: string;
   errorColor: string;
 }
 
@@ -265,6 +275,8 @@ export interface CheckboxTokens {
   checkedIconColor: string;
   labelColor: string;
   labelSize: number;
+  labelFontWeight: number;
+  labelLineHeight: number;
   labelFontFamily: string;
   disabledOpacity: number;
 }
@@ -293,6 +305,8 @@ export interface AutocompleteTokens {
   optionHoverBackground: string;
   optionTextColor: string;
   optionTextSize: number;
+  optionFontWeight: number;
+  optionLineHeight: number;
   optionPaddingHorizontal: number;
   optionPaddingVertical: number;
   fontFamily: string;
@@ -308,6 +322,8 @@ export interface SelectTokens {
   indicatorColor: string;
   optionTextColor: string;
   optionTextSize: number;
+  optionFontWeight: number;
+  optionLineHeight: number;
   optionPaddingHorizontal: number;
   optionPaddingVertical: number;
   fontFamily: string;
@@ -329,6 +345,8 @@ export interface SwitchTokens {
   thumbOffset: number;
   labelColor: string;
   labelSize: number;
+  labelFontWeight: number;
+  labelLineHeight: number;
   labelFontFamily: string;
   gap: number;
 }
@@ -343,6 +361,7 @@ export interface BadgeTokens {
   contentColor: string;
   textSize: number;
   fontWeight: number;
+  lineHeight: number;
   fontFamily: string;
 }
 
@@ -360,6 +379,8 @@ export interface ChipTokens {
   borderWidth: number;
   borderColor: string;
   textSize: number;
+  fontWeight: number;
+  lineHeight: number;
   fontFamily: string;
 }
 
@@ -386,8 +407,11 @@ export interface TableTokens {
   headerTextColor: string;
   headerFontWeight: number;
   headerTextSize: number;
+  headerLineHeight: number;
   cellTextColor: string;
   cellTextSize: number;
+  cellFontWeight: number;
+  cellLineHeight: number;
   cellPaddingHorizontal: number;
   cellPaddingVertical: number;
   rowBorderColor: string;
@@ -413,7 +437,10 @@ export interface AlertTokens {
   iconSize: number;
   titleSize: number;
   titleFontWeight: number;
+  titleLineHeight: number;
   bodySize: number;
+  bodyFontWeight: number;
+  bodyLineHeight: number;
 }
 
 // -- Backdrop ---------------------------------------------------------------
@@ -444,6 +471,7 @@ export interface SnackbarTokens {
   elevation: number;
   textSize: number;
   fontWeight: number;
+  lineHeight: number;
   fontFamily: string;
 }
 
@@ -457,9 +485,12 @@ export interface DialogTokens {
   elevation: number;
   titleSize: number;
   titleFontWeight: number;
+  titleLineHeight: number;
   titleFontFamily: string;
   titleColor: string;
   bodySize: number;
+  bodyFontWeight: number;
+  bodyLineHeight: number;
   bodyFontFamily: string;
   bodyColor: string;
 }
@@ -473,6 +504,7 @@ export interface AppBarTokens {
   titleColor: string;
   titleSize: number;
   titleFontWeight: number;
+  titleLineHeight: number;
   titleFontFamily: string;
   iconColor: string;
   borderColor: string;
@@ -486,7 +518,10 @@ export interface LinkTokens {
   hoverColor: string;
   visitedColor: string;
   underlineOffset: number;
+  fontSize: number;
   fontWeight: number;
+  lineHeight: number;
+  fontFamily: string;
 }
 
 // -- SpeedDial --------------------------------------------------------------

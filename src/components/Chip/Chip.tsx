@@ -34,7 +34,6 @@ export function Chip({
 }: ChipProps) {
   const theme = useTheme();
   const ch = theme.component.chip;
-  const sem = theme.semantic;
 
   const containerStyle: ViewStyle = {
     flexDirection: 'row',
@@ -50,8 +49,9 @@ export function Chip({
 
   const textStyle: TextStyle = {
     fontSize: ch.textSize,
+    lineHeight: ch.lineHeight,
     color: selected ? ch.selectedContentColor : ch.contentColor,
-    ...resolveFont(ch.fontFamily, sem.fontWeight.body),
+    ...resolveFont(ch.fontFamily, ch.fontWeight),
   };
 
   return (

@@ -19,8 +19,8 @@ Example chain:
       --> {Component.Button.Filled.Background}
 
   {Primitive.Font family.Font-humanist}
-    --> {Semantic.Font family.Font-Brand}
-      --> {Component.Card.Heading-Font-Family}
+    --> {Semantic.Font family.Font-Interface}
+      --> Cast/Card/Heading text style (fontFamily property)
 
   {Primitive.Border radius.Radius-SM}
     --> {Semantic.Border radius.Radius-Medium}

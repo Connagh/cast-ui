@@ -45,7 +45,6 @@ export function Autocomplete({
   const theme = useTheme();
   const ac = theme.component.autocomplete;
   const tf = theme.component.textField;
-  const sem = theme.semantic;
 
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -71,8 +70,9 @@ export function Autocomplete({
 
   const labelStyle: TextStyle = {
     fontSize: tf.labelSize,
+    lineHeight: tf.labelLineHeight,
     color: tf.labelColor,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.button),
+    ...resolveFont(tf.labelFontFamily, tf.labelFontWeight),
   };
 
   const inputContainerStyle: ViewStyle = {
@@ -86,9 +86,10 @@ export function Autocomplete({
 
   const inputStyle: TextStyle = {
     fontSize: tf.textSize,
+    lineHeight: tf.textLineHeight,
     color: tf.textColor,
     padding: 0,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.body),
+    ...resolveFont(tf.fontFamily, tf.textFontWeight),
   };
 
   // --- styles (dropdown uses autocomplete tokens) ----------------------------
@@ -110,8 +111,9 @@ export function Autocomplete({
 
   const optionTextStyle: TextStyle = {
     fontSize: ac.optionTextSize,
+    lineHeight: ac.optionLineHeight,
     color: ac.optionTextColor,
-    ...resolveFont(ac.fontFamily, sem.fontWeight.body),
+    ...resolveFont(ac.fontFamily, ac.optionFontWeight),
   };
 
   return (

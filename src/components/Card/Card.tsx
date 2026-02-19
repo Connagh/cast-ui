@@ -62,7 +62,7 @@ export function Card({
 
   const titleStyle: TextStyle = {
     fontSize: ct.headingSize,
-    lineHeight: sem.lineHeight.h3,
+    lineHeight: ct.headingLineHeight,
     letterSpacing: sem.letterSpacing.heading,
     color: ct.headingColor,
     ...resolveFont(ct.headingFontFamily, ct.headingWeight),
@@ -78,7 +78,7 @@ export function Card({
 
   const bodyStyle: TextStyle = {
     fontSize: ct.bodySize,
-    lineHeight: sem.lineHeight.body,
+    lineHeight: ct.bodyLineHeight,
     letterSpacing: sem.letterSpacing.body,
     color: ct.bodyColor,
     ...resolveFont(ct.bodyFontFamily, ct.bodyWeight),

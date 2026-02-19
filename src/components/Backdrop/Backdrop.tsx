@@ -32,7 +32,7 @@ export function Backdrop({ visible = false, onPress }: BackdropProps) {
     right: 0,
     bottom: 0,
     backgroundColor: bk.color,
-    opacity: bk.opacity,
+    opacity: bk.opacity / 100,
   };
 
   return <Pressable style={style} onPress={onPress} accessibilityRole="none" />;

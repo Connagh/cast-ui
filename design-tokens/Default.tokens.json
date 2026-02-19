@@ -430,8 +430,8 @@
       "64": 64
     },
     "opacity": {
-      "40": 0.4,
-      "50": 0.5
+      "40": 40,
+      "50": 50
     }
   },
   "semantic": {
@@ -551,8 +551,8 @@
       "xxxl": 64
     },
     "opacity": {
-      "disabled": 0.4,
-      "overlay": 0.5
+      "disabled": 40,
+      "overlay": 50
     }
   },
   "component": {
@@ -645,7 +645,7 @@
       "labelFontWeight": 400,
       "labelLineHeight": 24,
       "labelFontFamily": "system-ui",
-      "disabledOpacity": 0.4
+      "disabledOpacity": 40
     },
     "fab": {
       "size": 48,
@@ -781,7 +781,7 @@
     },
     "backdrop": {
       "color": "#000000",
-      "opacity": 0.5
+      "opacity": 50
     },
     "skeleton": {
       "background": "#F8FAFC",

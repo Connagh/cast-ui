@@ -209,8 +209,8 @@
       "64": 64
     },
     "opacity": {
-      "30": 0.3,
-      "70": 0.7
+      "30": 30,
+      "70": 70
     }
   },
   "semantic": {
@@ -322,8 +322,8 @@
       "xxxl": 64
     },
     "opacity": {
-      "disabled": 0.3,
-      "overlay": 0.7
+      "disabled": 30,
+      "overlay": 70
     }
   },
   "component": {
@@ -404,7 +404,7 @@
       "labelColor": "#E9D8A6",
       "labelSize": 16,
       "labelFontFamily": "Cormorant Garamond",
-      "disabledOpacity": 0.3
+      "disabledOpacity": 30
     },
     "fab": {
       "size": 48,
@@ -525,7 +525,7 @@
     },
     "backdrop": {
       "color": "#000000",
-      "opacity": 0.7
+      "opacity": 70
     },
     "skeleton": {
       "background": "#2A2A2A",

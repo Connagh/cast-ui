@@ -40,7 +40,7 @@ export function Checkbox({
     flexDirection: 'row',
     alignItems: 'center',
     gap: cb.gap,
-    opacity: disabled ? cb.disabledOpacity : 1,
+    opacity: disabled ? cb.disabledOpacity / 100 : 1,
   };
 
   const boxStyle: ViewStyle = {

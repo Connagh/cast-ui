@@ -216,8 +216,8 @@
       "64": 64
     },
     "opacity": {
-      "40": 0.4,
-      "50": 0.5
+      "40": 40,
+      "50": 50
     }
   },
   "semantic": {
@@ -329,8 +329,8 @@
       "xxxl": 64
     },
     "opacity": {
-      "disabled": 0.4,
-      "overlay": 0.5
+      "disabled": 40,
+      "overlay": 50
     }
   },
   "component": {
@@ -411,7 +411,7 @@
       "labelColor": "#1A1235",
       "labelSize": 16,
       "labelFontFamily": "Poppins",
-      "disabledOpacity": 0.4
+      "disabledOpacity": 40
     },
     "fab": {
       "size": 48,
@@ -532,7 +532,7 @@
     },
     "backdrop": {
       "color": "#1A1235",
-      "opacity": 0.5
+      "opacity": 50
     },
     "skeleton": {
       "background": "#FAF8FF",

@@ -217,8 +217,8 @@
       "64": 64
     },
     "opacity": {
-      "40": 0.4,
-      "50": 0.5
+      "40": 40,
+      "50": 50
     }
   },
   "semantic": {
@@ -330,8 +330,8 @@
       "xxxl": 64
     },
     "opacity": {
-      "disabled": 0.4,
-      "overlay": 0.5
+      "disabled": 40,
+      "overlay": 50
     }
   },
   "component": {
@@ -412,7 +412,7 @@
       "labelColor": "#0C346F",
       "labelSize": 16,
       "labelFontFamily": "Inter",
-      "disabledOpacity": 0.4
+      "disabledOpacity": 40
     },
     "fab": {
       "size": 48,
@@ -533,7 +533,7 @@
     },
     "backdrop": {
       "color": "#0C346F",
-      "opacity": 0.5
+      "opacity": 50
     },
     "skeleton": {
       "background": "#F0F5FB",

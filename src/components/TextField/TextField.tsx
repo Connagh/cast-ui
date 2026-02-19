@@ -60,7 +60,7 @@ export function TextField({
 
   const containerStyle: ViewStyle = {
     gap: 4,
-    opacity: disabled ? sem.opacity.disabled : 1,
+    opacity: disabled ? sem.opacity.disabled / 100 : 1,
   };
 
   const labelStyle: TextStyle = {

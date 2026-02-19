@@ -40,7 +40,7 @@ export function Switch({
     flexDirection: 'row',
     alignItems: 'center',
     gap: sw.gap,
-    opacity: disabled ? theme.semantic.opacity.disabled : 1,
+    opacity: disabled ? theme.semantic.opacity.disabled / 100 : 1,
   };
 
   const trackStyle: ViewStyle = {

@@ -67,7 +67,7 @@ const preview: Preview = {
       const theme = THEMES[themeName] || defaultTheme;
 
       const surfaceStyle = {
-        backgroundColor: theme.semantic.color.surface,
+        backgroundColor: theme.semantic.colour.surface,
         padding: 24,
         minHeight: '100%',
       };

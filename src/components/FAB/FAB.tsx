@@ -75,7 +75,7 @@ export function FAB({
     fontSize: sem.fontSize.button,
     lineHeight: sem.lineHeight.button,
     letterSpacing: sem.letterSpacing.label,
-    color: ft.iconColor,
+    color: ft.iconColour,
     ...resolveFont(sem.fontFamily.interface, sem.fontWeight.button),
   };
 

@@ -23,13 +23,13 @@ export function Divider({ direction = 'horizontal' }: DividerProps) {
     direction === 'horizontal'
       ? {
           height: dv.thickness,
-          backgroundColor: dv.color,
+          backgroundColor: dv.colour,
           marginVertical: dv.margin,
           alignSelf: 'stretch',
         }
       : {
           width: dv.thickness,
-          backgroundColor: dv.color,
+          backgroundColor: dv.colour,
           marginHorizontal: dv.margin,
           alignSelf: 'stretch',
         };

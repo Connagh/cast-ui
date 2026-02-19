@@ -81,7 +81,7 @@ export function Typography({
     fontSize: sem.fontSize[variant],
     lineHeight: sem.lineHeight[variant],
     letterSpacing: sem.letterSpacing[mapping.letterSpacing],
-    color: color ?? sem.color.onSurface,
+    color: color ?? sem.colour.onSurface,
     ...(align && { textAlign: align }),
     ...(variant === 'overline' && { textTransform: 'uppercase' }),
     ...resolveFont(

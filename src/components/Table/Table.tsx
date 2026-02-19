@@ -58,14 +58,14 @@ export function Table({ columns, data, onRowPress }: TableProps) {
   const headerTextStyle: TextStyle = {
     fontSize: tb.headerTextSize,
     lineHeight: tb.headerLineHeight,
-    color: tb.headerTextColor,
+    color: tb.headerTextColour,
     ...resolveFont(tb.fontFamily, tb.headerFontWeight),
   };
 
   const rowStyle = (index: number): ViewStyle => ({
     flexDirection: 'row',
     borderTopWidth: tb.rowBorderWidth,
-    borderTopColor: tb.rowBorderColor,
+    borderTopColor: tb.rowBorderColour,
     ...(hoveredRow === index ? { backgroundColor: tb.rowHoverBackground } : {}),
   });
 
@@ -78,7 +78,7 @@ export function Table({ columns, data, onRowPress }: TableProps) {
   const cellTextStyle: TextStyle = {
     fontSize: tb.cellTextSize,
     lineHeight: tb.cellLineHeight,
-    color: tb.cellTextColor,
+    color: tb.cellTextColour,
     ...resolveFont(tb.fontFamily, tb.cellFontWeight),
   };
 

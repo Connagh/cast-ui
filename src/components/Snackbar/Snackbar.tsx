@@ -58,14 +58,14 @@ export function Snackbar({
     flex: 1,
     fontSize: sn.textSize,
     lineHeight: sn.lineHeight,
-    color: sn.contentColor,
+    color: sn.contentColour,
     ...resolveFont(sn.fontFamily, sn.fontWeight),
   };
 
   const actionStyle: TextStyle = {
     fontSize: sem.fontSize.button,
     lineHeight: sem.lineHeight.button,
-    color: sn.actionColor,
+    color: sn.actionColour,
     ...resolveFont(sn.fontFamily, sem.fontWeight.button),
   };
 

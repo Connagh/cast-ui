@@ -145,7 +145,7 @@ Edit `my-brand-theme.json` to change only the values you want. You only need to 
 {
   "name": "my-brand",
   "semantic": {
-    "color": {
+    "colour": {
       "primary": "#553C9A",
       "onPrimary": "#FFFFFF",
       "primaryHover": "#6B46C1",
@@ -207,7 +207,7 @@ import { CastThemeProvider, defaultTheme, createTheme } from '@castui/cast-ui';
 </CastThemeProvider>
 
 // ...or create a custom theme
-const myTheme = createTheme({ name: 'my-brand', semantic: { color: { primary: '#FF0000' } } });
+const myTheme = createTheme({ name: 'my-brand', semantic: { colour: { primary: '#FF0000' } } });
 <CastThemeProvider theme={myTheme}>
   <App />
 </CastThemeProvider>
@@ -224,9 +224,9 @@ function MyComponent() {
   const theme = useTheme();
 
   return (
-    <View style={{ backgroundColor: theme.semantic.color.surface }}>
+    <View style={{ backgroundColor: theme.semantic.colour.surface }}>
       <Text style={{
-        color: theme.semantic.color.onSurface,
+        color: theme.semantic.colour.onSurface,
         fontSize: theme.semantic.fontSize.body,
       }}>
         Themed text
@@ -242,7 +242,7 @@ Every theme conforms to the `CastTheme` interface (see `src/theme/types.ts`):
 
 ```
 theme.name                          string (e.g. 'default', 'my-brand')
-theme.semantic.color.*              30 semantic colours (surface, primary, error, etc.)
+theme.semantic.colour.*              30 semantic colours (surface, primary, error, etc.)
 theme.semantic.fontFamily.*         brand, interface, data
 theme.semantic.fontSize.*           display, h1, h2, h3, body, small, button
 theme.semantic.fontWeight.*         heading, body, button
@@ -457,7 +457,7 @@ The adoption CLI is designed to be run **in the repositories that consume this d
 | `npx @zeroheight/adoption-cli analyze --color-usage` | Hardcoded color values (`#hex`, `rgb()`, etc.) that should be replaced with theme tokens |
 | `npx @zeroheight/adoption-cli monitor-repo` | Which version of `@castui/cast-ui` the consumer app is on |
 
-**How color tracking works:** The `--color-usage` flag scans for *non-token* color values — raw hex, rgb, or hsl strings that a developer hardcoded instead of using `theme.semantic.color.*`. A high count means developers are bypassing the design system; a count trending to zero means strong token adoption. Running this in the design system repo itself correctly returns zero results because components only reference theme tokens, never hardcoded colours.
+**How color tracking works:** The `--color-usage` flag scans for *non-token* color values — raw hex, rgb, or hsl strings that a developer hardcoded instead of using `theme.semantic.colour.*`. A high count means developers are bypassing the design system; a count trending to zero means strong token adoption. Running this in the design system repo itself correctly returns zero results because components only reference theme tokens, never hardcoded colours.
 
 ### Consumer CI example
 

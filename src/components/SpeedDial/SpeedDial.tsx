@@ -71,7 +71,7 @@ export function SpeedDial({
   const labelStyle: TextStyle = {
     fontSize: sem.fontSize.caption,
     lineHeight: sem.lineHeight.caption,
-    color: sem.color.onSurface,
+    color: sem.colour.onSurface,
     ...resolveFont(sem.fontFamily.interface, sem.fontWeight.body),
   };
 

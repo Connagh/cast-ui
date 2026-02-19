@@ -35,7 +35,7 @@ export function AppBar({ title, leading, trailing }: AppBarProps) {
     paddingHorizontal: ab.paddingHorizontal,
     backgroundColor: ab.background,
     borderBottomWidth: 1,
-    borderBottomColor: ab.borderColor,
+    borderBottomColor: ab.borderColour,
     elevation: ab.elevation,
     ...(ab.elevation > 0
       ? ({ boxShadow: `0 1px ${ab.elevation}px rgba(0,0,0,0.1)` } as Record<string, unknown>)
@@ -46,7 +46,7 @@ export function AppBar({ title, leading, trailing }: AppBarProps) {
     flex: 1,
     fontSize: ab.titleSize,
     lineHeight: ab.titleLineHeight,
-    color: ab.titleColor,
+    color: ab.titleColour,
     ...resolveFont(ab.titleFontFamily, ab.titleFontWeight),
   };
 

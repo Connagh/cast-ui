@@ -100,7 +100,7 @@ function getDefaultTheme(): CastTheme {
  * // Minimal override – only change the primary colour
  * const myTheme = createTheme({
  *   name: 'my-brand',
- *   semantic: { color: { primary: '#FF0000' } },
+ *   semantic: { colour: { primary: '#FF0000' } },
  * });
  *
  * // Full override from a JSON file

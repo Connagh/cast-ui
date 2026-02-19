@@ -5,6 +5,20 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] — 2026-02-19
+
+### Changed
+- **BREAKING:** Renamed all `color`/`Color` token keys to `colour`/`Colour` across the theme to align with the cast-sync Figma plugin's British English output
+  - Semantic layer: `theme.semantic.color.*` → `theme.semantic.colour.*`
+  - Component tokens: `headingColor` → `headingColour`, `borderColor` → `borderColour`, `textColor` → `textColour`, etc.
+  - Type definitions: `SemanticColors` → `SemanticColours`
+- Updated all component files, theme types, and documentation to use the new `colour` naming
+
+### Migration
+- Find and replace `semantic.color.` → `semantic.colour.` in your theme overrides and component code
+- Find and replace `Color` → `Colour` (capital C) in any custom theme JSON property names
+- Update any type imports: `SemanticColors` → `SemanticColours`
+
 ## [1.1.0] — 2026-02-19
 
 ### Added
@@ -87,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Scoped package to `@castui/cast-ui`
 - Removed Button `size` prop in favour of token-driven sizing
 
+[2.0.0]: https://github.com/Connagh/cast-ui/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/Connagh/cast-ui/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Connagh/cast-ui/compare/v0.5.0...v1.0.0
 [0.5.0]: https://github.com/Connagh/cast-ui/compare/v0.4.1...v0.5.0

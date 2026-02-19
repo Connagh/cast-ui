@@ -48,14 +48,14 @@ export function Checkbox({
     height: cb.size,
     borderRadius: cb.cornerRadius,
     borderWidth: cb.borderWidth,
-    borderColor: checked ? cb.checkedBackground : cb.borderColor,
+    borderColor: checked ? cb.checkedBackground : cb.borderColour,
     backgroundColor: checked ? cb.checkedBackground : 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   };
 
   const checkmarkStyle: TextStyle = {
-    color: cb.checkedIconColor,
+    color: cb.checkedIconColour,
     fontSize: cb.size * 0.6,
     lineHeight: cb.size * 0.7,
   };
@@ -63,7 +63,7 @@ export function Checkbox({
   const labelStyle: TextStyle = {
     fontSize: cb.labelSize,
     lineHeight: cb.labelLineHeight,
-    color: cb.labelColor,
+    color: cb.labelColour,
     ...resolveFont(cb.labelFontFamily, cb.labelFontWeight),
   };
 

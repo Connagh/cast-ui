@@ -63,7 +63,7 @@ export function Switch({
   const labelStyle: TextStyle = {
     fontSize: sw.labelSize,
     lineHeight: sw.labelLineHeight,
-    color: sw.labelColor,
+    color: sw.labelColour,
     ...resolveFont(sw.labelFontFamily, sw.labelFontWeight),
   };
 

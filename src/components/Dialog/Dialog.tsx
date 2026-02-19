@@ -53,14 +53,14 @@ export function Dialog({
   const titleStyle: TextStyle = {
     fontSize: dl.titleSize,
     lineHeight: dl.titleLineHeight,
-    color: dl.titleColor,
+    color: dl.titleColour,
     ...resolveFont(dl.titleFontFamily, dl.titleFontWeight),
   };
 
   const bodyStyle: TextStyle = {
     fontSize: dl.bodySize,
     lineHeight: dl.bodyLineHeight,
-    color: dl.bodyColor,
+    color: dl.bodyColour,
     ...resolveFont(dl.bodyFontFamily, dl.bodyFontWeight),
   };
 

@@ -56,7 +56,7 @@ export function Badge({
   const textStyle: TextStyle = {
     fontSize: bd.textSize,
     lineHeight: bd.lineHeight,
-    color: bd.contentColor,
+    color: bd.contentColour,
     textAlign: 'center',
     ...resolveFont(bd.fontFamily, bd.fontWeight),
   };

@@ -51,9 +51,9 @@ export function TextField({
   const [focused, setFocused] = useState(false);
 
   const resolveBorderColor = (): string => {
-    if (error) return tf.errorBorderColor;
-    if (focused) return tf.focusBorderColor;
-    return tf.borderColor;
+    if (error) return tf.errorBorderColour;
+    if (focused) return tf.focusBorderColour;
+    return tf.borderColour;
   };
 
   // --- styles ----------------------------------------------------------------
@@ -66,7 +66,7 @@ export function TextField({
   const labelStyle: TextStyle = {
     fontSize: tf.labelSize,
     lineHeight: tf.labelLineHeight,
-    color: tf.labelColor,
+    color: tf.labelColour,
     ...resolveFont(tf.labelFontFamily, tf.labelFontWeight),
   };
 
@@ -82,7 +82,7 @@ export function TextField({
   const inputStyle: TextStyle = {
     fontSize: tf.textSize,
     lineHeight: tf.textLineHeight,
-    color: tf.textColor,
+    color: tf.textColour,
     padding: 0,
     ...resolveFont(tf.fontFamily, tf.textFontWeight),
   };
@@ -90,7 +90,7 @@ export function TextField({
   const helperStyle: TextStyle = {
     fontSize: tf.helperSize,
     lineHeight: tf.helperLineHeight,
-    color: error ? tf.errorColor : tf.helperColor,
+    color: error ? tf.errorColour : tf.helperColour,
     ...resolveFont(tf.helperFontFamily, tf.helperFontWeight),
   };
 
@@ -103,7 +103,7 @@ export function TextField({
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor={tf.placeholderColor}
+          placeholderTextColor={tf.placeholderColour}
           editable={!disabled}
           onFocus={(e) => {
             setFocused(true);

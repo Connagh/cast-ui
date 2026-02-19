@@ -46,7 +46,7 @@ export function Icon({
     width: resolved,
     height: resolved,
     textAlign: 'center',
-    color: color ?? theme.semantic.color.onSurface,
+    color: color ?? theme.semantic.colour.onSurface,
   };
 
   return (

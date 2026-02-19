@@ -52,7 +52,7 @@ export function CastThemeProvider({
  *
  * ```tsx
  * const theme = useTheme();
- * <View style={{ backgroundColor: theme.semantic.color.surface }} />
+ * <View style={{ backgroundColor: theme.semantic.colour.surface }} />
  * ```
  */
 export function useTheme(): CastTheme {

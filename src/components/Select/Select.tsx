@@ -58,7 +58,7 @@ export function Select({
   const labelStyle: TextStyle = {
     fontSize: tf.labelSize,
     lineHeight: tf.labelLineHeight,
-    color: tf.labelColor,
+    color: tf.labelColour,
     ...resolveFont(tf.labelFontFamily, tf.labelFontWeight),
   };
 
@@ -71,19 +71,19 @@ export function Select({
     borderRadius: tf.cornerRadius,
     borderWidth: tf.borderWidth,
     backgroundColor: tf.background,
-    borderColor: isOpen ? tf.focusBorderColor : tf.borderColor,
+    borderColor: isOpen ? tf.focusBorderColour : tf.borderColour,
   };
 
   const triggerTextStyle: TextStyle = {
     fontSize: tf.textSize,
     lineHeight: tf.textLineHeight,
-    color: selectedOption ? tf.textColor : tf.placeholderColor,
+    color: selectedOption ? tf.textColour : tf.placeholderColour,
     flex: 1,
     ...resolveFont(tf.fontFamily, tf.textFontWeight),
   };
 
   const indicatorStyle: TextStyle = {
-    color: sl.indicatorColor,
+    color: sl.indicatorColour,
     fontSize: 12,
   };
 
@@ -109,7 +109,7 @@ export function Select({
   const optionTextStyle: TextStyle = {
     fontSize: sl.optionTextSize,
     lineHeight: sl.optionLineHeight,
-    color: sl.optionTextColor,
+    color: sl.optionTextColour,
     ...resolveFont(sl.fontFamily, sl.optionFontWeight),
   };
 

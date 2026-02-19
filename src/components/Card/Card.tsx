@@ -64,7 +64,7 @@ export function Card({
     fontSize: ct.headingSize,
     lineHeight: ct.headingLineHeight,
     letterSpacing: sem.letterSpacing.heading,
-    color: ct.headingColor,
+    color: ct.headingColour,
     ...resolveFont(ct.headingFontFamily, ct.headingWeight),
   };
 
@@ -72,7 +72,7 @@ export function Card({
     fontSize: sem.fontSize.small,
     lineHeight: sem.lineHeight.small,
     letterSpacing: sem.letterSpacing.body,
-    color: ct.bodyColor,
+    color: ct.bodyColour,
     ...resolveFont(sem.fontFamily.interface, sem.fontWeight.body),
   };
 
@@ -80,7 +80,7 @@ export function Card({
     fontSize: ct.bodySize,
     lineHeight: ct.bodyLineHeight,
     letterSpacing: sem.letterSpacing.body,
-    color: ct.bodyColor,
+    color: ct.bodyColour,
     ...resolveFont(ct.bodyFontFamily, ct.bodyWeight),
   };
 

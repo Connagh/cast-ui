@@ -13,7 +13,7 @@
 // Semantic layer
 // ---------------------------------------------------------------------------
 
-export interface SemanticColors {
+export interface SemanticColours {
   surface: string;
   onSurface: string;
   onSurfaceMuted: string;
@@ -157,7 +157,7 @@ export interface SemanticOpacity {
 }
 
 export interface SemanticTokens {
-  color: SemanticColors;
+  colour: SemanticColours;
   fontFamily: SemanticFontFamily;
   fontSize: SemanticFontSize;
   fontWeight: SemanticFontWeight;
@@ -225,12 +225,12 @@ export interface CardTokens {
   headingWeight: number;
   headingLineHeight: number;
   headingFontFamily: string;
-  headingColor: string;
+  headingColour: string;
   bodySize: number;
   bodyWeight: number;
   bodyLineHeight: number;
   bodyFontFamily: string;
-  bodyColor: string;
+  bodyColour: string;
 }
 
 // -- TextField --------------------------------------------------------------
@@ -241,26 +241,26 @@ export interface TextFieldTokens {
   cornerRadius: number;
   borderWidth: number;
   background: string;
-  borderColor: string;
-  focusBorderColor: string;
-  errorBorderColor: string;
-  textColor: string;
-  placeholderColor: string;
+  borderColour: string;
+  focusBorderColour: string;
+  errorBorderColour: string;
+  textColour: string;
+  placeholderColour: string;
   textSize: number;
   textFontWeight: number;
   textLineHeight: number;
   fontFamily: string;
-  labelColor: string;
+  labelColour: string;
   labelSize: number;
   labelFontWeight: number;
   labelLineHeight: number;
   labelFontFamily: string;
-  helperColor: string;
+  helperColour: string;
   helperSize: number;
   helperFontWeight: number;
   helperLineHeight: number;
   helperFontFamily: string;
-  errorColor: string;
+  errorColour: string;
 }
 
 // -- Checkbox ---------------------------------------------------------------
@@ -270,10 +270,10 @@ export interface CheckboxTokens {
   cornerRadius: number;
   borderWidth: number;
   gap: number;
-  borderColor: string;
+  borderColour: string;
   checkedBackground: string;
-  checkedIconColor: string;
-  labelColor: string;
+  checkedIconColour: string;
+  labelColour: string;
   labelSize: number;
   labelFontWeight: number;
   labelLineHeight: number;
@@ -287,7 +287,7 @@ export interface FABTokens {
   size: number;
   cornerRadius: number;
   background: string;
-  iconColor: string;
+  iconColour: string;
   iconSize: number;
   hoverBackground: string;
   pressedBackground: string;
@@ -303,7 +303,7 @@ export interface AutocompleteTokens {
   dropdownCornerRadius: number;
   dropdownElevation: number;
   optionHoverBackground: string;
-  optionTextColor: string;
+  optionTextColour: string;
   optionTextSize: number;
   optionFontWeight: number;
   optionLineHeight: number;
@@ -319,8 +319,8 @@ export interface SelectTokens {
   dropdownCornerRadius: number;
   dropdownElevation: number;
   optionHoverBackground: string;
-  indicatorColor: string;
-  optionTextColor: string;
+  indicatorColour: string;
+  optionTextColour: string;
   optionTextSize: number;
   optionFontWeight: number;
   optionLineHeight: number;
@@ -343,7 +343,7 @@ export interface SwitchTokens {
   thumbOffBackground: string;
   thumbOnBackground: string;
   thumbOffset: number;
-  labelColor: string;
+  labelColour: string;
   labelSize: number;
   labelFontWeight: number;
   labelLineHeight: number;
@@ -358,7 +358,7 @@ export interface BadgeTokens {
   paddingHorizontal: number;
   cornerRadius: number;
   background: string;
-  contentColor: string;
+  contentColour: string;
   textSize: number;
   fontWeight: number;
   lineHeight: number;
@@ -373,11 +373,11 @@ export interface ChipTokens {
   gap: number;
   cornerRadius: number;
   background: string;
-  contentColor: string;
+  contentColour: string;
   selectedBackground: string;
-  selectedContentColor: string;
+  selectedContentColour: string;
   borderWidth: number;
-  borderColor: string;
+  borderColour: string;
   textSize: number;
   fontWeight: number;
   lineHeight: number;
@@ -387,7 +387,7 @@ export interface ChipTokens {
 // -- Divider ----------------------------------------------------------------
 
 export interface DividerTokens {
-  color: string;
+  colour: string;
   thickness: number;
   margin: number;
 }
@@ -404,17 +404,17 @@ export interface IconTokens {
 
 export interface TableTokens {
   headerBackground: string;
-  headerTextColor: string;
+  headerTextColour: string;
   headerFontWeight: number;
   headerTextSize: number;
   headerLineHeight: number;
-  cellTextColor: string;
+  cellTextColour: string;
   cellTextSize: number;
   cellFontWeight: number;
   cellLineHeight: number;
   cellPaddingHorizontal: number;
   cellPaddingVertical: number;
-  rowBorderColor: string;
+  rowBorderColour: string;
   rowBorderWidth: number;
   rowHoverBackground: string;
   cornerRadius: number;
@@ -429,10 +429,10 @@ export interface AlertTokens {
   cornerRadius: number;
   borderWidth: number;
   background: string;
-  borderColor: string;
-  titleColor: string;
-  bodyColor: string;
-  iconColor: string;
+  borderColour: string;
+  titleColour: string;
+  bodyColour: string;
+  iconColour: string;
   fontFamily: string;
   iconSize: number;
   titleSize: number;
@@ -446,7 +446,7 @@ export interface AlertTokens {
 // -- Backdrop ---------------------------------------------------------------
 
 export interface BackdropTokens {
-  color: string;
+  colour: string;
   opacity: number;
 }
 
@@ -463,8 +463,8 @@ export interface SkeletonTokens {
 
 export interface SnackbarTokens {
   background: string;
-  contentColor: string;
-  actionColor: string;
+  contentColour: string;
+  actionColour: string;
   padding: number;
   gap: number;
   cornerRadius: number;
@@ -487,12 +487,12 @@ export interface DialogTokens {
   titleFontWeight: number;
   titleLineHeight: number;
   titleFontFamily: string;
-  titleColor: string;
+  titleColour: string;
   bodySize: number;
   bodyFontWeight: number;
   bodyLineHeight: number;
   bodyFontFamily: string;
-  bodyColor: string;
+  bodyColour: string;
 }
 
 // -- AppBar -----------------------------------------------------------------
@@ -501,22 +501,22 @@ export interface AppBarTokens {
   height: number;
   paddingHorizontal: number;
   background: string;
-  titleColor: string;
+  titleColour: string;
   titleSize: number;
   titleFontWeight: number;
   titleLineHeight: number;
   titleFontFamily: string;
-  iconColor: string;
-  borderColor: string;
+  iconColour: string;
+  borderColour: string;
   elevation: number;
 }
 
 // -- Link -------------------------------------------------------------------
 
 export interface LinkTokens {
-  color: string;
-  hoverColor: string;
-  visitedColor: string;
+  colour: string;
+  hoverColour: string;
+  visitedColour: string;
   underlineOffset: number;
   fontSize: number;
   fontWeight: number;
@@ -529,7 +529,7 @@ export interface LinkTokens {
 export interface SpeedDialTokens {
   actionSize: number;
   actionBackground: string;
-  actionIconColor: string;
+  actionIconColour: string;
   actionIconSize: number;
   actionCornerRadius: number;
   gap: number;

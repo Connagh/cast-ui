@@ -56,14 +56,14 @@ export function Alert({
     borderRadius: al.cornerRadius,
     borderWidth: al.borderWidth,
     backgroundColor: al.background,
-    borderColor: al.borderColor,
+    borderColor: al.borderColour,
     alignItems: 'flex-start',
   };
 
   const iconStyle: TextStyle = {
     fontSize: al.iconSize,
     lineHeight: al.iconSize * 1.2,
-    color: al.iconColor,
+    color: al.iconColour,
   };
 
   const contentStyle: ViewStyle = {
@@ -74,21 +74,21 @@ export function Alert({
   const titleStyle: TextStyle = {
     fontSize: al.titleSize,
     lineHeight: al.titleLineHeight,
-    color: al.titleColor,
+    color: al.titleColour,
     ...resolveFont(al.fontFamily, al.titleFontWeight),
   };
 
   const bodyStyle: TextStyle = {
     fontSize: al.bodySize,
     lineHeight: al.bodyLineHeight,
-    color: al.bodyColor,
+    color: al.bodyColour,
     ...resolveFont(al.fontFamily, al.bodyFontWeight),
   };
 
   const dismissStyle: TextStyle = {
     fontSize: al.iconSize,
     lineHeight: al.iconSize * 1.2,
-    color: al.iconColor,
+    color: al.iconColour,
   };
 
   return (

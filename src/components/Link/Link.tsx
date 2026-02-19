@@ -32,7 +32,7 @@ export function Link({ href, children, onPress }: LinkProps) {
   const textStyle: TextStyle = {
     fontSize: lk.fontSize,
     lineHeight: lk.lineHeight,
-    color: hovered ? lk.hoverColor : lk.color,
+    color: hovered ? lk.hoverColour : lk.colour,
     textDecorationLine: 'underline',
     ...({ textUnderlineOffset: lk.underlineOffset } as Record<string, unknown>),
     ...resolveFont(lk.fontFamily, lk.fontWeight),

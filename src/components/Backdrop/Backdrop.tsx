@@ -31,7 +31,7 @@ export function Backdrop({ visible = false, onPress }: BackdropProps) {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: bk.color,
+    backgroundColor: bk.colour,
     opacity: bk.opacity / 100,
   };
 

@@ -71,7 +71,7 @@ export function Autocomplete({
   const labelStyle: TextStyle = {
     fontSize: tf.labelSize,
     lineHeight: tf.labelLineHeight,
-    color: tf.labelColor,
+    color: tf.labelColour,
     ...resolveFont(tf.labelFontFamily, tf.labelFontWeight),
   };
 
@@ -81,13 +81,13 @@ export function Autocomplete({
     borderRadius: tf.cornerRadius,
     borderWidth: tf.borderWidth,
     backgroundColor: tf.background,
-    borderColor: isOpen ? tf.focusBorderColor : tf.borderColor,
+    borderColor: isOpen ? tf.focusBorderColour : tf.borderColour,
   };
 
   const inputStyle: TextStyle = {
     fontSize: tf.textSize,
     lineHeight: tf.textLineHeight,
-    color: tf.textColor,
+    color: tf.textColour,
     padding: 0,
     ...resolveFont(tf.fontFamily, tf.textFontWeight),
   };
@@ -112,7 +112,7 @@ export function Autocomplete({
   const optionTextStyle: TextStyle = {
     fontSize: ac.optionTextSize,
     lineHeight: ac.optionLineHeight,
-    color: ac.optionTextColor,
+    color: ac.optionTextColour,
     ...resolveFont(ac.fontFamily, ac.optionFontWeight),
   };
 
@@ -128,7 +128,7 @@ export function Autocomplete({
           }}
           onFocus={() => setIsOpen(true)}
           placeholder={placeholder}
-          placeholderTextColor={tf.placeholderColor}
+          placeholderTextColor={tf.placeholderColour}
           style={inputStyle}
         />
       </View>

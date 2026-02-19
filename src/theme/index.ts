@@ -7,7 +7,7 @@ export type {
   CastTheme,
   ThemeName,
   SemanticTokens,
-  SemanticColors,
+  SemanticColours,
   SemanticFontFamily,
   SemanticFontSize,
   SemanticFontWeight,

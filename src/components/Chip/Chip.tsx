@@ -44,13 +44,13 @@ export function Chip({
     borderRadius: ch.cornerRadius,
     backgroundColor: selected ? ch.selectedBackground : ch.background,
     borderWidth: ch.borderWidth,
-    borderColor: ch.borderColor,
+    borderColor: ch.borderColour,
   };
 
   const textStyle: TextStyle = {
     fontSize: ch.textSize,
     lineHeight: ch.lineHeight,
-    color: selected ? ch.selectedContentColor : ch.contentColor,
+    color: selected ? ch.selectedContentColour : ch.contentColour,
     ...resolveFont(ch.fontFamily, ch.fontWeight),
   };
 

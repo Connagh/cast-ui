@@ -111,7 +111,7 @@
     "component.card.headingSize": "semantic.fontSize.h3",
     "component.card.headingWeight": "semantic.fontWeight.heading",
     "component.card.headingLineHeight": "semantic.lineHeight.h3",
-    "component.card.headingFontFamily": "semantic.fontFamily.interface",
+    "component.card.headingFontFamily": "semantic.fontFamily.brand",
     "component.card.bodySize": "semantic.fontSize.body",
     "component.card.bodyWeight": "semantic.fontWeight.body",
     "component.card.bodyLineHeight": "semantic.lineHeight.body",
@@ -213,7 +213,7 @@
     "component.badge.contentColor": "semantic.color.onError",
     "component.badge.textSize": "semantic.fontSize.small",
     "component.badge.fontWeight": "semantic.fontWeight.button",
-    "component.badge.lineHeight": "semantic.lineHeight.small",
+    "component.badge.lineHeight": "semantic.lineHeight.label",
     "component.badge.fontFamily": "semantic.fontFamily.interface",
     "component.chip.paddingHorizontal": "semantic.spacing.md",
     "component.chip.paddingVertical": "semantic.spacing.xs",
@@ -293,7 +293,7 @@
     "component.dialog.titleSize": "semantic.fontSize.h3",
     "component.dialog.titleFontWeight": "semantic.fontWeight.heading",
     "component.dialog.titleLineHeight": "semantic.lineHeight.h3",
-    "component.dialog.titleFontFamily": "semantic.fontFamily.interface",
+    "component.dialog.titleFontFamily": "semantic.fontFamily.brand",
     "component.dialog.titleColor": "semantic.color.onSurface",
     "component.dialog.bodySize": "semantic.fontSize.body",
     "component.dialog.bodyFontWeight": "semantic.fontWeight.body",
@@ -307,7 +307,7 @@
     "component.appBar.titleSize": "semantic.fontSize.h3",
     "component.appBar.titleFontWeight": "semantic.fontWeight.heading",
     "component.appBar.titleLineHeight": "semantic.lineHeight.h3",
-    "component.appBar.titleFontFamily": "semantic.fontFamily.interface",
+    "component.appBar.titleFontFamily": "semantic.fontFamily.brand",
     "component.appBar.iconColor": "semantic.color.onSurface",
     "component.appBar.borderColor": "semantic.color.borderSubtle",
     "component.appBar.elevation": "semantic.elevation.none",
@@ -336,7 +336,7 @@
     "semantic.lineHeight.caption": "primitive.lineHeight.16",
     "semantic.lineHeight.overline": "primitive.lineHeight.16",
     "semantic.lineHeight.label": "primitive.lineHeight.16",
-    "semantic.lineHeight.button": "primitive.lineHeight.16"
+    "semantic.lineHeight.button": "primitive.lineHeight.20"
   },
   "primitive": {
     "color": {
@@ -502,7 +502,7 @@
       "caption": 16,
       "overline": 16,
       "label": 16,
-      "button": 16
+      "button": 20
     },
     "letterSpacing": {
       "heading": -0.02,
@@ -564,7 +564,7 @@
       "borderWidth": 2,
       "textSize": 16,
       "fontWeight": 500,
-      "lineHeight": 16,
+      "lineHeight": 20,
       "fontFamily": "system-ui",
       "filled": {
         "background": "#0F172A",
@@ -713,7 +713,7 @@
       "contentColor": "#FFFFFF",
       "textSize": 12.8,
       "fontWeight": 500,
-      "lineHeight": 20,
+      "lineHeight": 16,
       "fontFamily": "system-ui"
     },
     "chip": {

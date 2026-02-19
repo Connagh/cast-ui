@@ -44,7 +44,6 @@ export function Select({
   const theme = useTheme();
   const sl = theme.component.select;
   const tf = theme.component.textField;
-  const sem = theme.semantic;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -58,8 +57,9 @@ export function Select({
 
   const labelStyle: TextStyle = {
     fontSize: tf.labelSize,
+    lineHeight: tf.labelLineHeight,
     color: tf.labelColor,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.button),
+    ...resolveFont(tf.labelFontFamily, tf.labelFontWeight),
   };
 
   const triggerStyle: ViewStyle = {
@@ -76,9 +76,10 @@ export function Select({
 
   const triggerTextStyle: TextStyle = {
     fontSize: tf.textSize,
+    lineHeight: tf.textLineHeight,
     color: selectedOption ? tf.textColor : tf.placeholderColor,
     flex: 1,
-    ...resolveFont(tf.fontFamily, sem.fontWeight.body),
+    ...resolveFont(tf.fontFamily, tf.textFontWeight),
   };
 
   const indicatorStyle: TextStyle = {
@@ -107,8 +108,9 @@ export function Select({
 
   const optionTextStyle: TextStyle = {
     fontSize: sl.optionTextSize,
+    lineHeight: sl.optionLineHeight,
     color: sl.optionTextColor,
-    ...resolveFont(sl.fontFamily, sem.fontWeight.body),
+    ...resolveFont(sl.fontFamily, sl.optionFontWeight),
   };
 
   return (

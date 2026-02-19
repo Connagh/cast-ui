@@ -57,6 +57,7 @@ export function Table({ columns, data, onRowPress }: TableProps) {
 
   const headerTextStyle: TextStyle = {
     fontSize: tb.headerTextSize,
+    lineHeight: tb.headerLineHeight,
     color: tb.headerTextColor,
     ...resolveFont(tb.fontFamily, tb.headerFontWeight),
   };
@@ -76,8 +77,9 @@ export function Table({ columns, data, onRowPress }: TableProps) {
 
   const cellTextStyle: TextStyle = {
     fontSize: tb.cellTextSize,
+    lineHeight: tb.cellLineHeight,
     color: tb.cellTextColor,
-    ...resolveFont(tb.fontFamily, theme.semantic.fontWeight.body),
+    ...resolveFont(tb.fontFamily, tb.cellFontWeight),
   };
 
   return (

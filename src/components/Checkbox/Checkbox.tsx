@@ -62,8 +62,9 @@ export function Checkbox({
 
   const labelStyle: TextStyle = {
     fontSize: cb.labelSize,
+    lineHeight: cb.labelLineHeight,
     color: cb.labelColor,
-    ...resolveFont(cb.labelFontFamily, theme.semantic.fontWeight.body),
+    ...resolveFont(cb.labelFontFamily, cb.labelFontWeight),
   };
 
   return (

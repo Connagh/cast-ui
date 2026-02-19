@@ -119,7 +119,7 @@
     "semantic.lineHeight.h3": "primitive.lineHeight.24",
     "semantic.lineHeight.body": "primitive.lineHeight.24",
     "semantic.lineHeight.small": "primitive.lineHeight.20",
-    "semantic.lineHeight.button": "primitive.lineHeight.16"
+    "semantic.lineHeight.button": "primitive.lineHeight.20"
   },
   "primitive": {
     "color": {
@@ -280,7 +280,7 @@
       "h3": 24,
       "body": 24,
       "small": 20,
-      "button": 16
+      "button": 20
     },
     "letterSpacing": {
       "heading": -0.02,
@@ -342,7 +342,7 @@
       "borderWidth": 2,
       "textSize": 16,
       "fontWeight": 500,
-      "lineHeight": 16,
+      "lineHeight": 20,
       "fontFamily": "Poppins",
       "filled": {
         "background": "#553C9A",

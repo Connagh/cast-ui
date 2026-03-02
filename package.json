@@ -1,6 +1,6 @@
 {
   "name": "@castui/cast-ui",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A cross-platform design system for React Native (iOS, Android, Web) with multi-theme support.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,12 +10,9 @@
     "LICENSE"
   ],
   "scripts": {
-    "build:tokens": "node -e \"require('ts-node').register({compilerOptions:{module:'commonjs'}});require('./src/tokens/build.ts');\"",
-    "prestorybook": "npm run build:tokens",
     "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
-    "prebuild-storybook": "npm run build:tokens",
     "build-storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
-    "build": "npm run build:tokens && tsc --project tsconfig.build.json && cp src/tokens/generated/default.reference.json dist/",
+    "build": "tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "zh:track-package": "zh-adoption track-package"
@@ -58,8 +55,6 @@
     "react-native": "^0.84.0",
     "react-native-web": "^0.21.2",
     "storybook": "^10.2.8",
-    "style-dictionary": "^5.3.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }

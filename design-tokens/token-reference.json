@@ -1,0 +1,351 @@
+{
+  "_meta": {
+    "description": "Cast UI Design Token Reference — quick-navigation map for all 3 token layers",
+    "layers": ["primitive", "semantic", "component"],
+    "themes": ["compact", "default", "comfortable"],
+    "themeAxis": "density/size — compact < default < comfortable",
+    "referenceChain": "component → semantic → primitive",
+    "figmaFormat": "DTCG with Figma extensions (aliasData, variableId, scopes)"
+  },
+
+  "primitive": {
+    "file": "design-tokens/primitive.tokens.json",
+    "totalTokens": 298,
+    "categories": {
+      "colours": {
+        "type": "color",
+        "base": ["white", "black", "transparent"],
+        "palettes": [
+          "warm-grey", "cool-grey", "grey",
+          "red", "orange", "amber", "yellow",
+          "lime", "green", "emerald", "teal", "cyan",
+          "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose"
+        ],
+        "shadeScale": ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"],
+        "colorFormat": { "colorSpace": "srgb", "components": "[r,g,b] normalized 0-1", "alpha": "number", "hex": "#RRGGBB" }
+      },
+      "space": {
+        "type": "number",
+        "unit": "px",
+        "scale": {
+          "0": 0, "1": 1, "2": 2, "3": 4, "4": 6, "5": 8, "6": 10, "7": 12,
+          "8": 14, "9": 16, "10": 20, "11": 24, "12": 32, "13": 40, "14": 48,
+          "15": 64, "16": 80, "17": 96
+        }
+      },
+      "size": {
+        "type": "number",
+        "unit": "px",
+        "note": "Identical scale to space — used for dimensions (width/height)",
+        "scale": {
+          "0": 0, "1": 1, "2": 2, "3": 4, "4": 6, "5": 8, "6": 10, "7": 12,
+          "8": 14, "9": 16, "10": 20, "11": 24, "12": 32, "13": 40, "14": 48,
+          "15": 64, "16": 80, "17": 96
+        }
+      },
+      "radius": {
+        "type": "number",
+        "unit": "px",
+        "scale": { "0": 0, "1": 2, "2": 4, "3": 8, "4": 16, "5": 24, "full": 9999 }
+      },
+      "opacity": {
+        "type": "number",
+        "unit": "percentage (0-100)",
+        "scale": { "0": 0, "5": 5, "10": 10, "15": 15, "20": 20, "25": 25, "30": 30, "40": 40, "50": 50, "60": 60, "70": 70, "80": 80, "90": 90, "100": 100 }
+      },
+      "font-size": {
+        "type": "number",
+        "unit": "px",
+        "scale": { "1": 11, "2": 12, "3": 14, "4": 16, "5": 18, "6": 20, "7": 24, "8": 30, "9": 36, "10": 48, "11": 60, "12": 72 }
+      },
+      "line-height": {
+        "type": "number",
+        "unit": "px",
+        "scale": { "1": 16, "2": 18, "3": 20, "4": 24, "5": 28, "6": 32, "7": 36, "8": 40, "9": 48, "10": 56, "11": 64, "12": 80 }
+      },
+      "letter-spacing": {
+        "type": "number",
+        "unit": "px",
+        "scale": { "1": -0.5, "2": -0.25, "3": 0, "4": 0.25, "5": 0.5, "6": 1 }
+      },
+      "font-weight": {
+        "type": "number",
+        "values": { "light": 300, "regular": 400, "medium": 500, "semibold": 600, "bold": 700 }
+      },
+      "font-family": {
+        "type": "string",
+        "values": { "sans": "Inter", "mono": "JetBrains Mono", "serif": "Noto Serif" }
+      }
+    }
+  },
+
+  "semantic": {
+    "file": "design-tokens/semantic.tokens.json",
+    "categories": {
+      "intent": {
+        "description": "Semantic color intents for interactive elements",
+        "variants": {
+          "brand": {
+            "baseColor": "blue",
+            "ringColour": "colours/blue/400",
+            "styles": ["default", "subtle", "bold"],
+            "states": ["default", "hover", "active"],
+            "tokensPer": ["bg", "fg", "border"]
+          },
+          "neutral": {
+            "baseColor": "cool-grey",
+            "ringColour": "colours/cool-grey/400",
+            "placeholder": "colours/cool-grey/400",
+            "styles": ["default", "subtle", "bold"],
+            "states": ["default", "hover", "active"],
+            "tokensPer": ["bg", "fg", "border"],
+            "extra": {
+              "option": {
+                "states": ["default", "hover", "selected", "disabled"],
+                "tokens": ["bg", "fg"]
+              }
+            }
+          },
+          "danger": {
+            "baseColor": "red",
+            "ringColour": "colours/red/400",
+            "styles": ["default", "subtle", "bold"],
+            "states": ["default", "hover", "active"],
+            "tokensPer": ["bg", "fg", "border"]
+          },
+          "disabled": {
+            "tokens": ["opacity", "bg", "fg", "border"],
+            "refs": ["opacity/50", "colours/cool-grey/100", "colours/cool-grey/400", "colours/cool-grey/200"]
+          }
+        }
+      },
+      "controls": {
+        "description": "Sizing tokens for interactive controls — THESE CHANGE BY THEME",
+        "sizes": {
+          "control-sm": {
+            "borderRadius": "radius/3 (8px)",
+            "tokens": ["padding.x", "padding.y", "gap"],
+            "densityVariants": {
+              "compact":     { "padding.x": "space/4 (6px)",  "padding.y": "space/2 (2px)",  "gap": "space/3 (4px)" },
+              "default":     { "padding.x": "space/6 (10px)", "padding.y": "space/4 (6px)",  "gap": "space/5 (8px)" },
+              "comfortable": { "padding.x": "space/8 (14px)", "padding.y": "space/6 (10px)", "gap": "space/7 (12px)" }
+            }
+          },
+          "control": {
+            "borderRadius": "radius/3 (8px)",
+            "borderWidth": "space/1 (1px)",
+            "tokens": ["padding.x", "padding.y", "gap", "field-gap", "option.padding.x", "option.padding.y", "option.gap"],
+            "densityVariants": {
+              "compact":     { "padding.x": "space/6 (10px)",  "padding.y": "space/4 (6px)",   "gap": "space/5 (8px)",  "field-gap": "space/1 (1px)" },
+              "default":     { "padding.x": "space/8 (14px)",  "padding.y": "space/6 (10px)",  "gap": "space/7 (12px)", "field-gap": "space/2 (2px)" },
+              "comfortable": { "padding.x": "space/10 (20px)", "padding.y": "space/8 (14px)",  "gap": "space/9 (16px)", "field-gap": "space/3 (4px)" }
+            },
+            "focusRing": {
+              "colour": "colours/blue/500",
+              "width": "space/2 (2px)",
+              "opacity": "opacity/50",
+              "offset": "space/2 (2px)"
+            },
+            "tag": {
+              "bg": "colours/cool-grey/100",
+              "fg": "colours/cool-grey/700",
+              "padding.x": "space/4 (6px)",
+              "padding.y": "space/1 (1px)",
+              "gap": "space/3 (4px)",
+              "removeHover": "colours/cool-grey/500"
+            },
+            "toggle": {
+              "off.bg": "colours/cool-grey/200",
+              "off.hover.bg": "colours/cool-grey/300"
+            }
+          },
+          "control-lg": {
+            "borderRadius": "radius/3 (8px)",
+            "tokens": ["padding.x", "padding.y", "gap"],
+            "densityVariants": {
+              "compact":     { "padding.x": "space/10 (20px)", "padding.y": "space/8 (14px)",  "gap": "space/9 (16px)" },
+              "default":     { "padding.x": "space/11 (24px)", "padding.y": "space/9 (16px)",  "gap": "space/10 (20px)" },
+              "comfortable": { "padding.x": "space/12 (32px)", "padding.y": "space/10 (20px)", "gap": "space/11 (24px)" }
+            }
+          }
+        }
+      },
+      "typography": {
+        "description": "Semantic typography scales — constant across themes",
+        "scales": {
+          "display":  { "lg": { "fontSize": 72, "lineHeight": 80, "letterSpacing": -0.5 }, "md": { "fontSize": 60, "lineHeight": 64, "letterSpacing": -0.5 }, "sm": { "fontSize": 48, "lineHeight": 56, "letterSpacing": -0.25 } },
+          "heading":  { "lg": { "fontSize": 36, "lineHeight": 40, "letterSpacing": -0.25 }, "md": { "fontSize": 30, "lineHeight": 36, "letterSpacing": -0.25 }, "sm": { "fontSize": 24, "lineHeight": 32, "letterSpacing": 0 } },
+          "title":    { "lg": { "fontSize": 20, "lineHeight": 28, "letterSpacing": 0 }, "md": { "fontSize": 18, "lineHeight": 24, "letterSpacing": 0 }, "sm": { "fontSize": 16, "lineHeight": 24, "letterSpacing": 0 } },
+          "body":     { "lg": { "fontSize": 16, "lineHeight": 24, "letterSpacing": 0 }, "md": { "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 }, "sm": { "fontSize": 12, "lineHeight": 18, "letterSpacing": 0.25 } },
+          "label":    { "lg": { "fontSize": 16, "lineHeight": 24, "letterSpacing": 0 }, "md": { "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 }, "sm": { "fontSize": 12, "lineHeight": 16, "letterSpacing": 0.25 } },
+          "caption":  { "fontSize": 11, "lineHeight": 16, "letterSpacing": 0.5 }
+        }
+      },
+      "surface": {
+        "base": "colours/cool-grey/50",
+        "subtle": "colours/cool-grey/100",
+        "overlay": { "bg": "colours/white", "border": "colours/cool-grey/200", "radius": "radius/3 (8px)" }
+      },
+      "text": {
+        "muted": "colours/cool-grey/500",
+        "description": "colours/cool-grey/500"
+      },
+      "overlay": {
+        "scrim": "opacity/50",
+        "hover": "opacity/5",
+        "active": "opacity/10"
+      }
+    }
+  },
+
+  "component": {
+    "files": {
+      "default": "design-tokens/component/component-default.tokens.json",
+      "comfortable": "design-tokens/component/component-comfortable.tokens.json",
+      "compact": "design-tokens/component/component-compact.tokens.json"
+    },
+    "components": {
+      "input": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["field-gap", "border-radius", "gap", "padding.x", "padding.y"],
+        "themeVariable": ["field-gap", "gap", "padding.x", "padding.y"],
+        "constant": ["border-radius"],
+        "exampleValues": {
+          "default.padding.x": { "compact": 10, "default": 14, "comfortable": 20 },
+          "large.padding.x":   { "compact": 20, "default": 24, "comfortable": 32 }
+        }
+      },
+      "button": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["gap", "border-radius", "padding.x", "padding.y", "focus-ring-width", "focus-ring-offset"],
+        "themeVariable": ["gap", "padding.x", "padding.y"],
+        "constant": ["border-radius (8)", "focus-ring-width (2)", "focus-ring-offset (2)"],
+        "verifiedValues": {
+          "small.gap":       { "compact": 4,  "default": 8,  "comfortable": 12 },
+          "small.padding.x": { "compact": 6,  "default": 10, "comfortable": 14 },
+          "small.padding.y": { "compact": 2,  "default": 6,  "comfortable": 10 },
+          "default.gap":       { "compact": 8,  "default": 12, "comfortable": 16 },
+          "default.padding.x": { "compact": 10, "default": 14, "comfortable": 20 },
+          "default.padding.y": { "compact": 6,  "default": 10, "comfortable": 14 },
+          "large.gap":       { "compact": 16, "default": 20, "comfortable": 24 },
+          "large.padding.x": { "compact": 20, "default": 24, "comfortable": 32 },
+          "large.padding.y": { "compact": 14, "default": 16, "comfortable": 20 }
+        },
+        "typography": {
+          "small": "label/sm (12px/16px/0.25px)",
+          "default": "label/md (14px/20px/0px)",
+          "large": "label/lg (16px/24px/0px)"
+        },
+        "colors": "intent/{brand|neutral|danger}/{default|bold|subtle}/{default|hover|active}/{bg|fg|border}",
+        "constants": {
+          "borderWidth": 1,
+          "borderRadius": 8,
+          "focusRingWidth": 2,
+          "focusRingOffset": 2,
+          "fontWeight": "medium (500)",
+          "fontFamily": "Inter"
+        }
+      },
+      "layout": {
+        "tokens": ["gap.xs", "gap.sm", "gap.md", "gap.lg", "gap.xl", "padding.x", "padding.y"],
+        "themeVariable": ["ALL"],
+        "exampleValues": {
+          "gap.xs": { "compact": 4,  "default": 8,  "comfortable": 12 },
+          "gap.sm": { "compact": 8,  "default": 12, "comfortable": 16 },
+          "gap.md": { "compact": 12, "default": 16, "comfortable": 24 },
+          "gap.lg": { "compact": 16, "default": 24, "comfortable": 40 },
+          "gap.xl": { "compact": 24, "default": 40, "comfortable": 64 }
+        }
+      },
+      "select": {
+        "tokens": ["content.max-height", "content.border-radius", "content.padding", "option.gap", "option.padding.x", "option.padding.y", "group.gap", "group.padding", "separator.colour", "separator.height"],
+        "themeVariable": ["option.gap", "option.padding.x", "option.padding.y", "group.gap", "group.padding", "content.padding"],
+        "constant": ["content.max-height", "content.border-radius", "separator.colour", "separator.height"]
+      },
+      "checkbox": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["border-radius", "gap", "focus-ring-width", "focus-ring-offset", "indicator-size", "icon-size"],
+        "themeVariable": ["gap"],
+        "constant": ["border-radius", "focus-ring-width", "focus-ring-offset", "indicator-size", "icon-size"]
+      },
+      "radio": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["gap", "focus-ring-width", "focus-ring-offset", "indicator-size", "dot-size"],
+        "themeVariable": ["gap"],
+        "constant": ["focus-ring-width", "focus-ring-offset", "indicator-size", "dot-size"]
+      },
+      "toggle": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["gap", "track-width", "track-height", "track-border-radius", "thumb-size", "thumb-border-radius"],
+        "themeVariable": ["gap"],
+        "constant": ["track-width", "track-height", "track-border-radius", "thumb-size", "thumb-border-radius"]
+      },
+      "badge": {
+        "tokens": ["border-radius", "gap", "dot-size", "padding.x", "padding.y"],
+        "themeVariable": ["gap", "padding.x", "padding.y"],
+        "constant": ["border-radius", "dot-size"]
+      },
+      "alert": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["padding.x", "padding.y", "gap", "icon-size", "close-size", "border-radius"],
+        "themeVariable": ["padding.x", "padding.y", "gap"],
+        "constant": ["icon-size", "close-size", "border-radius"]
+      },
+      "toast": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["padding.x", "padding.y", "gap", "icon-size", "close-size", "close-colour", "border-radius", "min-width", "max-width"],
+        "themeVariable": ["padding.x", "padding.y", "gap"],
+        "constant": ["icon-size", "close-size", "close-colour", "border-radius", "min-width", "max-width"]
+      },
+      "card": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["padding.x", "padding.y", "gap", "border-radius"],
+        "themeVariable": ["padding.x", "padding.y", "gap"],
+        "constant": ["border-radius"]
+      },
+      "avatar": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["border-radius", "size"],
+        "themeVariable": [],
+        "constant": ["border-radius", "size"]
+      },
+      "chip": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["border-radius", "gap", "dot-size", "padding.x", "padding.y", "close-size"],
+        "themeVariable": ["gap", "padding.x", "padding.y"],
+        "constant": ["border-radius", "dot-size", "close-size"]
+      },
+      "dialog": {
+        "sizes": ["small", "default", "large"],
+        "tokens": ["border-radius", "padding"],
+        "themeVariable": ["padding"],
+        "constant": ["border-radius"]
+      },
+      "tooltip": {
+        "tokens": ["border-radius", "arrow-size", "padding.x", "padding.y"],
+        "themeVariable": ["padding.x", "padding.y"],
+        "constant": ["border-radius", "arrow-size"]
+      },
+      "popover": {
+        "tokens": ["border-radius", "arrow-size", "padding"],
+        "themeVariable": ["padding"],
+        "constant": ["border-radius", "arrow-size"]
+      },
+      "list": {
+        "tokens": ["section-gap", "item.padding.x", "item.padding.y", "item.gap", "item.border-radius", "subheader.padding.x", "subheader.padding.y"],
+        "themeVariable": ["section-gap", "item.padding.x", "item.padding.y", "item.gap", "subheader.padding.x", "subheader.padding.y"],
+        "constant": ["item.border-radius"]
+      }
+    },
+    "themePattern": {
+      "description": "~75% of tokens are constant across themes. Only padding, gap, and spacing tokens vary.",
+      "whatChanges": ["padding.x", "padding.y", "gap", "field-gap", "section-gap", "content.padding", "group.padding"],
+      "whatStaysConstant": ["border-radius", "focus-ring-width", "focus-ring-offset", "indicator-size", "icon-size", "dot-size", "thumb-size", "track dimensions", "avatar sizes", "min/max widths", "colours"],
+      "scalingDirection": "compact < default < comfortable",
+      "typicalRatios": {
+        "compactToDefault": "values increase ~30-60%",
+        "defaultToComfortable": "values increase ~25-70%"
+      }
+    }
+  }
+}

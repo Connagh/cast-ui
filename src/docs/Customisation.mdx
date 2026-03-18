@@ -1,0 +1,225 @@
+{/* src/docs/Customisation.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Customisation" />
+
+# Customising Cast UI
+
+Cast UI is built on a **3-layer design token system** designed for
+straightforward customisation — from quick brand changes to full white-label
+deployments.
+
+---
+
+## Quick start
+
+Wrap your app with `ThemeProvider`. Every Cast UI component inside will pick up
+the theme automatically.
+
+```tsx
+import { ThemeProvider } from '@castui/cast-ui';
+
+export function App() {
+  return (
+    <ThemeProvider density="default">
+      {/* your app here */}
+    </ThemeProvider>
+  );
+}
+```
+
+> If you omit the `ThemeProvider`, components fall back to the **default**
+> density with the built-in colour palette.
+
+---
+
+## 1. Density themes — spacing that adapts to context
+
+Cast UI ships with three density modes that scale padding, gap, and spacing
+across every component simultaneously:
+
+| Density | Best for | Padding feel |
+|---|---|---|
+| `compact` | Data-dense screens, dashboards, power users | Tight |
+| `default` | General-purpose interfaces | Balanced |
+| `comfortable` | Accessibility, touch-first, onboarding flows | Spacious |
+
+**Switch at runtime** — no rebuild needed:
+
+```tsx
+const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('default');
+
+<ThemeProvider density={density}>
+  <Button onPress={() => setDensity('compact')}>Go compact</Button>
+</ThemeProvider>
+```
+
+**What changes:** padding, gap, spacing tokens.
+**What stays constant:** colours, border-radius, focus rings, typography, icon sizes.
+
+This means your brand identity is preserved regardless of which density a user selects.
+
+---
+
+## 2. Colour overrides — rebrand in one prop
+
+Pass a `colors` prop to `ThemeProvider` to override any intent colour at any
+depth. The override is **deep-merged** — only provide what you want to change.
+
+### Example: purple brand
+
+```tsx
+<ThemeProvider
+  density="default"
+  colors={{
+    brand: {
+      bold: {
+        default: { bg: '#7C3AED', fg: '#FFFFFF', border: '#7C3AED' },
+        hover:   { bg: '#6D28D9', fg: '#FFFFFF', border: '#6D28D9' },
+        active:  { bg: '#5B21B6', fg: '#FFFFFF', border: '#5B21B6' },
+      },
+      default: {
+        default: { bg: '#FFFFFF', fg: '#7C3AED', border: '#C4B5FD' },
+        hover:   { bg: '#F5F3FF', fg: '#6D28D9', border: '#A78BFA' },
+        active:  { bg: '#EDE9FE', fg: '#5B21B6', border: '#8B5CF6' },
+      },
+      subtle: {
+        default: { bg: 'transparent', fg: '#7C3AED', border: 'transparent' },
+        hover:   { bg: '#F5F3FF', fg: '#6D28D9', border: 'transparent' },
+        active:  { bg: '#EDE9FE', fg: '#5B21B6', border: 'transparent' },
+      },
+      ringColour: '#A78BFA',
+    },
+  }}
+>
+  <App />
+</ThemeProvider>
+```
+
+Only the `brand` intent changes — `neutral` and `danger` stay untouched.
+
+### Colour structure
+
+Each intent (`brand`, `neutral`, `danger`) has three prominences, each with
+three states:
+
+```
+intent
+  ├── default (outlined)
+  │   ├── default  → { bg, fg, border }
+  │   ├── hover    → { bg, fg, border }
+  │   └── active   → { bg, fg, border }
+  ├── bold (filled)
+  │   └── ...
+  ├── subtle (ghost)
+  │   └── ...
+  └── ringColour   → focus ring colour
+```
+
+---
+
+## 3. Using tokens directly — build custom components on the same system
+
+All tokens and the `useTheme` hook are exported, so you can build custom
+components that share the same token foundation:
+
+```tsx
+import { useTheme, intentColors, fontFamily, fontWeight, label } from '@castui/cast-ui';
+
+function CustomCard({ children }) {
+  const { components } = useTheme();
+  // Access the current density's button tokens (or any future component tokens)
+  const padding = components.button.default.paddingX;
+
+  return (
+    <View style={{ padding, borderRadius: 8 }}>
+      {children}
+    </View>
+  );
+}
+```
+
+### Available token exports
+
+| Export | What it contains |
+|---|---|
+| `intentColors` | Full colour map: intent → prominence → state → {bg, fg, border} |
+| `disabledColors` | Shared disabled state: {bg, fg, border} |
+| `controlTokens` | Shared constants: borderWidth |
+| `fontFamily` | Platform-aware font families (sans, mono, serif) |
+| `fontWeight` | Named weights (light through bold) |
+| `label` | Label typography scales: sm, md, lg |
+| `themes` | All three density definitions as raw objects |
+
+---
+
+## 4. How the token layers work
+
+Understanding the layers helps you decide _where_ to customise:
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Component tokens                                     │
+│  e.g. button.default.paddingX = 14                   │
+│  → "How much padding does a default button have?"     │
+│  → Changes with density theme                         │
+├──────────────────────────────────────────────────────┤
+│  Semantic tokens                                      │
+│  e.g. intent/brand/bold/default/bg = #2563EB         │
+│  → "What colour is a primary action?"                 │
+│  → Override via ThemeProvider colors prop              │
+├──────────────────────────────────────────────────────┤
+│  Primitive tokens                                     │
+│  e.g. colours/blue/600 = #2563EB, space/8 = 14      │
+│  → "What is blue-600?" / "What is spacing step 8?"   │
+│  → Foundation — rarely overridden directly            │
+└──────────────────────────────────────────────────────┘
+```
+
+**Rule of thumb:** customise at the highest layer that achieves your goal.
+- Want to change brand colour? → Override `colors.brand` on ThemeProvider.
+- Want tighter spacing? → Switch `density` to `compact`.
+- Want to change a single button's padding? → Pass a `style` prop.
+
+---
+
+## 5. Icons — bring your own
+
+Cast UI is icon-agnostic. The `leadingIcon` and `trailingIcon` props accept
+any `React.ReactNode`. Use whichever icon library you prefer:
+
+```tsx
+import { Ionicons } from '@expo/vector-icons';
+import { Button } from '@castui/cast-ui';
+
+<Button
+  intent="brand"
+  prominence="bold"
+  leadingIcon={<Ionicons name="add" size={16} color="#FFFFFF" />}
+>
+  Add item
+</Button>
+```
+
+Icons should be **16 × 16** to match the Figma spec.
+
+---
+
+## 6. Nested ThemeProviders — different zones, different densities
+
+ThemeProviders can be nested. Inner providers override outer ones:
+
+```tsx
+<ThemeProvider density="comfortable">
+  {/* Main app — comfortable spacing */}
+  <Header />
+
+  <ThemeProvider density="compact">
+    {/* Data table — compact spacing for information density */}
+    <DataTable />
+  </ThemeProvider>
+</ThemeProvider>
+```
+
+This lets you mix densities in a single screen — spacious navigation alongside
+a dense data grid, for example.

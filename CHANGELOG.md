@@ -5,6 +5,20 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] — 2026-03-19
+
+### Added
+- **Select component** — form control for choosing from a list of options, with single, multi (tag pills), and combobox (search input) modes
+- **SelectOption** — individual option row with icon, label, description, check mark, and disabled state
+- **SelectGroup** — labelled group of options with uppercase caption header
+- **SelectSeparator** — visual divider between option groups
+- **SelectTag** — pill badge sub-component for multi-select, also exported for standalone use
+- **SelectContent** — dropdown card exported separately for custom overlay implementations
+- **Input theme tokens** — `fieldGap`, `paddingX`, `paddingY`, `gap`, `borderRadius` per size across all 3 densities
+- **Select theme tokens** — `content`, `option`, `group`, `separator` spacing tokens across all 3 densities
+- **Caption typography scale** — 11px/16px/0.5 tracking for helper text, group labels, and tags
+- **Select color tokens** — option state colours (default, hover, selected, selected+hover, disabled), separator colour, tag tokens, error tokens
+
 ## [4.0.0] — 2026-03-19
 
 ### Removed
@@ -49,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
+[4.1.0]: https://github.com/Connagh/cast-ui/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/Connagh/cast-ui/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/Connagh/cast-ui/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Connagh/cast-ui/compare/v3.0.0...v3.1.0

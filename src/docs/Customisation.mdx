@@ -103,12 +103,12 @@ Only the `brand` intent changes — `neutral` and `danger` stay untouched.
 Each intent (`brand`, `neutral`, `danger`) has three prominences, each with
 three states:
 
-```
+```text
 intent
   ├── default (outlined)
-  │   ├── default  → { bg, fg, border }
-  │   ├── hover    → { bg, fg, border }
-  │   └── active   → { bg, fg, border }
+  │   ├── default  → bg, fg, border
+  │   ├── hover    → bg, fg, border
+  │   └── active   → bg, fg, border
   ├── bold (filled)
   │   └── ...
   ├── subtle (ghost)

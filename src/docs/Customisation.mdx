@@ -55,7 +55,7 @@ const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('d
 ```
 
 **What changes:** padding, gap, spacing tokens.
-**What stays constant:** colours, border-radius, focus rings, typography, icon sizes.
+**What stays constant:** colours, border-radius, typography, icon sizes.
 
 This means your brand identity is preserved regardless of which density a user selects.
 
@@ -88,7 +88,6 @@ depth. The override is **deep-merged** — only provide what you want to change.
         hover:   { bg: '#F5F3FF', fg: '#6D28D9', border: 'transparent' },
         active:  { bg: '#EDE9FE', fg: '#5B21B6', border: 'transparent' },
       },
-      ringColour: '#A78BFA',
     },
   }}
 >
@@ -111,9 +110,8 @@ intent
   │   └── active   → bg, fg, border
   ├── bold (filled)
   │   └── ...
-  ├── subtle (ghost)
-  │   └── ...
-  └── ringColour   → focus ring colour
+  └── subtle (ghost)
+      └── ...
 ```
 
 ---

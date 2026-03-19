@@ -13,8 +13,6 @@ export type ButtonSizeTokens = {
   paddingX: number;
   paddingY: number;
   borderRadius: number;
-  focusRingWidth: number;
-  focusRingOffset: number;
 };
 
 /** All three button sizes */

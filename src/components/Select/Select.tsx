@@ -787,7 +787,6 @@ export function Select({
             {helperText}
           </Text>
         ) : null}
-              }}
       </View>
     </SelectCtx.Provider>
   );

@@ -31,7 +31,6 @@ import {
   Pressable,
   View,
   Text,
-  Modal,
   ScrollView,
   TextInput,
   Platform,
@@ -477,7 +476,6 @@ export function Select({
   const inputTokens = components.input[size];
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const optionRegistry = useRef<Map<string, OptionInfo>>(new Map());
   const [, forceUpdate] = useState(0);
 
@@ -570,20 +568,9 @@ export function Select({
 
   const displayText = getSelectedLabel();
 
-  // Focus ring style (web only)
-  const focusStyle: ViewStyle =
-    isFocused && Platform.OS === 'web'
-      ? ({
-          outlineWidth: 2,
-          outlineStyle: 'solid',
-          outlineColor: '#3B82F6',
-          outlineOffset: 2,
-        } as ViewStyle)
-      : {};
-
   return (
     <SelectCtx.Provider value={ctxValue}>
-      <View style={[{ gap: 4 }, style]}>
+      <View style={[{ gap: components.input.fieldGap }, style]}>
         {/* Form label */}
         {formLabel ? (
           <Text
@@ -601,35 +588,31 @@ export function Select({
           </Text>
         ) : null}
 
-        {/* Input field trigger */}
+        {/* Trigger wrapper — anchors the dropdown below the input */}
+        <View style={{ position: 'relative' as const, zIndex: isOpen ? 1000 : 0 }}>
         <Pressable
           onPress={() => {
-            if (!disabled) setIsOpen(true);
+            if (!disabled) setIsOpen(!isOpen);
           }}
           onHoverIn={() => setIsHovered(true)}
           onHoverOut={() => setIsHovered(false)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={
             accessibilityLabel || formLabel || 'Select option'
           }
           accessibilityState={{ disabled, expanded: isOpen }}
-          style={[
-            {
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: inputTokens.gap,
-              paddingHorizontal: inputTokens.paddingX,
-              paddingVertical: inputTokens.paddingY,
-              borderRadius: inputTokens.borderRadius,
-              borderWidth: controlTokens.borderWidth,
-              borderColor: triggerBorderColor,
-              backgroundColor: triggerBgColor,
-            },
-            focusStyle,
-          ]}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: inputTokens.gap,
+            paddingHorizontal: inputTokens.paddingX,
+            paddingVertical: inputTokens.paddingY,
+            borderRadius: inputTokens.borderRadius,
+            borderWidth: controlTokens.borderWidth,
+            borderColor: triggerBorderColor,
+            backgroundColor: triggerBgColor,
+          }}
         >
           {/* Leading icon */}
           {resolvedLeadingIcon ? (
@@ -685,10 +668,8 @@ export function Select({
                 if (!isOpen) setIsOpen(true);
               }}
               onFocus={() => {
-                setIsFocused(true);
                 if (!isOpen) setIsOpen(true);
               }}
-              onBlur={() => setIsFocused(false)}
               placeholder={placeholder}
               placeholderTextColor={textTokens.description}
               editable={!disabled}
@@ -746,6 +727,50 @@ export function Select({
           </View>
         </Pressable>
 
+        {/* Click-outside backdrop */}
+        {isOpen ? (
+          <Pressable
+            onPress={() => setIsOpen(false)}
+            accessibilityRole="button"
+            accessibilityLabel="Close select"
+            style={Platform.select({
+              web: {
+                position: 'fixed' as ViewStyle['position'],
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 0,
+              } as ViewStyle,
+              default: {
+                position: 'absolute' as const,
+                top: -9999,
+                left: -9999,
+                width: 99999,
+                height: 99999,
+              } as ViewStyle,
+            })}
+          />
+        ) : null}
+
+        {/* Dropdown — always mounted so options register for tag labels */}
+        <View
+          style={[
+            {
+              position: 'absolute' as const,
+              top: '100%' as unknown as number,
+              left: 0,
+              right: 0,
+              paddingTop: 4,
+              zIndex: 1,
+            },
+            !isOpen && ({ display: 'none' } as ViewStyle),
+          ]}
+        >
+          <SelectContent>{children}</SelectContent>
+        </View>
+        </View>
+
         {/* Helper text */}
         {helperText ? (
           <Text
@@ -762,37 +787,7 @@ export function Select({
             {helperText}
           </Text>
         ) : null}
-
-        {/* Dropdown overlay */}
-        <Modal
-          visible={isOpen}
-          transparent
-          animationType="fade"
-          onRequestClose={() => setIsOpen(false)}
-        >
-          <Pressable
-            onPress={() => setIsOpen(false)}
-            accessibilityRole="button"
-            accessibilityLabel="Close select"
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'rgba(0,0,0,0.05)',
-            }}
-          >
-            <Pressable
-              onPress={(e) => e.stopPropagation()}
-              accessibilityRole="none"
-              style={{
-                width: 300,
-                maxWidth: '90%',
               }}
-            >
-              <SelectContent>{children}</SelectContent>
-            </Pressable>
-          </Pressable>
-        </Modal>
       </View>
     </SelectCtx.Provider>
   );

@@ -90,10 +90,10 @@ const TYPO_SCALE: Record<DialogSize, 'sm' | 'md' | 'lg'> = {
 };
 
 /** Maps dialog size → button size */
-const BUTTON_SIZE: Record<DialogSize, 'small' | 'default'> = {
+const BUTTON_SIZE: Record<DialogSize, 'small' | 'default' | 'large'> = {
   small: 'small',
   default: 'default',
-  large: 'default',
+  large: 'large',
 };
 
 /** Fixed widths per dialog size (from Figma spec) */

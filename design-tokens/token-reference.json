@@ -317,9 +317,28 @@
       },
       "dialog": {
         "sizes": ["small", "default", "large"],
-        "tokens": ["border-radius", "padding"],
-        "themeVariable": ["padding"],
-        "constant": ["border-radius"]
+        "tokens": ["padding", "gap", "icon-size"],
+        "themeVariable": ["padding", "gap"],
+        "constant": ["icon-size"],
+        "verifiedValues": {
+          "small.padding":   { "compact": 16, "default": 24, "comfortable": 40 },
+          "small.gap":       { "compact": 12, "default": 16, "comfortable": 24 },
+          "small.iconSize":  24,
+          "default.padding": { "compact": 24, "default": 32, "comfortable": 40 },
+          "default.gap":     { "compact": 16, "default": 24, "comfortable": 32 },
+          "default.iconSize": 32,
+          "large.padding":   { "compact": 32, "default": 40, "comfortable": 48 },
+          "large.gap":       { "compact": 24, "default": 32, "comfortable": 40 },
+          "large.iconSize":  40
+        },
+        "typography": {
+          "small": { "title": "title/sm (16px/24px)", "body": "body/sm (12px/18px)" },
+          "default": { "title": "title/md (18px/24px)", "body": "body/md (14px/20px)" },
+          "large": { "title": "title/lg (20px/28px)", "body": "body/lg (16px/24px)" }
+        },
+        "surface": "surface/overlay (bg=#FFFFFF, border=#E5E7EB, radius=8px, shadow/lg)",
+        "widths": { "small": 360, "default": 480, "large": 600 },
+        "buttonSizes": { "small": "small", "default": "default", "large": "default" }
       },
       "tooltip": {
         "tokens": ["border-radius", "arrow-size", "padding.x", "padding.y"],

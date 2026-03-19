@@ -5,5 +5,7 @@ export type {
   ComponentTokens,
   ButtonSizeTokens,
   ButtonThemeTokens,
+  DialogSizeTokens,
+  DialogThemeTokens,
   DeepPartial,
 } from './types';

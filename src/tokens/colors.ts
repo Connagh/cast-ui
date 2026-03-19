@@ -97,3 +97,22 @@ export const disabledColors: StateColors = {
 export const controlTokens = {
   borderWidth: 1,
 };
+
+/** Surface overlay tokens — shared by Dialog, Popover, Tooltip, Select, etc. */
+export const surfaceTokens = {
+  overlay: {
+    bg: '#FFFFFF',
+    border: '#E5E7EB',
+    borderRadius: 8,
+  },
+};
+
+/** Semantic text tokens */
+export const textTokens = {
+  description: '#6B7280',
+};
+
+/** Overlay/scrim opacity */
+export const overlayTokens = {
+  scrimOpacity: 0.5,
+};

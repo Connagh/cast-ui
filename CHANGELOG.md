@@ -5,6 +5,17 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] — 2026-03-19
+
+### Added
+- **Dialog component** — modal overlay with scrim backdrop, icon, title, description, content slot, and action buttons
+- **Typography scales** — added `title` (sm/md/lg) and `body` (sm/md/lg) to shared tokens
+- **Surface tokens** — shared `surfaceTokens.overlay` (bg, border, radius) for Dialog, Popover, Tooltip, etc.
+- **Text tokens** — `textTokens.description` for secondary text colour
+- **Overlay tokens** — `overlayTokens.scrimOpacity` for modal backdrops
+- **Dialog density themes** — padding and gap tokens for compact/default/comfortable across all 3 sizes
+- **Dialog Storybook stories** — Playground, Sizes, WithSlotContent, NoIcon, DensityComparison
+
 ## [3.1.0] — 2026-03-18
 
 ### Added
@@ -28,5 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
+[3.2.0]: https://github.com/Connagh/cast-ui/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Connagh/cast-ui/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Connagh/cast-ui/compare/v2.0.0...v3.0.0

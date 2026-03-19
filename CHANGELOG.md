@@ -5,6 +5,16 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] — 2026-03-19
+
+### Removed
+- **BREAKING:** Removed `ringColour` from `IntentColors` type and all intent color definitions (neutral, brand, danger)
+- **BREAKING:** Removed `focusRingWidth` and `focusRingOffset` from `ButtonSizeTokens` type and all density theme values
+- Removed custom focus ring styling from Button component — browsers now provide accessible `:focus-visible` outlines natively
+
+### Changed
+- Updated Customisation docs to remove focus ring references and `ringColour` from color override examples
+
 ## [3.2.0] — 2026-03-19
 
 ### Added
@@ -19,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.1.0] — 2026-03-18
 
 ### Added
-- **Button component** — `intent` (neutral/brand/danger), `prominence` (default/bold/subtle), `size` (small/default/large), with hover, press, focus, and disabled states
+- **Button component** — `intent` (neutral/brand/danger), `prominence` (default/bold/subtle), `size` (small/default/large), with hover, press, and disabled states
 - **Icon component** — Material Symbols Outlined via font ligature rendering, accepts name string + size + colour
 - **Design token system** — 3-layer architecture (primitive → semantic → component) exported from Figma
 - **ThemeProvider** — runtime density switching (compact/default/comfortable) and deep-merge colour overrides for rebranding
@@ -39,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
+[4.0.0]: https://github.com/Connagh/cast-ui/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/Connagh/cast-ui/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Connagh/cast-ui/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Connagh/cast-ui/compare/v2.0.0...v3.0.0

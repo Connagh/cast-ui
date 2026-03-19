@@ -97,8 +97,6 @@ export const disabledColors: StateColors = {
 export const controlTokens = {
   borderWidth: 1,
 };
-<<<<<<< Updated upstream
-=======
 
 /** Surface tokens — backgrounds and overlay styling */
 export const surfaceTokens = {
@@ -123,4 +121,3 @@ export const textTokens = {
 export const overlayTokens = {
   scrimOpacity: 0.5,
 };
->>>>>>> Stashed changes

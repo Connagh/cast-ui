@@ -24,12 +24,27 @@ export type ButtonThemeTokens = {
   large: ButtonSizeTokens;
 };
 
+/** Spacing/sizing tokens for a single dialog size variant */
+export type DialogSizeTokens = {
+  padding: number;
+  gap: number;
+  iconSize: number;
+};
+
+/** All three dialog sizes */
+export type DialogThemeTokens = {
+  small: DialogSizeTokens;
+  default: DialogSizeTokens;
+  large: DialogSizeTokens;
+};
+
 /**
  * Component-level tokens that vary by density theme.
  * Extended as new components are added to the library.
  */
 export type ComponentTokens = {
   button: ButtonThemeTokens;
+  dialog: DialogThemeTokens;
 };
 
 /** Utility type for partial overrides at any depth */

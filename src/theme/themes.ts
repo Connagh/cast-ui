@@ -14,6 +14,11 @@ import type { DensityTheme, ComponentTokens } from './types';
 
 export const themes: Record<DensityTheme, ComponentTokens> = {
   compact: {
+    dialog: {
+      small:   { padding: 16, gap: 12, iconSize: 24 },
+      default: { padding: 24, gap: 16, iconSize: 32 },
+      large:   { padding: 32, gap: 24, iconSize: 40 },
+    },
     button: {
       small: {
         gap: 4,
@@ -43,6 +48,11 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
   },
 
   default: {
+    dialog: {
+      small:   { padding: 24, gap: 16, iconSize: 24 },
+      default: { padding: 32, gap: 24, iconSize: 32 },
+      large:   { padding: 40, gap: 32, iconSize: 40 },
+    },
     button: {
       small: {
         gap: 8,
@@ -72,6 +82,11 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
   },
 
   comfortable: {
+    dialog: {
+      small:   { padding: 40, gap: 24, iconSize: 24 },
+      default: { padding: 40, gap: 32, iconSize: 32 },
+      large:   { padding: 48, gap: 40, iconSize: 40 },
+    },
     button: {
       small: {
         gap: 12,

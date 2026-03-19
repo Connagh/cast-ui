@@ -97,3 +97,30 @@ export const disabledColors: StateColors = {
 export const controlTokens = {
   borderWidth: 1,
 };
+<<<<<<< Updated upstream
+=======
+
+/** Surface tokens — backgrounds and overlay styling */
+export const surfaceTokens = {
+  /** Page/screen background — cool-grey/50 */
+  base: '#F9FAFB',
+  /** Subtle background for sections/cards — cool-grey/100 */
+  subtle: '#F3F4F6',
+  /** Overlay surfaces (Dialog, Popover, Tooltip, Select, etc.) */
+  overlay: {
+    bg: '#FFFFFF',
+    border: '#E5E7EB',
+    borderRadius: 8,
+  },
+};
+
+/** Semantic text tokens */
+export const textTokens = {
+  description: '#6B7280',
+};
+
+/** Overlay/scrim opacity */
+export const overlayTokens = {
+  scrimOpacity: 0.5,
+};
+>>>>>>> Stashed changes

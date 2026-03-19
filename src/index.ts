@@ -38,4 +38,11 @@ export {
 // Components
 export { Button, type ButtonProps, type ButtonSize } from './components/Button';
 export { Icon, type IconProps } from './components/Icon';
-export { Dialog, type DialogProps, type DialogAction, type DialogSize } from './components/Dialog';
+export {
+  Dialog,
+  DialogContent,
+  type DialogProps,
+  type DialogContentProps,
+  type DialogAction,
+  type DialogSize,
+} from './components/Dialog';

@@ -1,32 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Dialog } from './Dialog';
+import { Dialog, DialogContent } from './Dialog';
 import { Button } from '../Button';
 import { ThemeProvider } from '../../theme';
-
-// ---------------------------------------------------------------------------
-// Helper: wraps Dialog with a trigger button and open state
-// ---------------------------------------------------------------------------
-
-function DialogDemo(props: Omit<React.ComponentProps<typeof Dialog>, 'open' | 'onClose'> & { triggerLabel?: string }) {
-  const [open, setOpen] = useState(false);
-  const { triggerLabel = 'Open dialog', ...dialogProps } = props;
-  return (
-    <View>
-      <Button intent="brand" prominence="bold" onPress={() => setOpen(true)}>
-        {triggerLabel}
-      </Button>
-      <Dialog
-        {...dialogProps}
-        open={open}
-        onClose={() => setOpen(false)}
-        secondaryAction={dialogProps.secondaryAction ?? { label: 'Cancel', onPress: () => setOpen(false) }}
-        primaryAction={dialogProps.primaryAction ?? { label: 'Confirm', onPress: () => setOpen(false) }}
-      />
-    </View>
-  );
-}
 
 // ---------------------------------------------------------------------------
 // Meta
@@ -56,42 +33,67 @@ const meta: Meta<typeof Dialog> = {
 export default meta;
 type Story = StoryObj<typeof Dialog>;
 
-/** Interactive playground — click the button to open. */
+// ---------------------------------------------------------------------------
+// Playground — interactive, uses the real modal
+// ---------------------------------------------------------------------------
+
+/** Click the button to open the full modal Dialog with backdrop. */
 export const Playground: Story = {
-  render: () => (
-    <DialogDemo
-      title="Confirm action"
-      description="Are you sure you want to proceed? This action cannot be undone."
-      icon="warning"
-      size="default"
-    />
-  ),
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <View>
+        <Button intent="brand" prominence="bold" onPress={() => setOpen(true)}>
+          Open dialog
+        </Button>
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          title="Confirm action"
+          description="Are you sure you want to proceed? This action cannot be undone."
+          icon="warning"
+          size="default"
+          secondaryAction={{ label: 'Cancel', onPress: () => setOpen(false) }}
+          primaryAction={{ label: 'Confirm', onPress: () => setOpen(false) }}
+        />
+      </View>
+    );
+  },
 };
 
-/** All three size variants. */
+// ---------------------------------------------------------------------------
+// Visual stories — static cards, no modal, captured by Chromatic
+// ---------------------------------------------------------------------------
+
+const noop = () => {};
+
+/** All three size variants rendered inline. */
 export const Sizes: Story = {
   render: () => (
-    <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
-      <DialogDemo
+    <View style={{ gap: 32 }}>
+      <DialogContent
         title="Small dialog"
         description="Compact confirmation."
         icon="info"
         size="small"
-        triggerLabel="Small"
+        secondaryAction={{ label: 'Cancel', onPress: noop }}
+        primaryAction={{ label: 'Confirm', onPress: noop }}
       />
-      <DialogDemo
+      <DialogContent
         title="Default dialog"
         description="Standard dialog with a comfortable amount of space for content."
         icon="help"
         size="default"
-        triggerLabel="Default"
+        secondaryAction={{ label: 'Cancel', onPress: noop }}
+        primaryAction={{ label: 'Confirm', onPress: noop }}
       />
-      <DialogDemo
+      <DialogContent
         title="Large dialog"
         description="Spacious dialog for complex content or longer descriptions that need room to breathe."
         icon="warning"
         size="large"
-        triggerLabel="Large"
+        secondaryAction={{ label: 'Cancel', onPress: noop }}
+        primaryAction={{ label: 'Confirm', onPress: noop }}
       />
     </View>
   ),
@@ -100,13 +102,13 @@ export const Sizes: Story = {
 /** Dialog with custom content in the slot. */
 export const WithSlotContent: Story = {
   render: () => (
-    <DialogDemo
+    <DialogContent
       title="Delete project"
       description="This will permanently delete the project and all associated data."
       icon="delete"
       size="default"
-      triggerLabel="With slot content"
-      primaryAction={undefined}
+      secondaryAction={{ label: 'Cancel', onPress: noop }}
+      primaryAction={{ label: 'Delete', onPress: noop }}
     >
       <View
         style={{
@@ -119,18 +121,19 @@ export const WithSlotContent: Story = {
           Warning: 3 team members will lose access immediately.
         </Text>
       </View>
-    </DialogDemo>
+    </DialogContent>
   ),
 };
 
 /** Dialog without an icon. */
 export const NoIcon: Story = {
   render: () => (
-    <DialogDemo
+    <DialogContent
       title="Save changes?"
       description="You have unsaved changes that will be lost if you leave."
       size="default"
-      triggerLabel="No icon"
+      secondaryAction={{ label: 'Discard', onPress: noop }}
+      primaryAction={{ label: 'Save', onPress: noop }}
     />
   ),
 };
@@ -139,40 +142,35 @@ export const NoIcon: Story = {
 // Density comparison
 // ---------------------------------------------------------------------------
 
-function DensityRow({ density }: { density: 'compact' | 'default' | 'comfortable' }) {
-  return (
-    <ThemeProvider density={density}>
-      <View style={{ gap: 8 }}>
-        <Text
-          style={{
-            fontSize: 12,
-            fontWeight: '600',
-            color: '#6B7280',
-            textTransform: 'uppercase',
-            letterSpacing: 1,
-          }}
-        >
-          {density}
-        </Text>
-        <DialogDemo
-          title="Confirm action"
-          description="Are you sure you want to proceed?"
-          icon="warning"
-          size="default"
-          triggerLabel={density}
-        />
-      </View>
-    </ThemeProvider>
-  );
-}
-
-/** Compare compact, default, and comfortable densities. */
+/** Compare compact, default, and comfortable densities side by side. */
 export const DensityComparison: Story = {
   render: () => (
-    <View style={{ gap: 24 }}>
-      <DensityRow density="compact" />
-      <DensityRow density="default" />
-      <DensityRow density="comfortable" />
+    <View style={{ gap: 32 }}>
+      {(['compact', 'default', 'comfortable'] as const).map((density) => (
+        <ThemeProvider key={density} density={density}>
+          <View style={{ gap: 8 }}>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: '600',
+                color: '#6B7280',
+                textTransform: 'uppercase',
+                letterSpacing: 1,
+              }}
+            >
+              {density}
+            </Text>
+            <DialogContent
+              title="Confirm action"
+              description="Are you sure you want to proceed?"
+              icon="warning"
+              size="default"
+              secondaryAction={{ label: 'Cancel', onPress: noop }}
+              primaryAction={{ label: 'Confirm', onPress: noop }}
+            />
+          </View>
+        </ThemeProvider>
+      ))}
     </View>
   ),
 };

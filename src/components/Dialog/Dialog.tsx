@@ -7,6 +7,10 @@
  * Structure: scrim backdrop → card (icon + title + description + slot + actions)
  * Surface styling uses shared overlay tokens (bg, border, radius, shadow).
  * Spacing tokens come from the density theme.
+ *
+ * Exports:
+ *   Dialog        — full modal (backdrop + card)
+ *   DialogContent — just the card, for inline use or custom overlays
  */
 
 import React from 'react';
@@ -46,11 +50,7 @@ export type DialogAction = {
   onPress: () => void;
 };
 
-export type DialogProps = {
-  /** Controls visibility. */
-  open: boolean;
-  /** Called when the scrim is pressed or the dialog requests close. */
-  onClose?: () => void;
+export type DialogContentProps = {
   /** Dialog title — always visible. */
   title: string;
   /** Supporting text below the title. */
@@ -65,10 +65,17 @@ export type DialogProps = {
   primaryAction?: DialogAction;
   /** Secondary action button (neutral/default). Rendered on the left. */
   secondaryAction?: DialogAction;
-  /** Outer style override for the card. */
+  /** Style override for the card. */
   style?: StyleProp<ViewStyle>;
   /** Accessibility label — falls back to title if not provided. */
   accessibilityLabel?: string;
+};
+
+export type DialogProps = DialogContentProps & {
+  /** Controls visibility. */
+  open: boolean;
+  /** Called when the backdrop is pressed or the dialog requests close. */
+  onClose?: () => void;
 };
 
 // ---------------------------------------------------------------------------
@@ -115,12 +122,15 @@ const SHADOW_NATIVE: ViewStyle = {
 };
 
 // ---------------------------------------------------------------------------
-// Component
+// DialogContent — the card, without modal/backdrop
 // ---------------------------------------------------------------------------
 
-export function Dialog({
-  open,
-  onClose,
+/**
+ * The dialog card rendered inline — no modal, no backdrop.
+ * Use this for static display (e.g., Storybook visual stories)
+ * or when building custom overlay implementations.
+ */
+export function DialogContent({
   title: titleText,
   description,
   icon,
@@ -130,17 +140,15 @@ export function Dialog({
   secondaryAction,
   style,
   accessibilityLabel,
-}: DialogProps) {
+}: DialogContentProps) {
   const { components, colors } = useTheme();
   const sizeTokens = components.dialog[size];
   const titleTokens = title[TYPO_SCALE[size]];
   const bodyTokens = body[TYPO_SCALE[size]];
   const buttonSize = BUTTON_SIZE[size];
 
-  // Use neutral default fg from theme — responds to colour overrides
   const fgColor = colors.neutral.default.default.fg;
 
-  // Resolve icon
   const resolvedIcon =
     typeof icon === 'string' ? (
       <Icon name={icon} size={sizeTokens.iconSize} color={fgColor} />
@@ -151,13 +159,112 @@ export function Dialog({
   const hasActions = primaryAction || secondaryAction;
 
   return (
+    <View
+      accessibilityRole="alert"
+      accessibilityLabel={accessibilityLabel || titleText}
+      style={[
+        {
+          width: DIALOG_WIDTH[size],
+          maxWidth: '100%',
+          backgroundColor: surfaceTokens.overlay.bg,
+          borderWidth: controlTokens.borderWidth,
+          borderColor: surfaceTokens.overlay.border,
+          borderRadius: surfaceTokens.overlay.borderRadius,
+          padding: sizeTokens.padding,
+          gap: sizeTokens.gap,
+          ...(Platform.OS === 'web' ? SHADOW_WEB : SHADOW_NATIVE),
+        },
+        style,
+      ]}
+    >
+      {/* Header: icon + title + description */}
+      <View style={{ gap: TITLE_DESC_GAP }}>
+        <View style={{ gap: HEADER_ICON_GAP }}>
+          {resolvedIcon}
+          <Text
+            accessibilityRole="header"
+            style={{
+              fontFamily: fontFamily.sans,
+              fontWeight: fontWeight.medium,
+              fontSize: titleTokens.fontSize,
+              lineHeight: titleTokens.lineHeight,
+              letterSpacing: titleTokens.letterSpacing,
+              color: fgColor,
+            }}
+          >
+            {titleText}
+          </Text>
+        </View>
+        {description ? (
+          <Text
+            style={{
+              fontFamily: fontFamily.sans,
+              fontWeight: fontWeight.regular,
+              fontSize: bodyTokens.fontSize,
+              lineHeight: bodyTokens.lineHeight,
+              letterSpacing: bodyTokens.letterSpacing,
+              color: textTokens.description,
+            }}
+          >
+            {description}
+          </Text>
+        ) : null}
+      </View>
+
+      {/* Content slot */}
+      {children}
+
+      {/* Actions */}
+      {hasActions ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            gap: sizeTokens.gap,
+          }}
+        >
+          {secondaryAction ? (
+            <Button
+              intent="neutral"
+              prominence="default"
+              size={buttonSize}
+              onPress={secondaryAction.onPress}
+            >
+              {secondaryAction.label}
+            </Button>
+          ) : null}
+          {primaryAction ? (
+            <Button
+              intent="brand"
+              prominence="bold"
+              size={buttonSize}
+              onPress={primaryAction.onPress}
+            >
+              {primaryAction.label}
+            </Button>
+          ) : null}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Dialog — full modal with backdrop
+// ---------------------------------------------------------------------------
+
+export function Dialog({
+  open,
+  onClose,
+  ...contentProps
+}: DialogProps) {
+  return (
     <Modal
       visible={open}
       transparent
       animationType="fade"
       onRequestClose={onClose}
     >
-      {/* Scrim backdrop */}
       <Pressable
         onPress={onClose}
         accessibilityRole="button"
@@ -169,98 +276,12 @@ export function Dialog({
           alignItems: 'center',
         }}
       >
-        {/* Card — stop press propagation so tapping the card doesn't close */}
         <Pressable
           onPress={(e) => e.stopPropagation()}
           accessibilityRole="none"
           style={{ maxWidth: '90%' }}
         >
-          <View
-            accessibilityRole="alert"
-            accessibilityLabel={accessibilityLabel || titleText}
-            style={[
-              {
-                width: DIALOG_WIDTH[size],
-                backgroundColor: surfaceTokens.overlay.bg,
-                borderWidth: controlTokens.borderWidth,
-                borderColor: surfaceTokens.overlay.border,
-                borderRadius: surfaceTokens.overlay.borderRadius,
-                padding: sizeTokens.padding,
-                gap: sizeTokens.gap,
-                ...(Platform.OS === 'web' ? SHADOW_WEB : SHADOW_NATIVE),
-              },
-              style,
-            ]}
-          >
-            {/* Header: icon + title + description */}
-            <View style={{ gap: TITLE_DESC_GAP }}>
-              <View style={{ gap: HEADER_ICON_GAP }}>
-                {resolvedIcon}
-                <Text
-                  accessibilityRole="header"
-                  style={{
-                    fontFamily: fontFamily.sans,
-                    fontWeight: fontWeight.medium,
-                    fontSize: titleTokens.fontSize,
-                    lineHeight: titleTokens.lineHeight,
-                    letterSpacing: titleTokens.letterSpacing,
-                    color: fgColor,
-                  }}
-                >
-                  {titleText}
-                </Text>
-              </View>
-              {description ? (
-                <Text
-                  style={{
-                    fontFamily: fontFamily.sans,
-                    fontWeight: fontWeight.regular,
-                    fontSize: bodyTokens.fontSize,
-                    lineHeight: bodyTokens.lineHeight,
-                    letterSpacing: bodyTokens.letterSpacing,
-                    color: textTokens.description,
-                  }}
-                >
-                  {description}
-                </Text>
-              ) : null}
-            </View>
-
-            {/* Content slot */}
-            {children}
-
-            {/* Actions */}
-            {hasActions ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  gap: sizeTokens.gap,
-                }}
-              >
-                {secondaryAction ? (
-                  <Button
-                    intent="neutral"
-                    prominence="default"
-                    size={buttonSize}
-                    onPress={secondaryAction.onPress}
-                  >
-                    {secondaryAction.label}
-                  </Button>
-                ) : null}
-                {primaryAction ? (
-                  <Button
-                    intent="brand"
-                    prominence="bold"
-                    size={buttonSize}
-                    onPress={primaryAction.onPress}
-                  >
-                    {primaryAction.label}
-                  </Button>
-                ) : null}
-              </View>
-            ) : null}
-          </View>
+          <DialogContent {...contentProps} />
         </Pressable>
       </Pressable>
     </Modal>

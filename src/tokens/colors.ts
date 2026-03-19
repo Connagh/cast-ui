@@ -117,3 +117,33 @@ export const textTokens = {
 export const overlayTokens = {
   scrimOpacity: 0.5,
 };
+
+/** Option state colours — used by SelectOption (neutral intent) */
+export const selectColors = {
+  option: {
+    default:       { bg: 'transparent', fg: '#374151' },
+    hover:         { bg: '#F9FAFB',     fg: '#111827' },
+    selected:      { bg: '#EFF6FF',     fg: '#1D4ED8' },
+    selectedHover: { bg: '#DBEAFE',     fg: '#1D4ED8' },
+    disabled:      { bg: 'transparent', fg: '#9CA3AF' },
+  },
+  /** Separator line colour */
+  separator: '#E5E7EB',
+};
+
+/** Tag tokens — multi-select pill styling (constant across densities) */
+export const tagTokens = {
+  bg: '#F3F4F6',
+  fg: '#374151',
+  borderRadius: 4,
+  paddingX: 6,
+  paddingY: 1,
+  gap: 4,
+  closeSize: 12,
+};
+
+/** Error/danger colour for form field borders and helper text */
+export const errorTokens = {
+  border: '#FCA5A5',
+  fg: '#DC2626',
+};

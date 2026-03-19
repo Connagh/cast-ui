@@ -50,3 +50,6 @@ export const body: TypographyScale = {
   md: { fontSize: 14, lineHeight: 20, letterSpacing: 0 },
   lg: { fontSize: 16, lineHeight: 24, letterSpacing: 0 },
 };
+
+/** Caption scale — helper text, group labels, tags */
+export const caption = { fontSize: 11, lineHeight: 16, letterSpacing: 0.5 } as const;

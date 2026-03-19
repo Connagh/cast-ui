@@ -16,7 +16,6 @@ import {
   Pressable,
   Text,
   View,
-  Platform,
   type ViewStyle,
   type StyleProp,
   type GestureResponderEvent,
@@ -86,7 +85,6 @@ export function Button({
   accessibilityLabel,
 }: ButtonProps) {
   const { components, colors } = useTheme();
-  const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   // Resolve tokens for current size + density
@@ -115,8 +113,6 @@ export function Button({
     <Pressable
       onPress={onPress}
       disabled={disabled}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
       accessibilityRole="button"
@@ -141,17 +137,6 @@ export function Button({
           backgroundColor: stateColors.bg,
         };
 
-        // Web-only: focus ring via CSS outline
-        const focusStyle: ViewStyle | Record<string, unknown> =
-          isFocused && !disabled && Platform.OS === 'web'
-            ? {
-                outlineWidth: sizeTokens.focusRingWidth,
-                outlineColor: intentClrs.ringColour,
-                outlineStyle: 'solid',
-                outlineOffset: sizeTokens.focusRingOffset,
-              }
-            : {};
-
         // Resolve icon props — strings become <Icon> with auto-matched colour
         const resolvedLeading =
           typeof leadingIcon === 'string' ? (
@@ -167,7 +152,7 @@ export function Button({
           );
 
         return (
-          <View style={[containerStyle, focusStyle as ViewStyle]}>
+          <View style={containerStyle}>
             {resolvedLeading}
             <Text
               style={{

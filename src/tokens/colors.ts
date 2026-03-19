@@ -22,7 +22,6 @@ type IntentColors = {
   default: ProminenceColors;
   bold: ProminenceColors;
   subtle: ProminenceColors;
-  ringColour: string;
 };
 
 export type IntentName = 'brand' | 'neutral' | 'danger';
@@ -46,7 +45,6 @@ export const intentColors: Record<IntentName, IntentColors> = {
       hover: { bg: '#F9FAFB', fg: '#1F2937', border: 'transparent' },
       active: { bg: '#F3F4F6', fg: '#111827', border: 'transparent' },
     },
-    ringColour: '#9CA3AF',
   },
   brand: {
     default: {
@@ -64,7 +62,6 @@ export const intentColors: Record<IntentName, IntentColors> = {
       hover: { bg: '#EFF6FF', fg: '#1D4ED8', border: 'transparent' },
       active: { bg: '#DBEAFE', fg: '#1E40AF', border: 'transparent' },
     },
-    ringColour: '#60A5FA',
   },
   danger: {
     default: {
@@ -82,7 +79,6 @@ export const intentColors: Record<IntentName, IntentColors> = {
       hover: { bg: '#FEF2F2', fg: '#B91C1C', border: 'transparent' },
       active: { bg: '#FEE2E2', fg: '#991B1B', border: 'transparent' },
     },
-    ringColour: '#F87171',
   },
 };
 

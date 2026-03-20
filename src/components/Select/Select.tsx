@@ -568,9 +568,27 @@ export function Select({
 
   const displayText = getSelectedLabel();
 
+  // Escape key dismisses the dropdown (web)
+  useEffect(() => {
+    if (!isOpen || Platform.OS !== 'web') return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   return (
     <SelectCtx.Provider value={ctxValue}>
-      <View style={[{ gap: components.input.fieldGap }, style]}>
+      <View
+        style={[
+          { alignSelf: 'stretch' as const, gap: components.input.fieldGap, zIndex: isOpen ? 1000 : 0 },
+          style,
+        ]}
+      >
         {/* Form label */}
         {formLabel ? (
           <Text
@@ -589,7 +607,7 @@ export function Select({
         ) : null}
 
         {/* Trigger wrapper — anchors the dropdown below the input */}
-        <View style={{ position: 'relative' as const, zIndex: isOpen ? 1000 : 0 }}>
+        <View style={{ position: 'relative' as const }}>
         <Pressable
           onPress={() => {
             if (!disabled) setIsOpen(!isOpen);

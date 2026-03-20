@@ -5,6 +5,13 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.1] — 2026-03-20
+
+### Fixed
+- Move `zIndex` from inner trigger wrapper to outer Select container so the dropdown is not trapped in a parent stacking context
+- Add Escape key handler to dismiss the dropdown on web
+- Default outer container to `alignSelf: 'stretch'` so the Select fills its parent without an explicit width
+
 ## [4.1.0] — 2026-03-19
 
 ### Added
@@ -63,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
+[4.1.1]: https://github.com/Connagh/cast-ui/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/Connagh/cast-ui/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/Connagh/cast-ui/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/Connagh/cast-ui/compare/v3.1.0...v3.2.0

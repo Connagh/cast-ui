@@ -20,24 +20,21 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       large:   { padding: 32, gap: 24, iconSize: 40 },
     },
     button: {
-      small: {
-        gap: 4,
-        paddingX: 6,
-        paddingY: 2,
-        borderRadius: 8,
-      },
-      default: {
-        gap: 8,
-        paddingX: 10,
-        paddingY: 6,
-        borderRadius: 8,
-      },
-      large: {
-        gap: 16,
-        paddingX: 20,
-        paddingY: 14,
-        borderRadius: 8,
-      },
+      small:   { gap: 4,  paddingX: 6,  paddingY: 2,  borderRadius: 8 },
+      default: { gap: 8,  paddingX: 10, paddingY: 6,  borderRadius: 8 },
+      large:   { gap: 16, paddingX: 20, paddingY: 14, borderRadius: 8 },
+    },
+    input: {
+      fieldGap: 1,
+      small:   { gap: 4,  paddingX: 6,  paddingY: 2,  borderRadius: 8 },
+      default: { gap: 12, paddingX: 10, paddingY: 6,  borderRadius: 8 },
+      large:   { gap: 16, paddingX: 20, paddingY: 14, borderRadius: 8 },
+    },
+    select: {
+      content:   { paddingY: 2 },
+      option:    { gap: 8,  paddingX: 8,  paddingY: 4, borderRadius: 4 },
+      group:     { paddingX: 8,  labelPaddingY: 6 },
+      separator: { marginY: 4 },
     },
   },
 
@@ -48,24 +45,21 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       large:   { padding: 40, gap: 32, iconSize: 40 },
     },
     button: {
-      small: {
-        gap: 8,
-        paddingX: 10,
-        paddingY: 6,
-        borderRadius: 8,
-      },
-      default: {
-        gap: 12,
-        paddingX: 14,
-        paddingY: 10,
-        borderRadius: 8,
-      },
-      large: {
-        gap: 20,
-        paddingX: 24,
-        paddingY: 16,
-        borderRadius: 8,
-      },
+      small:   { gap: 8,  paddingX: 10, paddingY: 6,  borderRadius: 8 },
+      default: { gap: 12, paddingX: 14, paddingY: 10, borderRadius: 8 },
+      large:   { gap: 20, paddingX: 24, paddingY: 16, borderRadius: 8 },
+    },
+    input: {
+      fieldGap: 2,
+      small:   { gap: 8,  paddingX: 10, paddingY: 6,  borderRadius: 8 },
+      default: { gap: 12, paddingX: 14, paddingY: 10, borderRadius: 8 },
+      large:   { gap: 20, paddingX: 24, paddingY: 16, borderRadius: 8 },
+    },
+    select: {
+      content:   { paddingY: 4 },
+      option:    { gap: 12, paddingX: 12, paddingY: 6, borderRadius: 4 },
+      group:     { paddingX: 12, labelPaddingY: 6 },
+      separator: { marginY: 4 },
     },
   },
 
@@ -76,24 +70,21 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       large:   { padding: 48, gap: 40, iconSize: 40 },
     },
     button: {
-      small: {
-        gap: 12,
-        paddingX: 14,
-        paddingY: 10,
-        borderRadius: 8,
-      },
-      default: {
-        gap: 16,
-        paddingX: 20,
-        paddingY: 14,
-        borderRadius: 8,
-      },
-      large: {
-        gap: 24,
-        paddingX: 32,
-        paddingY: 20,
-        borderRadius: 8,
-      },
+      small:   { gap: 12, paddingX: 14, paddingY: 10, borderRadius: 8 },
+      default: { gap: 16, paddingX: 20, paddingY: 14, borderRadius: 8 },
+      large:   { gap: 24, paddingX: 32, paddingY: 20, borderRadius: 8 },
+    },
+    input: {
+      fieldGap: 4,
+      small:   { gap: 12, paddingX: 14, paddingY: 10, borderRadius: 8 },
+      default: { gap: 12, paddingX: 20, paddingY: 14, borderRadius: 8 },
+      large:   { gap: 24, paddingX: 32, paddingY: 20, borderRadius: 8 },
+    },
+    select: {
+      content:   { paddingY: 6 },
+      option:    { gap: 16, paddingX: 16, paddingY: 8, borderRadius: 4 },
+      group:     { paddingX: 16, labelPaddingY: 6 },
+      separator: { marginY: 4 },
     },
   },
 };

@@ -2,7 +2,16 @@
 
 A cross-platform component library for React Native (iOS, Android, Web).
 
-> Components are currently being built. Check back soon.
+## Components
+
+| Component | Description |
+|-----------|-------------|
+| **Button** | Intent-driven button with neutral/brand/danger colours, three prominences, and icon support |
+| **Icon** | Material Symbols Outlined via font ligature rendering |
+| **Dialog** | Modal overlay with scrim backdrop, icon, title, description, and action buttons |
+| **Select** | Form control with single, multi (tag pills), and combobox (search) modes |
+
+All components support three density themes (compact, default, comfortable) via `ThemeProvider`.
 
 ## Installation
 

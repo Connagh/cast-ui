@@ -10,6 +10,9 @@ so what designers see in Figma is what ships in the app. Every component
 supports light and dark mode, three spacing densities, and your own brand
 colours — all switchable while the app is running, with no rebuild.
 
+Browse every component live in the
+[hosted Storybook](https://main--6990f00d7b8682c18d2ed5f3.chromatic.com).
+
 ## Installation
 
 ```bash
@@ -32,6 +35,45 @@ export function App() {
   );
 }
 ```
+
+## Fonts
+
+Cast UI ships no font files. Typography asks for **Inter** and the Icon
+component asks for **Material Symbols Outlined** — if a font isn't loaded
+there is no error: text quietly falls back to the system font, and icons
+render as their literal names ("star" instead of the glyph). Load both once
+at app start-up.
+
+**Expo (iOS, Android, and web)** — one `useFonts` call covers all three
+platforms:
+
+```tsx
+import { useFonts } from 'expo-font';
+
+const [fontsLoaded] = useFonts({
+  Inter: require('./assets/Inter.ttf'),
+  MaterialSymbolsOutlined: require('./assets/MaterialSymbolsOutlined.ttf'),
+});
+```
+
+**Plain web** — add the Google Fonts stylesheets to your HTML head:
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+```
+
+**Bare React Native** — link the `.ttf` files as font assets
+(`react-native.config.js` + `npx react-native-asset`), keeping the family
+names `Inter` and `MaterialSymbolsOutlined`.
+
+Download both from Google Fonts:
+[Inter](https://fonts.google.com/specimen/Inter) and
+[Material Symbols](https://fonts.google.com/icons). The Material Symbols
+variable font is ~10 MB — fine for web, where it's served from a CDN and
+cached, but worth slimming for production native builds by subsetting it to
+the icons you use (e.g. `pyftsubset` from
+[fonttools](https://github.com/fonttools/fonttools)).
 
 ## Components
 
@@ -108,7 +150,9 @@ comfortable app. Your own components can read the active theme with the
 `useTheme` hook, and all the underlying values (colours, typography scales,
 density spacing) are exported for direct use.
 
-The full guide lives in Storybook under **Guides → Customisation**.
+The full guide lives in the
+[hosted Storybook](https://main--6990f00d7b8682c18d2ed5f3.chromatic.com)
+under **Guides → Customisation**.
 
 ## Theming from Figma — the cast-sync plugin
 

@@ -5,6 +5,16 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2] — 2026-06-11
+
+### Fixed
+- **Icon font family on web now accepts both `MaterialSymbolsOutlined` and `Material Symbols Outlined`** — previously Icon requested only the spaced name on web, so Expo apps that registered the font via `useFonts({ MaterialSymbolsOutlined: ... })` (the documented Expo path) rendered icons as literal text on the web target, with no error anywhere. The web font-family is now a fallback list covering both names, so the Google Fonts CSS path and the expo-font path both work without configuration
+- **Skeleton no longer warns on react-native-web** — the pulse animation requested `useNativeDriver: true` unconditionally, logging `Animated: useNativeDriver is not supported` on every web page load; the flag is now gated on `Platform.OS !== 'web'`
+
+### Added
+- **"Fonts" section in the README** — Inter and Material Symbols Outlined loading recipes for Expo (covering iOS, Android, and web with one `useFonts` call), plain web, and bare React Native, plus a note on subsetting the ~10 MB variable icon font for native builds. Neither font ships with the package and both fail silently when missing, so this is now documented on the npm page
+- **Hosted Storybook links in the README** — the customisation guide reference now resolves to the Chromatic-hosted Storybook instead of naming a Storybook the reader couldn't reach
+
 ## [4.2.1] — 2026-06-11
 
 ### Fixed
@@ -104,7 +114,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
-[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.2.1...HEAD
+[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.2.2...HEAD
+[4.2.2]: https://github.com/Connagh/cast-ui/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/Connagh/cast-ui/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/Connagh/cast-ui/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/Connagh/cast-ui/compare/v4.1.0...v4.1.1

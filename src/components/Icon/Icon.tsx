@@ -10,10 +10,13 @@
  *     runtime dependencies (no per-icon SVG packages, no vector-icons dep).
  *
  * Rendering uses font ligatures: the `name` text (e.g. "chevron_right") is
- * shaped into the glyph by the font. Requires the font to be loaded:
+ * shaped into the glyph by the font. Requires the font to be loaded — on web
+ * both the `MaterialSymbolsOutlined` and `Material Symbols Outlined` family
+ * names are accepted, so any one of these paths works:
  *   - Web: Google Fonts CSS import (see .storybook/preview-head.html), or
  *     self-host the same `Material Symbols Outlined` family.
- *   - Expo: load `MaterialSymbolsOutlined` via expo-font / useFonts.
+ *   - Expo (iOS, Android, and web): load `MaterialSymbolsOutlined` via
+ *     expo-font / useFonts — one registration covers all three platforms.
  *   - Bare RN: link the .ttf as a font asset (react-native.config.js / Xcode).
  *
  * The fill / weight / grade / opticalSize axes are applied via CSS
@@ -43,8 +46,12 @@ export type IconProps = {
   style?: StyleProp<TextStyle>;
 };
 
+// Web accepts both family names so the Google-Fonts CSS path (spaced name)
+// and the expo-font/useFonts path (unspaced key) work without consumer
+// configuration. Fonts registered via expo-font on web keep their object key
+// as the family name.
 const FONT_FAMILY = Platform.select({
-  web: '"Material Symbols Outlined", sans-serif',
+  web: 'MaterialSymbolsOutlined, "Material Symbols Outlined", sans-serif',
   default: 'MaterialSymbolsOutlined',
 });
 

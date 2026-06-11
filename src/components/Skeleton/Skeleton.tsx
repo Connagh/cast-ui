@@ -14,7 +14,13 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { Animated, type ViewStyle, type StyleProp, type DimensionValue } from 'react-native';
+import {
+  Animated,
+  Platform,
+  type ViewStyle,
+  type StyleProp,
+  type DimensionValue,
+} from 'react-native';
 import { useTheme } from '../../theme';
 
 // ---------------------------------------------------------------------------
@@ -43,6 +49,9 @@ export type SkeletonProps = {
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
+
+// react-native-web has no native driver and warns if asked for one.
+const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 type ShapeDefaults = { width: DimensionValue; height: DimensionValue; radius: number };
 
@@ -81,12 +90,12 @@ export function Skeleton({
         Animated.timing(opacity, {
           toValue: 0.5,
           duration: 700,
-          useNativeDriver: true,
+          useNativeDriver: USE_NATIVE_DRIVER,
         }),
         Animated.timing(opacity, {
           toValue: 1,
           duration: 700,
-          useNativeDriver: true,
+          useNativeDriver: USE_NATIVE_DRIVER,
         }),
       ]),
     );

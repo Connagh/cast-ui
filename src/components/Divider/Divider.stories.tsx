@@ -2,18 +2,15 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Divider } from './Divider';
-import { ThemeProvider } from '../../theme';
 
 const meta: Meta<typeof Divider> = {
   title: 'Components/Divider',
   component: Divider,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24, width: 320 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24, width: 320 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

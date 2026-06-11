@@ -9,11 +9,9 @@ const meta: Meta<typeof Toast> = {
   component: Toast,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

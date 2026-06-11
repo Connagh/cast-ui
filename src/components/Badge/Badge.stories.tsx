@@ -9,11 +9,9 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

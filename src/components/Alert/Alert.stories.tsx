@@ -9,11 +9,9 @@ const meta: Meta<typeof Alert> = {
   component: Alert,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24, maxWidth: 420 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24, maxWidth: 420 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

@@ -2,18 +2,15 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Skeleton } from './Skeleton';
-import { ThemeProvider } from '../../theme';
 
 const meta: Meta<typeof Skeleton> = {
   title: 'Components/Skeleton',
   component: Skeleton,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

@@ -9,11 +9,9 @@ const meta: Meta<typeof Input> = {
   component: Input,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24, width: 320 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24, width: 320 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

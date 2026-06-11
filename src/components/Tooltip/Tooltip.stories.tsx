@@ -9,11 +9,9 @@ const meta: Meta<typeof Tooltip> = {
   component: Tooltip,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 48 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 48 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

@@ -12,13 +12,6 @@ import { ThemeProvider } from '../../theme';
 const meta: Meta<typeof Dialog> = {
   title: 'Components/Dialog',
   component: Dialog,
-  decorators: [
-    (Story) => (
-      <ThemeProvider density="default">
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
   argTypes: {
     size: {
       control: 'select',

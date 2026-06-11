@@ -13,11 +13,9 @@ const meta: Meta<typeof ListItem> = {
   component: ListItem,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24, maxWidth: 360 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24, maxWidth: 360 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

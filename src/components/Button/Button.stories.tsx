@@ -12,13 +12,6 @@ import { colorSchemes } from '../../tokens';
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-  decorators: [
-    (Story) => (
-      <ThemeProvider density="default">
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
   argTypes: {
     intent: {
       control: 'select',

@@ -10,11 +10,9 @@ const meta: Meta<typeof Popover> = {
   component: Popover,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 48 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 48 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

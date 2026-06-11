@@ -31,13 +31,6 @@ const TYPE_OPTIONS: TextType[] = [
 const meta: Meta<typeof Text> = {
   title: 'Components/Text',
   component: Text,
-  decorators: [
-    (Story) => (
-      <ThemeProvider density="default">
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
   argTypes: {
     type: {
       control: 'select',

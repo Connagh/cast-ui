@@ -9,11 +9,9 @@ const meta: Meta<typeof Radio> = {
   component: Radio,
   decorators: [
     (Story) => (
-      <ThemeProvider density="default">
-        <View style={{ padding: 24 }}>
-          <Story />
-        </View>
-      </ThemeProvider>
+      <View style={{ padding: 24 }}>
+        <Story />
+      </View>
     ),
   ],
   argTypes: {

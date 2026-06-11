@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { ThemeProvider } from '../../theme';
+import { colorSchemes } from '../../tokens';
 
 // ---------------------------------------------------------------------------
 // Meta
@@ -253,6 +254,51 @@ export const FullMatrix: Story = {
       <MatrixRow intent="neutral" />
       <MatrixRow intent="brand" />
       <MatrixRow intent="danger" />
+    </View>
+  ),
+};
+
+// ---------------------------------------------------------------------------
+// Colour modes
+// ---------------------------------------------------------------------------
+
+function ModePanel({ colorMode }: { colorMode: 'light' | 'dark' }) {
+  const scheme = colorSchemes[colorMode];
+  return (
+    <ThemeProvider colorMode={colorMode}>
+      <View
+        style={{
+          gap: 24,
+          padding: 24,
+          borderRadius: 8,
+          backgroundColor: scheme.surface.base,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: '600',
+            color: scheme.text.description,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+          }}
+        >
+          {colorMode} mode
+        </Text>
+        <MatrixRow intent="neutral" />
+        <MatrixRow intent="brand" />
+        <MatrixRow intent="danger" />
+      </View>
+    </ThemeProvider>
+  );
+}
+
+/** The full intent x prominence matrix in light and dark colour modes. */
+export const ColorModes: Story = {
+  render: () => (
+    <View style={{ gap: 24 }}>
+      <ModePanel colorMode="light" />
+      <ModePanel colorMode="dark" />
     </View>
   ),
 };

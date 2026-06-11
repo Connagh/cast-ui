@@ -5,16 +5,27 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Customising Cast UI
 
-Cast UI is built on a **3-layer design token system** designed for
-straightforward customisation — from quick brand changes to full white-label
-deployments.
+You can change how Cast UI looks without editing any component code. This
+guide covers every option, starting with the simplest.
+
+**Quick reference:**
+
+| You want to… | Do this |
+|---|---|
+| Use dark mode | Set `colorMode="dark"` on `ThemeProvider` |
+| Change your brand colours | Pass a `colors` prop to `ThemeProvider` |
+| Restyle from Figma, without code changes | Export a theme with the cast-sync plugin |
+| Make spacing tighter or roomier | Set `density` on `ThemeProvider` |
+| Build your own components on the same foundations | Use the `useTheme` hook and the exported tokens |
+| Adjust one specific component | Pass it a `style` prop |
 
 ---
 
-## Quick start
+## First: wrap your app in ThemeProvider
 
-Wrap your app with `ThemeProvider`. Every Cast UI component inside will pick up
-the theme automatically.
+All customisation happens through `ThemeProvider`. Wrap it around your app
+once, and every Cast UI component inside picks up your settings
+automatically.
 
 ```tsx
 import { ThemeProvider } from '@castui/cast-ui';
@@ -28,23 +39,23 @@ export function App() {
 }
 ```
 
-> If you omit the `ThemeProvider`, components fall back to the **default**
-> density with the built-in colour palette.
+> No `ThemeProvider`? Components still work — they use the default spacing,
+> light mode, and the built-in colour palette.
 
 ---
 
-## 1. Density themes — spacing that adapts to context
+## 1. Density — control how tight or roomy spacing feels
 
-Cast UI ships with three density modes that scale padding, gap, and spacing
-across every component simultaneously:
+Cast UI has three density settings. Changing density scales the padding and
+spacing of every component at the same time:
 
-| Density | Best for | Padding feel |
+| Density | Best for | Spacing feel |
 |---|---|---|
-| `compact` | Data-dense screens, dashboards, power users | Tight |
-| `default` | General-purpose interfaces | Balanced |
-| `comfortable` | Accessibility, touch-first, onboarding flows | Spacious |
+| `compact` | Dashboards, data-heavy screens, power users | Tight |
+| `default` | Most interfaces | Balanced |
+| `comfortable` | Touch-first apps, accessibility, onboarding | Spacious |
 
-**Switch at runtime** — no rebuild needed:
+You can switch density while the app is running — no rebuild needed:
 
 ```tsx
 const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('default');
@@ -54,19 +65,73 @@ const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('d
 </ThemeProvider>
 ```
 
-**What changes:** padding, gap, spacing tokens.
-**What stays constant:** colours, border-radius, typography, icon sizes.
+**What changes:** padding, gaps, and spacing.
+**What stays the same:** colours, corner rounding, typography, and icon sizes.
 
-This means your brand identity is preserved regardless of which density a user selects.
+Because colours and type never change, your brand looks the same at every
+density.
 
 ---
 
-## 2. Colour overrides — rebrand in one prop
+## 2. Colour mode — light and dark
 
-Pass a `colors` prop to `ThemeProvider` to override any intent colour at any
-depth. The override is **deep-merged** — only provide what you want to change.
+Every component supports light and dark mode. Switch with the `colorMode`
+prop. These are the same light and dark modes as the Figma file, so the two
+always match.
 
-### Example: purple brand
+To follow the user's system setting:
+
+```tsx
+import { useColorScheme } from 'react-native';
+
+export function App() {
+  const systemScheme = useColorScheme(); // reads the OS light/dark setting
+
+  return (
+    <ThemeProvider colorMode={systemScheme === 'dark' ? 'dark' : 'light'}>
+      {/* your app here */}
+    </ThemeProvider>
+  );
+}
+```
+
+Cast UI components don't control your screen's background — set it yourself
+using the theme's surface colour, so components sit on the right canvas:
+
+```tsx
+import { useTheme } from '@castui/cast-ui';
+
+function Screen({ children }) {
+  const { scheme } = useTheme();
+  return <View style={{ flex: 1, backgroundColor: scheme.surface.base }}>{children}</View>;
+}
+```
+
+**What changes:** every colour — buttons, surfaces, text, form controls,
+overlays.
+**What stays the same:** spacing, typography, and corner rounding. Filled
+(`bold`) brand and danger buttons also keep their light-mode colours in dark
+mode, so primary actions stay recognisable.
+
+---
+
+## 3. Colour overrides — rebrand with one prop
+
+To change Cast UI's colours, pass a `colors` prop to `ThemeProvider`. You
+only need to write the colours you want to change — everything you leave out
+keeps its default value.
+
+A few terms used in the colour system:
+
+- **Intent** — what a colour means: `neutral` (everyday), `brand` (your
+  primary colour), or `danger` (destructive actions).
+- **Prominence** — how visually heavy it is: `bold` (filled), `default`
+  (outlined), or `subtle` (no background until hovered).
+- **State** — `default`, `hover`, or `active` (pressed).
+- Each combination has three values: `bg` (background), `fg` (text and
+  icons), and `border`.
+
+### Example: make the brand colour purple
 
 ```tsx
 <ThemeProvider
@@ -95,12 +160,34 @@ depth. The override is **deep-merged** — only provide what you want to change.
 </ThemeProvider>
 ```
 
-Only the `brand` intent changes — `neutral` and `danger` stay untouched.
+Only `brand` changes here — `neutral` and `danger` keep their defaults.
 
-### Colour structure
+### Or skip the hand-typing: export a theme from Figma
 
-Each intent (`brand`, `neutral`, `danger`) has three prominences, each with
-three states:
+If you have your own copy of the cast-ui-kit Figma file, you don't
+need to write any of the above by hand. The **cast-sync** Figma plugin (in
+this repo's `cast-sync/` folder) reads the colour variables from Figma and
+downloads them as a ready-made `cast-theme.json` file:
+
+```tsx
+import theme from './cast-theme.json';
+
+<ThemeProvider colorMode="light" colors={theme.colors.light}>
+  <App />
+</ThemeProvider>
+```
+
+The workflow: recolour the variables in Figma → run the plugin → replace the
+JSON file in your app. No code changes.
+
+The plugin works with any Figma file whose variables follow the
+`intent/{intent}/{prominence}/{state}/{bg|fg|border}` naming. See
+`cast-sync/README.md` for setup.
+
+### The full colour structure
+
+Each intent (`brand`, `neutral`, `danger`) has three prominences, and each
+prominence has three states:
 
 ```text
 intent
@@ -116,17 +203,19 @@ intent
 
 ---
 
-## 3. Using tokens directly — build custom components on the same system
+## 4. Use the tokens directly — build your own components
 
-All tokens and the `useTheme` hook are exported, so you can build custom
-components that share the same token foundation:
+Everything Cast UI uses internally is exported, so your own components can
+share the same colours, spacing, and typography. The `useTheme` hook gives
+you the live theme — it updates automatically when density or colour mode
+changes:
 
 ```tsx
 import { useTheme, intentColors, fontFamily, fontWeight, label } from '@castui/cast-ui';
 
 function CustomCard({ children }) {
   const { components } = useTheme();
-  // Access the current density's button tokens (or any future component tokens)
+  // Read the current density's button tokens (or any other component's tokens)
   const padding = components.button.default.paddingX;
 
   return (
@@ -137,54 +226,60 @@ function CustomCard({ children }) {
 }
 ```
 
-### Available token exports
+### What's exported
 
-| Export | What it contains |
+| Export | What it gives you |
 |---|---|
-| `intentColors` | Full colour map: intent → prominence → state → {bg, fg, border} |
-| `disabledColors` | Shared disabled state: {bg, fg, border} |
-| `controlTokens` | Shared constants: borderWidth |
-| `fontFamily` | Platform-aware font families (sans, mono, serif) |
-| `fontWeight` | Named weights (light through bold) |
-| `label` | Label typography scales: sm, md, lg |
-| `themes` | All three density definitions as raw objects |
+| `lightColors` / `darkColors` | The complete colour set for each mode — intents, surfaces, text, form controls |
+| `intentColors` | Light-mode intent colours: intent → prominence → state → {bg, fg, border} |
+| `disabledColors` | Light-mode disabled colours: {bg, fg, border} |
+| `controlTokens` | Shared constants, e.g. border width |
+| `fontFamily` | Font families per platform (sans, mono, serif) |
+| `fontWeight` | Named font weights (light through bold) |
+| `label`, `title`, `body`, `caption` | Typography scales for each text role |
+| `themes` | The raw spacing values for all three densities |
 
 ---
 
-## 4. How the token layers work
+## 5. How the token system works
 
-Understanding the layers helps you decide _where_ to customise:
+Cast UI's values come from three layers of **design tokens** — named values
+shared between Figma and code. Knowing the layers helps you pick the right
+place to customise:
 
 ```
 ┌──────────────────────────────────────────────────────┐
 │  Component tokens                                     │
-│  e.g. button.default.paddingX = 14                   │
-│  → "How much padding does a default button have?"     │
-│  → Changes with density theme                         │
+│  e.g. button.default.paddingX = 14                    │
+│  → "How much padding does a button have?"             │
+│  → This layer changes with density                    │
 ├──────────────────────────────────────────────────────┤
 │  Semantic tokens                                      │
-│  e.g. intent/brand/bold/default/bg = #2563EB         │
+│  e.g. intent/brand/bold/default/bg = #2563EB          │
 │  → "What colour is a primary action?"                 │
-│  → Override via ThemeProvider colors prop              │
+│  → This layer changes with colour mode, and is what   │
+│    the `colors` prop overrides                        │
 ├──────────────────────────────────────────────────────┤
 │  Primitive tokens                                     │
-│  e.g. colours/blue/600 = #2563EB, space/8 = 14      │
-│  → "What is blue-600?" / "What is spacing step 8?"   │
-│  → Foundation — rarely overridden directly            │
+│  e.g. colours/blue/600 = #2563EB, space/8 = 14        │
+│  → "What exactly is blue-600?"                        │
+│  → The raw palette — you rarely touch this directly   │
 └──────────────────────────────────────────────────────┘
 ```
 
-**Rule of thumb:** customise at the highest layer that achieves your goal.
-- Want to change brand colour? → Override `colors.brand` on ThemeProvider.
-- Want tighter spacing? → Switch `density` to `compact`.
-- Want to change a single button's padding? → Pass a `style` prop.
+**Rule of thumb:** customise at the highest layer that does the job.
+
+- Want dark mode? → Set `colorMode="dark"`.
+- Want a different brand colour? → Override `colors.brand`.
+- Want tighter spacing? → Set `density="compact"`.
+- Want to tweak one specific button? → Give it a `style` prop.
 
 ---
 
-## 5. Icons — bring your own
+## 6. Icons — bring your own
 
-Cast UI is icon-agnostic. The `leadingIcon` and `trailingIcon` props accept
-any `React.ReactNode`. Use whichever icon library you prefer:
+Cast UI doesn't lock you into an icon library. The `leadingIcon` and
+`trailingIcon` props accept any React element, so use whatever you prefer:
 
 ```tsx
 import { Ionicons } from '@expo/vector-icons';
@@ -199,13 +294,14 @@ import { Button } from '@castui/cast-ui';
 </Button>
 ```
 
-Icons should be **16 × 16** to match the Figma spec.
+Size icons at **16 × 16** to match the design spec.
 
 ---
 
-## 6. Nested ThemeProviders — different zones, different densities
+## 7. Nested ThemeProviders — different settings in different places
 
-ThemeProviders can be nested. Inner providers override outer ones:
+You can put one `ThemeProvider` inside another. The inner one wins for the
+components inside it — this works for `density` and `colorMode` alike:
 
 ```tsx
 <ThemeProvider density="comfortable">
@@ -213,11 +309,11 @@ ThemeProviders can be nested. Inner providers override outer ones:
   <Header />
 
   <ThemeProvider density="compact">
-    {/* Data table — compact spacing for information density */}
+    {/* Data table — compact spacing to fit more rows */}
     <DataTable />
   </ThemeProvider>
 </ThemeProvider>
 ```
 
-This lets you mix densities in a single screen — spacious navigation alongside
-a dense data grid, for example.
+This lets you mix settings on one screen — for example, spacious navigation
+next to a dense data grid.

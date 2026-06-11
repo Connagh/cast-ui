@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    display: flex;
+    flex-direction: column;
+    font: 11px/1.5 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--figma-color-text, #1F2937);
+    background: var(--figma-color-bg, #FFFFFF);
+  }
+  header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--figma-color-border, #E5E7EB);
+  }
+  header h1 { font-size: 13px; font-weight: 600; }
+  header p { color: var(--figma-color-text-secondary, #6B7280); margin-top: 2px; }
+  #warnings {
+    display: none;
+    padding: 8px 16px;
+    background: var(--figma-color-bg-warning-tertiary, #FEF3C7);
+    color: var(--figma-color-text-warning, #92400E);
+    border-bottom: 1px solid var(--figma-color-border, #E5E7EB);
+    max-height: 80px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  #preview {
+    flex: 1;
+    overflow: auto;
+    padding: 12px 16px;
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 10px;
+    line-height: 1.6;
+    white-space: pre;
+    background: var(--figma-color-bg-secondary, #F9FAFB);
+  }
+  .swatch {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 4px;
+    border-radius: 2px;
+    border: 1px solid var(--figma-color-border, #E5E7EB);
+    vertical-align: -1px;
+  }
+  footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--figma-color-border, #E5E7EB);
+  }
+  #download {
+    appearance: none;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font: 600 11px 'Inter', sans-serif;
+    color: #FFFFFF;
+    background: var(--figma-color-bg-brand, #2563EB);
+    cursor: pointer;
+  }
+  #download:hover { background: var(--figma-color-bg-brand-hover, #1D4ED8); }
+  #download:disabled { opacity: 0.5; cursor: default; }
+  #status { color: var(--figma-color-text-secondary, #6B7280); }
+  .error { color: var(--figma-color-text-danger, #DC2626); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>cast-sync</h1>
+    <p>Theme file generated from this file&rsquo;s semantic colour variables.</p>
+  </header>
+  <div id="warnings"></div>
+  <div id="preview">Reading variables&hellip;</div>
+  <footer>
+    <button id="download" disabled>Download cast-theme.json</button>
+    <span id="status"></span>
+  </footer>
+
+<script>
+  var themeJson = null;
+  var preview = document.getElementById('preview');
+  var warningsEl = document.getElementById('warnings');
+  var downloadBtn = document.getElementById('download');
+  var statusEl = document.getElementById('status');
+
+  function escapeHtml(s) {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Prefix colour strings with a swatch so the preview is scannable.
+  function renderJson(json) {
+    return escapeHtml(json)
+      .replace(/&quot;(#[0-9A-F]{6,8})&quot;/g, function (m, hex) {
+        return '<span class="swatch" style="background:' + hex + '"></span>' + m;
+      })
+      .replace(/&quot;(transparent)&quot;/g, function (m) {
+        return '<span class="swatch" style="background:repeating-conic-gradient(#CCC 0% 25%, #FFF 0% 50%) 0 0 / 8px 8px"></span>' + m;
+      });
+  }
+
+  onmessage = function (event) {
+    var msg = event.data.pluginMessage;
+    if (!msg) return;
+    if (msg.type === 'theme') {
+      themeJson = msg.json;
+      preview.innerHTML = renderJson(msg.json);
+      downloadBtn.disabled = false;
+      if (msg.warnings && msg.warnings.length) {
+        warningsEl.style.display = 'block';
+        warningsEl.textContent = msg.warnings.join('\n');
+      }
+    } else if (msg.type === 'error') {
+      preview.innerHTML = '<span class="error">' + escapeHtml(msg.message) + '</span>';
+    }
+  };
+
+  downloadBtn.onclick = function () {
+    if (!themeJson) return;
+    var blob = new Blob([themeJson], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'cast-theme.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    statusEl.textContent = 'Saved.';
+    parent.postMessage({ pluginMessage: { type: 'downloaded' } }, '*');
+  };
+</script>
+</body>
+</html>

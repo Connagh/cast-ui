@@ -31,9 +31,6 @@ import {
   fontWeight,
   title,
   body,
-  surfaceTokens,
-  textTokens,
-  overlayTokens,
   controlTokens,
 } from '../../tokens';
 
@@ -141,7 +138,9 @@ export function DialogContent({
   style,
   accessibilityLabel,
 }: DialogContentProps) {
-  const { components, colors } = useTheme();
+  const { components, colors, scheme } = useTheme();
+  const surfaceTokens = scheme.surface;
+  const textTokens = scheme.text;
   const sizeTokens = components.dialog[size];
   const titleTokens = title[TYPO_SCALE[size]];
   const bodyTokens = body[TYPO_SCALE[size]];
@@ -258,6 +257,9 @@ export function Dialog({
   onClose,
   ...contentProps
 }: DialogProps) {
+  const { scheme } = useTheme();
+  const overlayTokens = scheme.overlay;
+
   return (
     <Modal
       visible={open}

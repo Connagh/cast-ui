@@ -5,6 +5,25 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] — 2026-06-11
+
+### Added
+- **15 new components** — Alert, Avatar, Badge, Card, Checkbox, Chip, Divider, Input, List (with ListItem, ListSubheader, ListDivider), Popover, Radio (with RadioGroup), Skeleton, Toast, Toggle, and Tooltip, each with theme tokens across all 3 densities and full Storybook stories
+- **Dark colour mode** — `colorMode` prop on ThemeProvider switches between light and dark schemes (mirroring the Figma `semantic-light` / `semantic-dark` variable modes); full schemes exported as `lightColors` / `darkColors` / `colorSchemes`, with the active scheme available via `useTheme().scheme`
+- **cast-sync Figma plugin** (`cast-sync/`) — exports the UI kit's semantic colour variables as a `cast-theme.json` file whose `colors.light` / `colors.dark` plug directly into ThemeProvider's `colors` prop; plugin UI shows a theme preview with colour swatches and a download button; no network access
+- **Customisation guide** — new sections covering colour modes and importing a cast-sync theme file
+
+### Changed
+- Existing components (Button, Dialog, Icon, Select) read colours from the active scheme so they respond to `colorMode`
+- Rewrote README with the full component table, theming guide, cast-sync workflow, and token architecture overview
+
+### Removed
+- Orphan `Link`, `Text`, and `Textarea` barrel files that pointed at unbuilt components and broke the build
+
+### Security
+- Hardened the adoption workflow: explicit `permissions: contents: read` and pinned `@zeroheight/adoption-cli` to 4.1.5 instead of executing the latest version with secrets in env
+- Resolved all npm audit vulnerabilities in devDependencies (1 critical, 3 high, 4 moderate — all in the Storybook/webpack dev toolchain; the published package has zero runtime dependencies and was unaffected)
+
 ## [4.1.1] — 2026-03-20
 
 ### Fixed
@@ -70,6 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
+[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.2.0...HEAD
+[4.2.0]: https://github.com/Connagh/cast-ui/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/Connagh/cast-ui/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/Connagh/cast-ui/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/Connagh/cast-ui/compare/v3.2.0...v4.0.0

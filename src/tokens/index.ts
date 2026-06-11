@@ -1,4 +1,7 @@
 export {
+  lightColors,
+  darkColors,
+  colorSchemes,
   intentColors,
   disabledColors,
   controlTokens,
@@ -8,8 +11,16 @@ export {
   selectColors,
   tagTokens,
   errorTokens,
+  listColors,
+  checkboxColors,
+  toggleColors,
+  radioColors,
+  avatarColors,
+  skeletonColors,
   type IntentName,
   type ProminenceName,
   type StateName,
+  type ColorMode,
+  type ColorScheme,
 } from './colors';
 export { fontFamily, fontWeight, label, title, body, caption, type LabelSize } from './typography';

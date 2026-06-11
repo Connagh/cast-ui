@@ -46,13 +46,6 @@ import {
   body,
   caption,
   controlTokens,
-  surfaceTokens,
-  selectColors,
-  tagTokens,
-  errorTokens,
-  disabledColors,
-  intentColors,
-  textTokens,
 } from '../../tokens';
 
 // ---------------------------------------------------------------------------
@@ -193,6 +186,9 @@ const SHADOW_NATIVE: ViewStyle = {
 // ---------------------------------------------------------------------------
 
 export function SelectTag({ children, onRemove, disabled = false }: SelectTagProps) {
+  const { scheme } = useTheme();
+  const tagTokens = scheme.tag;
+
   return (
     <View
       style={{
@@ -237,8 +233,9 @@ export function SelectTag({ children, onRemove, disabled = false }: SelectTagPro
 // ---------------------------------------------------------------------------
 
 export function SelectSeparator() {
-  const { components } = useTheme();
+  const { components, scheme } = useTheme();
   const tokens = components.select.separator;
+  const selectColors = scheme.select;
 
   return (
     <View style={{ paddingVertical: tokens.marginY }}>
@@ -257,8 +254,9 @@ export function SelectSeparator() {
 // ---------------------------------------------------------------------------
 
 export function SelectGroup({ label: groupLabel, children }: SelectGroupProps) {
-  const { components } = useTheme();
+  const { components, scheme } = useTheme();
   const tokens = components.select.group;
+  const textTokens = scheme.text;
 
   return (
     <View>
@@ -300,8 +298,10 @@ export function SelectOption({
   disabled = false,
 }: SelectOptionProps) {
   const ctx = useSelectContext();
-  const { components } = useTheme();
+  const { components, scheme } = useTheme();
   const tokens = components.select.option;
+  const selectColors = scheme.select;
+  const textTokens = scheme.text;
   const [isHovered, setIsHovered] = useState(false);
 
   const isSelected = ctx.selectedValues.includes(value);
@@ -420,8 +420,9 @@ export type SelectContentProps = {
 };
 
 export function SelectContent({ children, style }: SelectContentProps) {
-  const { components } = useTheme();
+  const { components, scheme } = useTheme();
   const tokens = components.select.content;
+  const surfaceTokens = scheme.surface;
 
   return (
     <View
@@ -472,8 +473,12 @@ export function Select({
   style,
   accessibilityLabel,
 }: SelectProps) {
-  const { components } = useTheme();
+  const { components, scheme } = useTheme();
   const inputTokens = components.input[size];
+  const intentColors = scheme.intents;
+  const disabledColors = scheme.disabled;
+  const errorTokens = scheme.error;
+  const textTokens = scheme.text;
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const optionRegistry = useRef<Map<string, OptionInfo>>(new Map());
@@ -676,7 +681,7 @@ export function Select({
                       </SelectTag>
                     );
                   })
-                : renderPlaceholder(placeholder, bodyTypo)}
+                : renderPlaceholder(placeholder, bodyTypo, textTokens.description)}
             </View>
           ) : type === 'combobox' ? (
             <TextInput
@@ -817,6 +822,7 @@ export function Select({
 function renderPlaceholder(
   text: string,
   typo: { fontSize: number; lineHeight: number; letterSpacing: number },
+  color: string,
 ) {
   return (
     <Text
@@ -826,7 +832,7 @@ function renderPlaceholder(
         fontSize: typo.fontSize,
         lineHeight: typo.lineHeight,
         letterSpacing: typo.letterSpacing,
-        color: textTokens.description,
+        color,
       }}
       selectable={false}
     >

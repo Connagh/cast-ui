@@ -1,84 +1,227 @@
 {
   "_meta": {
-    "description": "Cast UI Design Token Reference — quick-navigation map for all 3 token layers",
-    "layers": ["primitive", "semantic", "component"],
-    "themes": ["compact", "default", "comfortable"],
-    "themeAxis": "density/size — compact < default < comfortable",
-    "referenceChain": "component → semantic → primitive",
-    "figmaFormat": "DTCG with Figma extensions (aliasData, variableId, scopes)"
+    "description": "Cast UI Design Token Reference \u2014 quick-navigation map for all 3 token layers",
+    "layers": [
+      "primitive",
+      "semantic",
+      "component"
+    ],
+    "themes": [
+      "compact",
+      "default",
+      "comfortable"
+    ],
+    "themeAxis": "density/size \u2014 compact < default < comfortable",
+    "referenceChain": "component \u2192 semantic \u2192 primitive",
+    "figmaFormat": "DTCG with Figma extensions (aliasData, variableId, scopes)",
+    "colorModes": [
+      "light",
+      "dark"
+    ],
+    "colorModeAxis": "semantic collection modes: semantic-light / semantic-dark \u2014 only COLOR variables change; sizing/typography identical across modes"
   },
-
   "primitive": {
     "file": "design-tokens/primitive.tokens.json",
     "totalTokens": 298,
     "categories": {
       "colours": {
         "type": "color",
-        "base": ["white", "black", "transparent"],
-        "palettes": [
-          "warm-grey", "cool-grey", "grey",
-          "red", "orange", "amber", "yellow",
-          "lime", "green", "emerald", "teal", "cyan",
-          "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose"
+        "base": [
+          "white",
+          "black",
+          "transparent"
         ],
-        "shadeScale": ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"],
-        "colorFormat": { "colorSpace": "srgb", "components": "[r,g,b] normalized 0-1", "alpha": "number", "hex": "#RRGGBB" }
+        "palettes": [
+          "warm-grey",
+          "cool-grey",
+          "grey",
+          "red",
+          "orange",
+          "amber",
+          "yellow",
+          "lime",
+          "green",
+          "emerald",
+          "teal",
+          "cyan",
+          "sky",
+          "blue",
+          "indigo",
+          "violet",
+          "purple",
+          "fuchsia",
+          "pink",
+          "rose"
+        ],
+        "shadeScale": [
+          "50",
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900"
+        ],
+        "colorFormat": {
+          "colorSpace": "srgb",
+          "components": "[r,g,b] normalized 0-1",
+          "alpha": "number",
+          "hex": "#RRGGBB"
+        }
       },
       "space": {
         "type": "number",
         "unit": "px",
         "scale": {
-          "0": 0, "1": 1, "2": 2, "3": 4, "4": 6, "5": 8, "6": 10, "7": 12,
-          "8": 14, "9": 16, "10": 20, "11": 24, "12": 32, "13": 40, "14": 48,
-          "15": 64, "16": 80, "17": 96
+          "0": 0,
+          "1": 1,
+          "2": 2,
+          "3": 4,
+          "4": 6,
+          "5": 8,
+          "6": 10,
+          "7": 12,
+          "8": 14,
+          "9": 16,
+          "10": 20,
+          "11": 24,
+          "12": 32,
+          "13": 40,
+          "14": 48,
+          "15": 64,
+          "16": 80,
+          "17": 96
         }
       },
       "size": {
         "type": "number",
         "unit": "px",
-        "note": "Identical scale to space — used for dimensions (width/height)",
+        "note": "Identical scale to space \u2014 used for dimensions (width/height)",
         "scale": {
-          "0": 0, "1": 1, "2": 2, "3": 4, "4": 6, "5": 8, "6": 10, "7": 12,
-          "8": 14, "9": 16, "10": 20, "11": 24, "12": 32, "13": 40, "14": 48,
-          "15": 64, "16": 80, "17": 96
+          "0": 0,
+          "1": 1,
+          "2": 2,
+          "3": 4,
+          "4": 6,
+          "5": 8,
+          "6": 10,
+          "7": 12,
+          "8": 14,
+          "9": 16,
+          "10": 20,
+          "11": 24,
+          "12": 32,
+          "13": 40,
+          "14": 48,
+          "15": 64,
+          "16": 80,
+          "17": 96
         }
       },
       "radius": {
         "type": "number",
         "unit": "px",
-        "scale": { "0": 0, "1": 2, "2": 4, "3": 8, "4": 16, "5": 24, "full": 9999 }
+        "scale": {
+          "0": 0,
+          "1": 2,
+          "2": 4,
+          "3": 8,
+          "4": 16,
+          "5": 24,
+          "full": 9999
+        }
       },
       "opacity": {
         "type": "number",
         "unit": "percentage (0-100)",
-        "scale": { "0": 0, "5": 5, "10": 10, "15": 15, "20": 20, "25": 25, "30": 30, "40": 40, "50": 50, "60": 60, "70": 70, "80": 80, "90": 90, "100": 100 }
+        "scale": {
+          "0": 0,
+          "5": 5,
+          "10": 10,
+          "15": 15,
+          "20": 20,
+          "25": 25,
+          "30": 30,
+          "40": 40,
+          "50": 50,
+          "60": 60,
+          "70": 70,
+          "80": 80,
+          "90": 90,
+          "100": 100
+        }
       },
       "font-size": {
         "type": "number",
         "unit": "px",
-        "scale": { "1": 11, "2": 12, "3": 14, "4": 16, "5": 18, "6": 20, "7": 24, "8": 30, "9": 36, "10": 48, "11": 60, "12": 72 }
+        "scale": {
+          "1": 11,
+          "2": 12,
+          "3": 14,
+          "4": 16,
+          "5": 18,
+          "6": 20,
+          "7": 24,
+          "8": 30,
+          "9": 36,
+          "10": 48,
+          "11": 60,
+          "12": 72
+        }
       },
       "line-height": {
         "type": "number",
         "unit": "px",
-        "scale": { "1": 16, "2": 18, "3": 20, "4": 24, "5": 28, "6": 32, "7": 36, "8": 40, "9": 48, "10": 56, "11": 64, "12": 80 }
+        "scale": {
+          "1": 16,
+          "2": 18,
+          "3": 20,
+          "4": 24,
+          "5": 28,
+          "6": 32,
+          "7": 36,
+          "8": 40,
+          "9": 48,
+          "10": 56,
+          "11": 64,
+          "12": 80
+        }
       },
       "letter-spacing": {
         "type": "number",
         "unit": "px",
-        "scale": { "1": -0.5, "2": -0.25, "3": 0, "4": 0.25, "5": 0.5, "6": 1 }
+        "scale": {
+          "1": -0.5,
+          "2": -0.25,
+          "3": 0,
+          "4": 0.25,
+          "5": 0.5,
+          "6": 1
+        }
       },
       "font-weight": {
         "type": "number",
-        "values": { "light": 300, "regular": 400, "medium": 500, "semibold": 600, "bold": 700 }
+        "values": {
+          "light": 300,
+          "regular": 400,
+          "medium": 500,
+          "semibold": 600,
+          "bold": 700
+        }
       },
       "font-family": {
         "type": "string",
-        "values": { "sans": "Inter", "mono": "JetBrains Mono", "serif": "Noto Serif" }
+        "values": {
+          "sans": "Inter",
+          "mono": "JetBrains Mono",
+          "serif": "Noto Serif"
+        }
       }
     }
   },
-
   "semantic": {
     "file": "design-tokens/semantic.tokens.json",
     "categories": {
@@ -88,57 +231,150 @@
           "brand": {
             "baseColor": "blue",
             "ringColour": "colours/blue/400",
-            "styles": ["default", "subtle", "bold"],
-            "states": ["default", "hover", "active"],
-            "tokensPer": ["bg", "fg", "border"]
+            "styles": [
+              "default",
+              "subtle",
+              "bold"
+            ],
+            "states": [
+              "default",
+              "hover",
+              "active"
+            ],
+            "tokensPer": [
+              "bg",
+              "fg",
+              "border"
+            ]
           },
           "neutral": {
             "baseColor": "cool-grey",
             "ringColour": "colours/cool-grey/400",
             "placeholder": "colours/cool-grey/400",
-            "styles": ["default", "subtle", "bold"],
-            "states": ["default", "hover", "active"],
-            "tokensPer": ["bg", "fg", "border"],
+            "styles": [
+              "default",
+              "subtle",
+              "bold"
+            ],
+            "states": [
+              "default",
+              "hover",
+              "active"
+            ],
+            "tokensPer": [
+              "bg",
+              "fg",
+              "border"
+            ],
             "extra": {
               "option": {
-                "states": ["default", "hover", "selected", "disabled"],
-                "tokens": ["bg", "fg"]
+                "states": [
+                  "default",
+                  "hover",
+                  "selected",
+                  "disabled"
+                ],
+                "tokens": [
+                  "bg",
+                  "fg"
+                ]
               }
             }
           },
           "danger": {
             "baseColor": "red",
             "ringColour": "colours/red/400",
-            "styles": ["default", "subtle", "bold"],
-            "states": ["default", "hover", "active"],
-            "tokensPer": ["bg", "fg", "border"]
+            "styles": [
+              "default",
+              "subtle",
+              "bold"
+            ],
+            "states": [
+              "default",
+              "hover",
+              "active"
+            ],
+            "tokensPer": [
+              "bg",
+              "fg",
+              "border"
+            ]
           },
           "disabled": {
-            "tokens": ["opacity", "bg", "fg", "border"],
-            "refs": ["opacity/50", "colours/cool-grey/100", "colours/cool-grey/400", "colours/cool-grey/200"]
+            "tokens": [
+              "opacity",
+              "bg",
+              "fg",
+              "border"
+            ],
+            "refs": [
+              "opacity/50",
+              "colours/cool-grey/100",
+              "colours/cool-grey/400",
+              "colours/cool-grey/200"
+            ]
           }
         }
       },
       "controls": {
-        "description": "Sizing tokens for interactive controls — THESE CHANGE BY THEME",
+        "description": "Sizing tokens for interactive controls \u2014 THESE CHANGE BY THEME",
         "sizes": {
           "control-sm": {
             "borderRadius": "radius/3 (8px)",
-            "tokens": ["padding.x", "padding.y", "gap"],
+            "tokens": [
+              "padding.x",
+              "padding.y",
+              "gap"
+            ],
             "densityVariants": {
-              "compact":     { "padding.x": "space/4 (6px)",  "padding.y": "space/2 (2px)",  "gap": "space/3 (4px)" },
-              "default":     { "padding.x": "space/6 (10px)", "padding.y": "space/4 (6px)",  "gap": "space/5 (8px)" },
-              "comfortable": { "padding.x": "space/8 (14px)", "padding.y": "space/6 (10px)", "gap": "space/7 (12px)" }
+              "compact": {
+                "padding.x": "space/4 (6px)",
+                "padding.y": "space/2 (2px)",
+                "gap": "space/3 (4px)"
+              },
+              "default": {
+                "padding.x": "space/6 (10px)",
+                "padding.y": "space/4 (6px)",
+                "gap": "space/5 (8px)"
+              },
+              "comfortable": {
+                "padding.x": "space/8 (14px)",
+                "padding.y": "space/6 (10px)",
+                "gap": "space/7 (12px)"
+              }
             }
           },
           "control": {
             "borderRadius": "radius/3 (8px)",
             "borderWidth": "space/1 (1px)",
-            "tokens": ["padding.x", "padding.y", "gap", "field-gap", "option.padding.x", "option.padding.y", "option.gap"],
+            "tokens": [
+              "padding.x",
+              "padding.y",
+              "gap",
+              "field-gap",
+              "option.padding.x",
+              "option.padding.y",
+              "option.gap"
+            ],
             "densityVariants": {
-              "compact":     { "padding.x": "space/6 (10px)",  "padding.y": "space/4 (6px)",   "gap": "space/5 (8px)",  "field-gap": "space/1 (1px)" },
-              "default":     { "padding.x": "space/8 (14px)",  "padding.y": "space/6 (10px)",  "gap": "space/7 (12px)", "field-gap": "space/2 (2px)" },
-              "comfortable": { "padding.x": "space/10 (20px)", "padding.y": "space/8 (14px)",  "gap": "space/9 (16px)", "field-gap": "space/3 (4px)" }
+              "compact": {
+                "padding.x": "space/6 (10px)",
+                "padding.y": "space/4 (6px)",
+                "gap": "space/5 (8px)",
+                "field-gap": "space/1 (1px)"
+              },
+              "default": {
+                "padding.x": "space/8 (14px)",
+                "padding.y": "space/6 (10px)",
+                "gap": "space/7 (12px)",
+                "field-gap": "space/2 (2px)"
+              },
+              "comfortable": {
+                "padding.x": "space/10 (20px)",
+                "padding.y": "space/8 (14px)",
+                "gap": "space/9 (16px)",
+                "field-gap": "space/3 (4px)"
+              }
             },
             "focusRing": {
               "colour": "colours/blue/500",
@@ -161,30 +397,134 @@
           },
           "control-lg": {
             "borderRadius": "radius/3 (8px)",
-            "tokens": ["padding.x", "padding.y", "gap"],
+            "tokens": [
+              "padding.x",
+              "padding.y",
+              "gap"
+            ],
             "densityVariants": {
-              "compact":     { "padding.x": "space/10 (20px)", "padding.y": "space/8 (14px)",  "gap": "space/9 (16px)" },
-              "default":     { "padding.x": "space/11 (24px)", "padding.y": "space/9 (16px)",  "gap": "space/10 (20px)" },
-              "comfortable": { "padding.x": "space/12 (32px)", "padding.y": "space/10 (20px)", "gap": "space/11 (24px)" }
+              "compact": {
+                "padding.x": "space/10 (20px)",
+                "padding.y": "space/8 (14px)",
+                "gap": "space/9 (16px)"
+              },
+              "default": {
+                "padding.x": "space/11 (24px)",
+                "padding.y": "space/9 (16px)",
+                "gap": "space/10 (20px)"
+              },
+              "comfortable": {
+                "padding.x": "space/12 (32px)",
+                "padding.y": "space/10 (20px)",
+                "gap": "space/11 (24px)"
+              }
             }
           }
         }
       },
       "typography": {
-        "description": "Semantic typography scales — constant across themes",
+        "description": "Semantic typography scales \u2014 constant across themes",
         "scales": {
-          "display":  { "lg": { "fontSize": 72, "lineHeight": 80, "letterSpacing": -0.5 }, "md": { "fontSize": 60, "lineHeight": 64, "letterSpacing": -0.5 }, "sm": { "fontSize": 48, "lineHeight": 56, "letterSpacing": -0.25 } },
-          "heading":  { "lg": { "fontSize": 36, "lineHeight": 40, "letterSpacing": -0.25 }, "md": { "fontSize": 30, "lineHeight": 36, "letterSpacing": -0.25 }, "sm": { "fontSize": 24, "lineHeight": 32, "letterSpacing": 0 } },
-          "title":    { "lg": { "fontSize": 20, "lineHeight": 28, "letterSpacing": 0 }, "md": { "fontSize": 18, "lineHeight": 24, "letterSpacing": 0 }, "sm": { "fontSize": 16, "lineHeight": 24, "letterSpacing": 0 } },
-          "body":     { "lg": { "fontSize": 16, "lineHeight": 24, "letterSpacing": 0 }, "md": { "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 }, "sm": { "fontSize": 12, "lineHeight": 18, "letterSpacing": 0.25 } },
-          "label":    { "lg": { "fontSize": 16, "lineHeight": 24, "letterSpacing": 0 }, "md": { "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 }, "sm": { "fontSize": 12, "lineHeight": 16, "letterSpacing": 0.25 } },
-          "caption":  { "fontSize": 11, "lineHeight": 16, "letterSpacing": 0.5 }
+          "display": {
+            "lg": {
+              "fontSize": 72,
+              "lineHeight": 80,
+              "letterSpacing": -0.5
+            },
+            "md": {
+              "fontSize": 60,
+              "lineHeight": 64,
+              "letterSpacing": -0.5
+            },
+            "sm": {
+              "fontSize": 48,
+              "lineHeight": 56,
+              "letterSpacing": -0.25
+            }
+          },
+          "heading": {
+            "lg": {
+              "fontSize": 36,
+              "lineHeight": 40,
+              "letterSpacing": -0.25
+            },
+            "md": {
+              "fontSize": 30,
+              "lineHeight": 36,
+              "letterSpacing": -0.25
+            },
+            "sm": {
+              "fontSize": 24,
+              "lineHeight": 32,
+              "letterSpacing": 0
+            }
+          },
+          "title": {
+            "lg": {
+              "fontSize": 20,
+              "lineHeight": 28,
+              "letterSpacing": 0
+            },
+            "md": {
+              "fontSize": 18,
+              "lineHeight": 24,
+              "letterSpacing": 0
+            },
+            "sm": {
+              "fontSize": 16,
+              "lineHeight": 24,
+              "letterSpacing": 0
+            }
+          },
+          "body": {
+            "lg": {
+              "fontSize": 16,
+              "lineHeight": 24,
+              "letterSpacing": 0
+            },
+            "md": {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "letterSpacing": 0
+            },
+            "sm": {
+              "fontSize": 12,
+              "lineHeight": 18,
+              "letterSpacing": 0.25
+            }
+          },
+          "label": {
+            "lg": {
+              "fontSize": 16,
+              "lineHeight": 24,
+              "letterSpacing": 0
+            },
+            "md": {
+              "fontSize": 14,
+              "lineHeight": 20,
+              "letterSpacing": 0
+            },
+            "sm": {
+              "fontSize": 12,
+              "lineHeight": 16,
+              "letterSpacing": 0.25
+            }
+          },
+          "caption": {
+            "fontSize": 11,
+            "lineHeight": 16,
+            "letterSpacing": 0.5
+          }
         }
       },
       "surface": {
         "base": "colours/cool-grey/50",
         "subtle": "colours/cool-grey/100",
-        "overlay": { "bg": "colours/white", "border": "colours/cool-grey/200", "radius": "radius/3 (8px)" }
+        "overlay": {
+          "bg": "colours/white",
+          "border": "colours/cool-grey/200",
+          "radius": "radius/3 (8px)"
+        }
       },
       "text": {
         "muted": "colours/cool-grey/500",
@@ -195,9 +535,31 @@
         "hover": "opacity/5",
         "active": "opacity/10"
       }
+    },
+    "modes": {
+      "semantic-light": "default scheme \u2014 values listed in this reference",
+      "semantic-dark": {
+        "description": "dark scheme \u2014 every colour variable re-aliased to existing primitives; runtime values in src/tokens/colors.ts darkColors",
+        "mapping": {
+          "surface/base": "colours/cool-grey/900",
+          "surface/subtle": "colours/cool-grey/800",
+          "surface/overlay/bg": "colours/cool-grey/800",
+          "surface/overlay/border": "colours/cool-grey/700",
+          "text/muted": "colours/cool-grey/400",
+          "text/description": "colours/cool-grey/400",
+          "intent/disabled": "bg cool-grey/800, fg cool-grey/600, border cool-grey/700",
+          "control/focus-ring-colour": "colours/blue/400",
+          "intent outlined (default prominence)": "bg cool-grey/900; fg lifts to palette 400/300/200; border 600/500/400 across default/hover/active",
+          "intent subtle": "transparent bg; hover/active bgs use palette 900/800 tints",
+          "intent bold (brand/danger)": "unchanged from light \u2014 white-on-600 stays AA on dark surfaces",
+          "intent bold (neutral)": "inverted \u2014 light fill (cool-grey/200/100/50) with cool-grey/900 fg",
+          "intent/neutral/option": "hover cool-grey/700, selected blue/900, selected fg blue/300, selected+hover blue/800",
+          "control/tag": "bg cool-grey/700, fg cool-grey/200, remove/hover cool-grey/400",
+          "control/toggle/off": "bg cool-grey/700, hover cool-grey/600"
+        }
+      }
     }
   },
-
   "component": {
     "files": {
       "default": "design-tokens/component/component-default.tokens.json",
@@ -206,30 +568,110 @@
     },
     "components": {
       "input": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["field-gap", "border-radius", "gap", "padding.x", "padding.y"],
-        "themeVariable": ["field-gap", "gap", "padding.x", "padding.y"],
-        "constant": ["border-radius"],
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "tokens": [
+          "field-gap",
+          "border-radius",
+          "gap",
+          "padding.x",
+          "padding.y"
+        ],
+        "themeVariable": [
+          "field-gap",
+          "gap",
+          "padding.x",
+          "padding.y"
+        ],
+        "constant": [
+          "border-radius"
+        ],
         "exampleValues": {
-          "default.padding.x": { "compact": 10, "default": 14, "comfortable": 20 },
-          "large.padding.x":   { "compact": 20, "default": 24, "comfortable": 32 }
+          "default.padding.x": {
+            "compact": 10,
+            "default": 14,
+            "comfortable": 20
+          },
+          "large.padding.x": {
+            "compact": 20,
+            "default": 24,
+            "comfortable": 32
+          }
         }
       },
       "button": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["gap", "border-radius", "padding.x", "padding.y", "focus-ring-width", "focus-ring-offset"],
-        "themeVariable": ["gap", "padding.x", "padding.y"],
-        "constant": ["border-radius (8)", "focus-ring-width (2)", "focus-ring-offset (2)"],
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "tokens": [
+          "gap",
+          "border-radius",
+          "padding.x",
+          "padding.y",
+          "focus-ring-width",
+          "focus-ring-offset"
+        ],
+        "themeVariable": [
+          "gap",
+          "padding.x",
+          "padding.y"
+        ],
+        "constant": [
+          "border-radius (8)",
+          "focus-ring-width (2)",
+          "focus-ring-offset (2)"
+        ],
         "verifiedValues": {
-          "small.gap":       { "compact": 4,  "default": 8,  "comfortable": 12 },
-          "small.padding.x": { "compact": 6,  "default": 10, "comfortable": 14 },
-          "small.padding.y": { "compact": 2,  "default": 6,  "comfortable": 10 },
-          "default.gap":       { "compact": 8,  "default": 12, "comfortable": 16 },
-          "default.padding.x": { "compact": 10, "default": 14, "comfortable": 20 },
-          "default.padding.y": { "compact": 6,  "default": 10, "comfortable": 14 },
-          "large.gap":       { "compact": 16, "default": 20, "comfortable": 24 },
-          "large.padding.x": { "compact": 20, "default": 24, "comfortable": 32 },
-          "large.padding.y": { "compact": 14, "default": 16, "comfortable": 20 }
+          "small.gap": {
+            "compact": 4,
+            "default": 8,
+            "comfortable": 12
+          },
+          "small.padding.x": {
+            "compact": 6,
+            "default": 10,
+            "comfortable": 14
+          },
+          "small.padding.y": {
+            "compact": 2,
+            "default": 6,
+            "comfortable": 10
+          },
+          "default.gap": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "default.padding.x": {
+            "compact": 10,
+            "default": 14,
+            "comfortable": 20
+          },
+          "default.padding.y": {
+            "compact": 6,
+            "default": 10,
+            "comfortable": 14
+          },
+          "large.gap": {
+            "compact": 16,
+            "default": 20,
+            "comfortable": 24
+          },
+          "large.padding.x": {
+            "compact": 20,
+            "default": 24,
+            "comfortable": 32
+          },
+          "large.padding.y": {
+            "compact": 14,
+            "default": 16,
+            "comfortable": 20
+          }
         },
         "typography": {
           "small": "label/sm (12px/16px/0.25px)",
@@ -247,119 +689,1075 @@
         }
       },
       "layout": {
-        "tokens": ["gap.xs", "gap.sm", "gap.md", "gap.lg", "gap.xl", "padding.x", "padding.y"],
-        "themeVariable": ["ALL"],
+        "tokens": [
+          "gap.xs",
+          "gap.sm",
+          "gap.md",
+          "gap.lg",
+          "gap.xl",
+          "padding.x",
+          "padding.y"
+        ],
+        "themeVariable": [
+          "ALL"
+        ],
         "exampleValues": {
-          "gap.xs": { "compact": 4,  "default": 8,  "comfortable": 12 },
-          "gap.sm": { "compact": 8,  "default": 12, "comfortable": 16 },
-          "gap.md": { "compact": 12, "default": 16, "comfortable": 24 },
-          "gap.lg": { "compact": 16, "default": 24, "comfortable": 40 },
-          "gap.xl": { "compact": 24, "default": 40, "comfortable": 64 }
+          "gap.xs": {
+            "compact": 4,
+            "default": 8,
+            "comfortable": 12
+          },
+          "gap.sm": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "gap.md": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "gap.lg": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "gap.xl": {
+            "compact": 24,
+            "default": 40,
+            "comfortable": 64
+          }
         }
       },
       "select": {
-        "tokens": ["content.max-height", "content.border-radius", "content.padding", "option.gap", "option.padding.x", "option.padding.y", "group.gap", "group.padding", "separator.colour", "separator.height"],
-        "themeVariable": ["option.gap", "option.padding.x", "option.padding.y", "group.gap", "group.padding", "content.padding"],
-        "constant": ["content.max-height", "content.border-radius", "separator.colour", "separator.height"]
+        "tokens": [
+          "content.max-height",
+          "content.border-radius",
+          "content.padding",
+          "option.gap",
+          "option.padding.x",
+          "option.padding.y",
+          "group.gap",
+          "group.padding",
+          "separator.colour",
+          "separator.height"
+        ],
+        "themeVariable": [
+          "option.gap",
+          "option.padding.x",
+          "option.padding.y",
+          "group.gap",
+          "group.padding",
+          "content.padding"
+        ],
+        "constant": [
+          "content.max-height",
+          "content.border-radius",
+          "separator.colour",
+          "separator.height"
+        ]
       },
       "checkbox": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["border-radius", "gap", "focus-ring-width", "focus-ring-offset", "indicator-size", "icon-size"],
-        "themeVariable": ["gap"],
-        "constant": ["border-radius", "focus-ring-width", "focus-ring-offset", "indicator-size", "icon-size"]
-      },
-      "radio": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["gap", "focus-ring-width", "focus-ring-offset", "indicator-size", "dot-size"],
-        "themeVariable": ["gap"],
-        "constant": ["focus-ring-width", "focus-ring-offset", "indicator-size", "dot-size"]
-      },
-      "toggle": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["gap", "track-width", "track-height", "track-border-radius", "thumb-size", "thumb-border-radius"],
-        "themeVariable": ["gap"],
-        "constant": ["track-width", "track-height", "track-border-radius", "thumb-size", "thumb-border-radius"]
-      },
-      "badge": {
-        "tokens": ["border-radius", "gap", "dot-size", "padding.x", "padding.y"],
-        "themeVariable": ["gap", "padding.x", "padding.y"],
-        "constant": ["border-radius", "dot-size"]
-      },
-      "alert": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["padding.x", "padding.y", "gap", "icon-size", "close-size", "border-radius"],
-        "themeVariable": ["padding.x", "padding.y", "gap"],
-        "constant": ["icon-size", "close-size", "border-radius"]
-      },
-      "toast": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["padding.x", "padding.y", "gap", "icon-size", "close-size", "close-colour", "border-radius", "min-width", "max-width"],
-        "themeVariable": ["padding.x", "padding.y", "gap"],
-        "constant": ["icon-size", "close-size", "close-colour", "border-radius", "min-width", "max-width"]
-      },
-      "card": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["padding.x", "padding.y", "gap", "border-radius"],
-        "themeVariable": ["padding.x", "padding.y", "gap"],
-        "constant": ["border-radius"]
-      },
-      "avatar": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["border-radius", "size"],
-        "themeVariable": [],
-        "constant": ["border-radius", "size"]
-      },
-      "chip": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["border-radius", "gap", "dot-size", "padding.x", "padding.y", "close-size"],
-        "themeVariable": ["gap", "padding.x", "padding.y"],
-        "constant": ["border-radius", "dot-size", "close-size"]
-      },
-      "dialog": {
-        "sizes": ["small", "default", "large"],
-        "tokens": ["padding", "gap", "icon-size"],
-        "themeVariable": ["padding", "gap"],
-        "constant": ["icon-size"],
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "tokens": [
+          "border-radius",
+          "gap",
+          "focus-ring-width",
+          "focus-ring-offset",
+          "indicator-size",
+          "icon-size"
+        ],
+        "themeVariable": [
+          "gap"
+        ],
+        "constant": [
+          "border-radius (4)",
+          "focus-ring-width (2)",
+          "focus-ring-offset (2)",
+          "indicator-size (per size)",
+          "icon-size (per size)"
+        ],
         "verifiedValues": {
-          "small.padding":   { "compact": 16, "default": 24, "comfortable": 40 },
-          "small.gap":       { "compact": 12, "default": 16, "comfortable": 24 },
-          "small.iconSize":  24,
-          "default.padding": { "compact": 24, "default": 32, "comfortable": 40 },
-          "default.gap":     { "compact": 16, "default": 24, "comfortable": 32 },
-          "default.iconSize": 32,
-          "large.padding":   { "compact": 32, "default": 40, "comfortable": 48 },
-          "large.gap":       { "compact": 24, "default": 32, "comfortable": 40 },
-          "large.iconSize":  40
+          "gap": {
+            "compact": 4,
+            "default": 8,
+            "comfortable": 12
+          },
+          "small.indicator-size": 16,
+          "small.icon-size": 10,
+          "default.indicator-size": 20,
+          "default.icon-size": 12,
+          "large.indicator-size": 24,
+          "large.icon-size": 14
         },
         "typography": {
-          "small": { "title": "title/sm (16px/24px)", "body": "body/sm (12px/18px)" },
-          "default": { "title": "title/md (18px/24px)", "body": "body/md (14px/20px)" },
-          "large": { "title": "title/lg (20px/28px)", "body": "body/lg (16px/24px)" }
+          "small": "label/sm (12px/16px/0.25px, medium 500)",
+          "default": "label/md (14px/20px/0px, medium 500)",
+          "large": "label/lg (16px/24px/0px, medium 500)"
+        },
+        "colors": {
+          "unchecked.default": {
+            "bg": "#FFFFFF",
+            "border": "#D1D5DB"
+          },
+          "unchecked.hover": {
+            "bg": "#FFFFFF",
+            "border": "#9CA3AF"
+          },
+          "unchecked.focus": {
+            "bg": "#FFFFFF",
+            "border": "#3B82F6 (2px)"
+          },
+          "checked": {
+            "bg": "#2563EB",
+            "icon": "#FFFFFF"
+          },
+          "disabled": {
+            "bg": "#F3F4F6",
+            "border": "#E5E7EB",
+            "icon": "#9CA3AF"
+          },
+          "label.default": "#374151",
+          "label.disabled": "#6B7280"
+        }
+      },
+      "radio": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "tokens": [
+          "border-radius",
+          "gap",
+          "focus-ring-width",
+          "focus-ring-offset",
+          "indicator-size",
+          "dot-size"
+        ],
+        "themeVariable": [
+          "gap"
+        ],
+        "constant": [
+          "border-radius (9999)",
+          "focus-ring-width (2)",
+          "focus-ring-offset (2)",
+          "indicator-size (per size)",
+          "dot-size (per size)"
+        ],
+        "verifiedValues": {
+          "gap": {
+            "compact": 4,
+            "default": 8,
+            "comfortable": 12
+          },
+          "small.indicator-size": 16,
+          "small.dot-size": 6,
+          "default.indicator-size": 20,
+          "default.dot-size": 8,
+          "large.indicator-size": 24,
+          "large.dot-size": 10
+        },
+        "typography": {
+          "small": "label/sm (12/16/0.25, medium 500)",
+          "default": "label/md (14/20/0, medium 500)",
+          "large": "label/lg (16/24/0, medium 500)"
+        },
+        "colors": {
+          "unchecked.default": {
+            "bg": "#FFFFFF",
+            "border": "#D1D5DB"
+          },
+          "unchecked.hover": {
+            "bg": "#FFFFFF",
+            "border": "#9CA3AF"
+          },
+          "unchecked.focus": {
+            "bg": "#FFFFFF",
+            "border": "#3B82F6 (2px)"
+          },
+          "checked": {
+            "bg": "#2563EB",
+            "dot": "#FFFFFF"
+          },
+          "checked.hover": {
+            "bg": "#1D4ED8"
+          },
+          "disabled": {
+            "bg": "#F3F4F6",
+            "border": "#E5E7EB",
+            "dot": "#9CA3AF"
+          },
+          "label.default": "#374151",
+          "label.disabled": "#9CA3AF"
+        }
+      },
+      "toggle": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "tokens": [
+          "gap",
+          "thumb-offset",
+          "focus-ring-width",
+          "track-width",
+          "track-height",
+          "thumb-size"
+        ],
+        "themeVariable": [
+          "gap"
+        ],
+        "constant": [
+          "thumb-offset (2)",
+          "focus-ring-width (2)",
+          "track-width (per size)",
+          "track-height (per size)",
+          "thumb-size (per size)"
+        ],
+        "verifiedValues": {
+          "gap": {
+            "compact": 4,
+            "default": 8,
+            "comfortable": 12
+          },
+          "small.track-width": 32,
+          "small.track-height": 16,
+          "small.thumb-size": 12,
+          "default.track-width": 40,
+          "default.track-height": 20,
+          "default.thumb-size": 16,
+          "large.track-width": 48,
+          "large.track-height": 24,
+          "large.thumb-size": 20
+        },
+        "typography": {
+          "small": "label/sm (12/16/0.25, medium 500)",
+          "default": "label/md (14/20/0, medium 500)",
+          "large": "label/lg (16/24/0, medium 500)"
+        },
+        "colors": {
+          "track.off": "#E5E7EB",
+          "track.off.hover": "#D1D5DB",
+          "track.on": "#2563EB",
+          "track.on.hover": "#1D4ED8",
+          "track.focus.border": "#3B82F6 (2px)",
+          "track.disabled.off": "#F3F4F6",
+          "track.disabled.on": "#9CA3AF",
+          "thumb": "#FFFFFF",
+          "label.default": "#374151",
+          "label.disabled": "#9CA3AF"
+        }
+      },
+      "badge": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "variants": [
+          "solid",
+          "subtle",
+          "outline"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "tokens": [
+          "border-radius",
+          "gap",
+          "dot-size",
+          "padding.x",
+          "padding.y"
+        ],
+        "themeVariable": [],
+        "constant": [
+          "border-radius (9999)",
+          "gap (per size)",
+          "padding.x (per size)",
+          "padding.y (per size)",
+          "dot-size (per size)"
+        ],
+        "note": "All badge spacing is identical across the three densities (verified against component-*.tokens.json); values vary only by the size prop.",
+        "verifiedValues": {
+          "small.gap": 2,
+          "small.padding.x": 4,
+          "small.padding.y": 0,
+          "small.dot-size": 6,
+          "default.gap": 4,
+          "default.padding.x": 6,
+          "default.padding.y": 1,
+          "default.dot-size": 6,
+          "large.gap": 4,
+          "large.padding.x": 8,
+          "large.padding.y": 2,
+          "large.dot-size": 8,
+          "border-radius": 9999
+        },
+        "typography": {
+          "small": "label/sm (12px/16px/0.25px, medium 500)",
+          "default": "label/md (14px/20px/0px, medium 500)",
+          "large": "label/lg (16px/24px/0px, medium 500)"
+        },
+        "colors": {
+          "solid": "intent bold default (bg/border/fg) \u2014 fg #FFFFFF; neutral #374151, brand #2563EB, danger #DC2626",
+          "subtle": "intent subtle default \u2014 transparent bg/border; fg neutral #374151, brand #2563EB, danger #DC2626",
+          "outline": "transparent bg; border intent bold (neutral #374151, brand #2563EB, danger #DC2626); fg intent default (same hues)"
+        }
+      },
+      "alert": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "variants": [
+          "subtle",
+          "outline"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "tokens": [
+          "padding",
+          "gap",
+          "icon-size",
+          "close-size",
+          "border-radius"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "icon-size (per size)",
+          "close-size (per size)",
+          "border-radius (8)"
+        ],
+        "verifiedValues": {
+          "small.padding": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "small.gap": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "default.padding": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "default.gap": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "large.padding": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "large.gap": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "small.icon-size": 16,
+          "small.close-size": 16,
+          "default.icon-size": 20,
+          "default.close-size": 16,
+          "large.icon-size": 24,
+          "large.close-size": 20
+        },
+        "typography": {
+          "title": "small title/sm (16/24), default title/md (18/24), large title/lg (20/28), medium 500",
+          "description": "small body/sm (12/18/0.25), default body/md (14/20), large body/lg (16/24), regular 400"
+        },
+        "colors": {
+          "outline.bg": "intent default bg (#FFFFFF)",
+          "outline.border": "intent default border (neutral #D1D5DB, brand #93C5FD, danger #FCA5A5)",
+          "subtle.bg": "transparent",
+          "subtle.border": "transparent",
+          "fg": "intent default fg (neutral #374151, brand #2563EB, danger #DC2626)"
+        }
+      },
+      "toast": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "tokens": [
+          "padding",
+          "gap",
+          "icon-size",
+          "close-size",
+          "border-radius",
+          "min-width",
+          "max-width"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "icon-size (per size)",
+          "close-size (per size)",
+          "border-radius (8)",
+          "min-width (280)",
+          "max-width (420)"
+        ],
+        "note": "padding/gap follow the same scale as Alert. Single padding token (uniform), not x/y.",
+        "verifiedValues": {
+          "small.padding": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "small.gap": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "default.padding": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "default.gap": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "large.padding": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "large.gap": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "small.icon-size": 16,
+          "small.close-size": 16,
+          "default.icon-size": 20,
+          "default.close-size": 16,
+          "large.icon-size": 24,
+          "large.close-size": 20,
+          "border-radius": 8,
+          "min-width": 280,
+          "max-width": 420
+        },
+        "typography": {
+          "title": "small title/sm (16/24), default title/md (18/24), large title/lg (20/28), medium 500",
+          "description": "small body/sm (12/18/0.25), default body/md (14/20), large body/lg (16/24), regular 400"
+        },
+        "colors": {
+          "surface.bg": "surface/overlay/bg (#FFFFFF)",
+          "surface.border": "surface/overlay/border (#E5E7EB)",
+          "fg": "intent default fg colours the icon/title/description/close (neutral #374151, brand #2563EB, danger #DC2626)"
+        }
+      },
+      "card": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "variants": [
+          "outline",
+          "elevated"
+        ],
+        "tokens": [
+          "padding",
+          "gap",
+          "icon-size",
+          "image-height",
+          "border-radius"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "icon-size (per size)",
+          "image-height (per size)",
+          "border-radius (8)"
+        ],
+        "verifiedValues": {
+          "small.padding": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "small.gap": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "default.padding": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "default.gap": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "large.padding": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "large.gap": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "small.icon-size": 16,
+          "small.image-height": 120,
+          "default.icon-size": 20,
+          "default.image-height": 160,
+          "large.icon-size": 24,
+          "large.image-height": 200
+        },
+        "typography": {
+          "title": "small title/sm (16/24), default title/md (18/24), large title/lg (20/28), medium 500",
+          "subtitle+body": "small body/sm (12/18/0.25), default body/md (14/20), large body/lg (16/24), regular 400"
+        },
+        "colors": {
+          "bg": "surface/overlay/bg (#FFFFFF)",
+          "border": "surface/overlay/border (#E5E7EB)",
+          "radius": "surface/overlay/radius (8)",
+          "title.fg": "#374151",
+          "subtitle.fg": "#6B7280",
+          "body.fg": "#6B7280",
+          "elevated.shadow": "shadow/lg (0 10 15 -3 rgba(0,0,0,0.08), 0 4 6 -4 rgba(0,0,0,0.04))"
+        }
+      },
+      "avatar": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "types": [
+          "image",
+          "initials",
+          "icon"
+        ],
+        "tokens": [
+          "border-radius",
+          "size",
+          "icon-size"
+        ],
+        "themeVariable": [
+          "size"
+        ],
+        "constant": [
+          "border-radius (9999)",
+          "icon-size (per size)"
+        ],
+        "note": "Avatar diameter varies by size AND density (verified against component-*.tokens.json). icon-size and the initials typography scale are constant across density (keyed by the size prop).",
+        "verifiedValues": {
+          "small.size": {
+            "compact": 24,
+            "default": 32,
+            "comfortable": 40
+          },
+          "default.size": {
+            "compact": 40,
+            "default": 48,
+            "comfortable": 64
+          },
+          "large.size": {
+            "compact": 64,
+            "default": 80,
+            "comfortable": 96
+          },
+          "small.icon-size": 12,
+          "default.icon-size": 16,
+          "large.icon-size": 24,
+          "border-radius": 9999
+        },
+        "typography": {
+          "small": "label/sm (12/16/0.25, medium 500)",
+          "default": "label/md (14/20/0, medium 500)",
+          "large": "label/lg (16/24/0, medium 500)"
+        },
+        "colors": {
+          "bg": "colours/cool-grey/100 (#F3F4F6) for initials/icon types; image fills the frame (no bg)",
+          "fg": "intent/neutral/default/default/fg (#374151) for initials text and icon glyph"
+        }
+      },
+      "chip": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "variants": [
+          "outline",
+          "subtle"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "tokens": [
+          "border-radius",
+          "gap",
+          "icon-size",
+          "padding.x",
+          "padding.y"
+        ],
+        "themeVariable": [
+          "gap",
+          "padding.x",
+          "padding.y"
+        ],
+        "constant": [
+          "border-radius (9999)",
+          "icon-size (per size)"
+        ],
+        "verifiedValues": {
+          "small.gap": {
+            "compact": 2,
+            "default": 4,
+            "comfortable": 4
+          },
+          "small.padding.x": {
+            "compact": 4,
+            "default": 6,
+            "comfortable": 8
+          },
+          "small.padding.y": {
+            "compact": 1,
+            "default": 2,
+            "comfortable": 4
+          },
+          "default.gap": {
+            "compact": 4,
+            "default": 4,
+            "comfortable": 8
+          },
+          "default.padding.x": {
+            "compact": 6,
+            "default": 8,
+            "comfortable": 10
+          },
+          "default.padding.y": {
+            "compact": 2,
+            "default": 4,
+            "comfortable": 6
+          },
+          "large.gap": {
+            "compact": 4,
+            "default": 8,
+            "comfortable": 8
+          },
+          "large.padding.x": {
+            "compact": 8,
+            "default": 10,
+            "comfortable": 12
+          },
+          "large.padding.y": {
+            "compact": 4,
+            "default": 6,
+            "comfortable": 8
+          },
+          "small.icon-size": 12,
+          "default.icon-size": 14,
+          "large.icon-size": 16,
+          "border-radius": 9999
+        },
+        "typography": {
+          "small": "label/sm (12/16/0.25, medium 500)",
+          "default": "label/md (14/20/0, medium 500)",
+          "large": "label/lg (16/24/0, medium 500)"
+        },
+        "colors": {
+          "outline": "intent default {default|hover|active} (white/tinted bg + border)",
+          "subtle": "intent subtle {default|hover|active} (transparent bg/border, coloured fg)",
+          "selected": "renders the intent's active state",
+          "disabled": "#F3F4F6 bg, #E5E7EB border, #9CA3AF fg"
+        }
+      },
+      "divider": {
+        "orientations": [
+          "horizontal",
+          "vertical"
+        ],
+        "tokens": [
+          "thickness",
+          "colour"
+        ],
+        "themeVariable": [],
+        "constant": [
+          "thickness (control/border-width = 1)",
+          "colour (surface/overlay/border = #E5E7EB)"
+        ],
+        "note": "No density-varying tokens. Horizontal stretches to container width; vertical to container height."
+      },
+      "dialog": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "tokens": [
+          "padding",
+          "gap",
+          "icon-size"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "icon-size"
+        ],
+        "verifiedValues": {
+          "small.padding": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "small.gap": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "small.iconSize": 24,
+          "default.padding": {
+            "compact": 24,
+            "default": 32,
+            "comfortable": 40
+          },
+          "default.gap": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 32
+          },
+          "default.iconSize": 32,
+          "large.padding": {
+            "compact": 32,
+            "default": 40,
+            "comfortable": 48
+          },
+          "large.gap": {
+            "compact": 24,
+            "default": 32,
+            "comfortable": 40
+          },
+          "large.iconSize": 40
+        },
+        "typography": {
+          "small": {
+            "title": "title/sm (16px/24px)",
+            "body": "body/sm (12px/18px)"
+          },
+          "default": {
+            "title": "title/md (18px/24px)",
+            "body": "body/md (14px/20px)"
+          },
+          "large": {
+            "title": "title/lg (20px/28px)",
+            "body": "body/lg (16px/24px)"
+          }
         },
         "surface": "surface/overlay (bg=#FFFFFF, border=#E5E7EB, radius=8px, shadow/lg)",
-        "widths": { "small": 360, "default": 480, "large": 600 },
-        "buttonSizes": { "small": "small", "default": "default", "large": "default" }
+        "widths": {
+          "small": 360,
+          "default": 480,
+          "large": 600
+        },
+        "buttonSizes": {
+          "small": "small",
+          "default": "default",
+          "large": "default"
+        }
       },
       "tooltip": {
-        "tokens": ["border-radius", "arrow-size", "padding.x", "padding.y"],
-        "themeVariable": ["padding.x", "padding.y"],
-        "constant": ["border-radius", "arrow-size"]
+        "sizes": [
+          "small",
+          "default"
+        ],
+        "directions": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ],
+        "tokens": [
+          "border-radius",
+          "arrow-size",
+          "padding.x",
+          "padding.y"
+        ],
+        "themeVariable": [
+          "padding.x",
+          "padding.y"
+        ],
+        "constant": [
+          "border-radius (4)",
+          "arrow-size (6)"
+        ],
+        "note": "Only two sizes (no large). Padding varies by size AND density. Surface is the neutral/bold (dark) intent.",
+        "verifiedValues": {
+          "small.padding.x": {
+            "compact": 4,
+            "default": 6,
+            "comfortable": 8
+          },
+          "small.padding.y": {
+            "compact": 1,
+            "default": 2,
+            "comfortable": 4
+          },
+          "default.padding.x": {
+            "compact": 6,
+            "default": 8,
+            "comfortable": 10
+          },
+          "default.padding.y": {
+            "compact": 2,
+            "default": 4,
+            "comfortable": 6
+          },
+          "border-radius": 4,
+          "arrow-size": 6
+        },
+        "typography": {
+          "small": "label/sm (12/16/0.25, medium 500)",
+          "default": "label/md (14/20/0, medium 500)"
+        },
+        "colors": {
+          "bg": "intent/neutral/bold/default/bg (#374151)",
+          "fg": "intent/neutral/bold/default/fg (#FFFFFF)"
+        }
       },
       "popover": {
-        "tokens": ["border-radius", "arrow-size", "padding"],
-        "themeVariable": ["padding"],
-        "constant": ["border-radius", "arrow-size"]
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "directions": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ],
+        "tokens": [
+          "border-radius",
+          "arrow-size",
+          "padding"
+        ],
+        "themeVariable": [
+          "padding"
+        ],
+        "constant": [
+          "border-radius (8)",
+          "arrow-size (8)"
+        ],
+        "note": "Content padding varies by size AND density (verified against component-*.tokens.json). Radius and arrow size are constant. direction = the edge the arrow sits on.",
+        "verifiedValues": {
+          "small.padding": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "default.padding": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "large.padding": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 40
+          },
+          "border-radius": 8,
+          "arrow-size": 8
+        },
+        "colors": {
+          "bg": "surface/overlay/bg (#FFFFFF)",
+          "shadow": "shadow/md (0 4 6 -1 rgba(0,0,0,0.07), 0 2 4 -2 rgba(0,0,0,0.05))"
+        }
+      },
+      "skeleton": {
+        "shapes": [
+          "text",
+          "circle",
+          "rectangle"
+        ],
+        "tokens": [
+          "border-radius",
+          "default-width",
+          "default-height"
+        ],
+        "themeVariable": [],
+        "constant": [
+          "border-radius (per shape)",
+          "default size (per shape)"
+        ],
+        "note": "No density-varying tokens \u2014 skeletons mirror the layout of the real content. width/height/radius are overridable props; an opacity pulse runs by default.",
+        "verifiedValues": {
+          "text": {
+            "width": 120,
+            "height": 12,
+            "border-radius": 4
+          },
+          "circle": {
+            "width": 40,
+            "height": 40,
+            "border-radius": 9999
+          },
+          "rectangle": {
+            "width": 120,
+            "height": 80,
+            "border-radius": 8
+          }
+        },
+        "colors": {
+          "bg": "colours/cool-grey/100 (#F3F4F6)",
+          "highlight": "colours/cool-grey/200 (#E5E7EB)"
+        }
       },
       "list": {
-        "tokens": ["section-gap", "item.padding.x", "item.padding.y", "item.gap", "item.border-radius", "subheader.padding.x", "subheader.padding.y"],
-        "themeVariable": ["section-gap", "item.padding.x", "item.padding.y", "item.gap", "subheader.padding.x", "subheader.padding.y"],
-        "constant": ["item.border-radius"]
+        "tokens": [
+          "section-gap",
+          "item.padding.x",
+          "item.padding.y",
+          "item.gap",
+          "item.border-radius",
+          "item.icon-size",
+          "subheader.padding.x",
+          "subheader.padding.y"
+        ],
+        "themeVariable": [
+          "item.padding.x",
+          "item.padding.y",
+          "item.gap",
+          "item.icon-size",
+          "subheader.padding.x",
+          "subheader.padding.y"
+        ],
+        "constant": [
+          "section-gap (1)",
+          "item.border-radius (4)"
+        ],
+        "verifiedValues": {
+          "section-gap": {
+            "compact": 1,
+            "default": 1,
+            "comfortable": 1
+          },
+          "item.gap": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "item.padding.x": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "item.padding.y": {
+            "compact": 4,
+            "default": 6,
+            "comfortable": 8
+          },
+          "item.border-radius": {
+            "compact": 4,
+            "default": 4,
+            "comfortable": 4
+          },
+          "item.icon-size": {
+            "compact": 16,
+            "default": 20,
+            "comfortable": 24
+          },
+          "subheader.padding.x": {
+            "compact": 8,
+            "default": 12,
+            "comfortable": 16
+          },
+          "subheader.padding.y": {
+            "compact": 4,
+            "default": 6,
+            "comfortable": 8
+          }
+        },
+        "typography": {
+          "item.label": "label/md (14px/20px/0px, medium 500)",
+          "item.description": "body/md (14px/20px/0px, regular 400)",
+          "subheader": "caption (11px/16px/0.5px, regular 400)"
+        },
+        "colors": {
+          "item.default": {
+            "bg": "transparent",
+            "fg": "#374151"
+          },
+          "item.selected": {
+            "bg": "#EFF6FF",
+            "fg": "#1D4ED8"
+          },
+          "item.disabled": {
+            "bg": "#F3F4F6",
+            "fg": "#9CA3AF"
+          },
+          "subheader.fg": "#6B7280",
+          "description.fg": "#6B7280",
+          "divider": "#E5E7EB"
+        }
       }
     },
     "themePattern": {
       "description": "~75% of tokens are constant across themes. Only padding, gap, and spacing tokens vary.",
-      "whatChanges": ["padding.x", "padding.y", "gap", "field-gap", "section-gap", "content.padding", "group.padding"],
-      "whatStaysConstant": ["border-radius", "focus-ring-width", "focus-ring-offset", "indicator-size", "icon-size", "dot-size", "thumb-size", "track dimensions", "avatar sizes", "min/max widths", "colours"],
+      "whatChanges": [
+        "padding.x",
+        "padding.y",
+        "gap",
+        "field-gap",
+        "section-gap",
+        "content.padding",
+        "group.padding"
+      ],
+      "whatStaysConstant": [
+        "border-radius",
+        "focus-ring-width",
+        "focus-ring-offset",
+        "indicator-size",
+        "icon-size",
+        "dot-size",
+        "thumb-size",
+        "track dimensions",
+        "min/max widths",
+        "colours"
+      ],
+      "note": "Avatar diameter and Popover padding DO vary by density \u2014 see their entries.",
       "scalingDirection": "compact < default < comfortable",
       "typicalRatios": {
         "compactToDefault": "values increase ~30-60%",

@@ -19,6 +19,12 @@ const meta: Meta<typeof Icon> = {
       control: 'color',
       description: 'Icon colour.',
     },
+    fill: { control: 'boolean', description: 'Filled vs outlined (web).' },
+    weight: {
+      control: 'select',
+      options: [100, 200, 300, 400, 500, 600, 700],
+      description: 'Stroke weight, wght axis (web).',
+    },
   },
 };
 
@@ -60,6 +66,27 @@ export const CommonIcons: Story = {
       </View>
     );
   },
+};
+
+/** Variable-font axes — fill and weight (web, via fontVariationSettings). */
+export const FillAndWeight: Story = {
+  render: () => (
+    <View style={{ gap: 16 }}>
+      <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+        <Icon name="favorite" size={32} color="#DC2626" fill={false} />
+        <Icon name="favorite" size={32} color="#DC2626" fill />
+        <Text style={{ fontSize: 12, color: '#6B7280' }}>outlined → filled</Text>
+      </View>
+      <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+        {[100, 300, 400, 500, 700].map((w) => (
+          <View key={w} style={{ alignItems: 'center', gap: 4 }}>
+            <Icon name="settings" size={32} color="#374151" weight={w as 400} />
+            <Text style={{ fontSize: 10, color: '#9CA3AF' }}>{w}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  ),
 };
 
 /** Size scale demonstration. */

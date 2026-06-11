@@ -21,6 +21,10 @@
 !design-tokens/
 !design-tokens/**
 
+# ── Allow the cast-sync Figma plugin ─────────────
+!cast-sync/
+!cast-sync/**
+
 # ── Allow documentation & repo files ─────────────
 !README.md
 !LICENSE
@@ -38,6 +42,7 @@
 *.env
 *.env.*
 *.local
+node_modules/
 
 # ── Re-ignore build artifacts ─────────────────────
 dist/

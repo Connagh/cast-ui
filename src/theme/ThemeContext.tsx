@@ -1,11 +1,19 @@
 /**
- * ThemeProvider — wraps your app to enable density theming and colour customisation.
+ * ThemeProvider — wraps your app to enable density theming, light/dark colour
+ * modes, and colour customisation.
  *
  * @example Basic usage — switch density
  * ```tsx
  * import { ThemeProvider } from '@castui/cast-ui';
  *
  * <ThemeProvider density="comfortable">
+ *   <App />
+ * </ThemeProvider>
+ * ```
+ *
+ * @example Dark mode
+ * ```tsx
+ * <ThemeProvider colorMode="dark">
  *   <App />
  * </ThemeProvider>
  * ```
@@ -32,10 +40,10 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { themes } from './themes';
 import {
+  colorSchemes,
   intentColors as defaultIntentColors,
-  disabledColors as defaultDisabledColors,
 } from '../tokens/colors';
-import type { IntentName } from '../tokens/colors';
+import type { ColorMode, ColorScheme, IntentName } from '../tokens/colors';
 import type { DensityTheme, ComponentTokens, DeepPartial } from './types';
 
 // ---------------------------------------------------------------------------
@@ -47,8 +55,14 @@ type IntentColorMap = typeof defaultIntentColors;
 export type Theme = {
   density: DensityTheme;
   components: ComponentTokens;
+  /** Active colour mode — light or dark. */
+  colorMode: ColorMode;
+  /** Full resolved colour scheme for the active mode (overrides applied). */
+  scheme: ColorScheme;
+  /** Intent colours of the active scheme — kept for backwards compatibility. */
   colors: IntentColorMap;
-  disabledColors: typeof defaultDisabledColors;
+  /** Disabled colours of the active scheme — kept for backwards compatibility. */
+  disabledColors: ColorScheme['disabled'];
 };
 
 // ---------------------------------------------------------------------------
@@ -89,8 +103,10 @@ function deepMerge<T extends Record<string, unknown>>(
 const defaultTheme: Theme = {
   density: 'default',
   components: themes.default,
-  colors: defaultIntentColors,
-  disabledColors: defaultDisabledColors,
+  colorMode: 'light',
+  scheme: colorSchemes.light,
+  colors: colorSchemes.light.intents,
+  disabledColors: colorSchemes.light.disabled,
 };
 
 const ThemeContext = createContext<Theme>(defaultTheme);
@@ -102,9 +118,12 @@ const ThemeContext = createContext<Theme>(defaultTheme);
 export type ThemeProviderProps = {
   /** Density theme — controls spacing and padding across all components. */
   density?: DensityTheme;
+  /** Colour mode — switches between the light and dark colour schemes. */
+  colorMode?: ColorMode;
   /**
-   * Partial colour overrides — deep-merged with the default intent colours.
-   * Only provide the values you want to change; everything else stays default.
+   * Partial colour overrides — deep-merged with the active scheme's intent
+   * colours. Only provide the values you want to change; everything else
+   * stays default.
    */
   colors?: Partial<Record<IntentName, DeepPartial<IntentColorMap[IntentName]>>>;
   children: React.ReactNode;
@@ -112,21 +131,28 @@ export type ThemeProviderProps = {
 
 export function ThemeProvider({
   density = 'default',
+  colorMode = 'light',
   colors,
   children,
 }: ThemeProviderProps) {
   const theme = useMemo<Theme>(() => {
-    const resolvedColors = colors
-      ? deepMerge(defaultIntentColors, colors as Record<string, unknown>)
-      : defaultIntentColors;
+    const baseScheme = colorSchemes[colorMode];
+    const resolvedIntents = colors
+      ? deepMerge(baseScheme.intents, colors as Record<string, unknown>)
+      : baseScheme.intents;
+    const scheme: ColorScheme = colors
+      ? { ...baseScheme, intents: resolvedIntents }
+      : baseScheme;
 
     return {
       density,
       components: themes[density],
-      colors: resolvedColors as IntentColorMap,
-      disabledColors: defaultDisabledColors,
+      colorMode,
+      scheme,
+      colors: resolvedIntents as IntentColorMap,
+      disabledColors: scheme.disabled,
     };
-  }, [density, colors]);
+  }, [density, colorMode, colors]);
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>

@@ -1,14 +1,24 @@
 /**
  * Icon — renders a Material Symbols Outlined icon by name.
  *
- * Uses the Material Symbols font with ligature rendering.
- * The `name` prop matches Material Symbols names exactly
- * (e.g., "star", "close", "chevron_right", "add").
+ * Why Material Symbols Outlined?
+ *   - It's the icon set the Cast UI Figma uses (star, check, close,
+ *     keyboard_arrow_down, …), so names map 1:1 to the design with zero drift.
+ *   - Apache-2.0 licensed and free for commercial use.
+ *   - It's a single *variable* font, so one asset covers every icon plus the
+ *     fill / weight / grade / optical-size axes — keeping Cast UI's zero
+ *     runtime dependencies (no per-icon SVG packages, no vector-icons dep).
  *
- * Requires the MaterialSymbolsOutlined font to be loaded:
- *   - Web: Google Fonts CSS import
- *   - Expo: expo-font
- *   - Bare RN: font asset linking
+ * Rendering uses font ligatures: the `name` text (e.g. "chevron_right") is
+ * shaped into the glyph by the font. Requires the font to be loaded:
+ *   - Web: Google Fonts CSS import (see .storybook/preview-head.html), or
+ *     self-host the same `Material Symbols Outlined` family.
+ *   - Expo: load `MaterialSymbolsOutlined` via expo-font / useFonts.
+ *   - Bare RN: link the .ttf as a font asset (react-native.config.js / Xcode).
+ *
+ * The fill / weight / grade / opticalSize axes are applied via CSS
+ * `fontVariationSettings` and therefore take effect on web (where the variable
+ * font is loaded). On native they require a matching static/variable font cut.
  */
 
 import React from 'react';
@@ -21,6 +31,14 @@ export type IconProps = {
   size?: number;
   /** Icon colour. Defaults to "#374151" (neutral fg). */
   color?: string;
+  /** Filled vs outlined glyph (FILL axis, 0–1). Defaults to false (outlined). */
+  fill?: boolean;
+  /** Stroke weight (wght axis, 100–700). Defaults to 400. */
+  weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700;
+  /** Emphasis grade (GRAD axis, -25–200). Defaults to 0. */
+  grade?: number;
+  /** Optical size (opsz axis, 20–48). Defaults to the icon `size`. */
+  opticalSize?: number;
   /** Additional style overrides. */
   style?: StyleProp<TextStyle>;
 };
@@ -30,7 +48,25 @@ const FONT_FAMILY = Platform.select({
   default: 'MaterialSymbolsOutlined',
 });
 
-export function Icon({ name, size = 20, color = '#374151', style }: IconProps) {
+export function Icon({
+  name,
+  size = 20,
+  color = '#374151',
+  fill = false,
+  weight = 400,
+  grade = 0,
+  opticalSize,
+  style,
+}: IconProps) {
+  // Material Symbols variable-font axes — applied on web via fontVariationSettings.
+  const opsz = Math.min(48, Math.max(20, opticalSize ?? size));
+  const variationStyle =
+    Platform.OS === 'web'
+      ? ({
+          fontVariationSettings: `'FILL' ${fill ? 1 : 0}, 'wght' ${weight}, 'GRAD' ${grade}, 'opsz' ${opsz}`,
+        } as unknown as TextStyle)
+      : null;
+
   return (
     <Text
       selectable={false}
@@ -53,6 +89,7 @@ export function Icon({ name, size = 20, color = '#374151', style }: IconProps) {
           textTransform: 'none',
           textDecorationLine: 'none',
         },
+        variationStyle,
         style,
       ]}
     >

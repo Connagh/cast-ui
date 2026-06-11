@@ -5,6 +5,21 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.1] — 2026-06-11
+
+### Fixed
+- **Package was unloadable outside bundlers** — `dist/` was emitted as ES modules while `package.json` declared `"type": "commonjs"`, so `require()` (Node, Jest, SSR) failed with a syntax error. The build now emits CommonJS as intended. Metro/webpack consumers were unaffected.
+
+### Added
+- `exports` map and `engines` (node >=18) fields in `package.json`
+- `sideEffects: false` so web bundlers can tree-shake unused components
+- Smoke test (`scripts/smoke-test.js`) that loads the built package via `require()` and verifies the public API surface; runs via `npm test` and as a blocking step in the publish workflow
+- `SECURITY.md` vulnerability disclosure policy and `CONTRIBUTING.md`
+- `CODEOWNERS` file for automatic PR review assignment
+
+### Changed
+- Source maps and declaration maps are no longer published — they referenced `src/` files that are not in the package, so they were dead weight (roughly half the files in the tarball)
+
 ## [4.2.0] — 2026-06-11
 
 ### Added
@@ -89,7 +104,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
-[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.2.0...HEAD
+[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.2.1...HEAD
+[4.2.1]: https://github.com/Connagh/cast-ui/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/Connagh/cast-ui/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/Connagh/cast-ui/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/Connagh/cast-ui/compare/v4.0.0...v4.1.0

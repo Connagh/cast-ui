@@ -17,6 +17,10 @@
 !src/
 !src/**
 
+# ── Allow repo scripts ───────────────────────────
+!scripts/
+!scripts/**
+
 # ── Allow design tokens ──────────────────────────
 !design-tokens/
 !design-tokens/**
@@ -30,6 +34,7 @@
 !LICENSE
 !CHANGELOG.md
 !CONTRIBUTING.md
+!SECURITY.md
 
 # ── Allow CI/CD config ───────────────────────────
 !.github/

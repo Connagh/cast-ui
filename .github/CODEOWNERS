@@ -1,0 +1,10 @@
+# Code owners for cast-ui
+# Syntax: https://docs.github.com/articles/about-code-owners
+#
+# Order matters — the last matching pattern takes precedence.
+# Listed owners are automatically requested for review on PRs that
+# touch matching paths, and (when branch protection requires it) must
+# approve before the PR can merge.
+
+# Default owner for everything in the repo
+*       @Connagh

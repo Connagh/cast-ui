@@ -43,6 +43,10 @@ jobs:
         if: steps.version-check.outputs.skip == 'false'
         run: npm run build
 
+      - name: Smoke test the build
+        if: steps.version-check.outputs.skip == 'false'
+        run: node scripts/smoke-test.js
+
       - name: Publish to npm
         if: steps.version-check.outputs.skip == 'false'
         run: npm publish --provenance --access public

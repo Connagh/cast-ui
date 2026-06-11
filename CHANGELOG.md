@@ -5,6 +5,14 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] — 2026-06-11
+
+### Added
+- **Text component** — typographic primitive mirroring the Figma `<Text>` component's 16-entry `type` ramp (`caption`, `label-sm/md/lg`, `body-sm/md/lg`, `title-sm/md/lg`, `heading-sm/md/lg`, `display-sm/md/lg`), with truncation via `numberOfLines` and `accessibilityRole="header"` on heading types
+- **`heading` and `display` typography scales** — exported alongside `label`/`title`/`body`/`caption`, matching the kit's Text Styles
+- **`text.primary` colour token** — new default foreground for standalone text in both schemes (cool-grey/700 light, cool-grey/200 dark), mirroring the `text/primary` semantic variable added to the Figma kit
+- **cast-sync theme file v2** — the plugin now also exports `text` (standalone text colours per mode), `typography` (the full Text Style ramp, resolved from the variables the styles are bound to), and `shadows` (the `shadow/*` effect styles as drop-shadow layer lists, ahead of the upcoming elevation system). `colors.light`/`colors.dark` are unchanged, so v2 files remain drop-in for ThemeProvider's `colors` prop
+
 ## [4.2.2] — 2026-06-11
 
 ### Fixed
@@ -114,7 +122,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING:** Removed all existing components and theme system to start fresh
 - Reset library to empty shell while preserving CI/CD infrastructure
 
-[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.2.2...HEAD
+[Unreleased]: https://github.com/Connagh/cast-ui/compare/v4.3.0...HEAD
+[4.3.0]: https://github.com/Connagh/cast-ui/compare/v4.2.2...v4.3.0
 [4.2.2]: https://github.com/Connagh/cast-ui/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/Connagh/cast-ui/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/Connagh/cast-ui/compare/v4.1.1...v4.2.0

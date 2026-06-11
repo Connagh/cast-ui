@@ -1,11 +1,12 @@
 # cast-sync
 
 A Figma plugin for the **cast-ui-kit** Figma file. It reads the file's
-colour variables, follows each one to its final colour value, and downloads
-a `cast-theme.json` theme file that plugs straight into
+colour variables, text styles, and shadow styles, follows every variable to
+its final value, and downloads a `cast-theme.json` theme file that plugs
+straight into
 [`@castui/cast-ui`](https://www.npmjs.com/package/@castui/cast-ui).
 
-In short: recolour the variables in Figma, run the plugin, and your app's
+In short: restyle the variables in Figma, run the plugin, and your app's
 theme is ready — no hand-typing hex codes.
 
 The plugin shows a live preview of the theme (with colour swatches) and a
@@ -19,6 +20,7 @@ plugin has no network access at all.
   "name": "cast-ui-kit",
   "description": "…",
   "generatedAt": "2026-06-11T12:00:00.000Z",
+  "version": 2,
   "colors": {
     "light": {
       "brand": {
@@ -30,6 +32,19 @@ plugin has no network access at all.
       }
     },
     "dark": { … }
+  },
+  "text": {
+    "light": { "primary": "#374151", "muted": "#6B7280", "description": "#6B7280" },
+    "dark":  { "primary": "#E5E7EB", "muted": "#9CA3AF", "description": "#9CA3AF" }
+  },
+  "typography": {
+    "body/md":    { "fontFamily": "Inter", "fontWeight": 400, "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 },
+    "heading/lg": { "fontFamily": "Inter", "fontWeight": 600, "fontSize": 36, "lineHeight": 40, "letterSpacing": -0.25 }
+  },
+  "shadows": {
+    "sm": [ { "color": "#0000000D", "offsetX": 0, "offsetY": 1, "blur": 2, "spread": 0 } ],
+    "md": [ { "color": "#00000012", "offsetX": 0, "offsetY": 4, "blur": 6, "spread": -1 },
+            { "color": "#0000000D", "offsetX": 0, "offsetY": 2, "blur": 4, "spread": -2 } ]
   }
 }
 ```
@@ -37,6 +52,23 @@ plugin has no network access at all.
 `colors.light` and `colors.dark` each match the shape of `ThemeProvider`'s
 `colors` prop exactly: **intent → prominence → state → { bg, fg, border }**.
 That means you can pass them in with no conversion.
+
+The other sections mirror the rest of the kit:
+
+- **`text`** — the standalone text colours (`text/primary`, `text/muted`,
+  `text/description`) per colour mode. `text.primary` is what the Cast UI
+  `<Text>` component renders by default.
+- **`typography`** — one entry per Text Style in the kit (`caption`,
+  `label/{sm,md,lg}`, `body/…`, `title/…`, `heading/…`, `display/…`). The
+  kit's text styles are bound to the semantic typography variables, so these
+  are the resolved variable values.
+- **`shadows`** — one entry per `shadow/*` effect style, as an ordered list
+  of drop-shadow layers (for the upcoming elevation system).
+
+ThemeProvider currently consumes `colors.*` directly; the `text`,
+`typography`, and `shadows` sections are exported ahead of runtime support
+so themes captured today keep working as the package's theming surface
+widens.
 
 ## Using the theme in an app
 

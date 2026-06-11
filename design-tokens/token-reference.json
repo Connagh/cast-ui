@@ -527,6 +527,7 @@
         }
       },
       "text": {
+        "primary": "colours/cool-grey/700",
         "muted": "colours/cool-grey/500",
         "description": "colours/cool-grey/500"
       },
@@ -545,6 +546,7 @@
           "surface/subtle": "colours/cool-grey/800",
           "surface/overlay/bg": "colours/cool-grey/800",
           "surface/overlay/border": "colours/cool-grey/700",
+          "text/primary": "colours/cool-grey/200",
           "text/muted": "colours/cool-grey/400",
           "text/description": "colours/cool-grey/400",
           "intent/disabled": "bg cool-grey/800, fg cool-grey/600, border cool-grey/700",

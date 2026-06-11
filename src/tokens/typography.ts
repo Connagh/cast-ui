@@ -51,5 +51,19 @@ export const body: TypographyScale = {
   lg: { fontSize: 16, lineHeight: 24, letterSpacing: 0 },
 };
 
+/** Heading scale — heading/{sm|md|lg}, rendered semibold */
+export const heading: TypographyScale = {
+  sm: { fontSize: 24, lineHeight: 32, letterSpacing: 0 },
+  md: { fontSize: 30, lineHeight: 36, letterSpacing: -0.25 },
+  lg: { fontSize: 36, lineHeight: 40, letterSpacing: -0.25 },
+};
+
+/** Display scale — display/{sm|md|lg}, hero/marketing sizes, rendered regular */
+export const display: TypographyScale = {
+  sm: { fontSize: 48, lineHeight: 56, letterSpacing: -0.25 },
+  md: { fontSize: 60, lineHeight: 64, letterSpacing: -0.5 },
+  lg: { fontSize: 72, lineHeight: 80, letterSpacing: -0.5 },
+};
+
 /** Caption scale — helper text, group labels, tags */
 export const caption = { fontSize: 11, lineHeight: 16, letterSpacing: 0.5 } as const;

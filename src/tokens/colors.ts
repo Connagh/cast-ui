@@ -69,6 +69,8 @@ export type ColorScheme = {
   };
   /** Semantic text tokens */
   text: {
+    /** Default foreground for standalone text — text/primary (Text component default) */
+    primary: string;
     description: string;
     /** Placeholder text in form fields — intent/neutral/placeholder */
     placeholder: string;
@@ -209,6 +211,7 @@ export const lightColors: ColorScheme = {
     overlay: { bg: '#FFFFFF', border: '#E5E7EB', borderRadius: 8 },
   },
   text: {
+    primary: '#374151', // cool-grey/700
     description: '#6B7280',
     placeholder: '#9CA3AF',
   },
@@ -351,6 +354,7 @@ export const darkColors: ColorScheme = {
     overlay: { bg: '#1F2937', border: '#374151', borderRadius: 8 },
   },
   text: {
+    primary: '#E5E7EB', // cool-grey/200
     description: '#9CA3AF',
     placeholder: '#6B7280',
   },

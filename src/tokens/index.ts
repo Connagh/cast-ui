@@ -23,4 +23,14 @@ export {
   type ColorMode,
   type ColorScheme,
 } from './colors';
-export { fontFamily, fontWeight, label, title, body, caption, type LabelSize } from './typography';
+export {
+  fontFamily,
+  fontWeight,
+  label,
+  title,
+  body,
+  heading,
+  display,
+  caption,
+  type LabelSize,
+} from './typography';

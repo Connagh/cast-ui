@@ -60,6 +60,7 @@ const expectedExports = [
   'RadioGroup',
   'Select',
   'Skeleton',
+  'Text',
   'Toast',
   'Toggle',
   'Tooltip',
@@ -73,6 +74,8 @@ const expectedExports = [
   'darkColors',
   'fontFamily',
   'label',
+  'heading',
+  'display',
 ];
 
 const missing = expectedExports.filter((name) => lib[name] === undefined);

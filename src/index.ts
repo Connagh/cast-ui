@@ -25,6 +25,8 @@ export {
   label,
   title,
   body,
+  heading,
+  display,
   caption,
   type IntentName,
   type ProminenceName,
@@ -190,3 +192,4 @@ export {
   type TooltipSize,
   type TooltipDirection,
 } from './components/Tooltip';
+export { Text, type TextProps, type TextType } from './components/Text';

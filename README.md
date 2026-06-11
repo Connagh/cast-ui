@@ -95,6 +95,7 @@ the icons you use (e.g. `pyftsubset` from
 | **Radio** | Single-choice control, with `RadioGroup` for managing a set |
 | **Select** | Dropdown with single, multi (tag pills), and combobox (search) modes |
 | **Skeleton** | Loading placeholder in text, circle, and rectangle shapes |
+| **Text** | Typographic primitive rendering the full type ramp, from caption to display |
 | **Toast** | Brief notification with icon and optional close button |
 | **Toggle** | On/off switch with label |
 | **Tooltip** | Short hint shown on hover or focus |

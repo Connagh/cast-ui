@@ -20,6 +20,8 @@ export const castTheme = create({
   base: 'light',
 
   brandTitle: 'Cast UI',
+  // Served from .storybook/public (canonical copy lives at the repo root)
+  brandImage: './logo.png',
   brandUrl: 'https://github.com/Connagh/cast-ui',
   brandTarget: '_blank',
 

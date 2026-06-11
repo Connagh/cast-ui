@@ -1,4 +1,6 @@
-# Cast UI
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Connagh/cast-ui/main/logo.png" alt="Cast UI" width="300" />
+</p>
 
 A cross-platform component library for React Native. One set of components
 that works on iOS, Android, and the web.

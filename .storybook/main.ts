@@ -13,6 +13,7 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
   ],
   framework: '@storybook/react-webpack5',
+  staticDirs: ['./public'],
   core: {
     disableTelemetry: true,
   },

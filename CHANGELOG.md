@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.0] — 2026-06-13
+
+### Added
+- **Progress component** — linear progress indicator mirroring the Figma `<Progress>` component, with `intent` (neutral/brand/danger) and `size` (small/default/large) props. Shows a determinate percentage via `value` (0–100), or an indeterminate animated sweep when `value` is omitted. Exported from the package entry point alongside `ProgressProps` / `ProgressSize`
+- **`control/progress/track/bg` colour token** — dedicated track-background semantic (cool-grey/200 light, cool-grey/700 dark), exported as `progressColors` and available on the theme as `scheme.progress.track`, mirroring the new Figma semantic variable
+- **Progress theme tokens** — `progress/{size}/track-height` (4/8/12) and `progress/border-radius` (pill), constant across all three densities, added to the theme types and every density theme
+
 ## [4.4.0] — 2026-06-13
 
 ### Added

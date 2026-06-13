@@ -1047,7 +1047,7 @@
         },
         "colors": {
           "fill": "intent bold default bg \u2014 neutral #374151, brand #2563EB, danger #DC2626",
-          "track": "surface/subtle \u2014 #F3F4F6 (light) / #1F2937 (dark)"
+          "track": "control/progress/track/bg \u2014 cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Toggle off-track"
         }
       },
       "alert": {

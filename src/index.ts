@@ -17,6 +17,7 @@ export {
   listColors,
   checkboxColors,
   toggleColors,
+  progressColors,
   radioColors,
   avatarColors,
   skeletonColors,

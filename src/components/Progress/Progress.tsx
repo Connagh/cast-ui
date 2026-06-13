@@ -14,8 +14,9 @@
  *
  * Colours: the fill binds to the intent system
  * (`colors[intent].bold.default.bg`) so it tracks the host intent and any
- * ThemeProvider colour overrides; the track background is the non-intent
- * `surface/subtle` semantic, so it follows light/dark colour mode.
+ * ThemeProvider colour overrides; the track background is the dedicated
+ * `control/progress/track/bg` semantic (cool-grey/200 light, cool-grey/700
+ * dark, matching the Toggle off-track), so it follows light/dark colour mode.
  *
  * When `value` is omitted (or null) the bar renders an indeterminate sweep.
  */
@@ -79,7 +80,7 @@ export function Progress({
   const { trackHeight } = components.progress[size];
   const borderRadius = components.progress.borderRadius;
   const fill = colors[intent].bold.default.bg;
-  const trackBg = scheme.surface.subtle;
+  const trackBg = scheme.progress.track;
 
   const isIndeterminate = value === undefined || value === null;
   const pct = isIndeterminate ? 0 : clamp(value as number);

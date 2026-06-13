@@ -67,5 +67,8 @@
     "react-native-web": "^0.21.2",
     "storybook": "^10.2.8",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "esbuild": ">=0.28.1"
   }
 }

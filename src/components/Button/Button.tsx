@@ -65,8 +65,11 @@ const LABEL_SCALE: Record<ButtonSize, keyof typeof label> = {
   large: 'lg',
 };
 
-/** Icon size — fixed at 16px per Figma spec, all button sizes. */
-const ICON_SIZE = 16;
+/**
+ * Icon size scales with the button size, matching the Figma <Icon> size
+ * variant 1:1 (small→16, default→20, large→24). Button's size names
+ * are a subset of the Icon named scale, so `size` is passed straight through.
+ */
 
 // ---------------------------------------------------------------------------
 // Component
@@ -140,13 +143,13 @@ export function Button({
         // Resolve icon props — strings become <Icon> with auto-matched colour
         const resolvedLeading =
           typeof leadingIcon === 'string' ? (
-            <Icon name={leadingIcon} size={ICON_SIZE} color={stateColors.fg} />
+            <Icon name={leadingIcon} size={size} color={stateColors.fg} />
           ) : (
             leadingIcon
           );
         const resolvedTrailing =
           typeof trailingIcon === 'string' ? (
-            <Icon name={trailingIcon} size={ICON_SIZE} color={stateColors.fg} />
+            <Icon name={trailingIcon} size={size} color={stateColors.fg} />
           ) : (
             trailingIcon
           );

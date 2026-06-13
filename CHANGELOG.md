@@ -5,6 +5,18 @@ All notable changes to `@castui/cast-ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [4.4.0] — 2026-06-13
+
+### Added
+- **Icon size scale** — new `iconSize` token (`xs`/`small`/`default`/`large` = 12/16/20/24) and `IconSize` type; the `<Icon>` `size` prop now accepts the named scale in addition to a pixel number, mirroring the Figma `<Icon>` size variants (each bound to an `icon/{size}/size` variable in the component collection)
+
+### Changed
+- **Control icons now scale with the component `size`** — embedded icons map 1:1 to the Figma `<Icon>` size variants (`small`/`default`/`large` = 16/20/24) instead of a fixed 16px. Affects **Button** (leading/trailing), **Input** (leading/trailing + reserved icon boxes), **Badge** (leading/trailing), and **Select** (trigger leading icon, `arrow_drop_down` chevron, and `SelectOption` icon & check). The hardcoded `ICON_SIZE = 16` constant is gone from these components; sizing now flows from the host `size` (resolved via the shared `iconSize` scale). Components that already read a per-size `iconSize`/`closeSize` token (Alert, Card, Toast, Dialog, List, Chip, Checkbox, Avatar) are unchanged. **Visual change:** `default`/`large` variants of Button/Input/Badge/Select now render 20px/24px content icons (previously 16px); close/affordance icons still follow `closeSize` (16/16/20). No API or prop changes. In the Figma kit these instances were re-pointed from the deprecated standalone `<Icon>` component to the public `<Icon>` set's matching `size=` variant, keeping design and code 1:1
+- **Checkbox tick & indeterminate scale with the indicator** — checkbox `iconSize` is now 16/20/24 (= `indicatorSize`) instead of 10/12/14; the Material Symbols glyph's intrinsic padding preserves breathing room. Mirrors the Figma migration of the tick/indeterminate onto the shared `<Icon>` component
+- **Select dropdown indicator glyph** — `keyboard_arrow_down` → `arrow_drop_down`, matching the Figma `<Icon>` migration
+
 ## [4.3.0] — 2026-06-11
 
 ### Added

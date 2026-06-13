@@ -34,3 +34,4 @@ export {
   caption,
   type LabelSize,
 } from './typography';
+export { iconSize, type IconSize } from './icon';

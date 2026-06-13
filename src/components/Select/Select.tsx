@@ -45,8 +45,7 @@ import {
   label,
   body,
   caption,
-  controlTokens,
-} from '../../tokens';
+  controlTokens, iconSize } from '../../tokens';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -148,8 +147,9 @@ function useSelectContext(): SelectContextValue {
 // Constants
 // ---------------------------------------------------------------------------
 
-const ICON_SIZE = 16;
-const CHEVRON_SIZE = 16;
+/** Icon sizes scale with the select size via the shared `iconSize` scale
+ * (small→16, default→20, large→24): trigger leading icon, dropdown chevron,
+ * and option row icons all track the control size. Tag close uses `closeSize`. */
 const CONTENT_MAX_HEIGHT = 240;
 
 /** Maps select size → label typography scale (for form label text) */
@@ -329,7 +329,7 @@ export function SelectOption({
 
   const resolvedIcon =
     typeof icon === 'string' ? (
-      <Icon name={icon} size={ICON_SIZE} color={colors.fg} />
+      <Icon name={icon} size={ctx.size} color={colors.fg} />
     ) : (
       icon
     );
@@ -359,7 +359,7 @@ export function SelectOption({
         <View
           accessibilityElementsHidden
           importantForAccessibility="no"
-          style={{ width: ICON_SIZE, height: ICON_SIZE }}
+          style={{ width: iconSize[ctx.size], height: iconSize[ctx.size] }}
         >
           {resolvedIcon}
         </View>
@@ -401,9 +401,9 @@ export function SelectOption({
         <View
           accessibilityElementsHidden
           importantForAccessibility="no"
-          style={{ width: ICON_SIZE, height: ICON_SIZE }}
+          style={{ width: iconSize[ctx.size], height: iconSize[ctx.size] }}
         >
-          <Icon name="check" size={ICON_SIZE} color={colors.fg} />
+          <Icon name="check" size={ctx.size} color={colors.fg} />
         </View>
       ) : null}
     </Pressable>
@@ -555,7 +555,7 @@ export function Select({
   // Resolve leading icon
   const resolvedLeadingIcon =
     typeof leadingIcon === 'string' ? (
-      <Icon name={leadingIcon} size={ICON_SIZE} color={triggerFgColor} />
+      <Icon name={leadingIcon} size={size} color={triggerFgColor} />
     ) : (
       leadingIcon
     );
@@ -642,7 +642,7 @@ export function Select({
             <View
               accessibilityElementsHidden
               importantForAccessibility="no"
-              style={{ width: ICON_SIZE, height: ICON_SIZE }}
+              style={{ width: iconSize[size], height: iconSize[size] }}
             >
               {resolvedLeadingIcon}
             </View>
@@ -743,8 +743,8 @@ export function Select({
             }
           >
             <Icon
-              name="keyboard_arrow_down"
-              size={CHEVRON_SIZE}
+              name="arrow_drop_down"
+              size={size}
               color={triggerFgColor}
             />
           </View>

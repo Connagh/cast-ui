@@ -26,12 +26,13 @@
 
 import React from 'react';
 import { Text, Platform, type TextStyle, type StyleProp } from 'react-native';
+import { iconSize, type IconSize } from '../../tokens';
 
 export type IconProps = {
   /** Material Symbols icon name (e.g., "star", "close", "settings"). */
   name: string;
-  /** Icon size in pixels. Defaults to 20. */
-  size?: number;
+  /** Icon size — a named scale ('xs' | 'small' | 'default' | 'large' = 12/16/20/24) or an explicit pixel number. Defaults to 20. */
+  size?: IconSize | number;
   /** Icon colour. Defaults to "#374151" (neutral fg). */
   color?: string;
   /** Filled vs outlined glyph (FILL axis, 0–1). Defaults to false (outlined). */
@@ -65,8 +66,9 @@ export function Icon({
   opticalSize,
   style,
 }: IconProps) {
+  const px = typeof size === 'number' ? size : iconSize[size];
   // Material Symbols variable-font axes — applied on web via fontVariationSettings.
-  const opsz = Math.min(48, Math.max(20, opticalSize ?? size));
+  const opsz = Math.min(48, Math.max(20, opticalSize ?? px));
   const variationStyle =
     Platform.OS === 'web'
       ? ({
@@ -82,12 +84,12 @@ export function Icon({
       style={[
         {
           fontFamily: FONT_FAMILY,
-          fontSize: size,
-          lineHeight: size,
+          fontSize: px,
+          lineHeight: px,
           color,
           // Prevent ligature text from taking extra space
-          width: size,
-          height: size,
+          width: px,
+          height: px,
           textAlign: 'center',
           // Reset any inherited text styles
           fontWeight: '400',

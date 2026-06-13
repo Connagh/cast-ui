@@ -34,6 +34,8 @@ export {
   type ColorMode,
   type ColorScheme,
   type LabelSize,
+  iconSize,
+  type IconSize,
 } from './tokens';
 
 // Theme

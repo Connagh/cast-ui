@@ -22,7 +22,7 @@ import {
   type StyleProp,
 } from 'react-native';
 import { useTheme } from '../../theme';
-import { fontFamily, fontWeight, label, controlTokens } from '../../tokens';
+import { fontFamily, fontWeight, label, controlTokens, iconSize } from '../../tokens';
 import type { ColorScheme } from '../../tokens';
 import type { IntentName } from '../../tokens';
 import { Icon } from '../Icon';
@@ -66,8 +66,8 @@ const LABEL_SCALE: Record<BadgeSize, keyof typeof label> = {
   large: 'lg',
 };
 
-/** Icon size — fixed at 16px, matched to the label baseline. */
-const ICON_SIZE = 16;
+/** Icon size scales with the badge size, matching the shared `iconSize`
+ * scale (small→16, default→20, large→24). */
 
 // ---------------------------------------------------------------------------
 // Component
@@ -115,13 +115,13 @@ export function Badge({
 
   const resolvedLeading =
     typeof leadingIcon === 'string' ? (
-      <Icon name={leadingIcon} size={ICON_SIZE} color={colors.fg} />
+      <Icon name={leadingIcon} size={size} color={colors.fg} />
     ) : (
       leadingIcon
     );
   const resolvedTrailing =
     typeof trailingIcon === 'string' ? (
-      <Icon name={trailingIcon} size={ICON_SIZE} color={colors.fg} />
+      <Icon name={trailingIcon} size={size} color={colors.fg} />
     ) : (
       trailingIcon
     );
@@ -164,7 +164,7 @@ export function Badge({
         <View
           accessibilityElementsHidden
           importantForAccessibility="no"
-          style={{ width: ICON_SIZE, height: ICON_SIZE }}
+          style={{ width: iconSize[size], height: iconSize[size] }}
         >
           {resolvedLeading}
         </View>
@@ -188,7 +188,7 @@ export function Badge({
         <View
           accessibilityElementsHidden
           importantForAccessibility="no"
-          style={{ width: ICON_SIZE, height: ICON_SIZE }}
+          style={{ width: iconSize[size], height: iconSize[size] }}
         >
           {resolvedTrailing}
         </View>

@@ -43,9 +43,9 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
     },
     checkbox: {
       gap: 4, borderRadius: 4, focusRingWidth: 2,
-      small:   { indicatorSize: 16, iconSize: 10 },
-      default: { indicatorSize: 20, iconSize: 12 },
-      large:   { indicatorSize: 24, iconSize: 14 },
+      small:   { indicatorSize: 16, iconSize: 16 },
+      default: { indicatorSize: 20, iconSize: 20 },
+      large:   { indicatorSize: 24, iconSize: 24 },
     },
     alert: {
       borderRadius: 8,
@@ -138,9 +138,9 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
     },
     checkbox: {
       gap: 8, borderRadius: 4, focusRingWidth: 2,
-      small:   { indicatorSize: 16, iconSize: 10 },
-      default: { indicatorSize: 20, iconSize: 12 },
-      large:   { indicatorSize: 24, iconSize: 14 },
+      small:   { indicatorSize: 16, iconSize: 16 },
+      default: { indicatorSize: 20, iconSize: 20 },
+      large:   { indicatorSize: 24, iconSize: 24 },
     },
     alert: {
       borderRadius: 8,
@@ -233,9 +233,9 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
     },
     checkbox: {
       gap: 12, borderRadius: 4, focusRingWidth: 2,
-      small:   { indicatorSize: 16, iconSize: 10 },
-      default: { indicatorSize: 20, iconSize: 12 },
-      large:   { indicatorSize: 24, iconSize: 14 },
+      small:   { indicatorSize: 16, iconSize: 16 },
+      default: { indicatorSize: 20, iconSize: 20 },
+      large:   { indicatorSize: 24, iconSize: 24 },
     },
     alert: {
       borderRadius: 8,

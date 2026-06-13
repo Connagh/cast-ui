@@ -34,8 +34,7 @@ import {
   label,
   body,
   caption,
-  controlTokens,
-} from '../../tokens';
+  controlTokens, iconSize,} from '../../tokens';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -90,7 +89,8 @@ export type InputProps = {
 // Constants
 // ---------------------------------------------------------------------------
 
-const ICON_SIZE = 16;
+/** Icon size scales with the input size, matching the Figma <Icon> size
+ * variant 1:1 (small→16, default→20, large→24) via the shared `iconSize` scale. */
 
 /** Maps input size → label typography scale (form label text) */
 const LABEL_SCALE: Record<InputSize, keyof typeof label> = {
@@ -182,13 +182,13 @@ export function Input({
 
   const resolvedLeading =
     typeof leadingIcon === 'string' ? (
-      <Icon name={leadingIcon} size={ICON_SIZE} color={iconColor} />
+      <Icon name={leadingIcon} size={size} color={iconColor} />
     ) : (
       leadingIcon
     );
   const resolvedTrailing =
     typeof trailingIcon === 'string' ? (
-      <Icon name={trailingIcon} size={ICON_SIZE} color={iconColor} />
+      <Icon name={trailingIcon} size={size} color={iconColor} />
     ) : (
       trailingIcon
     );
@@ -235,7 +235,7 @@ export function Input({
           <View
             accessibilityElementsHidden
             importantForAccessibility="no"
-            style={{ width: ICON_SIZE, height: ICON_SIZE }}
+            style={{ width: iconSize[size], height: iconSize[size] }}
           >
             {resolvedLeading}
           </View>
@@ -281,7 +281,7 @@ export function Input({
           <View
             accessibilityElementsHidden
             importantForAccessibility="no"
-            style={{ width: ICON_SIZE, height: ICON_SIZE }}
+            style={{ width: iconSize[size], height: iconSize[size] }}
           >
             {resolvedTrailing}
           </View>

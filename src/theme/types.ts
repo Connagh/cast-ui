@@ -280,6 +280,21 @@ export type TooltipThemeTokens = {
   default: TooltipSizeTokens;
 };
 
+/** Progress track thickness for one size variant (constant across density,
+ * keyed by the `size` prop like Badge dot-size / Toggle track). */
+export type ProgressSizeTokens = {
+  trackHeight: number;
+};
+
+/** Progress tokens — track thickness varies by the `size` prop; the pill
+ * radius is constant. No density-varying spacing. */
+export type ProgressThemeTokens = {
+  borderRadius: number;
+  small: ProgressSizeTokens;
+  default: ProgressSizeTokens;
+  large: ProgressSizeTokens;
+};
+
 /**
  * Component-level tokens that vary by density theme.
  * Extended as new components are added to the library.
@@ -301,6 +316,7 @@ export type ComponentTokens = {
   avatar: AvatarThemeTokens;
   popover: PopoverThemeTokens;
   tooltip: TooltipThemeTokens;
+  progress: ProgressThemeTokens;
 };
 
 /** Utility type for partial overrides at any depth */

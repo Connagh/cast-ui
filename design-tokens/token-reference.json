@@ -1014,6 +1014,42 @@
           "outline": "transparent bg; border intent bold (neutral #374151, brand #2563EB, danger #DC2626); fg intent default (same hues)"
         }
       },
+      "progress": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "states": [
+          "determinate",
+          "indeterminate"
+        ],
+        "tokens": [
+          "track-height",
+          "border-radius"
+        ],
+        "themeVariable": [],
+        "constant": [
+          "track-height (per size)",
+          "border-radius (9999)"
+        ],
+        "note": "Track thickness is the one new semantic concept; keyed by the size prop and identical across all three densities (like badge dot-size). The fill binds to intent/{intent}/bold/default/bg; the track background is surface/subtle (non-intent, follows colour mode).",
+        "verifiedValues": {
+          "small.track-height": 4,
+          "default.track-height": 8,
+          "large.track-height": 12,
+          "border-radius": 9999
+        },
+        "colors": {
+          "fill": "intent bold default bg \u2014 neutral #374151, brand #2563EB, danger #DC2626",
+          "track": "surface/subtle \u2014 #F3F4F6 (light) / #1F2937 (dark)"
+        }
+      },
       "alert": {
         "sizes": [
           "small",

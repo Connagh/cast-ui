@@ -39,5 +39,7 @@ export type {
   PopoverThemeTokens,
   TooltipSizeTokens,
   TooltipThemeTokens,
+  ProgressSizeTokens,
+  ProgressThemeTokens,
   DeepPartial,
 } from './types';

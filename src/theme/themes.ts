@@ -106,6 +106,12 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       small:   { paddingX: 4, paddingY: 1 },
       default: { paddingX: 6, paddingY: 2 },
     },
+    progress: {
+      borderRadius: 9999,
+      small:   { trackHeight: 4 },
+      default: { trackHeight: 8 },
+      large:   { trackHeight: 12 },
+    },
   },
 
   default: {
@@ -201,6 +207,12 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       small:   { paddingX: 6, paddingY: 2 },
       default: { paddingX: 8, paddingY: 4 },
     },
+    progress: {
+      borderRadius: 9999,
+      small:   { trackHeight: 4 },
+      default: { trackHeight: 8 },
+      large:   { trackHeight: 12 },
+    },
   },
 
   comfortable: {
@@ -295,6 +307,12 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       borderRadius: 4, arrowSize: 6,
       small:   { paddingX: 8, paddingY: 4 },
       default: { paddingX: 10, paddingY: 6 },
+    },
+    progress: {
+      borderRadius: 9999,
+      small:   { trackHeight: 4 },
+      default: { trackHeight: 8 },
+      large:   { trackHeight: 12 },
     },
   },
 };

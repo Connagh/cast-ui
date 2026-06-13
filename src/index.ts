@@ -17,6 +17,7 @@ export {
   listColors,
   checkboxColors,
   toggleColors,
+  progressColors,
   radioColors,
   avatarColors,
   skeletonColors,
@@ -83,6 +84,8 @@ export {
   type PopoverThemeTokens,
   type TooltipSizeTokens,
   type TooltipThemeTokens,
+  type ProgressSizeTokens,
+  type ProgressThemeTokens,
   type DeepPartial,
 } from './theme';
 
@@ -195,3 +198,4 @@ export {
   type TooltipDirection,
 } from './components/Tooltip';
 export { Text, type TextProps, type TextType } from './components/Text';
+export { Progress, type ProgressProps, type ProgressSize } from './components/Progress';

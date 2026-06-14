@@ -26,7 +26,7 @@
  * `components.tabs`; `indicatorHeight` is keyed by `size` and constant across
  * density (like Progress's track-height); `indicatorRadius` is the pill radius.
  * Colours: the selected indicator and selected label bind to the intent system
- * (`colors[intent].bold.default.bg`); unselected labels use
+ * (`colors[intent].default.default.fg`); unselected labels use
  * `scheme.text.description`, hovered use `scheme.text.primary`, disabled use
  * `scheme.disabled.fg`; the baseline divider is the dedicated
  * `scheme.tabs.track` semantic (cool-grey/200 light, cool-grey/700 dark).
@@ -136,7 +136,10 @@ export function Tab({
   const sizeTokens = components.tabs[size];
   const { indicatorRadius } = components.tabs;
   const isSelected = selectedValue === value;
-  const accent = colors[intent].bold.default.bg;
+  // Selected label + indicator track the intent *fg* (text/line colour), mirroring
+  // the Figma binding intent/{intent}/default/default/fg — same hex as bold/bg in
+  // light, but correctly the text colour (not the solid fill) in dark mode.
+  const accent = colors[intent].default.default.fg;
 
   // Resolve the label/icon colour from interaction + selection state.
   const fg = disabled

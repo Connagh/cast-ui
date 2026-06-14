@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.7.0] — 2026-06-14
+
+### Added
+- **Spinner component** — indeterminate circular loading indicator mirroring the Figma `<Spinner>` component, with `intent` (neutral/brand/danger) and `size` (small/default/large) props. Always indeterminate: it shows that work is happening, not how much is left (for a known percentage use `<Progress>`). The arc colour binds to the intent system; the ring is drawn with borders, so the component keeps the zero-dependency contract. Exported from the package entry point alongside `SpinnerProps` / `SpinnerSize`
+- **`control/spinner/track/bg` colour token** — dedicated track-ring semantic (cool-grey/200 light, cool-grey/700 dark), available on the theme as `scheme.spinner.track` and mirroring the new Figma semantic variable; matches the `<Progress>` track and `<Toggle>` off-track
+- **Spinner theme tokens** — per-size `diameter` (16/24/32) and `stroke` (2/2/4), constant across all three densities like Progress's track-height, added to the theme types (`SpinnerThemeTokens`, `SpinnerSizeTokens`) and every density theme
+
 ## [4.6.0] — 2026-06-14
 
 ### Added

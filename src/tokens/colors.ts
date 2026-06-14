@@ -133,6 +133,12 @@ export type ColorScheme = {
   };
   /** Progress colours — track background (the fill uses the intent system) */
   progress: { track: string };
+  /**
+   * Tabs colours — the baseline divider under the tab strip. The selected
+   * indicator + selected label colour come from the intent system; the
+   * unselected / hover label colours come from text.description / text.primary.
+   */
+  tabs: { track: string };
   /** Avatar colours — initials/icon fallback surface + foreground */
   avatar: { bg: string; fg: string };
   /** Skeleton colours — placeholder surface for loading states */
@@ -272,6 +278,7 @@ export const lightColors: ColorScheme = {
     label: { default: '#374151', disabled: '#9CA3AF' },
   },
   progress: { track: '#E5E7EB' }, // control/progress/track/bg → cool-grey/200
+  tabs: { track: '#E5E7EB' }, // control/tabs/track/bg → cool-grey/200
   avatar: { bg: '#F3F4F6', fg: '#374151' },
   skeleton: { bg: '#F3F4F6', highlight: '#E5E7EB' },
   list: {
@@ -416,6 +423,7 @@ export const darkColors: ColorScheme = {
     label: { default: '#E5E7EB', disabled: '#6B7280' },
   },
   progress: { track: '#374151' }, // control/progress/track/bg → cool-grey/700
+  tabs: { track: '#374151' }, // control/tabs/track/bg → cool-grey/700
   avatar: { bg: '#374151', fg: '#E5E7EB' },
   skeleton: { bg: '#1F2937', highlight: '#374151' },
   list: {
@@ -491,6 +499,9 @@ export const toggleColors = lightColors.toggle;
 
 /** Progress colours — track background (fill comes from the intent system) */
 export const progressColors = lightColors.progress;
+
+/** Tabs colours — baseline track (indicator/label colours come from intents/text) */
+export const tabsColors = lightColors.tabs;
 
 /** Avatar colours — initials/icon fallback surface + foreground */
 export const avatarColors = lightColors.avatar;

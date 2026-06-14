@@ -41,5 +41,7 @@ export type {
   TooltipThemeTokens,
   ProgressSizeTokens,
   ProgressThemeTokens,
+  TabsSizeTokens,
+  TabsThemeTokens,
   DeepPartial,
 } from './types';

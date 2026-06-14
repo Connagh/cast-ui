@@ -295,6 +295,27 @@ export type ProgressThemeTokens = {
   large: ProgressSizeTokens;
 };
 
+/** Spacing/sizing tokens for a single tab size variant. `gap`, `paddingX`,
+ * and `paddingY` vary by density; `indicatorHeight` is keyed by the `size`
+ * prop and constant across density (like Toggle's track / Progress's
+ * track-height — bound to a primitive `size/*`). */
+export type TabsSizeTokens = {
+  gap: number;
+  paddingX: number;
+  paddingY: number;
+  indicatorHeight: number;
+};
+
+/** Tabs tokens — per-size tab spacing + the gap between tabs (`listGap`,
+ * density-varying) and the pill `indicatorRadius` (constant). */
+export type TabsThemeTokens = {
+  listGap: number;
+  indicatorRadius: number;
+  small: TabsSizeTokens;
+  default: TabsSizeTokens;
+  large: TabsSizeTokens;
+};
+
 /**
  * Component-level tokens that vary by density theme.
  * Extended as new components are added to the library.
@@ -317,6 +338,7 @@ export type ComponentTokens = {
   popover: PopoverThemeTokens;
   tooltip: TooltipThemeTokens;
   progress: ProgressThemeTokens;
+  tabs: TabsThemeTokens;
 };
 
 /** Utility type for partial overrides at any depth */

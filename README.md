@@ -209,7 +209,6 @@ npm run build        # compile to dist/
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
 | Chromatic | Every push | Visual regression testing via Storybook snapshots |
-| Adoption Tracking | Push to `main` | Registers package version with Zeroheight |
 | Publish to npm | Push to `main` | Builds and publishes to npm (only when the version changes) |
 
 ## License

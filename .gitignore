@@ -1,6 +1,10 @@
 # Ignore everything by default
 *
 
+# ── Allow logo / brand images ─────────────────
+!logo.png
+!square-logo.png
+
 # ── Allow project configuration ──────────────────
 !.gitignore
 !.gitattributes

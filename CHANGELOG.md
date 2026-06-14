@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.6.0] — 2026-06-14
+
+### Added
+- **Tabs component** — horizontal, underline-style tab bar mirroring the Figma `<Tabs>` component set, with `intent` (neutral/brand/danger) and `size` (small/default/large) props. A compound API: `<Tabs value onValueChange>` owns selection, `<Tab value disabled leadingIcon>` is an individual tab. Labels render through `<Text>` (label ramp) and leading icons through `<Icon>`, so it inherits the type scale and Material Symbols slot architecture; tabs use the `tab`/`tablist` accessibility roles. Exported from the package entry point alongside `Tab`, `TabsProps`, `TabProps`, and `TabsSize`
+- **`control/tabs/track/bg` colour token** — dedicated baseline-divider semantic for the strip under the tabs (cool-grey/200 light, cool-grey/700 dark), exported as `tabsColors` and available on the theme as `scheme.tabs.track`, mirroring the new Figma semantic variable. The selected indicator and selected label colour come from the intent system; unselected/hover labels from `text.description`/`text.primary`
+- **Tabs theme tokens** — per-size `gap`/`paddingX`/`paddingY` plus `indicatorHeight` (2/2/4, constant across density like Progress's track-height), the density-varying `listGap` between tabs, and the pill `indicatorRadius`; added to the theme types (`TabsThemeTokens`, `TabsSizeTokens`) and every density theme
+
+### Changed
+- **README logo** — the package logo (`logo.png`) now renders in the README header on the npm and GitHub project pages; the `<img>` reference was already present but the image only resolves now that the asset is committed to `main`
+
 ## [4.5.0] — 2026-06-13
 
 ### Added

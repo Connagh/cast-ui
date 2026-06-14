@@ -43,5 +43,7 @@ export type {
   ProgressThemeTokens,
   TabsSizeTokens,
   TabsThemeTokens,
+  SpinnerSizeTokens,
+  SpinnerThemeTokens,
   DeepPartial,
 } from './types';

@@ -316,6 +316,22 @@ export type TabsThemeTokens = {
   large: TabsSizeTokens;
 };
 
+/** Spinner geometry for one size variant. Both values are keyed by the `size`
+ * prop and constant across density (like Progress track-height / Tabs
+ * indicator-height — bound to a primitive `size/*`). */
+export type SpinnerSizeTokens = {
+  diameter: number;
+  stroke: number;
+};
+
+/** Spinner tokens — diameter + ring stroke vary by the `size` prop and are
+ * constant across density. No density-varying spacing. */
+export type SpinnerThemeTokens = {
+  small: SpinnerSizeTokens;
+  default: SpinnerSizeTokens;
+  large: SpinnerSizeTokens;
+};
+
 /**
  * Component-level tokens that vary by density theme.
  * Extended as new components are added to the library.
@@ -339,6 +355,7 @@ export type ComponentTokens = {
   tooltip: TooltipThemeTokens;
   progress: ProgressThemeTokens;
   tabs: TabsThemeTokens;
+  spinner: SpinnerThemeTokens;
 };
 
 /** Utility type for partial overrides at any depth */

@@ -89,6 +89,8 @@ export {
   type ProgressThemeTokens,
   type TabsSizeTokens,
   type TabsThemeTokens,
+  type SpinnerSizeTokens,
+  type SpinnerThemeTokens,
   type DeepPartial,
 } from './theme';
 
@@ -202,6 +204,7 @@ export {
 } from './components/Tooltip';
 export { Text, type TextProps, type TextType } from './components/Text';
 export { Progress, type ProgressProps, type ProgressSize } from './components/Progress';
+export { Spinner, type SpinnerProps, type SpinnerSize } from './components/Spinner';
 export {
   Tabs,
   Tab,

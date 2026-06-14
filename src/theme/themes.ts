@@ -112,6 +112,11 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { trackHeight: 8 },
       large:   { trackHeight: 12 },
     },
+    spinner: {
+      small:   { diameter: 16, stroke: 2 },
+      default: { diameter: 24, stroke: 2 },
+      large:   { diameter: 32, stroke: 4 },
+    },
     tabs: {
       listGap: 8, indicatorRadius: 9999,
       small:   { gap: 4, paddingX: 8,  paddingY: 4, indicatorHeight: 2 },
@@ -219,6 +224,11 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { trackHeight: 8 },
       large:   { trackHeight: 12 },
     },
+    spinner: {
+      small:   { diameter: 16, stroke: 2 },
+      default: { diameter: 24, stroke: 2 },
+      large:   { diameter: 32, stroke: 4 },
+    },
     tabs: {
       listGap: 16, indicatorRadius: 9999,
       small:   { gap: 6, paddingX: 10, paddingY: 6,  indicatorHeight: 2 },
@@ -325,6 +335,11 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       small:   { trackHeight: 4 },
       default: { trackHeight: 8 },
       large:   { trackHeight: 12 },
+    },
+    spinner: {
+      small:   { diameter: 16, stroke: 2 },
+      default: { diameter: 24, stroke: 2 },
+      large:   { diameter: 32, stroke: 4 },
     },
     tabs: {
       listGap: 24, indicatorRadius: 9999,

@@ -32,6 +32,8 @@ const withCastTheme: Decorator = (Story, context) => {
 };
 
 const preview: Preview = {
+  // Generate a Docs page (props table + per-story code snippets) for every component.
+  tags: ['autodocs'],
   globalTypes: {
     colorMode: {
       description: 'Cast UI colour mode',

@@ -112,6 +112,12 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { trackHeight: 8 },
       large:   { trackHeight: 12 },
     },
+    tabs: {
+      listGap: 8, indicatorRadius: 9999,
+      small:   { gap: 4, paddingX: 8,  paddingY: 4, indicatorHeight: 2 },
+      default: { gap: 6, paddingX: 10, paddingY: 6, indicatorHeight: 2 },
+      large:   { gap: 8, paddingX: 12, paddingY: 8, indicatorHeight: 4 },
+    },
   },
 
   default: {
@@ -213,6 +219,12 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { trackHeight: 8 },
       large:   { trackHeight: 12 },
     },
+    tabs: {
+      listGap: 16, indicatorRadius: 9999,
+      small:   { gap: 6, paddingX: 10, paddingY: 6,  indicatorHeight: 2 },
+      default: { gap: 8, paddingX: 12, paddingY: 8,  indicatorHeight: 2 },
+      large:   { gap: 8, paddingX: 16, paddingY: 10, indicatorHeight: 4 },
+    },
   },
 
   comfortable: {
@@ -313,6 +325,12 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       small:   { trackHeight: 4 },
       default: { trackHeight: 8 },
       large:   { trackHeight: 12 },
+    },
+    tabs: {
+      listGap: 24, indicatorRadius: 9999,
+      small:   { gap: 8,  paddingX: 12, paddingY: 8,  indicatorHeight: 2 },
+      default: { gap: 8,  paddingX: 16, paddingY: 10, indicatorHeight: 2 },
+      large:   { gap: 12, paddingX: 20, paddingY: 12, indicatorHeight: 4 },
     },
   },
 };

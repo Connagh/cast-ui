@@ -18,6 +18,7 @@ export {
   checkboxColors,
   toggleColors,
   progressColors,
+  tabsColors,
   radioColors,
   avatarColors,
   skeletonColors,
@@ -86,6 +87,8 @@ export {
   type TooltipThemeTokens,
   type ProgressSizeTokens,
   type ProgressThemeTokens,
+  type TabsSizeTokens,
+  type TabsThemeTokens,
   type DeepPartial,
 } from './theme';
 
@@ -199,3 +202,10 @@ export {
 } from './components/Tooltip';
 export { Text, type TextProps, type TextType } from './components/Text';
 export { Progress, type ProgressProps, type ProgressSize } from './components/Progress';
+export {
+  Tabs,
+  Tab,
+  type TabsProps,
+  type TabProps,
+  type TabsSize,
+} from './components/Tabs';

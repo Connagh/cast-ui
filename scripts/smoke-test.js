@@ -64,6 +64,8 @@ const expectedExports = [
   'Toast',
   'Toggle',
   'Tooltip',
+  'Tabs',
+  'Tab',
   // Theme
   'ThemeProvider',
   'useTheme',

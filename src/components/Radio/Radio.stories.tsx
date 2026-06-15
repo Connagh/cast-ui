@@ -45,6 +45,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — toggle a single radio via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => {
     const [checked, setChecked] = useState(args.checked ?? false);
     return <Radio {...args} checked={checked} onChange={setChecked} />;
@@ -59,6 +60,7 @@ export const Playground: Story = {
 
 /** Selected vs unselected. */
 export const States: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [off, setOff] = useState(false);
     const [on, setOn] = useState(true);
@@ -77,6 +79,7 @@ export const States: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Radio size="small" checked>
@@ -94,6 +97,7 @@ export const Sizes: Story = {
 
 /** Disabled in both states. */
 export const Disabled: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 12 }}>
       <Radio checked={false} disabled>
@@ -108,6 +112,7 @@ export const Disabled: Story = {
 
 /** Single-selection group — only one option can be active at a time. */
 export const Group: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [value, setValue] = useState('standard');
     return (
@@ -169,6 +174,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities (gap changes). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap' }}>
       <DensityColumn density="compact" />

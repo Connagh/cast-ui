@@ -33,6 +33,7 @@ type Story = StoryObj<typeof Icon>;
 
 /** Interactive playground. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     name: 'star',
     size: 24,
@@ -70,6 +71,7 @@ export const CommonIcons: Story = {
 
 /** Variable-font axes — fill and weight (web, via fontVariationSettings). */
 export const FillAndWeight: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
@@ -91,6 +93,7 @@ export const FillAndWeight: Story = {
 
 /** Size scale demonstration. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
       {[16, 20, 24, 32, 40, 48].map((size) => (

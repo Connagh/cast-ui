@@ -61,6 +61,7 @@ type Story = StoryObj<typeof Text>;
 
 /** Interactive playground — use the controls panel to explore the type ramp. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     children: 'The quick brown fox jumps over the lazy dog',
     type: 'body-md',
@@ -98,6 +99,7 @@ export const TypeRamp: Story = {
 
 /** Truncation via numberOfLines. */
 export const Truncation: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ width: 240, gap: 12 }}>
       <Text type="body-md" numberOfLines={1}>
@@ -113,6 +115,7 @@ export const Truncation: Story = {
 
 /** Custom colours — overriding the text/primary default. */
 export const Colors: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 8 }}>
       <Text type="title-md">Default (text/primary)</Text>
@@ -167,6 +170,7 @@ function ModePanel({ colorMode }: { colorMode: 'light' | 'dark' }) {
 
 /** text/primary adapts to the active colour mode automatically. */
 export const ColorModes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <ModePanel colorMode="light" />

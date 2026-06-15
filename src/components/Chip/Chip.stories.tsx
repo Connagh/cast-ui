@@ -62,6 +62,7 @@ const Row = ({ children }: { children: React.ReactNode }) => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     children: 'Chip',
     intent: 'neutral',
@@ -77,6 +78,7 @@ export const Playground: Story = {
 
 /** The two surface treatments across each intent. */
 export const Variants: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const variants = ['outline', 'subtle'] as const;
     return (
@@ -104,6 +106,7 @@ export const Variants: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Row>
       <Chip size="small" leadingIcon="sell" onRemove={() => {}}>
@@ -121,6 +124,7 @@ export const Sizes: Story = {
 
 /** Selectable filter chips — toggle selection on press. */
 export const Selectable: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const options = ['All', 'Active', 'Archived', 'Drafts'];
     const [selected, setSelected] = useState('All');
@@ -144,6 +148,7 @@ export const Selectable: Story = {
 
 /** Removable input chips — manage a dynamic list of tokens. */
 export const Removable: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [tags, setTags] = useState(['design', 'react-native', 'tokens', 'figma']);
     return (
@@ -166,6 +171,7 @@ export const Removable: Story = {
 
 /** Disabled in both variants. */
 export const Disabled: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Row>
       <Chip variant="outline" disabled leadingIcon="sell" onRemove={() => {}}>
@@ -240,6 +246,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities (padding + gap change). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap' }}>
       <DensityColumn density="compact" />

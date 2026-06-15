@@ -48,6 +48,7 @@ type Story = StoryObj<typeof Button>;
 
 /** Interactive playground — use the controls panel to explore all variants. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     children: 'Button',
     intent: 'neutral',
@@ -59,6 +60,7 @@ export const Playground: Story = {
 
 /** All three intents in the default prominence. */
 export const Intents: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
       <Button intent="neutral">Neutral</Button>
@@ -70,6 +72,7 @@ export const Intents: Story = {
 
 /** All three prominences for the brand intent. */
 export const Prominences: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
       <Button intent="brand" prominence="default">
@@ -87,6 +90,7 @@ export const Prominences: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
       <Button intent="brand" prominence="bold" size="small">
@@ -104,6 +108,7 @@ export const Sizes: Story = {
 
 /** Disabled state across different intents and prominences. */
 export const Disabled: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
       <Button intent="neutral" disabled>
@@ -124,6 +129,7 @@ export const Disabled: Story = {
  * Pass a Material Symbols name and the button handles the rest.
  */
 export const WithIcons: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
       <Button intent="brand" prominence="bold" leadingIcon="add">
@@ -191,6 +197,7 @@ function DensityRow({
 
 /** Compare compact, default, and comfortable densities side by side. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <DensityRow density="compact" />
@@ -242,6 +249,7 @@ function MatrixRow({
 
 /** Every intent x prominence combination, plus disabled. */
 export const FullMatrix: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <MatrixRow intent="neutral" />

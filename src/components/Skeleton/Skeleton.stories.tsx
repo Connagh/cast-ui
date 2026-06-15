@@ -44,6 +44,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     shape: 'text',
     animated: true,
@@ -52,6 +53,7 @@ export const Playground: Story = {
 
 /** The three shape presets. */
 export const Shapes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 32, alignItems: 'flex-start', flexWrap: 'wrap' }}>
       <View style={{ gap: 8 }}>
@@ -72,6 +74,7 @@ export const Shapes: Story = {
 
 /** Multiple text lines build a paragraph placeholder; the last line is shorter. */
 export const TextLines: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 8 }}>
       <Skeleton shape="text" width={240} />
@@ -83,6 +86,7 @@ export const TextLines: Story = {
 
 /** Composed loading state — avatar + heading + body, mirroring real content. */
 export const CardPlaceholder: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View
       style={{

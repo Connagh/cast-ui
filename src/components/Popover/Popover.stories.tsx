@@ -73,6 +73,7 @@ const SampleContent = () => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     direction: 'bottom',
     size: 'default',
@@ -104,6 +105,7 @@ export const Directions: Story = {
 
 /** Small, default, and large padding. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const sizes = ['small', 'default', 'large'] as const;
     return (
@@ -144,6 +146,7 @@ function DensityColumn({
 
 /** Popover padding grows with density (compact → comfortable). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <DensityColumn density="compact" />

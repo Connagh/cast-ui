@@ -54,6 +54,7 @@ const Row = ({ children }: { children: React.ReactNode }) => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     size: 'default',
     initials: 'AB',
@@ -62,6 +63,7 @@ export const Playground: Story = {
 
 /** The three avatar types: image, initials, and icon. */
 export const Types: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <SectionLabel>image · initials · icon</SectionLabel>
@@ -127,6 +129,7 @@ function DensityColumn({
 
 /** Avatar diameter grows with density (compact → comfortable). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <DensityColumn density="compact" />

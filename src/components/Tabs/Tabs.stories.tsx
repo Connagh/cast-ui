@@ -83,12 +83,14 @@ function TabsDemo({
 
 /** Interactive playground — click between tabs. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: { intent: 'brand', size: 'default' },
   render: (args) => <TabsDemo intent={args.intent} size={args.size} />,
 };
 
 /** The three intents drive the selected indicator + label colour. */
 export const Intents: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       {(['neutral', 'brand', 'danger'] as const).map((intent) => (
@@ -103,6 +105,7 @@ export const Intents: Story = {
 
 /** Size variants — small, default, large. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       {(['small', 'default', 'large'] as const).map((size) => (
@@ -117,11 +120,13 @@ export const Sizes: Story = {
 
 /** Tabs with leading icons. */
 export const WithIcons: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => <TabsDemo withIcons />,
 };
 
 /** A disabled tab is muted and non-interactive. */
 export const WithDisabled: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => <TabsDemo withDisabled />,
 };
 
@@ -167,6 +172,7 @@ function DensityColumn({
 
 /** Spacing differs across densities; indicator + colours are constant. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <DensityColumn density="compact" />

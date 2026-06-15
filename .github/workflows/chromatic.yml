@@ -25,3 +25,7 @@ jobs:
         with:
           # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # TurboSnap: only snapshot stories whose code changed since the last
+          # build (uses git history + webpack dep graph). Requires fetch-depth: 0
+          # on checkout, which is set above. Hugely cuts snapshot usage.
+          onlyChanged: true

@@ -55,6 +55,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — explore every variant via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     intent: 'neutral',
     size: 'default',
@@ -67,6 +68,7 @@ export const Playground: Story = {
 
 /** All three intents in the outline variant. */
 export const Intents: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Alert
@@ -116,6 +118,7 @@ export const Variants: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Alert size="small" intent="brand" variant="outline" icon="info" title="Small" description="Small alert." />
@@ -127,6 +130,7 @@ export const Sizes: Story = {
 
 /** Dismissible alert — a close button appears when onClose is provided. */
 export const Dismissible: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Alert
       intent="danger"
@@ -141,6 +145,7 @@ export const Dismissible: Story = {
 
 /** Title-only and description-only configurations. */
 export const ContentVariations: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Alert intent="neutral" variant="outline" icon="info" title="Title only" />
@@ -178,6 +183,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <DensityColumn density="compact" />

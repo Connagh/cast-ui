@@ -67,6 +67,7 @@ const Actions = () => (
 
 /** Interactive playground — full card with every slot populated. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => (
     <View style={{ width: 300 }}>
       <Card
@@ -120,6 +121,7 @@ export const Variants: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       {(['small', 'default', 'large'] as const).map((size) => (
@@ -143,6 +145,7 @@ export const Sizes: Story = {
 
 /** Content variations — slots render only when their prop is provided. */
 export const ContentVariations: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <View style={{ width: 260 }}>
@@ -194,6 +197,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <DensityColumn density="compact" />

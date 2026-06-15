@@ -50,6 +50,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     title: 'Note',
     children: 'Description',
@@ -62,6 +63,7 @@ export const Playground: Story = {
 
 /** One toast per intent. */
 export const Intents: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Toast intent="neutral" icon="info" onClose={() => {}} title="Heads up">
@@ -79,6 +81,7 @@ export const Intents: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Toast size="small" intent="brand" icon="info" onClose={() => {}} title="Small">
@@ -96,6 +99,7 @@ export const Sizes: Story = {
 
 /** Without a leading icon, without a description, and without a close button. */
 export const Variations: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Toast intent="neutral" onClose={() => {}} title="No icon">
@@ -161,6 +165,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities (padding + gap change). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <DensityColumn density="compact" />

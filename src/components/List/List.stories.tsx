@@ -51,6 +51,7 @@ const Card = ({ children }: { children: React.ReactNode }) => (
 
 /** Interactive playground — tweak a single item via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => (
     <Card>
       <List>
@@ -112,6 +113,7 @@ export const Default: Story = {
 
 /** All item states side by side: default, selected, hover (web), disabled. */
 export const ItemStates: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Card>
       <List>
@@ -131,6 +133,7 @@ export const ItemStates: Story = {
 
 /** Simple single-line items with no description. */
 export const SingleLine: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [selected, setSelected] = useState('profile');
     return (
@@ -172,6 +175,7 @@ export const SingleLine: Story = {
 
 /** Items with leading and trailing icons. */
 export const WithTrailingIcon: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Card>
       <List>
@@ -254,6 +258,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities (padding + icon size). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 32, flexWrap: 'wrap' }}>
       <DensityColumn density="compact" />

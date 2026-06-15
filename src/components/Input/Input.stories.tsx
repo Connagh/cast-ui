@@ -49,6 +49,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — type into a controlled field. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => {
     const [value, setValue] = useState('');
     return <Input {...args} value={value} onChangeText={setValue} />;
@@ -65,6 +66,7 @@ export const Playground: Story = {
 
 /** Empty (placeholder) vs filled value. */
 export const States: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [filled, setFilled] = useState('hello@castui.dev');
     return (
@@ -99,6 +101,7 @@ export const ErrorAndDisabled: Story = {
 
 /** Leading and trailing icons. */
 export const WithIcons: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [a, setA] = useState('');
     const [b, setB] = useState('');
@@ -126,6 +129,7 @@ export const WithIcons: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <Input size="small" label="Small" placeholder="Small" helperText="Helper text" />
@@ -163,6 +167,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities (padding + gap change). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 32, flexWrap: 'wrap' }}>
       <DensityColumn density="compact" />

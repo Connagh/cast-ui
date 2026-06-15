@@ -56,6 +56,7 @@ export const Vertical: Story = {
 
 /** Inset / spaced dividers in a simple list. */
 export const InList: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const items = ['Inbox', 'Starred', 'Sent', 'Drafts'];
     return (

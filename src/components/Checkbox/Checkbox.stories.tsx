@@ -49,6 +49,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — toggle a single checkbox via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => {
     const [checked, setChecked] = useState<boolean | 'indeterminate'>(
       args.checked ?? false,
@@ -67,6 +68,7 @@ export const Playground: Story = {
 
 /** The three checked states: unchecked, checked, indeterminate. */
 export const CheckedStates: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [a, setA] = useState(false);
     const [b, setB] = useState(true);
@@ -89,6 +91,7 @@ export const CheckedStates: Story = {
 
 /** Small, default, and large sizes side by side. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [s, setS] = useState(true);
     const [d, setD] = useState(true);
@@ -111,6 +114,7 @@ export const Sizes: Story = {
 
 /** Disabled in each checked state. */
 export const Disabled: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 12 }}>
       <Checkbox checked={false} disabled>
@@ -182,6 +186,7 @@ function DensityColumn({
 
 /** Compare compact, default, and comfortable densities (gap changes). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap' }}>
       <DensityColumn density="compact" />

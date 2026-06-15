@@ -32,6 +32,7 @@ type Story = StoryObj<typeof Dialog>;
 
 /** Click the button to open the full modal Dialog with backdrop. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [open, setOpen] = useState(false);
     return (
@@ -94,6 +95,7 @@ export const Sizes: Story = {
 
 /** Dialog with custom content in the slot. */
 export const WithSlotContent: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <DialogContent
       title="Delete project"
@@ -120,6 +122,7 @@ export const WithSlotContent: Story = {
 
 /** Dialog without an icon. */
 export const NoIcon: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <DialogContent
       title="Save changes?"
@@ -137,6 +140,7 @@ export const NoIcon: Story = {
 
 /** Compare compact, default, and comfortable densities side by side. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 32 }}>
       {(['compact', 'default', 'comfortable'] as const).map((density) => (

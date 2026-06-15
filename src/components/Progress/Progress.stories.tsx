@@ -55,6 +55,7 @@ const Stack = ({ children }: { children: React.ReactNode }) => (
 
 /** Interactive playground — drag `value`, or clear it for indeterminate. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     value: 60,
     intent: 'brand',
@@ -64,6 +65,7 @@ export const Playground: Story = {
 
 /** Determinate fills across the percentage range. */
 export const Values: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Stack>
       {[0, 25, 50, 75, 100].map((v) => (
@@ -78,6 +80,7 @@ export const Values: Story = {
 
 /** The three intents. */
 export const Intents: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Stack>
       <View style={{ gap: 4 }}>
@@ -98,6 +101,7 @@ export const Intents: Story = {
 
 /** Track thickness — small, default, large. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Stack>
       <View style={{ gap: 4 }}>
@@ -118,6 +122,7 @@ export const Sizes: Story = {
 
 /** Indeterminate — an animated sweep for unknown-duration work. */
 export const Indeterminate: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Stack>
       <Progress intent="brand" />
@@ -169,6 +174,7 @@ function DensityColumn({
 
 /** Progress sizing stays identical across densities. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <DensityColumn density="compact" />

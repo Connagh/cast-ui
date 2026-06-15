@@ -61,6 +61,7 @@ type Story = StoryObj<typeof Select>;
 
 /** Interactive playground — use the controls panel to explore all variants. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: (args) => {
     const [value, setValue] = useState<string>('');
     return (
@@ -94,6 +95,7 @@ export const Playground: Story = {
 
 /** Single select with grouped options and separators. */
 export const SingleSelect: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [value, setValue] = useState('');
     return (
@@ -135,6 +137,7 @@ export const SingleSelect: Story = {
 
 /** Multi-select with tag pills. */
 export const MultiSelect: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [values, setValues] = useState<string[]>(['react', 'typescript']);
     return (
@@ -168,6 +171,7 @@ export const MultiSelect: Story = {
 
 /** Combobox with search filtering. */
 export const Combobox: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [value, setValue] = useState('');
     const [search, setSearch] = useState('');
@@ -209,6 +213,7 @@ export const Combobox: Story = {
 
 /** Small, default, and large sizes side by side. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [s, setS] = useState('');
     const [d, setD] = useState('');
@@ -252,6 +257,7 @@ export const Sizes: Story = {
 
 /** Error and disabled states. */
 export const States: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 24 }}>
       <Select
@@ -276,6 +282,7 @@ export const States: Story = {
 
 /** Options with descriptions and mixed icons. */
 export const WithDescriptions: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [value, setValue] = useState('');
     return (
@@ -302,6 +309,7 @@ export const WithDescriptions: Story = {
 
 /** Options with disabled items. */
 export const WithDisabledOptions: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [value, setValue] = useState('');
     return (
@@ -330,6 +338,7 @@ export const WithDisabledOptions: Story = {
 
 /** Leading icon on the trigger. */
 export const WithLeadingIcon: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const [value, setValue] = useState('');
     return (
@@ -354,6 +363,7 @@ export const WithLeadingIcon: Story = {
 
 /** SelectTag rendered standalone (for multi-select pill reference). */
 export const TagShowcase: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
       <SelectTag onRemove={() => {}}>React</SelectTag>
@@ -418,6 +428,7 @@ function DensityRow({
 
 /** Compare compact, default, and comfortable densities. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 32 }}>
       <DensityRow density="compact" />

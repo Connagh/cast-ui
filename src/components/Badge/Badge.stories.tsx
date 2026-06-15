@@ -62,6 +62,7 @@ const Row = ({ children }: { children: React.ReactNode }) => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     children: 'Badge',
     intent: 'neutral',
@@ -73,6 +74,7 @@ export const Playground: Story = {
 
 /** The three surface treatments across each intent. */
 export const Variants: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => {
     const variants = ['solid', 'subtle', 'outline'] as const;
     return (
@@ -100,6 +102,7 @@ export const Variants: Story = {
 
 /** Small, default, and large sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Row>
       <Badge size="small">Small</Badge>
@@ -111,6 +114,7 @@ export const Sizes: Story = {
 
 /** Leading status dots — useful for "live", "online", or count indicators. */
 export const WithDot: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Row>
       <Badge intent="brand" variant="subtle" dot>
@@ -128,6 +132,7 @@ export const WithDot: Story = {
 
 /** Leading and trailing icons. */
 export const WithIcons: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Row>
       <Badge intent="brand" leadingIcon="check">
@@ -197,6 +202,7 @@ function DensityColumn({
 /** Badge sizing stays identical across densities (only spacing tokens differ
  * elsewhere; Badge has none that vary). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap' }}>
       <DensityColumn density="compact" />

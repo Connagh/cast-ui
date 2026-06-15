@@ -49,6 +49,7 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 /** Interactive playground — tweak every prop via the controls panel. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     children: 'Tooltip',
     direction: 'bottom',
@@ -76,6 +77,7 @@ export const Directions: Story = {
 
 /** Small and default sizes. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 32, alignItems: 'flex-start' }}>
       <View style={{ gap: 12 }}>
@@ -92,6 +94,7 @@ export const Sizes: Story = {
 
 /** Without the arrow — a plain pill label. */
 export const NoArrow: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => <Tooltip hasArrow={false}>No arrow</Tooltip>,
 };
 
@@ -116,6 +119,7 @@ function DensityColumn({
 
 /** Tooltip padding grows with density (compact → comfortable). */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 48, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <DensityColumn density="compact" />

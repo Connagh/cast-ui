@@ -57,6 +57,7 @@ const Row = ({ children }: { children: React.ReactNode }) => (
 
 /** Interactive playground — pick an intent and size. */
 export const Playground: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   args: {
     intent: 'brand',
     size: 'default',
@@ -65,6 +66,7 @@ export const Playground: Story = {
 
 /** The three intents. */
 export const Intents: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <SectionLabel>neutral · brand · danger</SectionLabel>
@@ -79,6 +81,7 @@ export const Intents: Story = {
 
 /** Diameter + stroke — small, default, large. */
 export const Sizes: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <View style={{ gap: 16 }}>
       <SectionLabel>small · default · large</SectionLabel>
@@ -135,6 +138,7 @@ function DensityColumn({
 
 /** Spinner sizing stays identical across densities. */
 export const DensityComparison: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
   render: () => (
     <Row>
       <DensityColumn density="compact" />

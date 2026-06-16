@@ -45,8 +45,11 @@ export {
   ThemeProvider,
   useTheme,
   themes,
+  applyCastTheme,
   type Theme,
   type ThemeProviderProps,
+  type CastThemeFile,
+  type CastThemeProps,
   type DensityTheme,
   type ComponentTokens,
   type ButtonSizeTokens,
@@ -91,6 +94,7 @@ export {
   type TabsThemeTokens,
   type SpinnerSizeTokens,
   type SpinnerThemeTokens,
+  type BottomSheetThemeTokens,
   type DeepPartial,
 } from './theme';
 
@@ -206,9 +210,23 @@ export { Text, type TextProps, type TextType } from './components/Text';
 export { Progress, type ProgressProps, type ProgressSize } from './components/Progress';
 export { Spinner, type SpinnerProps, type SpinnerSize } from './components/Spinner';
 export {
+  BottomSheet,
+  BottomSheetContent,
+  type BottomSheetProps,
+  type BottomSheetContentProps,
+} from './components/BottomSheet';
+export {
   Tabs,
   Tab,
   type TabsProps,
   type TabProps,
   type TabsSize,
 } from './components/Tabs';
+export {
+  Accordion,
+  AccordionItem,
+  type AccordionProps,
+  type AccordionItemProps,
+  type AccordionSize,
+  type AccordionType,
+} from './components/Accordion';

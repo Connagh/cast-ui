@@ -141,6 +141,12 @@ export type ColorScheme = {
   tabs: { track: string };
   /** Spinner colours — track ring background (the arc uses the intent system) */
   spinner: { track: string };
+  /**
+   * BottomSheet colours. The card surface reuses surface.overlay; the scrim
+   * reuses overlay.scrimOpacity. The drag handle is the one bespoke colour:
+   * control/bottom-sheet/handle/bg, a primitive grey that follows colour mode.
+   */
+  bottomSheet: { handle: string };
   /** Avatar colours — initials/icon fallback surface + foreground */
   avatar: { bg: string; fg: string };
   /** Skeleton colours — placeholder surface for loading states */
@@ -282,6 +288,7 @@ export const lightColors: ColorScheme = {
   progress: { track: '#E5E7EB' }, // control/progress/track/bg → cool-grey/200
   tabs: { track: '#E5E7EB' }, // control/tabs/track/bg → cool-grey/200
   spinner: { track: '#E5E7EB' }, // control/spinner/track/bg → cool-grey/200
+  bottomSheet: { handle: '#D1D5DB' }, // control/bottom-sheet/handle/bg → cool-grey/300
   avatar: { bg: '#F3F4F6', fg: '#374151' },
   skeleton: { bg: '#F3F4F6', highlight: '#E5E7EB' },
   list: {
@@ -428,6 +435,7 @@ export const darkColors: ColorScheme = {
   progress: { track: '#374151' }, // control/progress/track/bg → cool-grey/700
   tabs: { track: '#374151' }, // control/tabs/track/bg → cool-grey/700
   spinner: { track: '#374151' }, // control/spinner/track/bg → cool-grey/700
+  bottomSheet: { handle: '#4B5563' }, // control/bottom-sheet/handle/bg → cool-grey/600
   avatar: { bg: '#374151', fg: '#E5E7EB' },
   skeleton: { bg: '#1F2937', highlight: '#374151' },
   list: {

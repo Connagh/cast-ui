@@ -126,6 +126,13 @@ export type ThemeProviderProps = {
    * stays default.
    */
   colors?: Partial<Record<IntentName, DeepPartial<IntentColorMap[IntentName]>>>;
+  /**
+   * Partial overrides for the rest of the colour scheme — surface, text,
+   * focusRing, overlay, etc. Deep-merged into the active scheme after `colors`.
+   * Forward-compatible: pass whatever sections a cast-theme file provides.
+   * Usually you don't set this by hand — `applyCastTheme` builds it for you.
+   */
+  scheme?: DeepPartial<ColorScheme>;
   children: React.ReactNode;
 };
 
@@ -133,6 +140,7 @@ export function ThemeProvider({
   density = 'default',
   colorMode = 'light',
   colors,
+  scheme: schemeOverride,
   children,
 }: ThemeProviderProps) {
   const theme = useMemo<Theme>(() => {
@@ -140,19 +148,26 @@ export function ThemeProvider({
     const resolvedIntents = colors
       ? deepMerge(baseScheme.intents, colors as Record<string, unknown>)
       : baseScheme.intents;
-    const scheme: ColorScheme = colors
-      ? { ...baseScheme, intents: resolvedIntents }
-      : baseScheme;
+    let scheme: ColorScheme =
+      colors || schemeOverride
+        ? { ...baseScheme, intents: resolvedIntents }
+        : baseScheme;
+    if (schemeOverride) {
+      scheme = deepMerge(
+        scheme as unknown as Record<string, unknown>,
+        schemeOverride as Record<string, unknown>,
+      ) as unknown as ColorScheme;
+    }
 
     return {
       density,
       components: themes[density],
       colorMode,
       scheme,
-      colors: resolvedIntents as IntentColorMap,
+      colors: scheme.intents as IntentColorMap,
       disabledColors: scheme.disabled,
     };
-  }, [density, colorMode, colors]);
+  }, [density, colorMode, colors, schemeOverride]);
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>

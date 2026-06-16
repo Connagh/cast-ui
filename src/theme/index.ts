@@ -1,8 +1,15 @@
 export { ThemeProvider, useTheme, type ThemeProviderProps, type Theme } from './ThemeContext';
 export { themes } from './themes';
+export {
+  applyCastTheme,
+  type CastThemeFile,
+  type CastThemeProps,
+} from './applyCastTheme';
 export type {
   DensityTheme,
   ComponentTokens,
+  AccordionSizeTokens,
+  AccordionThemeTokens,
   ButtonSizeTokens,
   ButtonThemeTokens,
   DialogSizeTokens,
@@ -45,5 +52,6 @@ export type {
   TabsThemeTokens,
   SpinnerSizeTokens,
   SpinnerThemeTokens,
+  BottomSheetThemeTokens,
   DeepPartial,
 } from './types';

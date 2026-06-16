@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.8.0] — 2026-06-16
+
+### Added
+- **Accordion component** — stack of expandable sections mirroring the Figma `<Accordion>` component, with a compound API: `<Accordion type value onValueChange>` owns which sections are open, `<AccordionItem value title leadingIcon disabled>` is one section. `type` is `single` (one open at a time, with `collapsible` to allow closing it) or `multiple` (any number open), `size` is `small`/`default`/`large`, and it supports controlled (`value`) or uncontrolled (`defaultValue`) use. Neutral only, flush/divided style: the header label renders through `<Text>` and the rotating chevron plus optional leading icon through `<Icon>`, so it inherits the type scale and Material Symbols slot architecture; headers use the `button` accessibility role with `expanded` state. Exported from the package entry point alongside `AccordionItem`, `AccordionProps`, `AccordionItemProps`, `AccordionSize`, and `AccordionType`
+- **BottomSheet component** — modal surface that slides up from the bottom edge, mirroring the Figma `<BottomSheet>` component. The sheet hugs its content up to ~90% of the screen height, then the content scrolls, so there are no size variants. Ships as two exports: `<BottomSheet open onClose>` is the full modal (scrim + slide animation, dismiss on backdrop press via `closeOnBackdropPress`), and `<BottomSheetContent>` is just the sheet card for inline use. The card surface reuses the shared `surface.overlay` tokens and the scrim reuses `overlay.scrimOpacity`; the drag handle is the one bespoke colour. Exported from the package entry point alongside `BottomSheetProps` and `BottomSheetContentProps`
+- **`applyCastTheme` helper** — turns a cast-sync `cast-theme.json` object plus a colour mode into `ThemeProvider` props in one call (`<ThemeProvider {...applyCastTheme(theme, mode)}>`). It pairs the mode-keyed intent block with `colorMode` so they can't desync, and maps the file's non-intent colour sections (`text`, `surface`, `focusRing`) into the new `scheme` override prop so they actually land. Every section is optional, so partial or future-versioned theme files never throw. Exported alongside the `CastThemeFile` and `CastThemeProps` types
+- **`scheme` prop on `ThemeProvider`** — optional deep-partial override for the non-intent colour sections of the active scheme (surface, text, focusRing, overlay), deep-merged after `colors`. Forward-compatible, so a theme file can carry whatever sections it provides; usually set for you by `applyCastTheme` rather than by hand
+- **`control/bottom-sheet/handle/bg` colour token** — dedicated drag-handle semantic (cool-grey/300 light, cool-grey/600 dark), available on the theme as `scheme.bottomSheet.handle` and mirroring the new Figma semantic variable
+- **Accordion and BottomSheet theme tokens** — Accordion adds per-size `gap`/`paddingX`/`paddingY` (all density-varying) via `AccordionThemeTokens`/`AccordionSizeTokens`; BottomSheet adds density-varying `padding`/`gap` plus constant `borderRadius`/`handleWidth`/`handleHeight`/`handleGap` via `BottomSheetThemeTokens`. Both added to the theme types and every density theme
+
 ## [4.7.0] — 2026-06-14
 
 ### Added

@@ -14,6 +14,11 @@ import type { DensityTheme, ComponentTokens } from './types';
 
 export const themes: Record<DensityTheme, ComponentTokens> = {
   compact: {
+    accordion: {
+      small:   { gap: 6, paddingX: 8,  paddingY: 6 },
+      default: { gap: 8, paddingX: 12, paddingY: 8 },
+      large:   { gap: 8, paddingX: 16, paddingY: 12 },
+    },
     dialog: {
       small:   { padding: 16, gap: 12, iconSize: 24 },
       default: { padding: 24, gap: 16, iconSize: 32 },
@@ -123,9 +128,18 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { gap: 6, paddingX: 10, paddingY: 6, indicatorHeight: 2 },
       large:   { gap: 8, paddingX: 12, paddingY: 8, indicatorHeight: 4 },
     },
+    bottomSheet: {
+      borderRadius: 16, handleWidth: 40, handleHeight: 4, handleGap: 8,
+      padding: 16, gap: 12,
+    },
   },
 
   default: {
+    accordion: {
+      small:   { gap: 8,  paddingX: 12, paddingY: 8 },
+      default: { gap: 8,  paddingX: 16, paddingY: 12 },
+      large:   { gap: 12, paddingX: 20, paddingY: 16 },
+    },
     dialog: {
       small:   { padding: 24, gap: 16, iconSize: 24 },
       default: { padding: 32, gap: 24, iconSize: 32 },
@@ -235,9 +249,18 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { gap: 8, paddingX: 12, paddingY: 8,  indicatorHeight: 2 },
       large:   { gap: 8, paddingX: 16, paddingY: 10, indicatorHeight: 4 },
     },
+    bottomSheet: {
+      borderRadius: 16, handleWidth: 40, handleHeight: 4, handleGap: 8,
+      padding: 24, gap: 16,
+    },
   },
 
   comfortable: {
+    accordion: {
+      small:   { gap: 8,  paddingX: 16, paddingY: 12 },
+      default: { gap: 12, paddingX: 20, paddingY: 16 },
+      large:   { gap: 12, paddingX: 24, paddingY: 20 },
+    },
     dialog: {
       small:   { padding: 40, gap: 24, iconSize: 24 },
       default: { padding: 40, gap: 32, iconSize: 32 },
@@ -346,6 +369,10 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       small:   { gap: 8,  paddingX: 12, paddingY: 8,  indicatorHeight: 2 },
       default: { gap: 8,  paddingX: 16, paddingY: 10, indicatorHeight: 2 },
       large:   { gap: 12, paddingX: 20, paddingY: 12, indicatorHeight: 4 },
+    },
+    bottomSheet: {
+      borderRadius: 16, handleWidth: 40, handleHeight: 4, handleGap: 8,
+      padding: 32, gap: 24,
     },
   },
 };

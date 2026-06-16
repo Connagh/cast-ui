@@ -333,6 +333,45 @@ export type SpinnerThemeTokens = {
 };
 
 /**
+ * BottomSheet tokens. The sheet hugs its content up to a max height, so there
+ * are no size variants. `padding` and `gap` vary by density. The top corner
+ * radius and the drag handle dimensions are constant across density (handle
+ * width/height are keyed to primitive `size/*`, the radius to a primitive
+ * `radius/*`, the handle gap to `space/*`).
+ */
+export type BottomSheetThemeTokens = {
+  /** Top-corner radius of the sheet. Constant. */
+  borderRadius: number;
+  /** Drag handle width. Constant. */
+  handleWidth: number;
+  /** Drag handle height. Constant. */
+  handleHeight: number;
+  /** Gap below the handle before the content. Constant. */
+  handleGap: number;
+  /** Content padding. Varies by density. */
+  padding: number;
+  /** Gap between stacked content sections. Varies by density. */
+  gap: number;
+};
+
+/** Spacing tokens for one accordion size variant. gap, paddingX, and paddingY
+ * all vary by density (bound to primitive space/*). The flush style has no
+ * border-radius, and the chevron / leading icon use the named Icon scale keyed
+ * by the `size` prop, so there are no constant dimension tokens. */
+export type AccordionSizeTokens = {
+  gap: number;
+  paddingX: number;
+  paddingY: number;
+};
+
+/** Accordion tokens — three size variants, each density-varying. */
+export type AccordionThemeTokens = {
+  small: AccordionSizeTokens;
+  default: AccordionSizeTokens;
+  large: AccordionSizeTokens;
+};
+
+/**
  * Component-level tokens that vary by density theme.
  * Extended as new components are added to the library.
  */
@@ -355,7 +394,9 @@ export type ComponentTokens = {
   tooltip: TooltipThemeTokens;
   progress: ProgressThemeTokens;
   tabs: TabsThemeTokens;
+  accordion: AccordionThemeTokens;
   spinner: SpinnerThemeTokens;
+  bottomSheet: BottomSheetThemeTokens;
 };
 
 /** Utility type for partial overrides at any depth */

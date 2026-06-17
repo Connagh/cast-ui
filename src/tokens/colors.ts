@@ -83,6 +83,11 @@ export type ColorScheme = {
     /** Separator line colour */
     separator: string;
   };
+  /** Menu colours — item state colours (neutral) + separator. Mirrors select. */
+  menu: {
+    item: OptionStateColors;
+    separator: string;
+  };
   /** Tag tokens — multi-select pill styling (layout constant across modes) */
   tag: {
     bg: string;
@@ -158,6 +163,17 @@ export type ColorScheme = {
     descriptionFg: string;
     separator: string;
     containerBg: string;
+  };
+  /** Slider colours — track background (the fill uses the intent system). */
+  slider: { track: string };
+  /** Table colours — header, borders, and row states (neutral/brand, reused). */
+  table: {
+    headerBg: string;
+    border: string;
+    rowHover: string;
+    stripe: string;
+    selectedBg: string;
+    selectedHoverBg: string;
   };
 };
 
@@ -242,6 +258,16 @@ export const lightColors: ColorScheme = {
     },
     separator: '#E5E7EB',
   },
+  menu: {
+    item: {
+      default:       { bg: 'transparent', fg: '#374151' },
+      hover:         { bg: '#F9FAFB',     fg: '#111827' },
+      selected:      { bg: '#EFF6FF',     fg: '#1D4ED8' },
+      selectedHover: { bg: '#DBEAFE',     fg: '#1D4ED8' },
+      disabled:      { bg: 'transparent', fg: '#9CA3AF' },
+    },
+    separator: '#E5E7EB',
+  },
   tag: {
     bg: '#F3F4F6',
     fg: '#374151',
@@ -303,6 +329,15 @@ export const lightColors: ColorScheme = {
     descriptionFg: '#6B7280',
     separator: '#E5E7EB',
     containerBg: '#FFFFFF',
+  },
+  slider: { track: '#E5E7EB' }, // control/slider/track/bg -> cool-grey/200
+  table: {
+    headerBg: '#F3F4F6',
+    border: '#E5E7EB',
+    rowHover: '#F3F4F6',
+    stripe: '#F9FAFB',
+    selectedBg: '#EFF6FF',
+    selectedHoverBg: '#DBEAFE',
   },
 };
 
@@ -389,6 +424,16 @@ export const darkColors: ColorScheme = {
     },
     separator: '#374151',
   },
+  menu: {
+    item: {
+      default:       { bg: 'transparent', fg: '#E5E7EB' },
+      hover:         { bg: '#374151',     fg: '#F9FAFB' },
+      selected:      { bg: '#1E3A8A',     fg: '#93C5FD' },
+      selectedHover: { bg: '#1E40AF',     fg: '#93C5FD' },
+      disabled:      { bg: 'transparent', fg: '#6B7280' },
+    },
+    separator: '#374151',
+  },
   tag: {
     bg: '#374151',
     fg: '#E5E7EB',
@@ -451,6 +496,15 @@ export const darkColors: ColorScheme = {
     separator: '#374151',
     containerBg: '#1F2937',
   },
+  slider: { track: '#374151' }, // control/slider/track/bg -> cool-grey/700
+  table: {
+    headerBg: '#1F2937',
+    border: '#374151',
+    rowHover: '#374151',
+    stripe: '#111827',
+    selectedBg: '#1E3A8A',
+    selectedHoverBg: '#1E40AF',
+  },
 };
 
 /** Scheme lookup by colour mode */
@@ -494,6 +548,9 @@ export const overlayTokens = {
 /** Option state colours — used by SelectOption (neutral intent) */
 export const selectColors = lightColors.select;
 
+/** Menu colours — item state colours + separator (mirrors select). */
+export const menuColors = lightColors.menu;
+
 /** Tag tokens — multi-select pill styling (constant across densities) */
 export const tagTokens = lightColors.tag;
 
@@ -520,6 +577,12 @@ export const avatarColors = lightColors.avatar;
 
 /** Skeleton colours — placeholder surface for loading states */
 export const skeletonColors = lightColors.skeleton;
+
+/** Slider colours — track background (fill comes from the intent system). */
+export const sliderColors = lightColors.slider;
+
+/** Table colours — header, borders, and row states. */
+export const tableColors = lightColors.table;
 
 /** List colours — used by List / ListItem / ListSubheader */
 export const listColors = lightColors.list;

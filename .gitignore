@@ -44,6 +44,12 @@
 !.github/
 !.github/**
 
+# ── Allow the docs site (GitHub Pages) ───────
+# node_modules/ and dist/ are re-ignored globally below, so the broad include
+# here tracks the source + config but not build output or installed deps.
+!site/
+!site/**
+
 # ── Re-ignore things that should never be tracked ─
 # (catches anything accidentally un-ignored above)
 .DS_Store

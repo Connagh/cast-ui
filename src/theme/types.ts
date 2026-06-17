@@ -375,6 +375,151 @@ export type AccordionThemeTokens = {
  * Component-level tokens that vary by density theme.
  * Extended as new components are added to the library.
  */
+/** Link spacing tokens for one size variant (icon/label gap, varies by density). */
+export type LinkSizeTokens = {
+  gap: number;
+};
+
+/** Link tokens — gap varies by size and density. */
+export type LinkThemeTokens = {
+  small: LinkSizeTokens;
+  default: LinkSizeTokens;
+  large: LinkSizeTokens;
+};
+
+/** Breadcrumbs spacing tokens for one size variant (row + icon gap, density). */
+export type BreadcrumbsSizeTokens = {
+  gap: number;
+};
+
+/** Breadcrumbs tokens — gap varies by size and density. */
+export type BreadcrumbsThemeTokens = {
+  small: BreadcrumbsSizeTokens;
+  default: BreadcrumbsSizeTokens;
+  large: BreadcrumbsSizeTokens;
+};
+
+/** CodeBlock spacing tokens for one size variant (padding + gap, density). */
+export type CodeBlockSizeTokens = {
+  padding: number;
+  gap: number;
+};
+
+/** CodeBlock tokens — padding/gap vary by size and density; radius is constant. */
+export type CodeBlockThemeTokens = {
+  borderRadius: number;
+  small: CodeBlockSizeTokens;
+  default: CodeBlockSizeTokens;
+  large: CodeBlockSizeTokens;
+};
+
+/**
+ * Drawer tokens. The panel hugs an edge with no size variants, like
+ * BottomSheet. padding and gap vary by density; the panel is square (no radius
+ * token), and the default width is a layout constant in code, not a token.
+ */
+export type DrawerThemeTokens = {
+  padding: number;
+  gap: number;
+};
+
+/** Menu item spacing tokens (density-varying). */
+export type MenuItemTokens = {
+  gap: number;
+  paddingX: number;
+  paddingY: number;
+  borderRadius: number;
+};
+
+/** Menu group (section label) tokens. */
+export type MenuGroupTokens = {
+  paddingX: number;
+  labelPaddingY: number;
+};
+
+/** Menu tokens. Mirrors the select shape, namespaced to menu. Item spacing
+ * varies by density; the size prop drives typography. */
+export type MenuThemeTokens = {
+  item: MenuItemTokens;
+  content: { paddingY: number };
+  group: MenuGroupTokens;
+  separator: { marginY: number };
+};
+
+/** Toggle button spacing tokens for one size variant (density-varying). */
+export type ToggleButtonGroupSizeTokens = {
+  paddingX: number;
+  paddingY: number;
+  gap: number;
+};
+
+/** Toggle button group tokens — padding/gap vary by size and density; the group
+ * border-radius is constant. */
+export type ToggleButtonGroupThemeTokens = {
+  borderRadius: number;
+  small: ToggleButtonGroupSizeTokens;
+  default: ToggleButtonGroupSizeTokens;
+  large: ToggleButtonGroupSizeTokens;
+};
+
+/** App bar spacing tokens for one size variant (density-varying). */
+export type AppBarSizeTokens = {
+  paddingX: number;
+  paddingY: number;
+  gap: number;
+};
+
+/** App bar tokens — padding/gap vary by size and density. The bar height comes
+ * from the padding, so there is no height token. */
+export type AppBarThemeTokens = {
+  small: AppBarSizeTokens;
+  default: AppBarSizeTokens;
+  large: AppBarSizeTokens;
+};
+
+/** Slider geometry for one size variant (constant across density). */
+export type SliderSizeTokens = {
+  trackHeight: number;
+  thumbSize: number;
+};
+
+/** Slider tokens — track thickness + thumb size keyed by the size prop; pill
+ * radius constant. No density-varying spacing. */
+export type SliderThemeTokens = {
+  borderRadius: number;
+  small: SliderSizeTokens;
+  default: SliderSizeTokens;
+  large: SliderSizeTokens;
+};
+
+/** Speed dial sizes for one size variant. fab/action sizes are constant per
+ * size; gap varies by density. */
+export type SpeedDialSizeTokens = {
+  fabSize: number;
+  actionSize: number;
+  gap: number;
+};
+
+/** Speed dial tokens — three size variants. */
+export type SpeedDialThemeTokens = {
+  small: SpeedDialSizeTokens;
+  default: SpeedDialSizeTokens;
+  large: SpeedDialSizeTokens;
+};
+
+/** Table cell padding for one size variant (density-varying). */
+export type TableSizeTokens = {
+  cellPaddingX: number;
+  cellPaddingY: number;
+};
+
+/** Table tokens — three size variants. */
+export type TableThemeTokens = {
+  small: TableSizeTokens;
+  default: TableSizeTokens;
+  large: TableSizeTokens;
+};
+
 export type ComponentTokens = {
   button: ButtonThemeTokens;
   dialog: DialogThemeTokens;
@@ -397,6 +542,16 @@ export type ComponentTokens = {
   accordion: AccordionThemeTokens;
   spinner: SpinnerThemeTokens;
   bottomSheet: BottomSheetThemeTokens;
+  link: LinkThemeTokens;
+  breadcrumbs: BreadcrumbsThemeTokens;
+  codeBlock: CodeBlockThemeTokens;
+  drawer: DrawerThemeTokens;
+  menu: MenuThemeTokens;
+  toggleButtonGroup: ToggleButtonGroupThemeTokens;
+  appBar: AppBarThemeTokens;
+  slider: SliderThemeTokens;
+  speedDial: SpeedDialThemeTokens;
+  table: TableThemeTokens;
 };
 
 /** Utility type for partial overrides at any depth */

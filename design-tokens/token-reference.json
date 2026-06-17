@@ -1918,6 +1918,454 @@
           "description.fg": "#6B7280",
           "divider": "#E5E7EB"
         }
+      },
+      "bottomSheet": {
+        "sizes": [],
+        "states": [
+          "closed",
+          "open"
+        ],
+        "tokens": [
+          "padding",
+          "gap",
+          "border-radius",
+          "handle-width",
+          "handle-height",
+          "handle-gap"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "border-radius (16)",
+          "handle-width (40)",
+          "handle-height (4)",
+          "handle-gap (8)"
+        ],
+        "note": "Bottom-anchored modal sheet. Hugs content up to ~90% screen height then scrolls, so there are no size variants. padding/gap vary by density and alias primitive space/*; border-radius (top corners) aliases radius/4, handle-width aliases size/13, handle-height aliases size/3, handle-gap aliases space/5, all constant across density. The card surface reuses surface.overlay (bg/border); the scrim reuses overlay.scrimOpacity; the drag handle is the one new colour control/bottom-sheet/handle/bg (cool-grey/300 light, cool-grey/600 dark), mirrored as scheme.bottomSheet.handle.",
+        "verifiedValues": {
+          "padding": {
+            "compact": 16,
+            "default": 24,
+            "comfortable": 32
+          },
+          "gap": {
+            "compact": 12,
+            "default": 16,
+            "comfortable": 24
+          },
+          "border-radius": 16,
+          "handle-width": 40,
+          "handle-height": 4,
+          "handle-gap": 8
+        },
+        "colors": {
+          "surface": "surface/overlay bg+border (light #FFFFFF/#E5E7EB, dark #1F2937/#374151)",
+          "scrim": "overlay/scrimOpacity 0.5",
+          "handle": "control/bottom-sheet/handle/bg — light #D1D5DB (cool-grey/300), dark #4B5563 (cool-grey/600)"
+        },
+        "aliases": {
+          "bottom-sheet/padding": "space/9 · space/11 · space/12 (compact·default·comfortable)",
+          "bottom-sheet/gap": "space/7 · space/9 · space/11",
+          "bottom-sheet/border-radius": "radius/4",
+          "bottom-sheet/handle-width": "size/13",
+          "bottom-sheet/handle-height": "size/3",
+          "bottom-sheet/handle-gap": "space/5"
+        }
+      },
+      "link": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "states": [
+          "default",
+          "hover",
+          "disabled"
+        ],
+        "tokens": [
+          "gap"
+        ],
+        "themeVariable": [
+          "gap"
+        ],
+        "constant": [],
+        "note": "Inline/standalone text link. Colour comes from the intent subtle fg (brand default), text/primary on hover, shared disabled fg. The one spacing token is link/{size}/gap (icon to label), density-varying. Typography uses the label scale; icon size follows the named Icon scale (small->16, default->20, large->24).",
+        "aliases": {
+          "link/small/gap": "space/2 . space/3 . space/3 (compact.default.comfortable)",
+          "link/default/gap": "space/3 . space/3 . space/5",
+          "link/large/gap": "space/3 . space/5 . space/5"
+        }
+      },
+      "breadcrumbs": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "states": [
+          "link",
+          "current",
+          "hover",
+          "disabled"
+        ],
+        "tokens": [
+          "gap"
+        ],
+        "themeVariable": [
+          "gap"
+        ],
+        "constant": [],
+        "note": "Compound (Breadcrumbs + Breadcrumb). Links use the brand subtle fg, current item uses text/primary, separators use text/description. The one spacing token is breadcrumbs/{size}/gap (row gap between items and separators, and the leading-icon to label gap), density-varying. Default separator is the chevron_right icon; a non-symbol string renders as text.",
+        "aliases": {
+          "breadcrumbs/small/gap": "space/3 . space/3 . space/5 (compact.default.comfortable)",
+          "breadcrumbs/default/gap": "space/3 . space/5 . space/5",
+          "breadcrumbs/large/gap": "space/5 . space/5 . space/7"
+        }
+      },
+      "codeBlock": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "states": [
+          "default",
+          "copied"
+        ],
+        "tokens": [
+          "padding",
+          "gap",
+          "border-radius"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "border-radius (8)"
+        ],
+        "note": "Monospaced code on surface/subtle with the overlay border. Code text is text/primary; gutter/title/language/copy icon use text/description. padding+gap vary by size and density; border-radius is constant (radius/3). Typography uses the body scale in the mono family. Copy uses the web Clipboard API plus an onCopy callback (zero-dependency).",
+        "aliases": {
+          "code-block/small/padding": "space/5 . space/7 . space/9 (compact.default.comfortable)",
+          "code-block/default/padding": "space/7 . space/9 . space/11",
+          "code-block/large/padding": "space/9 . space/11 . space/12",
+          "code-block/small/gap": "space/5 . space/5 . space/7",
+          "code-block/default/gap": "space/5 . space/7 . space/9",
+          "code-block/large/gap": "space/7 . space/9 . space/11",
+          "code-block/border-radius": "radius/3"
+        }
+      },
+      "drawer": {
+        "sizes": [],
+        "states": [
+          "closed",
+          "open"
+        ],
+        "tokens": [
+          "padding",
+          "gap"
+        ],
+        "themeVariable": [
+          "padding",
+          "gap"
+        ],
+        "constant": [
+          "default width 320 (code constant, not a token)"
+        ],
+        "note": "Edge-anchored modal panel (left/right/top/bottom). Hugs an edge with no size variants, like BottomSheet. Surface reuses overlay tokens; scrim reuses overlay.scrimOpacity. The panel is square (no radius). padding+gap vary by density.",
+        "aliases": {
+          "drawer/padding": "space/9 . space/11 . space/12 (compact.default.comfortable)",
+          "drawer/gap": "space/7 . space/9 . space/11"
+        }
+      },
+      "backdrop": {
+        "sizes": [],
+        "states": [
+          "closed",
+          "open"
+        ],
+        "tokens": [],
+        "themeVariable": [],
+        "constant": [],
+        "note": "Full-screen scrim. No new tokens: reuses scheme.overlay.scrimOpacity (a black scrim) and fades with open. invisible makes it transparent but still press-catching."
+      },
+      "menu": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "states": [
+          "default",
+          "hover",
+          "selected",
+          "disabled"
+        ],
+        "intents": [
+          "neutral",
+          "danger"
+        ],
+        "tokens": [
+          "item.gap",
+          "item.padding-x",
+          "item.padding-y",
+          "item.border-radius",
+          "content.padding-y",
+          "group.padding-x",
+          "group.label-padding-y",
+          "separator.margin-y"
+        ],
+        "themeVariable": [
+          "item.gap",
+          "item.padding-x",
+          "item.padding-y",
+          "content.padding-y",
+          "group.padding-x"
+        ],
+        "constant": [
+          "item.border-radius (4)",
+          "group.label-padding-y (6)",
+          "separator.margin-y (4)"
+        ],
+        "note": "Transient action overlay. Dedicated menu/* tokens + scheme.menu.item colour slice (mirrors select shape, namespaced to menu, reuses the same semantic colour values, no new semantic vars). Item spacing varies by density; size prop drives typography. Surface reuses overlay tokens. Danger items use intent/danger/subtle.",
+        "aliases": {
+          "menu/item/gap": "space/5 . space/7 . space/9 (compact.default.comfortable)",
+          "menu/item/padding-x": "space/5 . space/7 . space/9",
+          "menu/item/padding-y": "space/3 . space/4 . space/5",
+          "menu/item/border-radius": "radius/2",
+          "menu/content/padding-y": "space/2 . space/3 . space/4",
+          "menu/group/padding-x": "space/5 . space/7 . space/9",
+          "menu/group/label-padding-y": "space/4",
+          "menu/separator/margin-y": "space/3"
+        }
+      },
+      "toggleButtonGroup": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "states": [
+          "default",
+          "hover",
+          "selected",
+          "disabled"
+        ],
+        "tokens": [
+          "padding-x",
+          "padding-y",
+          "gap",
+          "border-radius"
+        ],
+        "themeVariable": [
+          "padding-x",
+          "padding-y",
+          "gap"
+        ],
+        "constant": [
+          "border-radius (8)"
+        ],
+        "note": "Segmented row. Dedicated toggle-button-group/* tokens (mirror button paddings, namespaced). Selected fills with intent/{intent}/bold; unselected is transparent with neutral text + neutral hover; group draws one neutral border with dividers. exclusive => single-select (string|null), else multi (string[]).",
+        "aliases": {
+          "toggle-button-group/small/padding-x": "space/4 . space/6 . space/8 (compact.default.comfortable)",
+          "toggle-button-group/default/padding-x": "space/6 . space/8 . space/10",
+          "toggle-button-group/large/padding-x": "space/10 . space/11 . space/12",
+          "toggle-button-group/small/padding-y": "space/2 . space/4 . space/6",
+          "toggle-button-group/default/padding-y": "space/4 . space/6 . space/8",
+          "toggle-button-group/large/padding-y": "space/8 . space/9 . space/10",
+          "toggle-button-group/small/gap": "space/3 . space/5 . space/7",
+          "toggle-button-group/default/gap": "space/5 . space/7 . space/9",
+          "toggle-button-group/large/gap": "space/9 . space/10 . space/11",
+          "toggle-button-group/border-radius": "radius/3"
+        }
+      },
+      "appBar": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "prominences": [
+          "default",
+          "bold",
+          "subtle"
+        ],
+        "tokens": [
+          "padding-x",
+          "padding-y",
+          "gap"
+        ],
+        "themeVariable": [
+          "padding-x",
+          "padding-y",
+          "gap"
+        ],
+        "constant": [
+          "height derived from padding (no height token)"
+        ],
+        "note": "Top bar. Dedicated app-bar/* tokens. Colour from the intent system: bold=filled, default=plain bar with bottom divider, subtle=transparent. Title + leadingIcon inherit the bar fg; trailing is a free slot. Title scale by size; spacing by density.",
+        "aliases": {
+          "app-bar/small/padding-x": "space/7 . space/9 . space/9 (compact.default.comfortable)",
+          "app-bar/default/padding-x": "space/9 . space/9 . space/11",
+          "app-bar/large/padding-x": "space/9 . space/11 . space/12",
+          "app-bar/small/padding-y": "space/4 . space/5 . space/7",
+          "app-bar/default/padding-y": "space/5 . space/7 . space/9",
+          "app-bar/large/padding-y": "space/7 . space/9 . space/10",
+          "app-bar/small/gap": "space/5 . space/5 . space/7",
+          "app-bar/default/gap": "space/5 . space/7 . space/9",
+          "app-bar/large/gap": "space/7 . space/9 . space/10"
+        }
+      },
+      "slider": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "states": [
+          "default",
+          "disabled"
+        ],
+        "tokens": [
+          "track-height",
+          "thumb-size",
+          "border-radius"
+        ],
+        "themeVariable": [],
+        "constant": [
+          "track-height (per size)",
+          "thumb-size (per size)",
+          "border-radius (9999)"
+        ],
+        "note": "Draggable track+fill+thumb (PanResponder, zero-dep). track-height + thumb-size keyed by size, constant across density (like Progress). Fill reuses intent/{intent}/bold/default/bg; track is the dedicated control/slider/track/bg semantic (scheme.slider.track, cool-grey/200 light, cool-grey/700 dark); thumb is a white circle with an intent ring.",
+        "aliases": {
+          "slider/small/track-height": "size/3",
+          "slider/default/track-height": "size/4",
+          "slider/large/track-height": "size/5",
+          "slider/small/thumb-size": "size/7",
+          "slider/default/thumb-size": "size/9",
+          "slider/large/thumb-size": "size/10",
+          "slider/border-radius": "radius/full",
+          "control/slider/track/bg": "cool-grey/200 (light) . cool-grey/700 (dark)"
+        }
+      },
+      "speedDial": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "intents": [
+          "neutral",
+          "brand",
+          "danger"
+        ],
+        "directions": [
+          "up",
+          "down",
+          "left",
+          "right"
+        ],
+        "tokens": [
+          "fab-size",
+          "action-size",
+          "gap"
+        ],
+        "themeVariable": [
+          "gap"
+        ],
+        "constant": [
+          "fab-size (per size)",
+          "action-size (per size)"
+        ],
+        "note": "FAB + expanding actions. fab-size/action-size keyed by size, constant across density; gap density-varying. FAB fills intent/{intent}/bold; actions are neutral surface buttons with tag-styled labels (scheme.tag). Optional scrim reuses overlay.scrimOpacity.",
+        "aliases": {
+          "speed-dial/small/fab-size": "size/13",
+          "speed-dial/default/fab-size": "size/14",
+          "speed-dial/large/fab-size": "size/15",
+          "speed-dial/small/action-size": "size/12",
+          "speed-dial/default/action-size": "size/13",
+          "speed-dial/large/action-size": "size/14",
+          "speed-dial/small/gap": "space/4 . space/5 . space/7 (compact.default.comfortable)",
+          "speed-dial/default/gap": "space/5 . space/7 . space/9",
+          "speed-dial/large/gap": "space/7 . space/9 . space/10"
+        }
+      },
+      "table": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "states": [
+          "default",
+          "hover",
+          "selected",
+          "disabled"
+        ],
+        "tokens": [
+          "cell-padding-x",
+          "cell-padding-y"
+        ],
+        "themeVariable": [
+          "cell-padding-x",
+          "cell-padding-y"
+        ],
+        "constant": [],
+        "note": "Built from Views (no RN table). Dedicated table/* cell padding (density-varying). Colours from the dedicated scheme.table slice (header, border, rowHover, stripe, selected) reusing surface/neutral/brand-subtle values, no new semantic vars. striped shades alternate body rows; hoverable highlights on hover; onPress rows are pressable + selectable.",
+        "aliases": {
+          "table/small/cell-padding-x": "space/5 . space/7 . space/9 (compact.default.comfortable)",
+          "table/default/cell-padding-x": "space/7 . space/9 . space/10",
+          "table/large/cell-padding-x": "space/9 . space/11 . space/12",
+          "table/small/cell-padding-y": "space/3 . space/4 . space/5",
+          "table/default/cell-padding-y": "space/5 . space/7 . space/9",
+          "table/large/cell-padding-y": "space/7 . space/9 . space/11"
+        }
+      },
+      "autocomplete": {
+        "sizes": [
+          "small",
+          "default",
+          "large"
+        ],
+        "states": [
+          "default",
+          "hover",
+          "focus",
+          "error",
+          "disabled"
+        ],
+        "tokens": [],
+        "themeVariable": [],
+        "constant": [],
+        "note": "The Select combobox specialised for client-side filtering. Reuses input tokens for the field (is-a Input) and select tokens + scheme.select.option colours for the dropdown (is-a value-option). No new tokens. Type to filter by label; clearable; noOptionsText when nothing matches.",
+        "aliases": {
+          "(field)": "reuses components.input[size]",
+          "(dropdown/options)": "reuses components.select.* + scheme.select.option"
+        }
       }
     },
     "themePattern": {
@@ -1948,6 +2396,89 @@
       "typicalRatios": {
         "compactToDefault": "values increase ~30-60%",
         "defaultToComfortable": "values increase ~25-70%"
+      }
+    },
+    "accordion": {
+      "sizes": [
+        "small",
+        "default",
+        "large"
+      ],
+      "intents": [
+        "neutral"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "open",
+        "disabled"
+      ],
+      "tokens": [
+        "gap",
+        "paddingX",
+        "paddingY"
+      ],
+      "themeVariable": [
+        "gap",
+        "paddingX",
+        "paddingY"
+      ],
+      "constant": [
+        "none — flush style has no radius; chevron/icon use the named Icon scale keyed by size"
+      ],
+      "note": "Compound component (Accordion + AccordionItem). type single|multiple. Flush/divided style, neutral only. gap/paddingX/paddingY vary by density and alias primitive space/*. The header label uses text/primary (disabled -> disabled fg); the chevron (chevron_right, rotates 90deg when open) and optional leadingIcon use the named Icon scale keyed by the size prop and bind the same fg as the label. Header hover/press background reuse the neutral subtle intent (neutral/subtle/hover|active/bg). The divider between items is surface/overlay/border at control border width (like Divider). No new colour tokens.",
+      "verifiedValues": {
+        "compact": {
+          "small": {
+            "gap": 6,
+            "paddingX": 8,
+            "paddingY": 6
+          },
+          "default": {
+            "gap": 8,
+            "paddingX": 12,
+            "paddingY": 8
+          },
+          "large": {
+            "gap": 8,
+            "paddingX": 16,
+            "paddingY": 12
+          }
+        },
+        "default": {
+          "small": {
+            "gap": 8,
+            "paddingX": 12,
+            "paddingY": 8
+          },
+          "default": {
+            "gap": 8,
+            "paddingX": 16,
+            "paddingY": 12
+          },
+          "large": {
+            "gap": 12,
+            "paddingX": 20,
+            "paddingY": 16
+          }
+        },
+        "comfortable": {
+          "small": {
+            "gap": 8,
+            "paddingX": 16,
+            "paddingY": 12
+          },
+          "default": {
+            "gap": 12,
+            "paddingX": 20,
+            "paddingY": 16
+          },
+          "large": {
+            "gap": 12,
+            "paddingX": 24,
+            "paddingY": 20
+          }
+        }
       }
     }
   }

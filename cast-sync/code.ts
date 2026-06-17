@@ -2,17 +2,24 @@
  * cast-sync — exports the cast-ui-kit Figma file's design tokens as a theme
  * file for @castui/cast-ui.
  *
- * Theme file format v2. Exports four sections:
+ * Theme file format v3. Exports six sections. The four colour-bearing
+ * sections are mode-keyed (light/dark) and consumed at runtime via
+ * applyCastTheme(theme, mode); typography and shadows are reference only.
  *
- *   colors.{light|dark}   intent → prominence → state → { bg, fg, border },
- *                         matching ThemeProvider's `colors` prop (unchanged
- *                         from v1 — pass colors.light / colors.dark directly)
- *   text.{light|dark}     standalone text colours (text/primary, text/muted,
- *                         text/description) — Cast UI <Text> defaults
+ *   colors.{light|dark}   intent -> prominence -> state -> { bg, fg, border },
+ *                         the ThemeProvider `colors` (intents) shape.
+ *   text.{light|dark}     standalone text colours: primary, muted,
+ *                         description, placeholder. Cast UI <Text> defaults.
+ *   surface.{light|dark}  page surfaces: base, subtle, overlay { bg, border }.
+ *                         Colour subset only. Overlay radius and scrim opacity
+ *                         stay as cast-ui defaults.
+ *   focusRing.{light|dark} focus ring colour: { color }.
  *   typography            the Text Style ramp (caption, label, body, title,
- *                         heading, display). Values come from the semantic
- *                         typography variables the styles are bound to.
- *   shadows               elevation shadows from the shadow/* effect styles
+ *                         heading, display), from the bound semantic vars.
+ *   shadows               elevation shadows from the shadow/* effect styles.
+ *
+ * New in v3: surface, focusRing, and text.placeholder. Older consumers that
+ * only read colors keep working; the sections are additive.
  *
  * Colour values are read from the `semantic` variable collection (modes:
  * semantic-light / semantic-dark) with aliases resolved down to primitive
@@ -24,8 +31,17 @@ const PROMINENCES = ['default', 'bold', 'subtle'] as const;
 const STATES = ['default', 'hover', 'active'] as const;
 const SLOTS = ['bg', 'fg', 'border'] as const;
 
-/** Standalone text colour variables exported under `text` */
-const TEXT_COLOR_VARS = ['primary', 'muted', 'description'] as const;
+/**
+ * Standalone text colours exported under `text`, as [outputKey, variableName].
+ * `placeholder` lives under the intent namespace in Figma, so it is read by
+ * name rather than assuming a `text/*` prefix.
+ */
+const TEXT_VARS = [
+  ['primary', 'text/primary'],
+  ['muted', 'text/muted'],
+  ['description', 'text/description'],
+  ['placeholder', 'intent/neutral/placeholder'],
+] as const;
 
 /** intent → prominence → state → { bg, fg, border } */
 type IntentColorMap = Record<string, Record<string, Record<string, Record<string, string>>>>;
@@ -48,13 +64,24 @@ type ShadowLayer = {
   spread: number;
 };
 
+/** Surface colours (colour subset only; radius/opacity stay cast-ui defaults). */
+type SurfaceMap = {
+  base?: string;
+  subtle?: string;
+  overlay?: { bg?: string; border?: string };
+};
+
+type FocusRingMap = { color?: string };
+
 type ThemeFile = {
   name: string;
   description: string;
   generatedAt: string;
-  version: 2;
+  version: 3;
   colors: Partial<Record<'light' | 'dark', IntentColorMap>>;
   text: Partial<Record<'light' | 'dark', TextColorMap>>;
+  surface: Partial<Record<'light' | 'dark', SurfaceMap>>;
+  focusRing: Partial<Record<'light' | 'dark', FocusRingMap>>;
   typography: Record<string, TypographyStyle>;
   shadows: Record<string, ShadowLayer[]>;
 };
@@ -108,6 +135,31 @@ async function resolveColor(value: VariableValue, modeId: string): Promise<RGBA 
     return { r: c.r, g: c.g, b: c.b, a: 'a' in c ? c.a : 1 };
   }
   return null;
+}
+
+/**
+ * Read one named COLOR variable for a mode and return it as a CSS colour.
+ * Pushes a single warning (light pass only) if the variable is missing, so a
+ * partial kit still exports cleanly instead of throwing.
+ */
+async function readNamedColor(
+  byName: Map<string, Variable>,
+  name: string,
+  modeId: string,
+  key: 'light' | 'dark',
+  warnings: string[],
+): Promise<string | null> {
+  const variable = byName.get(name);
+  if (!variable || variable.resolvedType !== 'COLOR') {
+    if (key === 'light') warnings.push(`Missing variable: ${name}`);
+    return null;
+  }
+  const rgba = await resolveColor(variable.valuesByMode[modeId], modeId);
+  if (!rgba) {
+    warnings.push(`Could not resolve ${name} (${key})`);
+    return null;
+  }
+  return toCssColor(rgba);
 }
 
 /** Figma font style name → numeric weight (matches cast-ui's fontWeight tokens). */
@@ -207,6 +259,8 @@ async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
 
   const colors: ThemeFile['colors'] = {};
   const text: ThemeFile['text'] = {};
+  const surface: ThemeFile['surface'] = {};
+  const focusRing: ThemeFile['focusRing'] = {};
   for (const { key, modeId } of modeList) {
     const intentMap: IntentColorMap = {};
     for (const intent of INTENTS) {
@@ -235,33 +289,48 @@ async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
     colors[key] = intentMap;
 
     const textMap: TextColorMap = {};
-    for (const slot of TEXT_COLOR_VARS) {
-      const name = `text/${slot}`;
-      const variable = byName.get(name);
-      if (!variable || variable.resolvedType !== 'COLOR') {
-        if (key === 'light') warnings.push(`Missing variable: ${name}`);
-        continue;
-      }
-      const rgba = await resolveColor(variable.valuesByMode[modeId], modeId);
-      if (!rgba) {
-        warnings.push(`Could not resolve ${name} (${key})`);
-        continue;
-      }
-      textMap[slot] = toCssColor(rgba);
+    for (const [slot, name] of TEXT_VARS) {
+      const c = await readNamedColor(byName, name, modeId, key, warnings);
+      if (c !== null) textMap[slot] = c;
     }
     text[key] = textMap;
+
+    // Surface colours (colour subset only). Overlay radius and scrim opacity
+    // are layout/opacity values that stay as cast-ui defaults, so they are not
+    // exported here.
+    const surfaceMap: SurfaceMap = {};
+    const sBase = await readNamedColor(byName, 'surface/base', modeId, key, warnings);
+    if (sBase !== null) surfaceMap.base = sBase;
+    const sSubtle = await readNamedColor(byName, 'surface/subtle', modeId, key, warnings);
+    if (sSubtle !== null) surfaceMap.subtle = sSubtle;
+    const oBg = await readNamedColor(byName, 'surface/overlay/bg', modeId, key, warnings);
+    const oBorder = await readNamedColor(byName, 'surface/overlay/border', modeId, key, warnings);
+    if (oBg !== null || oBorder !== null) {
+      surfaceMap.overlay = {};
+      if (oBg !== null) surfaceMap.overlay.bg = oBg;
+      if (oBorder !== null) surfaceMap.overlay.border = oBorder;
+    }
+    surface[key] = surfaceMap;
+
+    // Focus ring colour.
+    const ring = await readNamedColor(byName, 'control/focus-ring-colour', modeId, key, warnings);
+    focusRing[key] = ring !== null ? { color: ring } : {};
   }
 
   const theme: ThemeFile = {
     name: figma.root.name,
     description:
-      'Cast UI theme generated by cast-sync. Pass colors.light or colors.dark ' +
-      "to ThemeProvider's `colors` prop. text/typography/shadows mirror the " +
-      'kit Text Styles, text colours, and shadow effect styles.',
+      'Cast UI theme generated by cast-sync. Pass the whole file to ' +
+      'applyCastTheme(theme, mode) and spread the result into ThemeProvider. ' +
+      'colors/text/surface/focusRing are mode-keyed and consumed at runtime; ' +
+      'typography/shadows mirror the kit Text Styles and shadow effect styles ' +
+      'for reference. The version field is the schema version.',
     generatedAt: new Date().toISOString(),
-    version: 2,
+    version: 3,
     colors,
     text,
+    surface,
+    focusRing,
     typography: await buildTypography(warnings),
     shadows: await buildShadows(warnings),
   };

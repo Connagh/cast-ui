@@ -14,6 +14,11 @@ import type { DensityTheme, ComponentTokens } from './types';
 
 export const themes: Record<DensityTheme, ComponentTokens> = {
   compact: {
+    accordion: {
+      small:   { gap: 6, paddingX: 8,  paddingY: 6 },
+      default: { gap: 8, paddingX: 12, paddingY: 8 },
+      large:   { gap: 8, paddingX: 16, paddingY: 12 },
+    },
     dialog: {
       small:   { padding: 16, gap: 12, iconSize: 24 },
       default: { padding: 24, gap: 16, iconSize: 32 },
@@ -123,9 +128,68 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { gap: 6, paddingX: 10, paddingY: 6, indicatorHeight: 2 },
       large:   { gap: 8, paddingX: 12, paddingY: 8, indicatorHeight: 4 },
     },
+    bottomSheet: {
+      borderRadius: 16, handleWidth: 40, handleHeight: 4, handleGap: 8,
+      padding: 16, gap: 12,
+    },
+    link: {
+      small:   { gap: 2 },
+      default: { gap: 4 },
+      large:   { gap: 4 },
+    },
+    breadcrumbs: {
+      small:   { gap: 4 },
+      default: { gap: 4 },
+      large:   { gap: 8 },
+    },
+    codeBlock: {
+      borderRadius: 8,
+      small:   { padding: 8,  gap: 8 },
+      default: { padding: 12, gap: 8 },
+      large:   { padding: 16, gap: 12 },
+    },
+    drawer: { padding: 16, gap: 12 },
+    menu: {
+      item:      { gap: 8, paddingX: 8, paddingY: 4, borderRadius: 4 },
+      content:   { paddingY: 2 },
+      group:     { paddingX: 8, labelPaddingY: 6 },
+      separator: { marginY: 4 },
+    },
+    toggleButtonGroup: {
+      borderRadius: 8,
+      small:   { paddingX: 6,  paddingY: 2,  gap: 4 },
+      default: { paddingX: 10, paddingY: 6,  gap: 8 },
+      large:   { paddingX: 20, paddingY: 14, gap: 16 },
+    },
+    appBar: {
+      small:   { paddingX: 12, paddingY: 6,  gap: 8 },
+      default: { paddingX: 16, paddingY: 8,  gap: 8 },
+      large:   { paddingX: 16, paddingY: 12, gap: 12 },
+    },
+    slider: {
+      borderRadius: 9999,
+      small:   { trackHeight: 4, thumbSize: 12 },
+      default: { trackHeight: 6, thumbSize: 16 },
+      large:   { trackHeight: 8, thumbSize: 20 },
+    },
+    speedDial: {
+      small:   { fabSize: 40, actionSize: 32, gap: 6 },
+      default: { fabSize: 48, actionSize: 40, gap: 8 },
+      large:   { fabSize: 64, actionSize: 48, gap: 12 },
+    },
+    table: {
+      small:   { cellPaddingX: 8,  cellPaddingY: 4 },
+      default: { cellPaddingX: 12, cellPaddingY: 8 },
+      large:   { cellPaddingX: 16, cellPaddingY: 12 },
+    },
   },
 
   default: {
+    accordion: {
+      small:   { gap: 8,  paddingX: 12, paddingY: 8 },
+      default: { gap: 8,  paddingX: 16, paddingY: 12 },
+      large:   { gap: 12, paddingX: 20, paddingY: 16 },
+    },
     dialog: {
       small:   { padding: 24, gap: 16, iconSize: 24 },
       default: { padding: 32, gap: 24, iconSize: 32 },
@@ -235,9 +299,68 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       default: { gap: 8, paddingX: 12, paddingY: 8,  indicatorHeight: 2 },
       large:   { gap: 8, paddingX: 16, paddingY: 10, indicatorHeight: 4 },
     },
+    bottomSheet: {
+      borderRadius: 16, handleWidth: 40, handleHeight: 4, handleGap: 8,
+      padding: 24, gap: 16,
+    },
+    link: {
+      small:   { gap: 4 },
+      default: { gap: 4 },
+      large:   { gap: 8 },
+    },
+    breadcrumbs: {
+      small:   { gap: 4 },
+      default: { gap: 8 },
+      large:   { gap: 8 },
+    },
+    codeBlock: {
+      borderRadius: 8,
+      small:   { padding: 12, gap: 8 },
+      default: { padding: 16, gap: 12 },
+      large:   { padding: 24, gap: 16 },
+    },
+    drawer: { padding: 24, gap: 16 },
+    menu: {
+      item:      { gap: 12, paddingX: 12, paddingY: 6, borderRadius: 4 },
+      content:   { paddingY: 4 },
+      group:     { paddingX: 12, labelPaddingY: 6 },
+      separator: { marginY: 4 },
+    },
+    toggleButtonGroup: {
+      borderRadius: 8,
+      small:   { paddingX: 10, paddingY: 6,  gap: 8 },
+      default: { paddingX: 14, paddingY: 10, gap: 12 },
+      large:   { paddingX: 24, paddingY: 16, gap: 20 },
+    },
+    appBar: {
+      small:   { paddingX: 16, paddingY: 8,  gap: 8 },
+      default: { paddingX: 16, paddingY: 12, gap: 12 },
+      large:   { paddingX: 24, paddingY: 16, gap: 16 },
+    },
+    slider: {
+      borderRadius: 9999,
+      small:   { trackHeight: 4, thumbSize: 12 },
+      default: { trackHeight: 6, thumbSize: 16 },
+      large:   { trackHeight: 8, thumbSize: 20 },
+    },
+    speedDial: {
+      small:   { fabSize: 40, actionSize: 32, gap: 8 },
+      default: { fabSize: 48, actionSize: 40, gap: 12 },
+      large:   { fabSize: 64, actionSize: 48, gap: 16 },
+    },
+    table: {
+      small:   { cellPaddingX: 12, cellPaddingY: 6 },
+      default: { cellPaddingX: 16, cellPaddingY: 12 },
+      large:   { cellPaddingX: 24, cellPaddingY: 16 },
+    },
   },
 
   comfortable: {
+    accordion: {
+      small:   { gap: 8,  paddingX: 16, paddingY: 12 },
+      default: { gap: 12, paddingX: 20, paddingY: 16 },
+      large:   { gap: 12, paddingX: 24, paddingY: 20 },
+    },
     dialog: {
       small:   { padding: 40, gap: 24, iconSize: 24 },
       default: { padding: 40, gap: 32, iconSize: 32 },
@@ -346,6 +469,60 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       small:   { gap: 8,  paddingX: 12, paddingY: 8,  indicatorHeight: 2 },
       default: { gap: 8,  paddingX: 16, paddingY: 10, indicatorHeight: 2 },
       large:   { gap: 12, paddingX: 20, paddingY: 12, indicatorHeight: 4 },
+    },
+    bottomSheet: {
+      borderRadius: 16, handleWidth: 40, handleHeight: 4, handleGap: 8,
+      padding: 32, gap: 24,
+    },
+    link: {
+      small:   { gap: 4 },
+      default: { gap: 8 },
+      large:   { gap: 8 },
+    },
+    breadcrumbs: {
+      small:   { gap: 8 },
+      default: { gap: 8 },
+      large:   { gap: 12 },
+    },
+    codeBlock: {
+      borderRadius: 8,
+      small:   { padding: 16, gap: 12 },
+      default: { padding: 24, gap: 16 },
+      large:   { padding: 32, gap: 24 },
+    },
+    drawer: { padding: 32, gap: 24 },
+    menu: {
+      item:      { gap: 16, paddingX: 16, paddingY: 8, borderRadius: 4 },
+      content:   { paddingY: 6 },
+      group:     { paddingX: 16, labelPaddingY: 6 },
+      separator: { marginY: 4 },
+    },
+    toggleButtonGroup: {
+      borderRadius: 8,
+      small:   { paddingX: 14, paddingY: 10, gap: 12 },
+      default: { paddingX: 20, paddingY: 14, gap: 16 },
+      large:   { paddingX: 32, paddingY: 20, gap: 24 },
+    },
+    appBar: {
+      small:   { paddingX: 16, paddingY: 12, gap: 12 },
+      default: { paddingX: 24, paddingY: 16, gap: 16 },
+      large:   { paddingX: 32, paddingY: 20, gap: 20 },
+    },
+    slider: {
+      borderRadius: 9999,
+      small:   { trackHeight: 4, thumbSize: 12 },
+      default: { trackHeight: 6, thumbSize: 16 },
+      large:   { trackHeight: 8, thumbSize: 20 },
+    },
+    speedDial: {
+      small:   { fabSize: 40, actionSize: 32, gap: 12 },
+      default: { fabSize: 48, actionSize: 40, gap: 16 },
+      large:   { fabSize: 64, actionSize: 48, gap: 20 },
+    },
+    table: {
+      small:   { cellPaddingX: 16, cellPaddingY: 8 },
+      default: { cellPaddingX: 20, cellPaddingY: 16 },
+      large:   { cellPaddingX: 32, cellPaddingY: 24 },
     },
   },
 };

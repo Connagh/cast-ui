@@ -2,6 +2,12 @@
   <img src="https://raw.githubusercontent.com/Connagh/cast-ui/main/logo.png" alt="Cast UI" width="300" />
 </p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@castui/cast-ui"><img src="https://img.shields.io/npm/v/@castui/cast-ui.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@castui/cast-ui"><img src="https://img.shields.io/npm/dm/@castui/cast-ui.svg" alt="npm downloads" /></a>
+  <a href="https://github.com/Connagh/cast-ui/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@castui/cast-ui.svg" alt="license" /></a>
+</p>
+
 A cross-platform component library for React Native. One set of components
 that works on iOS, Android, and the web.
 

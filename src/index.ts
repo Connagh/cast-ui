@@ -12,6 +12,7 @@ export {
   textTokens,
   overlayTokens,
   selectColors,
+  menuColors,
   tagTokens,
   errorTokens,
   listColors,
@@ -22,6 +23,8 @@ export {
   radioColors,
   avatarColors,
   skeletonColors,
+  sliderColors,
+  tableColors,
   fontFamily,
   fontWeight,
   label,
@@ -45,8 +48,11 @@ export {
   ThemeProvider,
   useTheme,
   themes,
+  applyCastTheme,
   type Theme,
   type ThemeProviderProps,
+  type CastThemeFile,
+  type CastThemeProps,
   type DensityTheme,
   type ComponentTokens,
   type ButtonSizeTokens,
@@ -91,6 +97,27 @@ export {
   type TabsThemeTokens,
   type SpinnerSizeTokens,
   type SpinnerThemeTokens,
+  type BottomSheetThemeTokens,
+  type LinkSizeTokens,
+  type LinkThemeTokens,
+  type BreadcrumbsSizeTokens,
+  type BreadcrumbsThemeTokens,
+  type CodeBlockSizeTokens,
+  type CodeBlockThemeTokens,
+  type DrawerThemeTokens,
+  type MenuItemTokens,
+  type MenuGroupTokens,
+  type MenuThemeTokens,
+  type ToggleButtonGroupSizeTokens,
+  type ToggleButtonGroupThemeTokens,
+  type AppBarSizeTokens,
+  type AppBarThemeTokens,
+  type SliderSizeTokens,
+  type SliderThemeTokens,
+  type SpeedDialSizeTokens,
+  type SpeedDialThemeTokens,
+  type TableSizeTokens,
+  type TableThemeTokens,
   type DeepPartial,
 } from './theme';
 
@@ -206,9 +233,105 @@ export { Text, type TextProps, type TextType } from './components/Text';
 export { Progress, type ProgressProps, type ProgressSize } from './components/Progress';
 export { Spinner, type SpinnerProps, type SpinnerSize } from './components/Spinner';
 export {
+  BottomSheet,
+  BottomSheetContent,
+  type BottomSheetProps,
+  type BottomSheetContentProps,
+} from './components/BottomSheet';
+export {
   Tabs,
   Tab,
   type TabsProps,
   type TabProps,
   type TabsSize,
 } from './components/Tabs';
+export {
+  Accordion,
+  AccordionItem,
+  type AccordionProps,
+  type AccordionItemProps,
+  type AccordionSize,
+  type AccordionType,
+} from './components/Accordion';
+
+// --- Batch: MUI-aligned components ---
+export {
+  Link,
+  type LinkProps,
+  type LinkSize,
+  type LinkUnderline,
+} from './components/Link';
+export { Backdrop, type BackdropProps } from './components/Backdrop';
+export {
+  Breadcrumbs,
+  Breadcrumb,
+  type BreadcrumbsProps,
+  type BreadcrumbProps,
+  type BreadcrumbsSize,
+} from './components/Breadcrumbs';
+export {
+  CodeBlock,
+  type CodeBlockProps,
+  type CodeBlockSize,
+} from './components/CodeBlock';
+export {
+  Drawer,
+  DrawerContent,
+  type DrawerProps,
+  type DrawerContentProps,
+  type DrawerAnchor,
+} from './components/Drawer';
+export {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  MenuLabel,
+  MenuContent,
+  type MenuProps,
+  type MenuItemProps,
+  type MenuLabelProps,
+  type MenuContentProps,
+  type MenuSize,
+  type MenuPlacement,
+} from './components/Menu';
+export {
+  ToggleButtonGroup,
+  ToggleButton,
+  type ToggleButtonGroupProps,
+  type ToggleButtonProps,
+  type ToggleButtonGroupSize,
+} from './components/ToggleButtonGroup';
+export {
+  AppBar,
+  type AppBarProps,
+  type AppBarSize,
+  type AppBarAlign,
+} from './components/AppBar';
+export { Slider, type SliderProps, type SliderSize } from './components/Slider';
+export {
+  SpeedDial,
+  SpeedDialAction,
+  type SpeedDialProps,
+  type SpeedDialActionProps,
+  type SpeedDialSize,
+  type SpeedDialDirection,
+} from './components/SpeedDial';
+export {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  type TableProps,
+  type TableSectionProps,
+  type TableRowProps,
+  type TableCellProps,
+  type TableSize,
+  type TableCellAlign,
+} from './components/Table';
+export {
+  Autocomplete,
+  type AutocompleteProps,
+  type AutocompleteOption,
+  type AutocompleteSize,
+} from './components/Autocomplete';

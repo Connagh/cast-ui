@@ -163,6 +163,61 @@ The full guide lives in the
 [hosted Storybook](https://main--6990f00d7b8682c18d2ed5f3.chromatic.com)
 under **Guides → Customisation**.
 
+## Responsive layout
+
+Cast UI ships a set of breakpoints and hooks for building layouts that adapt
+across phones, tablets, and desktops. The values follow the Material 3 window
+size classes, so the same numbers hold up across watches, phones, foldables,
+tablets, and large screens.
+
+| Tier | Range (dp) | Typical devices |
+|------|-----------|-----------------|
+| `base` | `< 600` | Watches and every phone in portrait. Your default layout. |
+| `sm` | `>= 600` | Large phones in landscape, foldables unfolded, small tablets |
+| `md` | `>= 840` | Tablets |
+| `lg` | `>= 1200` | Laptops and desktops |
+| `xl` | `>= 1600` | Large desktops and TVs |
+
+The hooks read the live window width, so they update on resize, rotation, and
+foldables, and they behave the same on the web. The most common one picks a
+value per tier:
+
+```tsx
+import { useResponsiveValue, useBreakpoint, useMinWidth } from '@castui/cast-ui';
+
+function Gallery() {
+  const columns = useResponsiveValue({ base: 1, md: 2, xl: 4 });
+  // 1 column on phones, 2 on tablets, 4 on large desktops
+  ...
+}
+```
+
+`useResponsiveValue` is mobile-first: a tier with no value falls back to the
+nearest one below it, so `{ base: 1, md: 2 }` gives 1 up to `md` and 2 from
+`md` on. The other two hooks cover the rest:
+
+```tsx
+const tier = useBreakpoint();     // 'base' | 'sm' | 'md' | 'lg' | 'xl'
+const isWide = useMinWidth('lg'); // true from 1200dp up
+```
+
+The raw thresholds are also exported as `breakpoints` if you need a number
+directly.
+
+A few things worth knowing. React Native has no CSS media queries, so a
+breakpoint here is a width threshold you compare against, not automatic
+restyling. `base` is the mobile-first default: you write the phone layout with
+no breakpoint, then add overrides for larger screens. The gap between a small
+and a large phone is better handled with flexible layout (flex, percentages,
+`maxWidth`) than with a breakpoint.
+
+Breakpoints are a fixed foundation, which sets them apart from the rest of the
+theme. They are not part of `ThemeProvider`: they do not change with density,
+they are not touched by brand colour overrides, and they are not carried in
+`cast-theme.json`. The scale stays identical in every app, so layouts stay
+predictable. The same values live as the `breakpoint/*` primitive variables in
+the [cast-ui-kit Figma file](https://www.figma.com/design/JGtlpxLPJMZcwvQ3UZ9ZUl/cast-ui-kit).
+
 ## Theming from Figma — the cast-sync plugin
 
 [`cast-sync/`](./cast-sync) is a Figma plugin that turns the Figma file's

@@ -41,6 +41,12 @@ export {
   type LabelSize,
   iconSize,
   type IconSize,
+  breakpoints,
+  breakpointOrder,
+  resolveBreakpoint,
+  resolveResponsiveValue,
+  type Breakpoint,
+  type BreakpointKey,
 } from './tokens';
 
 // Theme
@@ -120,6 +126,13 @@ export {
   type TableThemeTokens,
   type DeepPartial,
 } from './theme';
+
+// Hooks
+export {
+  useBreakpoint,
+  useMinWidth,
+  useResponsiveValue,
+} from './hooks';
 
 // Components
 export { Button, type ButtonProps, type ButtonSize } from './components/Button';

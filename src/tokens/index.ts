@@ -40,3 +40,11 @@ export {
   type LabelSize,
 } from './typography';
 export { iconSize, type IconSize } from './icon';
+export {
+  breakpoints,
+  breakpointOrder,
+  resolveBreakpoint,
+  resolveResponsiveValue,
+  type Breakpoint,
+  type BreakpointKey,
+} from './breakpoints';

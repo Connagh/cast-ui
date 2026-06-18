@@ -22,7 +22,7 @@
   },
   "primitive": {
     "file": "design-tokens/primitive.tokens.json",
-    "totalTokens": 298,
+    "totalTokens": 302,
     "categories": {
       "colours": {
         "type": "color",
@@ -119,6 +119,17 @@
           "15": 64,
           "16": 80,
           "17": 96
+        }
+      },
+      "breakpoint": {
+        "type": "number",
+        "unit": "dp",
+        "note": "Reference-only foundation scale (Material 3 window size classes). Mobile-first min-width tiers; base is < sm. Not aliased, not on the ThemeProvider theme, not exported by cast-sync. Consumed in code via the useBreakpoint / useResponsiveValue hooks.",
+        "scale": {
+          "sm": 600,
+          "md": 840,
+          "lg": 1200,
+          "xl": 1600
         }
       },
       "radius": {

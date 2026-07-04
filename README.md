@@ -18,8 +18,18 @@ so what designers see in Figma is what ships in the app. Every component
 supports light and dark mode, three spacing densities, and your own brand
 colours — all switchable while the app is running, with no rebuild.
 
+Documentation site — live examples, patterns, templates, themes, motion,
+and the system graph: **https://connagh.github.io/cast-ui/**
+
 Browse every component live in the
-[hosted Storybook](https://main--6990f00d7b8682c18d2ed5f3.chromatic.com).
+[hosted Storybook](https://main--6990f00d7b8682c18d2ed5f3.chromatic.com),
+or grab the open source
+[Figma kit](https://www.figma.com/community/file/1648821010844688421/cast-ui-kit-for-react-native).
+
+Motion is part of the token system too: durations, easing curves, and
+springs live in the kit's `motion` variable collection, ship as
+`theme.motion`, honour the OS reduce-motion setting, and can be retimed at
+runtime like any colour.
 
 ## Installation
 
@@ -264,6 +274,18 @@ npm run build        # compile to dist/
 | `npm run storybook` | Start Storybook dev server |
 | `npm run build-storybook` | Build static Storybook |
 | `npm run build` | TypeScript compilation to `dist/` |
+
+### Documentation site
+
+```bash
+cd site
+npm install
+npm run dev     # local dev server
+npm run smoke   # render every route + evaluate every live example
+```
+
+The site aliases `@castui/cast-ui` to `../src`, so it always documents the
+code in your working tree.
 
 ## CI/CD
 

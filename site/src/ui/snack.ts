@@ -59,7 +59,7 @@ export default function App() {
 
 export function snackUrl(example: string, name?: string): string {
   const params = new URLSearchParams({
-    name: name ? `cast-ui — ${name}` : 'cast-ui example',
+    name: name ? `cast-ui · ${name}` : 'cast-ui example',
     description: 'Live example from the Cast UI documentation site.',
     platform: 'web',
     supportedPlatforms: 'ios,android,web',

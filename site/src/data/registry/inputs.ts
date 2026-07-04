@@ -32,9 +32,9 @@ export const inputs: ComponentDoc[] = [
   const [plan, setPlan] = useState('pro');
   return (
     <RadioGroup value={plan} onValueChange={setPlan}>
-      <Radio value="free">Free — 3 projects</Radio>
-      <Radio value="pro">Pro — unlimited projects</Radio>
-      <Radio value="team">Team — SSO and roles</Radio>
+      <Radio value="free">Free · 3 projects</Radio>
+      <Radio value="pro">Pro · unlimited projects</Radio>
+      <Radio value="team">Team · SSO and roles</Radio>
     </RadioGroup>
   );
 }`,

@@ -335,7 +335,7 @@ export const overlays: ComponentDoc[] = [
     ],
     dos: ['Write headers as the question the content answers.'],
     donts: ["Don't bury a page's main content in a collapsed section."],
-    motionRole: 'transition/expand — the chevron rotation on expand and collapse.',
+    motionRole: 'transition/expand: the chevron rotation on expand and collapse.',
     related: ['list', 'tabs', 'bottom-sheet'],
   },
 ];

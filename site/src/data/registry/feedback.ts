@@ -203,7 +203,7 @@ export const feedback: ComponentDoc[] = [
     ],
     dos: ['Mirror the final layout so nothing jumps when content lands.'],
     donts: ["Don't mix skeletons and spinners in one view. Pick one loading story."],
-    motionRole: 'loop/pulse — 700 ms half-cycle, opacity 1 to 0.5, honours reduce-motion.',
+    motionRole: 'loop/pulse: 700 ms half-cycle, opacity 1 to 0.5, honours reduce-motion.',
     related: ['spinner', 'progress'],
   },
   {
@@ -231,7 +231,7 @@ export const feedback: ComponentDoc[] = [
     ],
     dos: ['Prefer a real value the moment you can compute one.'],
     donts: ["Don't fake progress with a timer. Use the sweep instead."],
-    motionRole: 'loop/indeterminate — 1200 ms sweep, honours reduce-motion.',
+    motionRole: 'loop/indeterminate: 1200 ms sweep, honours reduce-motion.',
     related: ['spinner', 'skeleton', 'slider'],
   },
   {
@@ -270,7 +270,7 @@ export const feedback: ComponentDoc[] = [
     ],
     dos: ['Pair it with a short label when the wait can pass three seconds.'],
     donts: ["Don't rotate your own icons for loading. This is the loading story."],
-    motionRole: 'loop/spin — 800 ms rotation, linear. The loop never starts under reduce-motion.',
+    motionRole: 'loop/spin: 800 ms rotation, linear. The loop never starts under reduce-motion.',
     related: ['progress', 'skeleton', 'backdrop'],
   },
   {

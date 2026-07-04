@@ -80,7 +80,7 @@ export default function Themes() {
     const preset = brandPresets.find((p) => p.id === site.brandId) ?? brandPresets[0];
     const brand = preset.colors?.brand;
     const file = {
-      name: `cast-ui site — ${preset.label}`,
+      name: `cast-ui site · ${preset.label}`,
       description: 'Example theme exported from the Cast UI docs site. Shaped like a cast-sync export.',
       generatedAt: new Date().toISOString(),
       version: 4,

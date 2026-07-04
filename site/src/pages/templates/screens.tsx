@@ -171,9 +171,9 @@ export function AuthTemplate() {
           <View style={{ gap: 14 }}>
             <Text type="heading-sm">Pick a plan</Text>
             <RadioGroup value={plan} onValueChange={setPlan}>
-              <Radio value="free">Free — 3 projects</Radio>
-              <Radio value="pro">Pro — unlimited, £12/mo</Radio>
-              <Radio value="team">Team — SSO and roles, £39/mo</Radio>
+              <Radio value="free">Free · 3 projects</Radio>
+              <Radio value="pro">Pro · unlimited · £12/mo</Radio>
+              <Radio value="team">Team · SSO and roles · £39/mo</Radio>
             </RadioGroup>
             <Checkbox size="small" checked onChange={() => {}}>Email me product updates</Checkbox>
             <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -223,9 +223,9 @@ export function StorefrontTemplate() {
           </View>
         </View>
         <Select type="single" label="Delivery" value={delivery} onValueChange={(v) => setDelivery(v)}>
-          <SelectOption value="eco">Economy — 5 to 7 days · £4</SelectOption>
-          <SelectOption value="std">Standard — 3 to 5 days · £6</SelectOption>
-          <SelectOption value="exp">Express — 1 to 2 days · £12</SelectOption>
+          <SelectOption value="eco">Economy · 5 to 7 days · £4</SelectOption>
+          <SelectOption value="std">Standard · 3 to 5 days · £6</SelectOption>
+          <SelectOption value="exp">Express · 1 to 2 days · £12</SelectOption>
         </Select>
         <Button intent="brand" prominence="bold" size="large" leadingIcon="add_shopping_cart" onPress={() => setCartOpen(true)}>
           Add to cart

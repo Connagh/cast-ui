@@ -23,9 +23,9 @@ export const foundations: ComponentDoc[] = [
   <Text type="display-sm">Display</Text>
   <Text type="heading-md">Heading</Text>
   <Text type="title-md">Title</Text>
-  <Text type="body-md">Body — for paragraphs and general copy.</Text>
-  <Text type="label-md">Label — for controls and small headings.</Text>
-  <Text type="caption">Caption — for fine print.</Text>
+  <Text type="body-md">Body, for paragraphs and general copy.</Text>
+  <Text type="label-md">Label, for controls and small headings.</Text>
+  <Text type="caption">Caption, for fine print.</Text>
 </View>`,
       },
       {

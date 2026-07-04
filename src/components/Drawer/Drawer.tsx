@@ -34,7 +34,7 @@ import {
   type ViewStyle,
   type StyleProp,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 import { fontFamily, fontWeight, title } from '../../tokens';
 
 // ---------------------------------------------------------------------------
@@ -75,11 +75,6 @@ const DEFAULT_WIDTH = 320;
 /** Top/bottom panels never grow past this share of the screen height. */
 const MAX_HEIGHT_RATIO = 0.9;
 
-/** Animation timing. */
-const DURATION = 240;
-
-/** react-native-web does not support the native animation driver. */
-const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 const SHADOW_WEB = {
   boxShadow: '0px 0px 6px rgba(0,0,0,0.04), 0px 0px 15px rgba(0,0,0,0.08)',
@@ -186,6 +181,7 @@ export function Drawer({
   ...contentProps
 }: DrawerProps) {
   const { scheme } = useTheme();
+  const motion = useMotion();
   const scrimOpacity = scheme.overlay.scrimOpacity;
 
   const screen = Dimensions.get('window');
@@ -203,28 +199,29 @@ export function Drawer({
       Animated.parallel([
         Animated.timing(backdrop, {
           toValue: 1,
-          duration: DURATION,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          duration: motion.scale(motion.transition.standard.duration),
+          easing: motion.transition.standard.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
         Animated.spring(offset, {
           toValue: 0,
-          damping: 24,
-          stiffness: 240,
-          mass: 0.9,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          ...motion.spring.overlay,
+          useNativeDriver: motion.useNativeDriver,
         }),
       ]).start();
     } else if (mounted) {
       Animated.parallel([
         Animated.timing(backdrop, {
           toValue: 0,
-          duration: DURATION,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          duration: motion.scale(motion.transition.standard.duration),
+          easing: motion.transition.standard.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
         Animated.timing(offset, {
           toValue: distance * sign,
-          duration: DURATION,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          duration: motion.scale(motion.transition.standard.duration),
+          easing: motion.transition.standard.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
       ]).start(({ finished }) => {
         if (finished) setMounted(false);

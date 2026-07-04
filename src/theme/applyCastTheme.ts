@@ -34,6 +34,7 @@
 import type { DeepPartial } from './types';
 import type { ThemeProviderProps } from './ThemeContext';
 import type { ColorMode, ColorScheme, IntentName } from '../tokens/colors';
+import type { EasingName, MotionOverrides } from '../tokens/motion';
 
 /** intent → prominence → state → { bg, fg, border } */
 type FileIntentMap = Partial<
@@ -48,7 +49,7 @@ export type CastThemeFile = {
   name?: string;
   description?: string;
   generatedAt?: string;
-  /** Theme-file format version emitted by the plugin (currently 3). */
+  /** Theme-file format version emitted by the plugin (version 4 adds motion). */
   version?: number;
   /** Optional explicit schema version for consumer validation. */
   schemaVersion?: number;
@@ -63,14 +64,99 @@ export type CastThemeFile = {
   focusRing?: Partial<Record<ColorMode, { color?: string }>>;
   typography?: Record<string, unknown>;
   shadows?: Record<string, unknown>;
+  /**
+   * Motion block exported from the kit's `motion` variable collection
+   * (cast-theme version 4+). `easing` carries cubic-bezier control points
+   * as [x1, y1, x2, y2]. Motion is mode-independent, so this block is not
+   * keyed by colour mode.
+   */
+  motion?: {
+    duration?: Record<string, number>;
+    cycle?: Record<string, number>;
+    easing?: Record<string, readonly number[]>;
+    spring?: Record<string, { damping?: number; stiffness?: number; mass?: number }>;
+    feedback?: { press?: { scale?: number }; shake?: { amplitude?: number } };
+    loop?: { pulse?: { from?: number; to?: number } };
+  };
   [key: string]: unknown;
 };
 
 /** The subset of ThemeProvider props this helper produces. */
 export type CastThemeProps = Pick<
   ThemeProviderProps,
-  'colorMode' | 'colors' | 'scheme'
+  'colorMode' | 'colors' | 'scheme' | 'motion'
 >;
+
+const EASING_NAMES: EasingName[] = ['standard', 'entrance', 'exit', 'emphasized', 'linear'];
+const DURATION_KEYS = ['instant', 'fast', 'base', 'slow'] as const;
+const CYCLE_KEYS = ['pulse', 'spin', 'sweep'] as const;
+
+function pickNumbers<K extends string>(
+  source: Record<string, number> | undefined,
+  keys: readonly K[],
+): Partial<Record<K, number>> | undefined {
+  if (!source) return undefined;
+  const out: Partial<Record<K, number>> = {};
+  for (const key of keys) {
+    const value = source[key];
+    if (typeof value === 'number' && Number.isFinite(value)) out[key] = value;
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
+/** Map the file's `motion` block onto ThemeProvider motion overrides. */
+function mapMotion(
+  fileMotion: CastThemeFile['motion'],
+): MotionOverrides | undefined {
+  if (!fileMotion || typeof fileMotion !== 'object') return undefined;
+  const out: MotionOverrides = {};
+
+  const durations = pickNumbers(fileMotion.duration, DURATION_KEYS);
+  if (durations) out.duration = durations;
+  const cycles = pickNumbers(fileMotion.cycle, CYCLE_KEYS);
+  if (cycles) out.cycle = cycles;
+
+  if (fileMotion.easing) {
+    const beziers: NonNullable<MotionOverrides['easingBezier']> = {};
+    for (const name of EASING_NAMES) {
+      const pts = fileMotion.easing[name];
+      if (
+        Array.isArray(pts) &&
+        pts.length === 4 &&
+        pts.every((n) => typeof n === 'number' && Number.isFinite(n))
+      ) {
+        beziers[name] = [pts[0], pts[1], pts[2], pts[3]];
+      }
+    }
+    if (Object.keys(beziers).length > 0) out.easingBezier = beziers;
+  }
+
+  const overlay = fileMotion.spring?.overlay;
+  if (overlay && typeof overlay === 'object') {
+    const springOut: { damping?: number; stiffness?: number; mass?: number } = {};
+    if (typeof overlay.damping === 'number') springOut.damping = overlay.damping;
+    if (typeof overlay.stiffness === 'number') springOut.stiffness = overlay.stiffness;
+    if (typeof overlay.mass === 'number') springOut.mass = overlay.mass;
+    if (Object.keys(springOut).length > 0) out.spring = { overlay: springOut };
+  }
+
+  const press = fileMotion.feedback?.press;
+  const shake = fileMotion.feedback?.shake;
+  const fb: NonNullable<MotionOverrides['feedback']> = {};
+  if (press && typeof press.scale === 'number') fb.press = { scale: press.scale };
+  if (shake && typeof shake.amplitude === 'number') fb.shake = { amplitude: shake.amplitude };
+  if (Object.keys(fb).length > 0) out.feedback = fb;
+
+  const pulse = fileMotion.loop?.pulse;
+  if (pulse && typeof pulse === 'object') {
+    const pulseOut: { from?: number; to?: number } = {};
+    if (typeof pulse.from === 'number') pulseOut.from = pulse.from;
+    if (typeof pulse.to === 'number') pulseOut.to = pulse.to;
+    if (Object.keys(pulseOut).length > 0) out.loop = { pulse: pulseOut };
+  }
+
+  return Object.keys(out).length > 0 ? out : undefined;
+}
 
 /** Map the file's `text` block onto the scheme's `text` slots (matching keys only). */
 function mapText(
@@ -135,5 +221,6 @@ export function applyCastTheme(
     colorMode: mode,
     colors: intents,
     scheme: Object.keys(schemeOverride).length > 0 ? schemeOverride : undefined,
+    motion: mapMotion(theme?.motion),
   };
 }

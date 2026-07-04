@@ -1,0 +1,537 @@
+{
+  "_meta": {
+    "collection": "motion",
+    "modes": [
+      "motion"
+    ],
+    "description": "Motion tokens exported from the cast-ui-kit motion variable collection. One mode: motion is constant across density and colour mode. easing/{name}/{x1,y1,x2,y2} are cubic-bezier control points, identical to src/tokens/motion.ts easingBezier and usable directly in CSS cubic-bezier(). Semantic duration tokens alias primitives; easing strings name the curve a role uses. Runtime mirror: src/tokens/motion.ts."
+  },
+  "duration": {
+    "instant": {
+      "$type": "number",
+      "$value": 100,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:209",
+        "com.figma.scopes": []
+      }
+    },
+    "fast": {
+      "$type": "number",
+      "$value": 150,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:210",
+        "com.figma.scopes": []
+      }
+    },
+    "base": {
+      "$type": "number",
+      "$value": 220,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:211",
+        "com.figma.scopes": []
+      }
+    },
+    "slow": {
+      "$type": "number",
+      "$value": 320,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:212",
+        "com.figma.scopes": []
+      }
+    }
+  },
+  "cycle": {
+    "pulse": {
+      "$type": "number",
+      "$value": 700,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:213",
+        "com.figma.scopes": []
+      }
+    },
+    "spin": {
+      "$type": "number",
+      "$value": 800,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:214",
+        "com.figma.scopes": []
+      }
+    },
+    "sweep": {
+      "$type": "number",
+      "$value": 1200,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:1451:215",
+        "com.figma.scopes": []
+      }
+    }
+  },
+  "easing": {
+    "standard": {
+      "x1": {
+        "$type": "number",
+        "$value": 0.4,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:216",
+          "com.figma.scopes": []
+        }
+      },
+      "y1": {
+        "$type": "number",
+        "$value": 0,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:217",
+          "com.figma.scopes": []
+        }
+      },
+      "x2": {
+        "$type": "number",
+        "$value": 0.2,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:218",
+          "com.figma.scopes": []
+        }
+      },
+      "y2": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:219",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "entrance": {
+      "x1": {
+        "$type": "number",
+        "$value": 0,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:220",
+          "com.figma.scopes": []
+        }
+      },
+      "y1": {
+        "$type": "number",
+        "$value": 0,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:221",
+          "com.figma.scopes": []
+        }
+      },
+      "x2": {
+        "$type": "number",
+        "$value": 0.2,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:222",
+          "com.figma.scopes": []
+        }
+      },
+      "y2": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:223",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "exit": {
+      "x1": {
+        "$type": "number",
+        "$value": 0.4,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:224",
+          "com.figma.scopes": []
+        }
+      },
+      "y1": {
+        "$type": "number",
+        "$value": 0,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:225",
+          "com.figma.scopes": []
+        }
+      },
+      "x2": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:226",
+          "com.figma.scopes": []
+        }
+      },
+      "y2": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:227",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "emphasized": {
+      "x1": {
+        "$type": "number",
+        "$value": 0.7,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:228",
+          "com.figma.scopes": []
+        }
+      },
+      "y1": {
+        "$type": "number",
+        "$value": -0.4,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:229",
+          "com.figma.scopes": []
+        }
+      },
+      "x2": {
+        "$type": "number",
+        "$value": 0.4,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:230",
+          "com.figma.scopes": []
+        }
+      },
+      "y2": {
+        "$type": "number",
+        "$value": 1.4,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:231",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "linear": {
+      "x1": {
+        "$type": "number",
+        "$value": 0,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:232",
+          "com.figma.scopes": []
+        }
+      },
+      "y1": {
+        "$type": "number",
+        "$value": 0,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:233",
+          "com.figma.scopes": []
+        }
+      },
+      "x2": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:234",
+          "com.figma.scopes": []
+        }
+      },
+      "y2": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:235",
+          "com.figma.scopes": []
+        }
+      }
+    }
+  },
+  "spring": {
+    "overlay": {
+      "damping": {
+        "$type": "number",
+        "$value": 22,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:236",
+          "com.figma.scopes": []
+        }
+      },
+      "stiffness": {
+        "$type": "number",
+        "$value": 220,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:237",
+          "com.figma.scopes": []
+        }
+      },
+      "mass": {
+        "$type": "number",
+        "$value": 0.9,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:238",
+          "com.figma.scopes": []
+        }
+      }
+    }
+  },
+  "transition": {
+    "standard": {
+      "duration": {
+        "$type": "number",
+        "$value": 220,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:239",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:211",
+            "targetVariableName": "duration/base",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "standard",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:240",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "enter": {
+      "duration": {
+        "$type": "number",
+        "$value": 150,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:241",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:210",
+            "targetVariableName": "duration/fast",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "entrance",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:242",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "exit": {
+      "duration": {
+        "$type": "number",
+        "$value": 150,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:243",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:210",
+            "targetVariableName": "duration/fast",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "exit",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:244",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "expand": {
+      "duration": {
+        "$type": "number",
+        "$value": 150,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:245",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:210",
+            "targetVariableName": "duration/fast",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "standard",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:246",
+          "com.figma.scopes": []
+        }
+      }
+    }
+  },
+  "feedback": {
+    "press": {
+      "duration": {
+        "$type": "number",
+        "$value": 100,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:247",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:209",
+            "targetVariableName": "duration/instant",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "standard",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:248",
+          "com.figma.scopes": []
+        }
+      },
+      "scale": {
+        "$type": "number",
+        "$value": 0.97,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:249",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "shake": {
+      "duration": {
+        "$type": "number",
+        "$value": 220,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:250",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:211",
+            "targetVariableName": "duration/base",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "standard",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:251",
+          "com.figma.scopes": []
+        }
+      },
+      "amplitude": {
+        "$type": "number",
+        "$value": 4,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:252",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "pop": {
+      "duration": {
+        "$type": "number",
+        "$value": 150,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:253",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:210",
+            "targetVariableName": "duration/fast",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "emphasized",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:254",
+          "com.figma.scopes": []
+        }
+      }
+    }
+  },
+  "loop": {
+    "spin": {
+      "duration": {
+        "$type": "number",
+        "$value": 800,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:255",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:214",
+            "targetVariableName": "cycle/spin",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "linear",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:256",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "pulse": {
+      "duration": {
+        "$type": "number",
+        "$value": 700,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:257",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:213",
+            "targetVariableName": "cycle/pulse",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "standard",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:258",
+          "com.figma.scopes": []
+        }
+      },
+      "from": {
+        "$type": "number",
+        "$value": 1,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:259",
+          "com.figma.scopes": []
+        }
+      },
+      "to": {
+        "$type": "number",
+        "$value": 0.5,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:260",
+          "com.figma.scopes": []
+        }
+      }
+    },
+    "indeterminate": {
+      "duration": {
+        "$type": "number",
+        "$value": 1200,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:261",
+          "com.figma.scopes": [],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:1451:215",
+            "targetVariableName": "cycle/sweep",
+            "targetVariableSetName": "motion"
+          }
+        }
+      },
+      "easing": {
+        "$type": "string",
+        "$value": "standard",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:1451:262",
+          "com.figma.scopes": []
+        }
+      }
+    }
+  }
+}

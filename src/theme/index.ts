@@ -1,5 +1,6 @@
 export { ThemeProvider, useTheme, type ThemeProviderProps, type Theme } from './ThemeContext';
 export { themes } from './themes';
+export { useMotion, type Motion } from './useMotion';
 export {
   applyCastTheme,
   type CastThemeFile,

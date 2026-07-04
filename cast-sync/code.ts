@@ -73,17 +73,32 @@ type SurfaceMap = {
 
 type FocusRingMap = { color?: string };
 
+/**
+ * Motion block — primitive motion values from the `motion` variable
+ * collection. Mode-independent (motion does not change between light and
+ * dark). `easing` values are cubic-bezier control points [x1, y1, x2, y2].
+ */
+type MotionMap = {
+  duration?: Record<string, number>;
+  cycle?: Record<string, number>;
+  easing?: Record<string, [number, number, number, number]>;
+  spring?: Record<string, { damping?: number; stiffness?: number; mass?: number }>;
+  feedback?: { press?: { scale?: number }; shake?: { amplitude?: number } };
+  loop?: { pulse?: { from?: number; to?: number } };
+};
+
 type ThemeFile = {
   name: string;
   description: string;
   generatedAt: string;
-  version: 3;
+  version: 4;
   colors: Partial<Record<'light' | 'dark', IntentColorMap>>;
   text: Partial<Record<'light' | 'dark', TextColorMap>>;
   surface: Partial<Record<'light' | 'dark', SurfaceMap>>;
   focusRing: Partial<Record<'light' | 'dark', FocusRingMap>>;
   typography: Record<string, TypographyStyle>;
   shadows: Record<string, ShadowLayer[]>;
+  motion?: MotionMap;
 };
 
 figma.showUI(__html__, { width: 520, height: 640, themeColors: true });
@@ -228,6 +243,95 @@ async function buildShadows(warnings: string[]): Promise<ThemeFile['shadows']> {
   return shadows;
 }
 
+/** Follow alias chains until a concrete number is reached. */
+async function resolveNumber(value: VariableValue, modeId: string): Promise<number | null> {
+  let current: VariableValue = value;
+  let depth = 0;
+  while (isAlias(current)) {
+    if (++depth > 10) return null;
+    const target = await figma.variables.getVariableByIdAsync(current.id);
+    if (!target) return null;
+    const collection = await figma.variables.getVariableCollectionByIdAsync(
+      target.variableCollectionId,
+    );
+    if (!collection) return null;
+    const targetModeId = collection.modes.some((m) => m.modeId === modeId)
+      ? modeId
+      : collection.defaultModeId;
+    current = target.valuesByMode[targetModeId];
+  }
+  return typeof current === 'number' ? current : null;
+}
+
+/**
+ * Read the `motion` variable collection into the theme file's motion block.
+ * Older kits without the collection export no motion block at all, so the
+ * output stays valid for every consumer. Only the primitive layer is
+ * exported: durations, cycles, easing beziers, springs, and the few
+ * role-specific numbers (press scale, shake amplitude, pulse range).
+ * Semantic role wiring lives in code (resolveMotion), not in the file.
+ */
+async function buildMotion(warnings: string[]): Promise<MotionMap | undefined> {
+  const collections = await figma.variables.getLocalVariableCollectionsAsync();
+  const motionCol = collections.find((c) => c.name === 'motion');
+  if (!motionCol) return undefined;
+
+  const modeId = motionCol.defaultModeId;
+  const motion: MotionMap = {};
+  const easingParts: Record<string, Partial<Record<'x1' | 'y1' | 'x2' | 'y2', number>>> = {};
+
+  for (const id of motionCol.variableIds) {
+    const variable = await figma.variables.getVariableByIdAsync(id);
+    if (!variable || variable.resolvedType === 'STRING') continue;
+    const value = await resolveNumber(variable.valuesByMode[modeId], modeId);
+    if (value === null) {
+      warnings.push(`motion variable "${variable.name}" did not resolve to a number`);
+      continue;
+    }
+    const parts = variable.name.split('/');
+
+    if (parts[0] === 'duration' && parts.length === 2) {
+      (motion.duration ??= {})[parts[1]] = value;
+    } else if (parts[0] === 'cycle' && parts.length === 2) {
+      (motion.cycle ??= {})[parts[1]] = value;
+    } else if (parts[0] === 'easing' && parts.length === 3) {
+      (easingParts[parts[1]] ??= {})[parts[2] as 'x1' | 'y1' | 'x2' | 'y2'] = value;
+    } else if (parts[0] === 'spring' && parts.length === 3) {
+      const springs = (motion.spring ??= {});
+      const config = (springs[parts[1]] ??= {});
+      if (parts[2] === 'damping' || parts[2] === 'stiffness' || parts[2] === 'mass') {
+        config[parts[2]] = value;
+      }
+    } else if (variable.name === 'feedback/press/scale') {
+      ((motion.feedback ??= {}).press ??= {}).scale = value;
+    } else if (variable.name === 'feedback/shake/amplitude') {
+      ((motion.feedback ??= {}).shake ??= {}).amplitude = value;
+    } else if (variable.name === 'loop/pulse/from') {
+      ((motion.loop ??= {}).pulse ??= {}).from = value;
+    } else if (variable.name === 'loop/pulse/to') {
+      ((motion.loop ??= {}).pulse ??= {}).to = value;
+    }
+    // Semantic duration aliases (transition/*, feedback/*/duration,
+    // loop/*/duration) resolve through their primitives, which are already
+    // exported above, so they are intentionally skipped.
+  }
+
+  for (const [name, pts] of Object.entries(easingParts)) {
+    if (
+      typeof pts.x1 === 'number' &&
+      typeof pts.y1 === 'number' &&
+      typeof pts.x2 === 'number' &&
+      typeof pts.y2 === 'number'
+    ) {
+      (motion.easing ??= {})[name] = [pts.x1, pts.y1, pts.x2, pts.y2];
+    } else {
+      warnings.push(`motion easing "${name}" is missing one or more control points`);
+    }
+  }
+
+  return Object.keys(motion).length > 0 ? motion : undefined;
+}
+
 async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
   const collections = await figma.variables.getLocalVariableCollectionsAsync();
   const semantic = collections.find((c) => c.name === 'semantic');
@@ -324,9 +428,10 @@ async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
       'applyCastTheme(theme, mode) and spread the result into ThemeProvider. ' +
       'colors/text/surface/focusRing are mode-keyed and consumed at runtime; ' +
       'typography/shadows mirror the kit Text Styles and shadow effect styles ' +
-      'for reference. The version field is the schema version.',
+      'for reference. motion carries the primitive motion values ' +
+      '(mode-independent). The version field is the schema version.',
     generatedAt: new Date().toISOString(),
-    version: 3,
+    version: 4,
     colors,
     text,
     surface,
@@ -334,6 +439,8 @@ async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
     typography: await buildTypography(warnings),
     shadows: await buildShadows(warnings),
   };
+  const motion = await buildMotion(warnings);
+  if (motion) theme.motion = motion;
   return { theme, warnings };
 }
 

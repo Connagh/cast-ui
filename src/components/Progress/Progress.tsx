@@ -24,13 +24,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
-  Easing,
   View,
   type LayoutChangeEvent,
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 import type { IntentName } from '../../tokens';
 
 // ---------------------------------------------------------------------------
@@ -76,6 +75,7 @@ export function Progress({
   accessibilityLabel = 'Loading',
 }: ProgressProps) {
   const { components, colors, scheme } = useTheme();
+  const motion = useMotion();
 
   const { trackHeight } = components.progress[size];
   const borderRadius = components.progress.borderRadius;
@@ -93,19 +93,19 @@ export function Progress({
 
   const slide = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    if (!isIndeterminate || trackWidth === 0) return;
+    if (!isIndeterminate || trackWidth === 0 || motion.reduceMotion) return;
     slide.setValue(0);
     const loop = Animated.loop(
       Animated.timing(slide, {
         toValue: 1,
-        duration: 1200,
-        easing: Easing.inOut(Easing.ease),
+        duration: motion.loop.indeterminate.duration,
+        easing: motion.loop.indeterminate.easing,
         useNativeDriver: true,
       }),
     );
     loop.start();
     return () => loop.stop();
-  }, [isIndeterminate, trackWidth, slide]);
+  }, [isIndeterminate, trackWidth, slide, motion]);
 
   const barWidth = trackWidth * INDETERMINATE_BAR_FRACTION;
   const translateX = slide.interpolate({

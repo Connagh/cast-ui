@@ -43,7 +43,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 import { controlTokens } from '../../tokens';
 import type { IntentName } from '../../tokens';
 import { Text } from '../Text';
@@ -127,10 +127,6 @@ const ACTION_ICON: Record<SpeedDialSize, IconProps['size']> = {
   default: 'default',
   large: 'default',
 };
-
-const DURATION_IN = 160;
-const DURATION_OUT = 140;
-const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 const SHADOW_WEB = {
   boxShadow: '0px 4px 6px -1px rgba(0,0,0,0.12), 0px 2px 4px -2px rgba(0,0,0,0.1)',
@@ -230,6 +226,7 @@ export function SpeedDial({
   accessibilityLabel,
 }: SpeedDialProps) {
   const { components, colors, scheme } = useTheme();
+  const motion = useMotion();
   const { fabSize, actionSize, gap } = components.speedDial[size];
   const fabColors = colors[intent].bold.default;
 
@@ -250,9 +247,9 @@ export function SpeedDial({
   useEffect(() => {
     if (open) {
       setActionsMounted(true);
-      Animated.timing(anim, { toValue: 1, duration: DURATION_IN, useNativeDriver: USE_NATIVE_DRIVER }).start();
+      Animated.timing(anim, { toValue: 1, duration: motion.scale(motion.transition.enter.duration), easing: motion.transition.enter.easing, useNativeDriver: motion.useNativeDriver }).start();
     } else if (actionsMounted) {
-      Animated.timing(anim, { toValue: 0, duration: DURATION_OUT, useNativeDriver: USE_NATIVE_DRIVER }).start(({ finished }) => {
+      Animated.timing(anim, { toValue: 0, duration: motion.scale(motion.transition.exit.duration), easing: motion.transition.exit.easing, useNativeDriver: motion.useNativeDriver }).start(({ finished }) => {
         if (finished) setActionsMounted(false);
       });
     }

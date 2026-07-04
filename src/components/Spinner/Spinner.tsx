@@ -30,11 +30,10 @@
 import React, { useEffect, useRef } from 'react';
 import {
   Animated,
-  Easing,
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 import type { IntentName } from '../../tokens';
 
 // ---------------------------------------------------------------------------
@@ -58,9 +57,6 @@ export type SpinnerProps = {
 // Constants
 // ---------------------------------------------------------------------------
 
-/** One full rotation, in milliseconds. */
-const ROTATION_DURATION = 800;
-
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -72,6 +68,7 @@ export function Spinner({
   accessibilityLabel = 'Loading',
 }: SpinnerProps) {
   const { components, colors, scheme } = useTheme();
+  const motion = useMotion();
 
   const { diameter, stroke } = components.spinner[size];
   const arc = colors[intent].bold.default.bg;
@@ -80,17 +77,18 @@ export function Spinner({
   const spin = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     spin.setValue(0);
+    if (motion.reduceMotion) return;
     const loop = Animated.loop(
       Animated.timing(spin, {
         toValue: 1,
-        duration: ROTATION_DURATION,
-        easing: Easing.linear,
+        duration: motion.loop.spin.duration,
+        easing: motion.loop.spin.easing,
         useNativeDriver: true,
       }),
     );
     loop.start();
     return () => loop.stop();
-  }, [spin]);
+  }, [spin, motion]);
 
   const rotate = spin.interpolate({
     inputRange: [0, 1],

@@ -34,7 +34,7 @@ import {
   type ViewStyle,
   type StyleProp,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 import { fontFamily, fontWeight, title, controlTokens } from '../../tokens';
 
 // ---------------------------------------------------------------------------
@@ -70,11 +70,6 @@ export type BottomSheetProps = BottomSheetContentProps & {
 /** The sheet never grows past this share of the screen height. */
 const MAX_HEIGHT_RATIO = 0.9;
 
-/** Animation timing. */
-const DURATION = 220;
-
-/** react-native-web does not support the native animation driver. */
-const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 /** Upward shadow for web (matches Figma shadow/lg, cast above the sheet). */
 const SHADOW_WEB = {
@@ -187,6 +182,7 @@ export function BottomSheet({
   ...contentProps
 }: BottomSheetProps) {
   const { scheme } = useTheme();
+  const motion = useMotion();
   const scrimOpacity = scheme.overlay.scrimOpacity;
 
   const screenHeight = Dimensions.get('window').height;
@@ -200,28 +196,29 @@ export function BottomSheet({
       Animated.parallel([
         Animated.timing(backdrop, {
           toValue: 1,
-          duration: DURATION,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          duration: motion.scale(motion.transition.standard.duration),
+          easing: motion.transition.standard.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
         Animated.spring(translateY, {
           toValue: 0,
-          damping: 22,
-          stiffness: 220,
-          mass: 0.9,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          ...motion.spring.overlay,
+          useNativeDriver: motion.useNativeDriver,
         }),
       ]).start();
     } else if (mounted) {
       Animated.parallel([
         Animated.timing(backdrop, {
           toValue: 0,
-          duration: DURATION,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          duration: motion.scale(motion.transition.standard.duration),
+          easing: motion.transition.standard.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
         Animated.timing(translateY, {
           toValue: screenHeight,
-          duration: DURATION,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          duration: motion.scale(motion.transition.standard.duration),
+          easing: motion.transition.standard.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
       ]).start(({ finished }) => {
         if (finished) setMounted(false);

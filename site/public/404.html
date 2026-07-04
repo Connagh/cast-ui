@@ -1,9 +1,31 @@
 <!doctype html>
 <meta charset="utf-8" />
 <title>Cast UI</title>
-<!-- GitHub Pages serves this for unknown paths. The site is a single page for
-     now, so send everything back to the app root under the project base path. -->
+<!--
+  GitHub Pages serves this for unknown paths. Convert the path into a query
+  string and bounce to index.html, which restores it before the router boots.
+  Pattern from spa-github-pages. pathSegmentsToKeep is 1 for /cast-ui/.
+-->
 <script>
-  location.replace('/cast-ui/' + location.hash);
+  var pathSegmentsToKeep = 1;
+  var l = window.location;
+  l.replace(
+    l.protocol +
+      '//' +
+      l.hostname +
+      (l.port ? ':' + l.port : '') +
+      l.pathname
+        .split('/')
+        .slice(0, 1 + pathSegmentsToKeep)
+        .join('/') +
+      '/?/' +
+      l.pathname
+        .slice(1)
+        .split('/')
+        .slice(pathSegmentsToKeep)
+        .join('/')
+        .replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+  );
 </script>
-<a href="/cast-ui/">Go to Cast UI</a>

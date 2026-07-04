@@ -3,29 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cast UI</title>
+    <title>Cast UI — a cross-platform design system for React Native</title>
     <meta
       name="description"
-      content="Cast UI — a cross-platform React Native design system. Component documentation and showcase."
+      content="Cast UI is an open source design system for React Native. One set of components for iOS, Android and the web, themeable at runtime, designed in Figma and shipped as code."
     />
 
     <!--
-      Cast UI ships no fonts. The host page must load two:
+      Cast UI ships no fonts. The host page must load:
         • Inter                     — all text
         • Material Symbols Outlined — the <Icon> component
-      Without the symbols font, icons render as their literal name (e.g. the
-      word "stadia_controller") instead of the glyph.
+        • JetBrains Mono            — CodeBlock and code samples
+      Without the symbols font, icons render as their literal name.
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
       rel="stylesheet"
     />
+
+    <script>
+      // GitHub Pages single-page-app path restore. 404.html turned the real
+      // path into a ?/ query; put it back before the app boots so the router
+      // sees the URL the visitor asked for.
+      (function () {
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
 
     <style>
       html,
@@ -35,7 +54,6 @@
       }
       body {
         margin: 0;
-        background-color: #f7f8fa;
         font-family: 'Inter', sans-serif;
       }
     </style>

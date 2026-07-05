@@ -1,50 +1,90 @@
-import { View, StyleSheet } from 'react-native';
-import { ThemeProvider, Button, DialogContent } from '@castui/cast-ui';
-
 /**
- * Cast UI documentation site — first screen.
+ * Cast UI documentation site.
  *
- * A faithful build of the Figma mockup (file JGtlpxLPJMZcwvQ3UZ9ZUl, node
- * 1136-5735) using the real published @castui/cast-ui components. The point is
- * to prove the project structure and the design->code path before the full
- * design lands. As the design grows, add sections inside <View style={page}>.
+ * Route map (mirrors the top navigation):
+ *   /              Landing — live, themeable hero built from the library
+ *   /docs/*        Guides — getting started, theming, tokens, and so on
+ *   /components/*  Every component, generated from the registry
+ *   /patterns      Composition recipes
+ *   /templates/*   Full screens assembled from components
+ *   /themes        Brand theming and cast-theme.json round-trip
+ *   /motion        The motion system, animated
+ *   /playground    Editable live code
+ *   /architecture  The system graph
  *
- * The one rule of Cast UI: wrap the app in <ThemeProvider> once near the root.
- * Every component reads its colours and spacing from that context.
+ * Pages lazy-load so the landing bundle stays lean.
  */
-export function App() {
+
+import React, { Suspense, useEffect } from 'react';
+import { View } from 'react-native';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { Spinner, useTheme } from '@castui/cast-ui';
+import { SiteThemeRoot } from './theme/SiteTheme';
+import { TopNav } from './shell/TopNav';
+import { Footer } from './shell/Footer';
+
+const Landing = React.lazy(() => import('./pages/Landing'));
+const Docs = React.lazy(() => import('./pages/docs/Docs'));
+const ComponentsIndex = React.lazy(() => import('./pages/components/ComponentsIndex'));
+const ComponentPage = React.lazy(() => import('./pages/components/ComponentPage'));
+const Patterns = React.lazy(() => import('./pages/patterns/Patterns'));
+const Templates = React.lazy(() => import('./pages/templates/Templates'));
+const TemplateScreen = React.lazy(() => import('./pages/templates/TemplateScreen'));
+const Themes = React.lazy(() => import('./pages/themes/Themes'));
+const Motion = React.lazy(() => import('./pages/motion/Motion'));
+const Playground = React.lazy(() => import('./pages/playground/Playground'));
+const Architecture = React.lazy(() => import('./pages/architecture/Architecture'));
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+function PageFallback() {
   return (
-    <ThemeProvider>
-      <View style={styles.page}>
-        <Button intent="brand" prominence="bold" onPress={() => {}}>
-          Design System Site Yaay
-        </Button>
-
-        <View style={styles.spacer} />
-
-        <DialogContent
-          icon="stadia_controller"
-          title="Stinks"
-          description="Stinks again"
-          secondaryAction={{ label: 'Vanilla', onPress: () => {} }}
-          primaryAction={{ label: 'Strawberry', onPress: () => {} }}
-        />
-      </View>
-    </ThemeProvider>
+    <View style={{ minHeight: 320, alignItems: 'center', justifyContent: 'center' }}>
+      <Spinner intent="brand" />
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  // The page canvas. This matches the Figma frame background. It is the app's
-  // own surface (not a themed Cast UI component), so the colour lives here
-  // rather than coming from the theme.
-  page: {
-    flex: 1,
-    backgroundColor: '#f7f8fa',
-    padding: 16,
-    alignItems: 'flex-start',
-  },
-  spacer: {
-    height: 16,
-  },
-});
+function Shell() {
+  const { scheme } = useTheme();
+  const location = useLocation();
+  const fullScreen = /^\/templates\/[^/]+\/full/.test(location.pathname);
+
+  return (
+    <View style={{ minHeight: '100vh' as never, backgroundColor: scheme.surface.base }}>
+      {!fullScreen && <TopNav />}
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/docs/*" element={<Docs />} />
+          <Route path="/components" element={<ComponentsIndex />} />
+          <Route path="/components/:slug" element={<ComponentPage />} />
+          <Route path="/patterns" element={<Patterns />} />
+          <Route path="/templates" element={<Templates />} />
+          <Route path="/templates/:slug/full" element={<TemplateScreen />} />
+          <Route path="/themes" element={<Themes />} />
+          <Route path="/motion" element={<Motion />} />
+          <Route path="/playground" element={<Playground />} />
+          <Route path="/architecture" element={<Architecture />} />
+          <Route path="*" element={<Landing />} />
+        </Routes>
+      </Suspense>
+      {!fullScreen && <Footer />}
+    </View>
+  );
+}
+
+export function App() {
+  return (
+    <SiteThemeRoot>
+      <ScrollToTop />
+      <Shell />
+    </SiteThemeRoot>
+  );
+}

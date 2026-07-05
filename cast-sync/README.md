@@ -49,6 +49,15 @@ plugin has no network access at all.
 }
 ```
 
+- **`motion`** (version 4) — the primitive motion values from the kit's
+  `motion` variable collection: `duration` and `cycle` in ms, `easing` as
+  cubic-bezier control points `[x1, y1, x2, y2]`, `spring` configs, and the
+  role numbers (press scale, shake amplitude, pulse range). Motion does not
+  change between light and dark, so the block is not mode-keyed.
+  `applyCastTheme` maps it onto `ThemeProvider`'s `motion` prop, and
+  `resolveMotion` rebuilds every semantic role (transition / feedback / loop)
+  from it. A kit without the collection simply exports no motion block.
+
 `colors.light` and `colors.dark` each match the shape of `ThemeProvider`'s
 `colors` prop exactly: **intent → prominence → state → { bg, fg, border }**.
 That means you can pass them in with no conversion.

@@ -48,3 +48,23 @@ export {
   type Breakpoint,
   type BreakpointKey,
 } from './breakpoints';
+export {
+  duration,
+  cycle,
+  easing,
+  easingBezier,
+  spring,
+  transition,
+  feedback,
+  loop,
+  motionTokens,
+  resolveMotion,
+  type MotionTokens,
+  type MotionTransition,
+  type MotionOverrides,
+  type MotionDurations,
+  type MotionCycles,
+  type EasingName,
+  type EasingBezierPoints,
+  type SpringConfig,
+} from './motion';

@@ -43,13 +43,12 @@ import React, {
 } from 'react';
 import {
   Animated,
-  Easing,
   Pressable,
   View,
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 import { controlTokens } from '../../tokens';
 import { Text, type TextType } from '../Text';
 import { Icon } from '../Icon';
@@ -166,6 +165,7 @@ export function AccordionItem({
 }: AccordionItemProps) {
   const { openValues, toggle, size } = useAccordionContext('AccordionItem');
   const { components, colors, scheme } = useTheme();
+  const motion = useMotion();
   const [isHovered, setIsHovered] = useState(false);
 
   const sizeTokens = components.accordion[size];
@@ -176,11 +176,11 @@ export function AccordionItem({
   useEffect(() => {
     Animated.timing(spin, {
       toValue: isOpen ? 1 : 0,
-      duration: 160,
-      easing: Easing.inOut(Easing.ease),
+      duration: motion.scale(motion.transition.expand.duration),
+      easing: motion.transition.expand.easing,
       useNativeDriver: true,
     }).start();
-  }, [isOpen, spin]);
+  }, [isOpen, spin, motion]);
   const rotate = spin.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '90deg'],

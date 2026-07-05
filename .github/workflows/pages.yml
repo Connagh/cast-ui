@@ -1,7 +1,8 @@
 name: Deploy docs site to GitHub Pages
 
-# Builds the /site app (which consumes the published @castui/cast-ui package
-# from npm) and publishes it to GitHub Pages.
+# Builds the /site app and publishes it to GitHub Pages. The site bundles the
+# library straight from ../src (see site/vite.config.ts), so the docs always
+# match the code on main — no npm publish race.
 #
 # One-time setup in the repo: Settings -> Pages -> Build and deployment ->
 # Source -> "GitHub Actions". After that this workflow deploys on every push to
@@ -12,6 +13,8 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - 'src/**'
+      - 'design-tokens/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -47,6 +50,9 @@ jobs:
 
       - name: Build site
         run: npm run build
+
+      - name: Smoke test every route and example
+        run: npm run smoke
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

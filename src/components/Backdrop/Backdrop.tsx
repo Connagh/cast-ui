@@ -18,13 +18,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Pressable,
-  Platform,
   StyleSheet,
   type StyleProp,
   type ViewStyle,
   type GestureResponderEvent,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -49,11 +48,6 @@ export type BackdropProps = {
 // Constants
 // ---------------------------------------------------------------------------
 
-/** Fade timing. */
-const DURATION = 220;
-
-/** react-native-web does not support the native animation driver. */
-const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 // ---------------------------------------------------------------------------
 // Component
@@ -68,6 +62,7 @@ export function Backdrop({
   accessibilityLabel,
 }: BackdropProps) {
   const { scheme } = useTheme();
+  const motion = useMotion();
   const targetOpacity = invisible ? 0 : scheme.overlay.scrimOpacity;
 
   const fade = useRef(new Animated.Value(0)).current;
@@ -78,14 +73,16 @@ export function Backdrop({
       setMounted(true);
       Animated.timing(fade, {
         toValue: 1,
-        duration: DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER,
+        duration: motion.scale(motion.transition.standard.duration),
+        easing: motion.transition.standard.easing,
+        useNativeDriver: motion.useNativeDriver,
       }).start();
     } else if (mounted) {
       Animated.timing(fade, {
         toValue: 0,
-        duration: DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER,
+        duration: motion.scale(motion.transition.standard.duration),
+        easing: motion.transition.standard.easing,
+        useNativeDriver: motion.useNativeDriver,
       }).start(({ finished }) => {
         if (finished) setMounted(false);
       });

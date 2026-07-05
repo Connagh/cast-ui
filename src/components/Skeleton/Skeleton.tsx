@@ -16,12 +16,11 @@
 import React, { useEffect, useRef } from 'react';
 import {
   Animated,
-  Platform,
   type ViewStyle,
   type StyleProp,
   type DimensionValue,
 } from 'react-native';
-import { useTheme } from '../../theme';
+import { useMotion, useTheme } from '../../theme';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -50,9 +49,6 @@ export type SkeletonProps = {
 // Constants
 // ---------------------------------------------------------------------------
 
-// react-native-web has no native driver and warns if asked for one.
-const USE_NATIVE_DRIVER = Platform.OS !== 'web';
-
 type ShapeDefaults = { width: DimensionValue; height: DimensionValue; radius: number };
 
 /** Default size + corner radius per shape (radius/2, surface/overlay/radius, radius/full). */
@@ -76,32 +72,35 @@ export function Skeleton({
   accessibilityLabel = 'Loading',
 }: SkeletonProps) {
   const { scheme } = useTheme();
+  const motion = useMotion();
   const skeletonColors = scheme.skeleton;
   const defaults = SHAPE_DEFAULTS[shape];
   const opacity = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    if (!animated) {
+    if (!animated || motion.reduceMotion) {
       opacity.setValue(1);
       return;
     }
     const loop = Animated.loop(
       Animated.sequence([
         Animated.timing(opacity, {
-          toValue: 0.5,
-          duration: 700,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          toValue: motion.loop.pulse.to,
+          duration: motion.loop.pulse.duration,
+          easing: motion.loop.pulse.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
         Animated.timing(opacity, {
-          toValue: 1,
-          duration: 700,
-          useNativeDriver: USE_NATIVE_DRIVER,
+          toValue: motion.loop.pulse.from,
+          duration: motion.loop.pulse.duration,
+          easing: motion.loop.pulse.easing,
+          useNativeDriver: motion.useNativeDriver,
         }),
       ]),
     );
     loop.start();
     return () => loop.stop();
-  }, [animated, opacity]);
+  }, [animated, opacity, motion]);
 
   return (
     <Animated.View

@@ -37,8 +37,14 @@
 !README.md
 !LICENSE
 !CHANGELOG.md
+!DESIGN-CHANGELOG.md
+!CLAUDE.md
 !CONTRIBUTING.md
 !SECURITY.md
+
+# ── Allow agent skills (shipped in the npm package) ─
+!skills/
+!skills/**
 
 # ── Allow CI/CD config ───────────────────────────
 !.github/

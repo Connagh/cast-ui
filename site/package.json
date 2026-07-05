@@ -7,13 +7,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node scripts/build-graph.mjs",
+    "smoke": "vite build --ssr scripts/ssrSmoke.tsx --outDir dist-ssr --emptyOutDir && node dist-ssr/ssrSmoke.js"
   },
   "dependencies": {
-    "@castui/cast-ui": "^4.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-native-web": "^0.21.2"
+    "react-live": "^4.1.8",
+    "react-native-web": "^0.21.2",
+    "react-router-dom": "^7.1.3"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",

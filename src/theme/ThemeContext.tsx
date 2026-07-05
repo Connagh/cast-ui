@@ -44,6 +44,8 @@ import {
   intentColors as defaultIntentColors,
 } from '../tokens/colors';
 import type { ColorMode, ColorScheme, IntentName } from '../tokens/colors';
+import { motionTokens, resolveMotion } from '../tokens/motion';
+import type { MotionTokens, MotionOverrides } from '../tokens/motion';
 import type { DensityTheme, ComponentTokens, DeepPartial } from './types';
 
 // ---------------------------------------------------------------------------
@@ -63,6 +65,8 @@ export type Theme = {
   colors: IntentColorMap;
   /** Disabled colours of the active scheme — kept for backwards compatibility. */
   disabledColors: ColorScheme['disabled'];
+  /** Motion tokens — animation durations, easings, springs. Constant across density and colour mode. */
+  motion: MotionTokens;
 };
 
 // ---------------------------------------------------------------------------
@@ -107,6 +111,7 @@ const defaultTheme: Theme = {
   scheme: colorSchemes.light,
   colors: colorSchemes.light.intents,
   disabledColors: colorSchemes.light.disabled,
+  motion: motionTokens,
 };
 
 const ThemeContext = createContext<Theme>(defaultTheme);
@@ -133,6 +138,14 @@ export type ThemeProviderProps = {
    * Usually you don't set this by hand — `applyCastTheme` builds it for you.
    */
   scheme?: DeepPartial<ColorScheme>;
+  /**
+   * Primitive-level motion overrides — durations, cycle lengths, easing
+   * beziers, springs. Semantic roles (transition/feedback/loop) are rebuilt
+   * from these, so one duration change flows into every role that uses it.
+   * Usually you don't set this by hand — `applyCastTheme` maps a
+   * cast-theme.json `motion` block onto it.
+   */
+  motion?: MotionOverrides;
   children: React.ReactNode;
 };
 
@@ -141,6 +154,7 @@ export function ThemeProvider({
   colorMode = 'light',
   colors,
   scheme: schemeOverride,
+  motion: motionOverrides,
   children,
 }: ThemeProviderProps) {
   const theme = useMemo<Theme>(() => {
@@ -166,8 +180,9 @@ export function ThemeProvider({
       scheme,
       colors: scheme.intents as IntentColorMap,
       disabledColors: scheme.disabled,
+      motion: resolveMotion(motionOverrides),
     };
-  }, [density, colorMode, colors, schemeOverride]);
+  }, [density, colorMode, colors, schemeOverride, motionOverrides]);
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>

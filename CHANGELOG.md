@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.10.0] — %s
+
+### Added
+- **Motion token system** — a two-layer motion system mirroring the colour and spacing tokens, exposed on the theme as `theme.motion` and mirrored 1:1 by the new `motion` variable collection in the Figma kit. The primitive layer is raw values: `duration` (instant/fast/base/slow = 100/150/220/320 ms), `cycle` (pulse/spin/sweep = 700/800/1200 ms), `easingBezier` (standard/entrance/exit/emphasized/linear as cubic-bezier control points, identical numbers in Figma and CSS), and `spring` (the shared overlay spring). The semantic layer is named roles components actually read: `transition` (standard/enter/exit/expand), `feedback` (press/shake/pop), and `loop` (spin/pulse/indeterminate). Easing functions build lazily on first use, so importing tokens never touches the native Easing API. All exported from the package entry point alongside `motionTokens`, `resolveMotion`, and the `MotionTokens`, `MotionTransition`, `MotionOverrides`, `MotionDurations`, `MotionCycles`, `EasingName`, `EasingBezierPoints`, and `SpringConfig` types
+- **useMotion hook** — the single access point for animation. Returns the theme's motion tokens plus three runtime helpers: `reduceMotion` (tracks the OS reduce-motion setting live), `useNativeDriver` (false on web, where the native driver can't run), and `scale(ms)` (collapses a duration to 0 when reduce-motion is on). Components wrap durations in `scale()` and check `reduceMotion` before starting loops, so the whole library honours the accessibility setting from one place. Exported alongside the `Motion` type
+- **Motion theming** — `ThemeProvider` accepts a `motion` prop of primitive-level overrides (durations, cycles, easing beziers, springs, and the press-scale/shake-amplitude/pulse-range numbers). `resolveMotion` rebuilds every semantic role from the merged primitives, so one duration override flows into each role that uses it. `applyCastTheme` maps the `motion` block of a cast-theme.json (version 4, exported by cast-sync from the kit's `motion` collection) onto the prop, so a brand can re-tune motion from Figma with no code changes
+
+### Changed
+- **Animated components now read motion tokens** — Drawer, BottomSheet, Backdrop, Spinner, Skeleton, Progress, SpeedDial, and Accordion consume their semantic roles through `useMotion()` instead of hardcoded per-component constants, and all honour reduce-motion. Overlay timing shifts slightly to the shared tokens (fades 240 ms → 220 ms; the drawer/sheet spring is now the shared `spring/overlay` config). Visual behaviour is otherwise unchanged
+
 ## [4.9.0] — 2026-06-18
 
 ### Added

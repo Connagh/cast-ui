@@ -1,24 +1,25 @@
 {
   "_meta": {
-    "description": "Cast UI Design Token Reference — quick-navigation map for all 3 token layers",
+    "description": "Cast UI Design Token Reference \u2014 quick-navigation map for all 3 token layers",
     "layers": [
       "primitive",
       "semantic",
-      "component"
+      "component",
+      "motion"
     ],
     "themes": [
       "compact",
       "default",
       "comfortable"
     ],
-    "themeAxis": "density/size — compact < default < comfortable",
-    "referenceChain": "component → semantic → primitive",
+    "themeAxis": "density/size \u2014 compact < default < comfortable",
+    "referenceChain": "component \u2192 semantic \u2192 primitive",
     "figmaFormat": "DTCG with Figma extensions (aliasData, variableId, scopes)",
     "colorModes": [
       "light",
       "dark"
     ],
-    "colorModeAxis": "semantic collection modes: semantic-light / semantic-dark — only COLOR variables change; sizing/typography identical across modes"
+    "colorModeAxis": "semantic collection modes: semantic-light / semantic-dark \u2014 only COLOR variables change; sizing/typography identical across modes"
   },
   "primitive": {
     "file": "design-tokens/primitive.tokens.json",
@@ -99,7 +100,7 @@
       "size": {
         "type": "number",
         "unit": "px",
-        "note": "Identical scale to space — used for dimensions (width/height)",
+        "note": "Identical scale to space \u2014 used for dimensions (width/height)",
         "scale": {
           "0": 0,
           "1": 1,
@@ -328,7 +329,7 @@
         }
       },
       "controls": {
-        "description": "Sizing tokens for interactive controls — THESE CHANGE BY THEME",
+        "description": "Sizing tokens for interactive controls \u2014 THESE CHANGE BY THEME",
         "sizes": {
           "control-sm": {
             "borderRadius": "radius/3 (8px)",
@@ -434,7 +435,7 @@
         }
       },
       "typography": {
-        "description": "Semantic typography scales — constant across themes",
+        "description": "Semantic typography scales \u2014 constant across themes",
         "scales": {
           "display": {
             "lg": {
@@ -549,9 +550,9 @@
       }
     },
     "modes": {
-      "semantic-light": "default scheme — values listed in this reference",
+      "semantic-light": "default scheme \u2014 values listed in this reference",
       "semantic-dark": {
-        "description": "dark scheme — every colour variable re-aliased to existing primitives; runtime values in src/tokens/colors.ts darkColors",
+        "description": "dark scheme \u2014 every colour variable re-aliased to existing primitives; runtime values in src/tokens/colors.ts darkColors",
         "mapping": {
           "surface/base": "colours/cool-grey/900",
           "surface/subtle": "colours/cool-grey/800",
@@ -564,8 +565,8 @@
           "control/focus-ring-colour": "colours/blue/400",
           "intent outlined (default prominence)": "bg cool-grey/900; fg lifts to palette 400/300/200; border 600/500/400 across default/hover/active",
           "intent subtle": "transparent bg; hover/active bgs use palette 900/800 tints",
-          "intent bold (brand/danger)": "unchanged from light — white-on-600 stays AA on dark surfaces",
-          "intent bold (neutral)": "inverted — light fill (cool-grey/200/100/50) with cool-grey/900 fg",
+          "intent bold (brand/danger)": "unchanged from light \u2014 white-on-600 stays AA on dark surfaces",
+          "intent bold (neutral)": "inverted \u2014 light fill (cool-grey/200/100/50) with cool-grey/900 fg",
           "intent/neutral/option": "hover cool-grey/700, selected blue/900, selected fg blue/300, selected+hover blue/800",
           "control/tag": "bg cool-grey/700, fg cool-grey/200, remove/hover cool-grey/400",
           "control/toggle/off": "bg cool-grey/700, hover cool-grey/600"
@@ -1020,8 +1021,8 @@
           "large": "label/lg (16px/24px/0px, medium 500)"
         },
         "colors": {
-          "solid": "intent bold default (bg/border/fg) — fg #FFFFFF; neutral #374151, brand #2563EB, danger #DC2626",
-          "subtle": "intent subtle default — transparent bg/border; fg neutral #374151, brand #2563EB, danger #DC2626",
+          "solid": "intent bold default (bg/border/fg) \u2014 fg #FFFFFF; neutral #374151, brand #2563EB, danger #DC2626",
+          "subtle": "intent subtle default \u2014 transparent bg/border; fg neutral #374151, brand #2563EB, danger #DC2626",
           "outline": "transparent bg; border intent bold (neutral #374151, brand #2563EB, danger #DC2626); fg intent default (same hues)"
         }
       },
@@ -1057,8 +1058,8 @@
           "border-radius": 9999
         },
         "colors": {
-          "fill": "intent bold default bg — neutral #374151, brand #2563EB, danger #DC2626",
-          "track": "control/progress/track/bg — cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Toggle off-track"
+          "fill": "intent bold default bg \u2014 neutral #374151, brand #2563EB, danger #DC2626",
+          "track": "control/progress/track/bg \u2014 cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Toggle off-track"
         }
       },
       "spinner": {
@@ -1094,8 +1095,8 @@
           "large.stroke": 4
         },
         "colors": {
-          "arc": "intent bold default bg — neutral #374151, brand #2563EB, danger #DC2626",
-          "track": "control/spinner/track/bg — cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Progress track / Toggle off-track"
+          "arc": "intent bold default bg \u2014 neutral #374151, brand #2563EB, danger #DC2626",
+          "track": "control/spinner/track/bg \u2014 cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Progress track / Toggle off-track"
         }
       },
       "tabs": {
@@ -1201,12 +1202,12 @@
           "indicatorRadius": 9999
         },
         "colors": {
-          "indicator": "intent bold default bg — neutral #374151, brand #2563EB, danger #DC2626",
+          "indicator": "intent bold default bg \u2014 neutral #374151, brand #2563EB, danger #DC2626",
           "selectedLabel": "same as indicator (intent bold default bg)",
-          "unselectedLabel": "text/description — #6B7280 (light) / #9CA3AF (dark)",
-          "hoverLabel": "text/primary — #374151 (light) / #E5E7EB (dark)",
-          "disabledLabel": "intent/disabled/fg — #9CA3AF",
-          "track": "control/tabs/track/bg — cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Progress track / Toggle off-track"
+          "unselectedLabel": "text/description \u2014 #6B7280 (light) / #9CA3AF (dark)",
+          "hoverLabel": "text/primary \u2014 #374151 (light) / #E5E7EB (dark)",
+          "disabledLabel": "intent/disabled/fg \u2014 #9CA3AF",
+          "track": "control/tabs/track/bg \u2014 cool-grey/200 #E5E7EB (light) / cool-grey/700 #374151 (dark), dedicated semantic matching the Progress track / Toggle off-track"
         }
       },
       "alert": {
@@ -1819,7 +1820,7 @@
           "border-radius (per shape)",
           "default size (per shape)"
         ],
-        "note": "No density-varying tokens — skeletons mirror the layout of the real content. width/height/radius are overridable props; an opacity pulse runs by default.",
+        "note": "No density-varying tokens \u2014 skeletons mirror the layout of the real content. width/height/radius are overridable props; an opacity pulse runs by default.",
         "verifiedValues": {
           "text": {
             "width": 120,
@@ -1974,11 +1975,11 @@
         "colors": {
           "surface": "surface/overlay bg+border (light #FFFFFF/#E5E7EB, dark #1F2937/#374151)",
           "scrim": "overlay/scrimOpacity 0.5",
-          "handle": "control/bottom-sheet/handle/bg — light #D1D5DB (cool-grey/300), dark #4B5563 (cool-grey/600)"
+          "handle": "control/bottom-sheet/handle/bg \u2014 light #D1D5DB (cool-grey/300), dark #4B5563 (cool-grey/600)"
         },
         "aliases": {
-          "bottom-sheet/padding": "space/9 · space/11 · space/12 (compact·default·comfortable)",
-          "bottom-sheet/gap": "space/7 · space/9 · space/11",
+          "bottom-sheet/padding": "space/9 \u00b7 space/11 \u00b7 space/12 (compact\u00b7default\u00b7comfortable)",
+          "bottom-sheet/gap": "space/7 \u00b7 space/9 \u00b7 space/11",
           "bottom-sheet/border-radius": "radius/4",
           "bottom-sheet/handle-width": "size/13",
           "bottom-sheet/handle-height": "size/3",
@@ -2402,7 +2403,7 @@
         "min/max widths",
         "colours"
       ],
-      "note": "Avatar diameter and Popover padding DO vary by density — see their entries.",
+      "note": "Avatar diameter and Popover padding DO vary by density \u2014 see their entries.",
       "scalingDirection": "compact < default < comfortable",
       "typicalRatios": {
         "compactToDefault": "values increase ~30-60%",
@@ -2435,7 +2436,7 @@
         "paddingY"
       ],
       "constant": [
-        "none — flush style has no radius; chevron/icon use the named Icon scale keyed by size"
+        "none \u2014 flush style has no radius; chevron/icon use the named Icon scale keyed by size"
       ],
       "note": "Compound component (Accordion + AccordionItem). type single|multiple. Flush/divided style, neutral only. gap/paddingX/paddingY vary by density and alias primitive space/*. The header label uses text/primary (disabled -> disabled fg); the chevron (chevron_right, rotates 90deg when open) and optional leadingIcon use the named Icon scale keyed by the size prop and bind the same fg as the label. Header hover/press background reuse the neutral subtle intent (neutral/subtle/hover|active/bg). The divider between items is surface/overlay/border at control border width (like Divider). No new colour tokens.",
       "verifiedValues": {
@@ -2492,5 +2493,53 @@
         }
       }
     }
+  },
+  "motion": {
+    "file": "design-tokens/motion.tokens.json",
+    "totalTokens": 54,
+    "collection": "motion (single mode \u2014 constant across density and colour mode)",
+    "categories": {
+      "duration": {
+        "type": "number (ms)",
+        "tokens": [
+          "instant=100",
+          "fast=150",
+          "base=220",
+          "slow=320"
+        ]
+      },
+      "cycle": {
+        "type": "number (ms)",
+        "tokens": [
+          "pulse=700",
+          "spin=800",
+          "sweep=1200"
+        ]
+      },
+      "easing": {
+        "type": "cubic-bezier as 4 numbers (x1,y1,x2,y2)",
+        "tokens": [
+          "standard=[0.4,0,0.2,1]",
+          "entrance=[0,0,0.2,1]",
+          "exit=[0.4,0,1,1]",
+          "emphasized=[0.7,-0.4,0.4,1.4]",
+          "linear=[0,0,1,1]"
+        ]
+      },
+      "spring": {
+        "type": "number",
+        "tokens": [
+          "overlay = damping 22 / stiffness 220 / mass 0.9"
+        ]
+      },
+      "semanticRoles": {
+        "transition": "standard(base,standard) enter(fast,entrance) exit(fast,exit) expand(fast,standard)",
+        "feedback": "press(instant,standard,scale 0.97) shake(base,standard,4px) pop(fast,emphasized)",
+        "loop": "spin(cycle.spin,linear) pulse(cycle.pulse,standard,1\u21920.5) indeterminate(cycle.sweep,standard)"
+      }
+    },
+    "runtimeMirror": "src/tokens/motion.ts (motionTokens, resolveMotion) + src/theme/useMotion.ts",
+    "figmaSpecPage": "Motion page in cast-ui-kit (animated cards keyframed with the exact beziers)",
+    "castSync": "cast-sync v4 exports this collection as the cast-theme.json motion block"
   }
 }

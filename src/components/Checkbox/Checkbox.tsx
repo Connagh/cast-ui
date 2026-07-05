@@ -64,7 +64,7 @@ export function Checkbox({
   style,
   accessibilityLabel,
 }: CheckboxProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, colors } = useTheme();
   const checkboxColors = scheme.checkbox;
   const tokens = components.checkbox;
   const sizeTokens = tokens[size];
@@ -92,7 +92,7 @@ export function Checkbox({
     boxBorderColor = checkboxColors.box.disabled.border;
     boxBorderWidth = controlTokens.borderWidth;
   } else if (isOn) {
-    boxBg = checkboxColors.box.checked.bg;
+    boxBg = colors.brand.bold.default.bg;
     boxBorderColor = isFocused
       ? scheme.focusRing.color
       : checkboxColors.box.checked.border;

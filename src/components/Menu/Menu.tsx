@@ -174,12 +174,15 @@ export function MenuItem({
 
   // Danger items use the intent system; neutral items use scheme.menu.item.
   const danger = intent === 'danger';
+  // Selected reads the live brand/subtle intent so it tracks theme overrides.
+  const menuSelected = colors.brand.subtle.hover;
+  const menuSelectedHover = colors.brand.subtle.active;
   const state = disabled
     ? scheme.menu.item.disabled
     : selected && isHovered
-      ? scheme.menu.item.selectedHover
+      ? menuSelectedHover
       : selected
-        ? scheme.menu.item.selected
+        ? menuSelected
         : isHovered
           ? scheme.menu.item.hover
           : scheme.menu.item.default;

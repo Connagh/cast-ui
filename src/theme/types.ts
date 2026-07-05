@@ -7,6 +7,27 @@
 
 export type DensityTheme = 'compact' | 'default' | 'comfortable';
 
+/**
+ * Density-aware layout spacing scale.
+ *
+ * A general spacing rhythm for app layout: page gutters, the gaps between
+ * sections, vertical stacks. Like component tokens these values scale with the
+ * active density, so a whole page tightens or loosens with the density prop.
+ * Unlike component tokens they are not tied to any one component, so app code
+ * can lay out its own screens on the same rhythm the library uses.
+ *
+ * Steps run small to large and are constant across colour mode. Each step
+ * aliases a primitive space value in the Figma `component` collection.
+ */
+export type SpacingScale = {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+  xxl: number;
+};
+
 /** Spacing/sizing tokens for a single button size variant */
 export type ButtonSizeTokens = {
   gap: number;

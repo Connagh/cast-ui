@@ -32,7 +32,7 @@ import { Icon } from '../Icon';
 export type ButtonSize = 'small' | 'default' | 'large';
 
 export type ButtonProps = {
-  /** The button label text. */
+  /** The button label text. Omit or pass an empty string to render an icon-only button; pair it with leadingIcon and set accessibilityLabel so it stays named. */
   children: string;
   /** Semantic intent — drives the colour scheme. */
   intent?: IntentName;
@@ -157,19 +157,21 @@ export function Button({
         return (
           <View style={containerStyle}>
             {resolvedLeading}
-            <Text
-              style={{
-                fontFamily: fontFamily.sans,
-                fontWeight: fontWeight.medium,
-                fontSize: labelTokens.fontSize,
-                lineHeight: labelTokens.lineHeight,
-                letterSpacing: labelTokens.letterSpacing,
-                color: stateColors.fg,
-              }}
-              selectable={false}
-            >
-              {children}
-            </Text>
+            {children ? (
+              <Text
+                style={{
+                  fontFamily: fontFamily.sans,
+                  fontWeight: fontWeight.medium,
+                  fontSize: labelTokens.fontSize,
+                  lineHeight: labelTokens.lineHeight,
+                  letterSpacing: labelTokens.letterSpacing,
+                  color: stateColors.fg,
+                }}
+                selectable={false}
+              >
+                {children}
+              </Text>
+            ) : null}
             {resolvedTrailing}
           </View>
         );

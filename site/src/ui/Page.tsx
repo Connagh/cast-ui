@@ -12,6 +12,7 @@ export function Page({
   wide?: boolean;
   style?: StyleProp<ViewStyle>;
 }) {
+  const { spacing } = useTheme();
   return (
     <View
       style={[
@@ -19,9 +20,9 @@ export function Page({
           width: '100%',
           maxWidth: wide ? 1400 : 1080,
           alignSelf: 'center',
-          paddingHorizontal: 20,
-          paddingTop: 40,
-          gap: 40,
+          paddingHorizontal: spacing.lg,
+          paddingTop: spacing.xl,
+          gap: spacing.xl,
         },
         style,
       ]}
@@ -41,9 +42,9 @@ export function PageHeader({
   title: string;
   lede?: string;
 }) {
-  const { scheme, colors } = useTheme();
+  const { scheme, colors, spacing } = useTheme();
   return (
-    <View style={{ gap: 10, maxWidth: 760 }}>
+    <View style={{ gap: spacing.sm, maxWidth: 760 }}>
       {eyebrow ? (
         <Text type="label-sm" color={colors.brand.subtle.default.fg}>
           {eyebrow.toUpperCase()}
@@ -69,10 +70,10 @@ export function Section({
   lede?: string;
   children?: React.ReactNode;
 }) {
-  const { scheme } = useTheme();
+  const { scheme, spacing } = useTheme();
   return (
-    <View style={{ gap: 16 }}>
-      <View style={{ gap: 6, maxWidth: 760 }}>
+    <View style={{ gap: spacing.md }}>
+      <View style={{ gap: spacing.xs, maxWidth: 760 }}>
         <Text type="heading-sm">{title}</Text>
         {lede ? (
           <Text type="body-md" color={scheme.text.description}>

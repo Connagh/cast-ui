@@ -42,7 +42,11 @@ Every decision downstream is constrained by these.
    Tabs `indicator-height`→`size/*`). Never bind a raw literal. (§1)
 2. **Density changes spacing only (~25% of tokens).** `compact | default |
    comfortable` vary padding / gap / spacing. Colours, border-radius, focus
-   rings, icon sizes, and typography are **constant** across densities. (§1)
+   rings, icon sizes, and typography are **constant** across densities. This
+   also covers the general layout spacing scale (`spacing/{xs..xxl}`, exposed as
+   `theme.spacing`): a density-varying foundation in the `component` collection,
+   each step aliasing a primitive `space/*`, for app layout that is not tied to
+   one component. (§1)
 3. **Colours stay in `intent → prominence → state → {bg, fg, border}`.** This is
    the exact shape cast-sync exports and `ThemeProvider` consumes. Anything
    outside it is silently dropped by the plugin. (§2)
@@ -786,6 +790,14 @@ Private sub-components: `_<SelectOptions>` `199:92`, `_<SelectGroupLabel>`
 - **Fix at the base component, not instances**. Instance edits create overrides.
 - **Colour belongs at the source**. Sub-component variants if one exists (Tabs →
   `_<Tab>`), else the component's intent variants. Parent fill overrides = smell.
+- **A selection colour is intent-driven, never a frozen copy**. An on / selected /
+  checked fill (Toggle on, Radio/Checkbox checked, a selected List/Menu/Select
+  option, a selected Table row) resolves from the live intent at render: solid
+  fills read `colors.brand.bold.default.bg`, tinted selection surfaces read
+  `colors.brand.subtle.hover`/`active` (bg + fg). Never bake a hex copy of the
+  brand ramp into a `scheme.*` slice, and in Figma bind the layer to the
+  `intent/brand/{bold,subtle}/…` variable, not a `neutral`/`control` token. A
+  frozen copy silently stops tracking a brand override (the 1.2.2 selection fix).
 - **Content overrides are fine**. Text, slot glyph, per-row size, width/height.
 - **Material Symbols have intrinsic padding**. Don't over-shrink control glyphs.
 - **The Icon scale (12/16/20/24) is not exhaustive**. Confirm sizes up front.

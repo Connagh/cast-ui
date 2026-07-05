@@ -57,7 +57,7 @@ export function Toggle({
   style,
   accessibilityLabel,
 }: ToggleProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, colors } = useTheme();
   const toggleColors = scheme.toggle;
   const tokens = components.toggle;
   const sizeTokens = tokens[size];
@@ -77,7 +77,7 @@ export function Toggle({
       ? toggleColors.track.disabledOn
       : toggleColors.track.disabledOff;
   } else if (checked) {
-    trackBg = isHovered ? toggleColors.track.onHover : toggleColors.track.on;
+    trackBg = isHovered ? colors.brand.bold.hover.bg : colors.brand.bold.default.bg;
   } else {
     trackBg =
       isHovered || isFocused

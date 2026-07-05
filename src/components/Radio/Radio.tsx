@@ -125,7 +125,7 @@ export function Radio({
   style,
   accessibilityLabel,
 }: RadioProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, colors } = useTheme();
   const radioColors = scheme.radio;
   const group = useContext(RadioGroupCtx);
 
@@ -161,8 +161,8 @@ export function Radio({
     ringBorderWidth = controlTokens.borderWidth;
   } else if (isChecked) {
     ringBg = isHovered
-      ? radioColors.indicator.checkedHover.bg
-      : radioColors.indicator.checked.bg;
+      ? colors.brand.bold.hover.bg
+      : colors.brand.bold.default.bg;
     ringBorderColor = isFocused
       ? scheme.focusRing.color
       : radioColors.indicator.checked.border;

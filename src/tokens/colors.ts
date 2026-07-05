@@ -586,3 +586,15 @@ export const tableColors = lightColors.table;
 
 /** List colours — used by List / ListItem / ListSubheader */
 export const listColors = lightColors.list;
+
+
+/**
+ * Add an alpha channel to a solid 6-digit hex colour, returning an 8-digit
+ * "#RRGGBBAA" string. Used to derive a subtle tinted surface from a live
+ * intent colour so selection highlights track the theme. Inputs that are not
+ * a plain 6-digit hex (already 8-digit, "transparent", a named colour) are
+ * returned unchanged.
+ */
+export function withAlpha(hex: string, alpha: string): string {
+  return /^#[0-9a-fA-F]{6}$/.test(hex) ? `${hex}${alpha}` : hex;
+}

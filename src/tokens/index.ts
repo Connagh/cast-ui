@@ -22,6 +22,7 @@ export {
   skeletonColors,
   sliderColors,
   tableColors,
+  withAlpha,
   type IntentName,
   type ProminenceName,
   type StateName,

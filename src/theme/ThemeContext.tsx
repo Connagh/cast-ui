@@ -38,7 +38,7 @@
  */
 
 import React, { createContext, useContext, useMemo } from 'react';
-import { themes } from './themes';
+import { themes, spacingScales } from './themes';
 import {
   colorSchemes,
   intentColors as defaultIntentColors,
@@ -46,7 +46,7 @@ import {
 import type { ColorMode, ColorScheme, IntentName } from '../tokens/colors';
 import { motionTokens, resolveMotion } from '../tokens/motion';
 import type { MotionTokens, MotionOverrides } from '../tokens/motion';
-import type { DensityTheme, ComponentTokens, DeepPartial } from './types';
+import type { DensityTheme, ComponentTokens, DeepPartial, SpacingScale } from './types';
 
 // ---------------------------------------------------------------------------
 // Theme shape
@@ -57,6 +57,9 @@ type IntentColorMap = typeof defaultIntentColors;
 export type Theme = {
   density: DensityTheme;
   components: ComponentTokens;
+  /** Density-aware layout spacing scale (page gutters, section gaps,
+   * stacks). Scales with density, like component spacing. */
+  spacing: SpacingScale;
   /** Active colour mode — light or dark. */
   colorMode: ColorMode;
   /** Full resolved colour scheme for the active mode (overrides applied). */
@@ -107,6 +110,7 @@ function deepMerge<T extends Record<string, unknown>>(
 const defaultTheme: Theme = {
   density: 'default',
   components: themes.default,
+  spacing: spacingScales.default,
   colorMode: 'light',
   scheme: colorSchemes.light,
   colors: colorSchemes.light.intents,
@@ -176,6 +180,7 @@ export function ThemeProvider({
     return {
       density,
       components: themes[density],
+      spacing: spacingScales[density],
       colorMode,
       scheme,
       colors: scheme.intents as IntentColorMap,

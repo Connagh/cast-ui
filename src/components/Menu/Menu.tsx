@@ -368,6 +368,24 @@ export function Menu({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  // The trigger owns the press. When the trigger is itself interactive (a
+  // Button is a Pressable), a wrapping Pressable would swallow the tap: React
+  // Native grants a press to a single responder and the inner element wins. So
+  // inject the open-toggle onto the trigger. A passive trigger (a bare Icon)
+  // ignores onPress, so the surrounding Pressable still handles the tap.
+  let triggerNode: React.ReactNode = trigger;
+  if (React.isValidElement(trigger)) {
+    const el = trigger as React.ReactElement<{
+      onPress?: (e: GestureResponderEvent) => void;
+    }>;
+    triggerNode = React.cloneElement(el, {
+      onPress: (e: GestureResponderEvent) => {
+        el.props.onPress?.(e);
+        setOpen(!open);
+      },
+    });
+  }
+
   return (
     <View style={[{ alignSelf: 'flex-start', position: 'relative', zIndex: open ? 1000 : 0 }, style]}>
       <Pressable
@@ -376,7 +394,7 @@ export function Menu({
         accessibilityLabel={accessibilityLabel || 'Open menu'}
         accessibilityState={{ expanded: open }}
       >
-        {trigger}
+        {triggerNode}
       </Pressable>
 
       {/* Click-outside layer */}

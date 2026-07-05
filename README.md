@@ -19,7 +19,7 @@ supports light and dark mode, three spacing densities, and your own brand
 colours — all switchable while the app is running, with no rebuild.
 
 Documentation site — live examples, patterns, templates, themes, motion,
-and the system graph: **https://connagh.github.io/cast-ui/**
+and how it all fits together: **https://connagh.github.io/cast-ui/**
 
 Browse every component live in the
 [hosted Storybook](https://main--6990f00d7b8682c18d2ed5f3.chromatic.com),

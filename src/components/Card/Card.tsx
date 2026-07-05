@@ -123,7 +123,9 @@ export function Card({
           borderRadius: tokens.borderRadius,
           borderWidth: 1,
           borderColor: surfaceTokens.overlay.border,
-          overflow: 'hidden',
+          // No overflow clip on the root. An open Select/Menu/Autocomplete
+          // inside a card must be able to extend past the card edge. The media
+          // slot below clips itself to the rounded top corners instead.
           ...(variant === 'elevated'
             ? Platform.OS === 'web'
               ? SHADOW_WEB
@@ -134,7 +136,15 @@ export function Card({
       ]}
     >
       {image ? (
-        <View style={{ height: sizeTokens.imageHeight, width: '100%' }}>
+        <View
+          style={{
+            height: sizeTokens.imageHeight,
+            width: '100%',
+            overflow: 'hidden',
+            borderTopLeftRadius: tokens.borderRadius,
+            borderTopRightRadius: tokens.borderRadius,
+          }}
+        >
           {image}
         </View>
       ) : null}

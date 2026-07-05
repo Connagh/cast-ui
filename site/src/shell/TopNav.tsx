@@ -18,7 +18,6 @@ import {
   Menu,
   MenuItem,
   MenuLabel,
-  Text,
   useMinWidth,
   useTheme,
 } from '@castui/cast-ui';
@@ -141,13 +140,17 @@ export function TopNav() {
           onPress={() => go('/')}
           accessibilityRole="link"
           accessibilityLabel="Cast UI home"
-          style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
+          style={{ flexDirection: 'row', alignItems: 'center' }}
         >
+          {/* logo.png is the full cast-ui wordmark (598×120). Fix the height
+              and let the container hug the image via aspectRatio, so the
+              wordmark shows in full instead of being cropped to a square. */}
           <Image
             source={{ uri: `${import.meta.env.BASE_URL}logo.png` }}
-            style={{ width: 24, height: 24, borderRadius: 6 }}
+            resizeMode="contain"
+            accessibilityLabel="cast-ui"
+            style={{ height: 24, aspectRatio: 598 / 120 }}
           />
-          <Text type="title-sm">cast-ui</Text>
         </Pressable>
 
         {wide ? (

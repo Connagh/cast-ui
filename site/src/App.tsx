@@ -52,9 +52,19 @@ function PageFallback() {
 }
 
 function Shell() {
-  const { scheme } = useTheme();
+  const { scheme, colorMode } = useTheme();
   const location = useLocation();
   const fullScreen = /^\/templates\/[^/]+\/full/.test(location.pathname);
+
+  // Cast UI themes the React tree, not the document. The <html>/<body> element
+  // sits outside it, so mirror the page-background token onto the document root
+  // and set color-scheme — this keeps the browser's overscroll area, scrollbars
+  // and native controls matching the active mode instead of showing white.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.backgroundColor = scheme.surface.base;
+    root.style.colorScheme = colorMode;
+  }, [scheme.surface.base, colorMode]);
 
   return (
     <View style={{ minHeight: '100vh' as never, backgroundColor: scheme.surface.base }}>

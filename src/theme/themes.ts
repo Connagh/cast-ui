@@ -10,7 +10,7 @@
  * Only spacing/sizing tokens live here — colours are constant across densities.
  */
 
-import type { DensityTheme, ComponentTokens } from './types';
+import type { DensityTheme, ComponentTokens, SpacingScale } from './types';
 
 export const themes: Record<DensityTheme, ComponentTokens> = {
   compact: {
@@ -525,4 +525,16 @@ export const themes: Record<DensityTheme, ComponentTokens> = {
       large:   { cellPaddingX: 32, cellPaddingY: 24 },
     },
   },
+};
+
+/**
+ * Density-aware layout spacing scale. App-level spacing (page gutters, section
+ * gaps, stacks) that scales with density, the same way component spacing does.
+ * Read it through useTheme().spacing. Values mirror the `spacing/*` family in
+ * the Figma `component` collection (each aliases a primitive `space/*`).
+ */
+export const spacingScales: Record<DensityTheme, SpacingScale> = {
+  compact:     { xs: 2, sm: 6,  md: 12, lg: 20, xl: 32, xxl: 48 },
+  default:     { xs: 4, sm: 8,  md: 16, lg: 24, xl: 40, xxl: 64 },
+  comfortable: { xs: 6, sm: 12, md: 20, lg: 32, xl: 48, xxl: 80 },
 };

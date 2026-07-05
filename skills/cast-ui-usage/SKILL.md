@@ -82,7 +82,9 @@ Two more ideas worth holding in your head:
 - **Density is global, not per-component.** Spacing across the whole UI scales
   with the provider's `density`. Colours, radius, and type never change with
   density, so brand and legibility stay constant whether the app feels tight or
-  roomy.
+  roomy. Your own page layout can ride the same rhythm: read
+  `useTheme().spacing` for a density-aware scale (`xs` to `xxl`) instead of
+  hardcoding gaps and padding.
 - **Colour is themeable, structure is not.** You can recolour any intent at
   runtime through the provider. You cannot restyle a component's layout through
   props beyond the `style` escape hatch, that is by design, it keeps every
@@ -134,6 +136,8 @@ is `default | hover | active`.
 >
 ```
 
+Overriding `brand` also recolours every selection state that uses it: a Toggle that is on, a checked Radio or Checkbox, a selected List, Menu, or Select option, and a selected Table row. They read the brand intent at render, so a brand override flows through with no extra wiring. One caveat for tinted selections (list, menu, select, table row): they read `brand.subtle` (the tint), so override `brand.subtle` too, not only `brand.bold`, or the tint stays at its default while the solid controls recolour.
+
 ### scheme (the rest of the palette)
 
 A deep-partial override for the non-intent colours: surfaces, standalone text
@@ -176,9 +180,11 @@ function Price() {
 }
 ```
 
-`useTheme()` returns `{ density, colorMode, components, colors, scheme,
+`useTheme()` returns `{ density, colorMode, components, spacing, colors, scheme,
 disabledColors, motion }`. `colors[intent][prominence][state]` gives `{ bg, fg, border }`;
-`components[name][size]` gives the spacing tokens for the active density. The
+`components[name][size]` gives the spacing tokens for the active density;
+`spacing` is a density-aware layout scale (`xs` to `xxl`) for your own page
+layout, so page gutters and section gaps scale with density too. The
 raw token modules (`lightColors`, `intentColors`, `label`, `body`, `fontFamily`,
 `iconSize`, and so on) are also exported for direct use.
 

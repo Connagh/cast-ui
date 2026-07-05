@@ -298,7 +298,7 @@ export function SelectOption({
   disabled = false,
 }: SelectOptionProps) {
   const ctx = useSelectContext();
-  const { components, scheme } = useTheme();
+  const { components, scheme, colors: intents } = useTheme();
   const tokens = components.select.option;
   const selectColors = scheme.select;
   const textTokens = scheme.text;
@@ -316,13 +316,16 @@ export function SelectOption({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, optionLabel]);
 
-  // Resolve colours
+  // Resolve colours. Selected reads the live brand/subtle intent so it
+  // tracks theme colour overrides.
+  const selectedColors = intents.brand.subtle.hover;
+  const selectedHoverColors = intents.brand.subtle.active;
   const colors = disabled
     ? selectColors.option.disabled
     : isSelected && isHovered
-      ? selectColors.option.selectedHover
+      ? selectedHoverColors
       : isSelected
-        ? selectColors.option.selected
+        ? selectedColors
         : isHovered
           ? selectColors.option.hover
           : selectColors.option.default;

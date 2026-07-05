@@ -168,8 +168,11 @@ export function TableRow({
 }: TableRowProps) {
   const { striped, hoverable } = useTableContext('TableRow');
   const { isHeader } = useContext(SectionCtx);
-  const { scheme } = useTheme();
+  const { scheme, colors: intents } = useTheme();
   const table = scheme.table;
+  // Selected rows read the live brand/subtle intent so they track overrides.
+  const tableSelectedBg = intents.brand.subtle.hover.bg;
+  const tableSelectedHoverBg = intents.brand.subtle.active.bg;
   const [isHovered, setIsHovered] = useState(false);
 
   const interactive = !isHeader && !disabled && (hoverable || Boolean(onPress));
@@ -178,8 +181,8 @@ export function TableRow({
     ? table.headerBg
     : selected
       ? isHovered
-        ? table.selectedHoverBg
-        : table.selectedBg
+        ? tableSelectedHoverBg
+        : tableSelectedBg
       : isHovered
         ? table.rowHover
         : striped && __index % 2 === 1

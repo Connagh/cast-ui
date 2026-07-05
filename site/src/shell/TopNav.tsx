@@ -89,7 +89,8 @@ function ThemeControls({ compact }: { compact?: boolean }) {
         {brandPresets.map((preset) => (
           <MenuItem
             key={preset.id}
-            leadingIcon={site.brandId === preset.id ? 'check' : 'circle'}
+            selected={site.brandId === preset.id}
+            leadingIcon={<Icon name="circle" fill size="small" color={preset.swatch} />}
             onPress={() => site.setBrandId(preset.id)}
           >
             {preset.label}
@@ -101,7 +102,7 @@ function ThemeControls({ compact }: { compact?: boolean }) {
 }
 
 export function TopNav() {
-  const { scheme } = useTheme();
+  const { scheme, colors } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const wide = useMinWidth('lg');
@@ -144,11 +145,15 @@ export function TopNav() {
         >
           {/* logo.png is the full cast-ui wordmark (598×120). Fix the height
               and let the container hug the image via aspectRatio, so the
-              wordmark shows in full instead of being cropped to a square. */}
+              wordmark shows in full instead of being cropped to a square.
+              The mark is a single colour, so tintColor recolours it to the
+              active brand. It follows the brand picker and stays legible in
+              light and dark. */}
           <Image
             source={{ uri: `${import.meta.env.BASE_URL}logo.png` }}
             resizeMode="contain"
             accessibilityLabel="cast-ui"
+            tintColor={colors.brand.bold.default.bg}
             style={{ height: 24, aspectRatio: 598 / 120 }}
           />
         </Pressable>

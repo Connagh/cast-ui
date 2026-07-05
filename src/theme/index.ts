@@ -1,5 +1,5 @@
 export { ThemeProvider, useTheme, type ThemeProviderProps, type Theme } from './ThemeContext';
-export { themes } from './themes';
+export { themes, spacingScales } from './themes';
 export { useMotion, type Motion } from './useMotion';
 export {
   applyCastTheme,
@@ -8,6 +8,7 @@ export {
 } from './applyCastTheme';
 export type {
   DensityTheme,
+  SpacingScale,
   ComponentTokens,
   AccordionSizeTokens,
   AccordionThemeTokens,

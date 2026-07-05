@@ -10,7 +10,7 @@
  */
 
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { ThemeProvider, type ThemeProviderProps } from '@castui/cast-ui';
+import { ThemeProvider, withAlpha, type ThemeProviderProps } from '@castui/cast-ui';
 
 type ColorMode = 'light' | 'dark';
 type Density = 'compact' | 'default' | 'comfortable';
@@ -38,9 +38,9 @@ function makeBrand(base: string, hover: string, active: string): ThemeProviderPr
         active: { fg: active, border: active },
       },
       subtle: {
-        default: { fg: base },
-        hover: { fg: hover },
-        active: { fg: active },
+        default: { bg: 'transparent', fg: base },
+        hover: { bg: withAlpha(base, '14'), fg: hover },
+        active: { bg: withAlpha(base, '29'), fg: active },
       },
     },
   };

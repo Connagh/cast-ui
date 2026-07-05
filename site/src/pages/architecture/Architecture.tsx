@@ -33,6 +33,7 @@ import {
   LINK_COUNT,
   type Band,
   type GroupCard,
+  type PipeLink,
   type PipeNode,
   type StageId,
   type TierId,
@@ -138,6 +139,16 @@ const P = {
   headY: 78,
 };
 
+/** One routed connector, ready to draw: its path plus the arrival point. */
+type RouteDesc = {
+  key: string;
+  source: string;
+  target: string;
+  d: string;
+  ax: number;
+  ay: number;
+};
+
 function PipelineView({
   active,
   selected,
@@ -174,7 +185,90 @@ function PipelineView({
     [active, pipeline.links],
   );
 
-  const dim = (on: boolean) => (keep && !on ? 0.22 : 1);
+  // Nothing connects at rest. When a tool is hovered or pinned we draw only its
+  // path, and each edge is routed by its shape so the few lines stay legible:
+  //   neighbouring stages  a short S-curve, anchors fanned so they don't pile up
+  //   same stage           a soft bow out into the nearest gutter
+  //   skips a stage         drops to a rail below the cards and travels there,
+  //                         so it never crosses a card it doesn't touch
+  const routes = useMemo<RouteDesc[]>(() => {
+    if (!keep) return [];
+    const colOf = new Map(pipeline.nodes.map((n) => [n.id, n.col]));
+    const on = pipeline.links.filter((l) => keep.has(l.source) && keep.has(l.target));
+    const lastCol = pipeline.stages.length - 1;
+    const railY = layout.H - 12;
+    const R = 10;
+
+    // Fan the anchors of neighbour links so a fan-out or fan-in splays across
+    // the card edge instead of stacking onto one point.
+    const outAdj = new Map<string, PipeLink[]>();
+    const inAdj = new Map<string, PipeLink[]>();
+    for (const l of on) {
+      if (colOf.get(l.target)! - colOf.get(l.source)! === 1) {
+        (outAdj.get(l.source) ?? outAdj.set(l.source, []).get(l.source)!).push(l);
+        (inAdj.get(l.target) ?? inAdj.set(l.target, []).get(l.target)!).push(l);
+      }
+    }
+    const yAt = (id: string) => layout.pos.get(id)!.y;
+    outAdj.forEach((arr) => arr.sort((a, b) => yAt(a.target) - yAt(b.target)));
+    inAdj.forEach((arr) => arr.sort((a, b) => yAt(a.source) - yAt(b.source)));
+    const spread = (nodeId: string, arr: PipeLink[] | undefined, l: PipeLink) => {
+      const p = layout.pos.get(nodeId)!;
+      if (!arr || arr.length <= 1) return p.y + P.cardH / 2;
+      const top = p.y + 18;
+      const bot = p.y + P.cardH - 18;
+      return top + ((bot - top) * arr.indexOf(l)) / (arr.length - 1);
+    };
+
+    return on.map((l) => {
+      const a = layout.pos.get(l.source)!;
+      const b = layout.pos.get(l.target)!;
+      const sc = colOf.get(l.source)!;
+      const tc = colOf.get(l.target)!;
+      const key = `${l.source}->${l.target}`;
+
+      // Same stage: bow out into the nearest gutter (left for the last column).
+      if (tc === sc) {
+        const right = sc !== lastCol;
+        const ex = right ? a.x + P.cardW : a.x;
+        const gx = right ? ex + P.colGap * 0.42 : ex - P.colGap * 0.42;
+        const sy = a.y + P.cardH / 2;
+        const ty = b.y + P.cardH / 2;
+        return { key, source: l.source, target: l.target, ax: ex, ay: ty, d: `M ${ex} ${sy} C ${gx} ${sy}, ${gx} ${ty}, ${ex} ${ty}` };
+      }
+
+      // Skips a stage: down into the gutter, along the rail, up into the target.
+      if (tc - sc >= 2) {
+        const sx = a.x + P.cardW;
+        const sy = a.y + P.cardH / 2;
+        const tx = b.x;
+        const ty = b.y + P.cardH / 2;
+        const gx1 = sx + P.colGap * 0.5;
+        const gx2 = tx - P.colGap * 0.5;
+        const d = [
+          `M ${sx} ${sy}`,
+          `L ${gx1 - R} ${sy}`,
+          `Q ${gx1} ${sy} ${gx1} ${sy + R}`,
+          `L ${gx1} ${railY - R}`,
+          `Q ${gx1} ${railY} ${gx1 + R} ${railY}`,
+          `L ${gx2 - R} ${railY}`,
+          `Q ${gx2} ${railY} ${gx2} ${railY - R}`,
+          `L ${gx2} ${ty + R}`,
+          `Q ${gx2} ${ty} ${gx2 + R} ${ty}`,
+          `L ${tx} ${ty}`,
+        ].join(' ');
+        return { key, source: l.source, target: l.target, ax: tx, ay: ty, d };
+      }
+
+      // Neighbouring stages: the ordinary short S-curve with fanned anchors.
+      const sy = spread(l.source, outAdj.get(l.source), l);
+      const ty = spread(l.target, inAdj.get(l.target), l);
+      const sx = a.x + P.cardW;
+      const tx = b.x;
+      const c = Math.max((tx - sx) * 0.5, 44);
+      return { key, source: l.source, target: l.target, ax: tx, ay: ty, d: `M ${sx} ${sy} C ${sx + c} ${sy}, ${tx - c} ${ty}, ${tx} ${ty}` };
+    });
+  }, [keep, layout, pipeline.links, pipeline.nodes, pipeline.stages.length]);
 
   return (
     <svg
@@ -212,25 +306,22 @@ function PipelineView({
         );
       })}
 
-      {/* Connectors */}
-      {pipeline.links.map((l, i) => {
-        const a = layout.pos.get(l.source)!;
-        const b = layout.pos.get(l.target)!;
-        const sx = a.x + P.cardW;
-        const sy = a.y + P.cardH / 2;
-        const tx = b.x;
-        const ty = b.y + P.cardH / 2;
-        const on = !!keep && keep.has(l.source) && keep.has(l.target);
+      {/* Connectors — only the hovered/pinned tool's routed path */}
+      {routes.map((r) => {
+        const from = STAGE_COLOR[nodeStage(pipeline.nodes, r.source)];
+        const to = STAGE_COLOR[nodeStage(pipeline.nodes, r.target)];
         return (
-          <g key={i} opacity={dim(on)}>
+          <g key={r.key}>
             <path
-              d={connector(sx, sy, tx, ty)}
+              d={r.d}
               fill="none"
-              stroke={on ? hexA(STAGE_COLOR[nodeStage(pipeline.nodes, l.source)], 0.9) : scheme.surface.overlay.border}
-              strokeWidth={on ? 2.4 : 1.4}
-              className={on ? 'cast-flow' : undefined}
+              stroke={hexA(from, 0.85)}
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="cast-flow"
             />
-            <circle cx={tx} cy={ty} r={on ? 3 : 2.2} fill={on ? hexA(STAGE_COLOR[nodeStage(pipeline.nodes, l.target)], 0.95) : scheme.surface.overlay.border} />
+            <circle cx={r.ax} cy={r.ay} r={3} fill={hexA(to, 0.95)} />
           </g>
         );
       })}

@@ -174,18 +174,22 @@ export function ListItem({
   style,
   accessibilityLabel,
 }: ListItemProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, colors: intents } = useTheme();
   const listColors = scheme.list;
   const tokens = components.list.item;
   const [isHovered, setIsHovered] = useState(false);
+
+  // Selected reads the live brand/subtle intent so it tracks theme overrides.
+  const selectedColors = intents.brand.subtle.hover;
+  const selectedHoverColors = intents.brand.subtle.active;
 
   // State priority: disabled > selected+hover > selected > hover > default
   const colors = disabled
     ? listColors.item.disabled
     : selected && isHovered
-      ? listColors.item.selectedHover
+      ? selectedHoverColors
       : selected
-        ? listColors.item.selected
+        ? selectedColors
         : isHovered
           ? listColors.item.hover
           : listColors.item.default;

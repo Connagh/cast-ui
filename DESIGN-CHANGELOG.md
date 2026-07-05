@@ -12,6 +12,44 @@ variable group, or style is added and nothing breaks. Patch for value tweaks,
 recolours, new variants on existing components, and wording fixes. When an
 entry mixes buckets, the highest wins.
 
+## [1.2.2]. Selection colours follow brand. 2026-07-05
+
+Selected list items, menu items, and select options now use the brand intent instead of a fixed blue. Recolour the brand and every selected state recolours with it. Before, these three bound a neutral option colour that happened to hold a blue value, so a selected row stayed blue after a brand change. The colours are the same in the default blue theme, so nothing moves until you change the brand. Pulling this version matches the package code, where the same selected states now read the brand subtle colour.
+
+### Changed
+- **ListItem, MenuItem, and SelectOptions selected states.** The selected fill and text now bind intent/brand/subtle/hover, both bg and fg. SelectOptions' selected+hover variants bind intent/brand/subtle/active. They used to bind intent/neutral/option/selected, a neutral group that held a static blue and could not follow a brand change.
+- **Toggle, Radio, Checkbox, and TableRow.** No change. These already bound the brand intent, so they tracked the brand before this version. The package code caught up to match them.
+
+### Pending actions
+- Publish the cast-ui-kit library in Figma so consumers receive this version.
+- No cast-sync re-export needed. This change is a layer binding, not a variable, so the token JSON does not change.
+- Optional cleanup: intent/neutral/option/selected and intent/neutral/option/selected+hover are no longer used by any component set. Leave them or remove them in a later version.
+
+## [1.2.1]. Icon-only Button. 2026-07-05
+
+Button gains a has label toggle, so an icon-only button is a real state in the kit instead of a hand edit. Turn has label off and turn on one icon. The label hides, the gap between icon and label collapses, and the icon sits centred inside even padding. Default is on, so every button that already ships keeps its label and nothing moves. Pulling this version matches the icon-only fix in the package code, where an empty label renders the same centred icon.
+
+### Added
+- **has label toggle on Button.** A boolean on the Button set, default true, bound to the label text node across all 108 variants. It works like has leading icon and has trailing icon: an optional part you switch on or off. Off hides the label, so a single icon centres inside the button's padding.
+
+### Changed
+- **Button description.** Rewritten to the standard template. It now explains icon-only usage, reminds you to set an accessibilityLabel in code for an icon-only button, and lists the full property to prop map.
+
+### Pending actions
+- Publish the cast-ui-kit library in Figma so consumers receive this version.
+- No cast-sync re-export needed. This change is a component property and its binding, not a variable, so the token JSON does not change.
+
+## [1.2.0]. Layout spacing scale. 2026-07-05
+
+The component collection gains a spacing scale for laying out pages and sections. Six steps, xs to xxl, each one scaling across the three density modes. Designers now have named spacing values to build screens with, on the same rhythm the components already use. Compact tightens every step, comfortable loosens it. Pulling this version gives the cast-sync plugin a new group to export, and matches the spacing scale shipped in the package code.
+
+### Added
+- **Spacing scale.** Six variables in the component collection, spacing/xs through spacing/xxl. Each one aliases a primitive space value and changes across the three density modes. Read as compact, default, comfortable: xs 2, 4, 6; sm 6, 8, 12; md 12, 16, 20; lg 20, 24, 32; xl 32, 40, 48; xxl 48, 64, 80. Scoped to gap and padding. The values match spacingScales in src/theme/themes.ts in the package.
+
+### Pending actions
+- Publish the cast-ui-kit library in Figma so consumers receive this version.
+- Run cast-sync and commit the regenerated token JSON. The spacing group is new in Figma and not yet in design-tokens/component/component-*.tokens.json.
+
 ## [1.1.0]. Motion becomes a token collection. 2026-07-04
 
 The kit now carries motion the same way it carries colour. A new motion

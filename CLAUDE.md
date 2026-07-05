@@ -114,6 +114,7 @@ The raw JSON files in `design-tokens/` are the Figma sync target. The TypeScript
 
 ### Token consumption
 - **Colours:** Import `intentColors` from `src/tokens/colors.ts` (static, constant across densities)
+- **Selection colours (on/selected/checked):** resolve from the live intent at render, never a frozen `scheme.*` hex. Solid fills (Toggle on, Radio/Checkbox checked) read `colors.brand.bold.default.bg`; tinted selection surfaces (List/Menu/Select selected, selected Table row) read `colors.brand.subtle.hover`/`active`. A baked copy stops tracking brand overrides.
 - **Spacing:** Read from `useTheme().components.{componentName}.{size}` (varies by density)
 - **Typography:** Import `label`/`fontFamily`/`fontWeight` from `src/tokens/typography.ts`
 - **Constants:** Import `controlTokens` (borderWidth: 1) from `src/tokens/colors.ts`

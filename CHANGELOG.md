@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.11.0] — 2026-07-05
+
+### Added
+- **Density-aware layout spacing scale** — a general spacing scale for app layout, exposed on the theme as `theme.spacing` and read through `useTheme()`. Six steps (`xs`, `sm`, `md`, `lg`, `xl`, `xxl`) that scale with the active density the same way component spacing does: compact tightens them, comfortable loosens them, and they stay constant across colour mode. It fills a gap in the density system, which until now only rescaled spacing inside components and left app-level layout (page gutters, section gaps, stacks) with no density-aware primitive to build on. Exported from the package entry point as `spacingScales` (the resolved values for all three densities) and the `SpacingScale` type. Mirrors a new `spacing/{xs..xxl}` family in the Figma `component` collection, each step aliasing a primitive `space/*`
+- **Icon-only Button** — `<Button>` now renders as an icon-only button when `children` is empty or omitted: the label text is skipped and a single `leadingIcon` sits centred inside the button's padding. Existing buttons are unaffected, since a non-empty label renders exactly as before. Pair it with `accessibilityLabel` so the button stays named for screen readers. Mirrors the new `has label` toggle on the Figma `<Button>` component
+- **`withAlpha` colour helper** — a small utility exported from the package entry point that adds an alpha channel to a solid 6-digit hex colour, returning an 8-digit `#RRGGBBAA` string (inputs that are not a plain 6-digit hex, such as `transparent` or an already-8-digit value, pass through unchanged). It is handy when building a manual `brand` override and you need a tinted selection surface derived from a solid brand colour, the same tints `applyCastTheme` gets for free from a cast-sync export
+
+### Fixed
+- **Selection colours now follow a brand override** — a Toggle that is on, a checked Radio or Checkbox, a selected List, Menu, or Select option, and a selected Table row each held a frozen copy of the default brand blue in the colour scheme, so they stayed blue when the `brand` intent was overridden through the `colors` prop or a cast-sync `cast-theme.json`. They now resolve from the live intent at render: solid fills read `colors.brand.bold`, and tinted selection surfaces read `colors.brand.subtle` (`hover` for selected, `active` for selected+hover). Mirrors the Figma kit, where the same layers now bind `intent/brand/{bold,subtle}/…` instead of a static token. When overriding `brand` by hand, set `brand.subtle` as well so tinted selections recolour, not only `brand.bold`
+
 ## [4.10.1] — 2026-07-05
 
 ### Fixed

@@ -1,371 +1,775 @@
 /**
- * The system graph: every token, component, and tool as nodes in a live
- * force-directed canvas. Two lenses: the ecosystem (how the pieces connect)
- * and the tokens (alias chains from component values down to primitives).
+ * The architecture, drawn the way it actually works: as a pipeline.
+ *
+ * Cast UI is not a cloud of equal nodes. It is a directed system with a clear
+ * reading order, so this page draws two deterministic, layered diagrams instead
+ * of a force-directed hairball:
+ *
+ *   Pipeline   the ecosystem left to right, each tool in a named stage
+ *              (Design, Sync, Source, Ship, Use). Hover a tool to light up its
+ *              whole path; click to pin it.
+ *   Cascade    the token tiers as a Sankey: Component resolves to Semantic
+ *              resolves to Primitive, with the alias volume between each tier.
+ *              Click a component to trace its tokens to the raw value.
+ *
+ * Both read from the generated graph.json through model.ts, so the picture
+ * stays exactly as honest as the repo. Rendering is plain SVG (the site is
+ * web only), themed entirely through Cast UI tokens.
  */
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { View } from 'react-native';
-import { Badge, Chip, Input, Text, useTheme } from '@castui/cast-ui';
+import React, { useMemo, useState } from 'react';
+import { Pressable, View } from 'react-native';
+import { Badge, Chip, Input, Text, useMotion, useTheme } from '@castui/cast-ui';
 import { Page, PageHeader } from '../../ui/Page';
-import graphData from '../../data/graph.json';
+import {
+  buildCascade,
+  buildPipeline,
+  pipelinePath,
+  searchNodes,
+  traceComponent,
+  traceToken,
+  TIERS,
+  NODE_COUNT,
+  LINK_COUNT,
+  type Band,
+  type GroupCard,
+  type PipeNode,
+  type StageId,
+  type TierId,
+  type Trace,
+} from './model';
 
-type GraphNode = {
-  id: string;
-  label: string;
-  kind: string;
-  set?: string;
-  value?: string | number;
-  type?: string;
+// --- Palette ----------------------------------------------------------------
+// One accent per stage / tier, matching the brand preset swatches so the whole
+// site stays of a piece. Everything else is drawn from the live theme.
+
+const STAGE_COLOR: Record<StageId, string> = {
+  design: '#2563EB',
+  sync: '#7C3AED',
+  source: '#0891B2',
+  ship: '#059669',
+  use: '#D97706',
 };
-type GraphLink = { source: string; target: string; kind: string };
 
-type SimNode = GraphNode & { x: number; y: number; vx: number; vy: number; r: number };
-
-const KIND_COLOR: Record<string, string> = {
-  ecosystem: '#2563EB',
+const TIER_COLOR: Record<TierId, string> = {
   component: '#7C3AED',
-  'component-token': '#8B5CF6',
-  semantic: '#059669',
+  semantic: '#2563EB',
   primitive: '#D97706',
   motion: '#E11D48',
 };
 
-const KIND_LABEL: Record<string, string> = {
-  ecosystem: 'Ecosystem',
-  component: 'Components',
-  'component-token': 'Component tokens',
-  semantic: 'Semantic',
-  primitive: 'Primitive',
-  motion: 'Motion',
+function hexA(hex: string, a: number): string {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+function wrapLines(text: string, max: number, maxLines: number): string[] {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let cur = '';
+  for (const w of words) {
+    const t = cur ? `${cur} ${w}` : w;
+    if (t.length <= max || !cur) {
+      cur = t;
+    } else {
+      lines.push(cur);
+      cur = w;
+      if (lines.length >= maxLines) break;
+    }
+  }
+  if (lines.length < maxLines && cur) lines.push(cur);
+  const full = text.replace(/\s+/g, ' ');
+  if (lines.join(' ').length < full.length && lines.length) {
+    const last = lines[lines.length - 1].replace(/\s*\S*$/, '');
+    lines[lines.length - 1] = `${last}…`;
+  }
+  return lines;
+}
+
+/** Smooth S-curve from a right edge to a left edge (or a bow if it turns back). */
+function connector(sx: number, sy: number, tx: number, ty: number): string {
+  const dx = tx - sx;
+  if (dx > 12) {
+    const c = Math.max(dx * 0.5, 44);
+    return `M ${sx} ${sy} C ${sx + c} ${sy}, ${tx - c} ${ty}, ${tx} ${ty}`;
+  }
+  const bow = 54 + Math.abs(ty - sy) * 0.14;
+  return `M ${sx} ${sy} C ${sx + bow} ${sy}, ${tx + bow} ${ty}, ${tx} ${ty}`;
+}
+
+/** A filled Sankey ribbon between two vertical centres; `dip` bows it downward. */
+function ribbonPath(
+  x1: number,
+  yc1: number,
+  x2: number,
+  yc2: number,
+  th1: number,
+  th2: number,
+  dip = 0,
+): string {
+  const t1 = th1 / 2;
+  const t2 = th2 / 2;
+  const c = (x2 - x1) * 0.5;
+  return [
+    `M ${x1} ${yc1 - t1}`,
+    `C ${x1 + c} ${yc1 - t1 + dip}, ${x2 - c} ${yc2 - t2 + dip}, ${x2} ${yc2 - t2}`,
+    `L ${x2} ${yc2 + t2}`,
+    `C ${x2 - c} ${yc2 + t2 + dip}, ${x1 + c} ${yc1 + t1 + dip}, ${x1} ${yc1 + t1}`,
+    'Z',
+  ].join(' ');
+}
+
+const isHex = (v?: string) => !!v && /^#([0-9a-f]{3,8})$/i.test(v);
+
+// ============================================================================
+// Pipeline lens
+// ============================================================================
+
+const P = {
+  W: 1280,
+  padX: 26,
+  cardW: 204,
+  cardH: 96,
+  colGap: 52,
+  rowGap: 20,
+  headY: 78,
 };
 
-function radiusFor(node: GraphNode, degree: number): number {
-  if (node.kind === 'ecosystem') return 14;
-  if (node.kind === 'component') return 9 + Math.min(degree * 0.15, 5);
-  return 3.5 + Math.min(degree * 0.4, 5);
+function PipelineView({
+  active,
+  selected,
+  onHover,
+  onSelect,
+  reduceMotion,
+}: {
+  active: string | null;
+  selected: string | null;
+  onHover: (id: string | null) => void;
+  onSelect: (id: string) => void;
+  reduceMotion: boolean;
+}) {
+  const { scheme } = useTheme();
+  const pipeline = useMemo(buildPipeline, []);
+
+  const layout = useMemo(() => {
+    const byCol: PipeNode[][] = pipeline.stages.map(() => []);
+    for (const n of pipeline.nodes) byCol[n.col].push(n);
+    const maxRows = Math.max(...byCol.map((c) => c.length));
+    const step = P.cardH + P.rowGap;
+    const pos = new Map<string, { x: number; y: number }>();
+    byCol.forEach((col, ci) => {
+      const x = P.padX + ci * (P.cardW + P.colGap);
+      const startY = P.headY + ((maxRows - col.length) / 2) * step;
+      col.forEach((n, ri) => pos.set(n.id, { x, y: startY + ri * step }));
+    });
+    const H = P.headY + maxRows * step - P.rowGap + 30;
+    return { pos, H, maxRows };
+  }, [pipeline]);
+
+  const keep = useMemo(
+    () => (active ? pipelinePath(pipeline.links, active) : null),
+    [active, pipeline.links],
+  );
+
+  const dim = (on: boolean) => (keep && !on ? 0.22 : 1);
+
+  return (
+    <svg
+      viewBox={`0 0 ${P.W} ${layout.H}`}
+      width="100%"
+      preserveAspectRatio="xMidYMid meet"
+      style={{ display: 'block', height: 'auto' }}
+    >
+      <defs>
+        <style>{`.cast-flow{stroke-dasharray:5 9;${
+          reduceMotion ? '' : 'animation:castflow 1.1s linear infinite;'
+        }} @keyframes castflow{to{stroke-dashoffset:-28}}`}</style>
+      </defs>
+
+      {/* Stage lanes + headers */}
+      {pipeline.stages.map((s, i) => {
+        const x = P.padX + i * (P.cardW + P.colGap);
+        return (
+          <g key={s.id}>
+            <rect
+              x={x - 10}
+              y={P.headY - 14}
+              width={P.cardW + 20}
+              height={layout.H - P.headY - 4}
+              rx={16}
+              fill={hexA(STAGE_COLOR[s.id], 0.04)}
+            />
+            <text x={x} y={30} fontFamily="Inter" fontSize={12} fontWeight={700} fill={STAGE_COLOR[s.id]}>
+              {`${i + 1}. ${s.title.toUpperCase()}`}
+            </text>
+            <text x={x} y={50} fontFamily="Inter" fontSize={11.5} fill={scheme.text.description}>
+              {s.blurb}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Connectors */}
+      {pipeline.links.map((l, i) => {
+        const a = layout.pos.get(l.source)!;
+        const b = layout.pos.get(l.target)!;
+        const sx = a.x + P.cardW;
+        const sy = a.y + P.cardH / 2;
+        const tx = b.x;
+        const ty = b.y + P.cardH / 2;
+        const on = !!keep && keep.has(l.source) && keep.has(l.target);
+        return (
+          <g key={i} opacity={dim(on)}>
+            <path
+              d={connector(sx, sy, tx, ty)}
+              fill="none"
+              stroke={on ? hexA(STAGE_COLOR[nodeStage(pipeline.nodes, l.source)], 0.9) : scheme.surface.overlay.border}
+              strokeWidth={on ? 2.4 : 1.4}
+              className={on ? 'cast-flow' : undefined}
+            />
+            <circle cx={tx} cy={ty} r={on ? 3 : 2.2} fill={on ? hexA(STAGE_COLOR[nodeStage(pipeline.nodes, l.target)], 0.95) : scheme.surface.overlay.border} />
+          </g>
+        );
+      })}
+
+      {/* Nodes */}
+      {pipeline.nodes.map((n) => {
+        const p = layout.pos.get(n.id)!;
+        const on = !keep || keep.has(n.id);
+        const isActive = selected === n.id;
+        const accent = STAGE_COLOR[n.stage];
+        const lines = wrapLines(n.blurb, 30, 2);
+        return (
+          <g
+            key={n.id}
+            opacity={on ? 1 : 0.22}
+            style={{ cursor: 'pointer' }}
+            onMouseEnter={() => onHover(n.id)}
+            onMouseLeave={() => onHover(null)}
+            onClick={() => onSelect(n.id)}
+          >
+            {isActive ? (
+              <rect x={p.x - 3} y={p.y - 3} width={P.cardW + 6} height={P.cardH + 6} rx={15} fill={hexA(accent, 0.14)} />
+            ) : null}
+            <rect
+              x={p.x}
+              y={p.y}
+              width={P.cardW}
+              height={P.cardH}
+              rx={13}
+              fill={scheme.surface.overlay.bg}
+              stroke={isActive ? accent : scheme.surface.overlay.border}
+              strokeWidth={isActive ? 2 : 1}
+            />
+            <rect x={p.x} y={p.y + 12} width={4} height={P.cardH - 24} rx={2} fill={accent} />
+            <rect x={p.x + 16} y={p.y + 15} width={34} height={34} rx={10} fill={hexA(accent, 0.16)} />
+            <text
+              x={p.x + 33}
+              y={p.y + 38}
+              fontFamily="Material Symbols Outlined"
+              fontSize={20}
+              fill={accent}
+              textAnchor="middle"
+            >
+              {n.icon}
+            </text>
+            <text x={p.x + 60} y={p.y + 30} fontFamily="Inter" fontSize={13.5} fontWeight={600} fill={scheme.text.primary}>
+              {n.label}
+            </text>
+            {lines.map((ln, li) => (
+              <text key={li} x={p.x + 18} y={p.y + 60 + li * 15} fontFamily="Inter" fontSize={11} fill={scheme.text.description}>
+                {ln}
+              </text>
+            ))}
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function nodeStage(nodes: PipeNode[], id: string): StageId {
+  return nodes.find((n) => n.id === id)?.stage ?? 'design';
+}
+
+// ============================================================================
+// Cascade lens
+// ============================================================================
+
+const C = {
+  W: 1184,
+  padX: 24,
+  panelW: 300,
+  colGap: 118,
+  top: 92,
+  headerH: 66,
+  innerPad: 14,
+  chipH: 26,
+  chipVGap: 8,
+  subGap: 10,
+};
+
+type ChipBox = GroupCard & { x: number; y: number; w: number; cx: number; cy: number };
+type PanelBox = { tier: TierId; x: number; top: number; height: number; count: number };
+
+function CascadeView({
+  active,
+  onHover,
+  onPick,
+  reduceMotion,
+}: {
+  active: string | null;
+  onHover: (id: string | null) => void;
+  onPick: (chip: ChipBox) => void;
+  reduceMotion: boolean;
+}) {
+  const { scheme } = useTheme();
+  const cascade = useMemo(buildCascade, []);
+
+  const layout = useMemo(() => {
+    const chipW = (C.panelW - 2 * C.innerPad - C.subGap) / 2;
+    const cols: TierId[] = ['component', 'semantic', 'primitive'];
+    const chips: ChipBox[] = [];
+    const panels: PanelBox[] = [];
+
+    cols.forEach((tier) => {
+      const col = TIERS[tier].col;
+      const x = C.padX + col * (C.panelW + C.colGap);
+      const groups = cascade.groups
+        .filter((g) => g.tier === tier)
+        .sort((a, b) => b.count - a.count);
+      const rows = Math.ceil(groups.length / 2);
+      const gridTop = C.top + C.headerH;
+      groups.forEach((g, i) => {
+        const sub = i % 2;
+        const row = Math.floor(i / 2);
+        const cx0 = x + C.innerPad + sub * (chipW + C.subGap);
+        const cy0 = gridTop + row * (C.chipH + C.chipVGap);
+        chips.push({ ...g, x: cx0, y: cy0, w: chipW, cx: cx0 + chipW / 2, cy: cy0 + C.chipH / 2 });
+      });
+      const height = C.headerH + rows * (C.chipH + C.chipVGap) - C.chipVGap + C.innerPad;
+      panels.push({ tier, x, top: C.top, height, count: groups.reduce((s, g) => s + g.count, 0) });
+    });
+
+    const maxPanelH = Math.max(...panels.map((p) => p.height));
+    const motionTop = C.top + maxPanelH + 42;
+    const H = motionTop + 104 + 24;
+    return { chips, panels, chipW, maxPanelH, motionTop, H };
+  }, [cascade]);
+
+  const chipById = useMemo(() => new Map(layout.chips.map((c) => [c.id, c])), [layout.chips]);
+
+  // Which chips + bands to spotlight for the active group.
+  const focus = useMemo(() => {
+    if (!active) return null;
+    const links = cascade.bands.filter((b) => b.source === active || b.target === active);
+    const ids = new Set<string>([active]);
+    links.forEach((b) => {
+      ids.add(b.source);
+      ids.add(b.target);
+    });
+    return { links, ids };
+  }, [active, cascade.bands]);
+
+  const panelByTier = useMemo(() => new Map(layout.panels.map((p) => [p.tier, p])), [layout.panels]);
+  const maxTierFlow = Math.max(...cascade.tierFlows.map((f) => f.count), 1);
+  const maxBand = Math.max(...cascade.bands.map((b) => b.count), 1);
+
+  const center = (t: TierId) => {
+    const p = panelByTier.get(t)!;
+    return { xL: p.x, xR: p.x + C.panelW, yc: p.top + p.height / 2 };
+  };
+
+  return (
+    <svg
+      viewBox={`0 0 ${C.W} ${layout.H}`}
+      width="100%"
+      preserveAspectRatio="xMidYMid meet"
+      style={{ display: 'block', height: 'auto' }}
+    >
+      <defs>
+        <style>{`.cast-flow2{stroke-dasharray:5 9;${
+          reduceMotion ? '' : 'animation:castflow2 1.2s linear infinite;'
+        }} @keyframes castflow2{to{stroke-dashoffset:-28}}`}</style>
+      </defs>
+
+      {/* Aggregate tier ribbons (dim when a group is focused) */}
+      <g opacity={focus ? 0.12 : 1}>
+        {cascade.tierFlows.map((f, i) => {
+          const s = center(f.source);
+          const t = center(f.target);
+          const th1 = 8 + (f.count / maxTierFlow) * 52;
+          const bypass = TIERS[f.target].col - TIERS[f.source].col > 1;
+          const dip = bypass ? layout.maxPanelH * 0.62 : 0;
+          return (
+            <path
+              key={i}
+              d={ribbonPath(s.xR, s.yc, t.xL, t.yc, th1, th1, dip)}
+              fill={hexA(TIER_COLOR[f.source], 0.16)}
+              stroke={hexA(TIER_COLOR[f.source], 0.28)}
+              strokeWidth={1}
+            />
+          );
+        })}
+      </g>
+
+      {/* Focused group bands (thin, animated) */}
+      {focus
+        ? focus.links.map((b: Band, i) => {
+            const s = chipById.get(b.source);
+            const t = chipById.get(b.target);
+            if (!s || !t) return null;
+            const forward = TIERS[s.tier].col <= TIERS[t.tier].col;
+            const sx = forward ? s.x + s.w : s.x;
+            const tx = forward ? t.x : t.x + t.w;
+            const w = 1.5 + (b.count / maxBand) * 6;
+            return (
+              <path
+                key={i}
+                d={connector(sx, s.cy, tx, t.cy)}
+                fill="none"
+                stroke={hexA(TIER_COLOR[s.tier], 0.9)}
+                strokeWidth={w}
+                strokeLinecap="round"
+                className="cast-flow2"
+              />
+            );
+          })
+        : null}
+
+      {/* Tier panels */}
+      {layout.panels.map((p) => {
+        const accent = TIER_COLOR[p.tier];
+        return (
+          <g key={p.tier}>
+            <rect
+              x={p.x}
+              y={p.top}
+              width={C.panelW}
+              height={p.height}
+              rx={16}
+              fill={scheme.surface.overlay.bg}
+              stroke={scheme.surface.overlay.border}
+              strokeWidth={1}
+            />
+            <rect x={p.x} y={p.top} width={C.panelW} height={4} rx={2} fill={accent} />
+            <text x={p.x + C.innerPad} y={p.top + 28} fontFamily="Inter" fontSize={15} fontWeight={700} fill={scheme.text.primary}>
+              {TIERS[p.tier].title}
+            </text>
+            <text x={p.x + C.panelW - C.innerPad} y={p.top + 28} fontFamily="Inter" fontSize={12} fontWeight={600} fill={accent} textAnchor="end">
+              {`${p.count} tokens`}
+            </text>
+            <text x={p.x + C.innerPad} y={p.top + 48} fontFamily="Inter" fontSize={11.5} fill={scheme.text.description}>
+              {TIERS[p.tier].blurb}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Group chips */}
+      {layout.chips.map((ch) => {
+        const on = !focus || focus.ids.has(ch.id);
+        const isActive = active === ch.id;
+        const accent = TIER_COLOR[ch.tier];
+        return (
+          <g
+            key={ch.id}
+            opacity={on ? 1 : 0.25}
+            style={{ cursor: 'pointer' }}
+            onMouseEnter={() => onHover(ch.id)}
+            onMouseLeave={() => onHover(null)}
+            onClick={() => onPick(ch)}
+          >
+            <rect
+              x={ch.x}
+              y={ch.y}
+              width={ch.w}
+              height={C.chipH}
+              rx={8}
+              fill={isActive ? hexA(accent, 0.16) : scheme.surface.subtle}
+              stroke={isActive ? accent : scheme.surface.overlay.border}
+              strokeWidth={isActive ? 1.5 : 1}
+            />
+            <circle cx={ch.x + 13} cy={ch.cy} r={3.5} fill={accent} />
+            <text x={ch.x + 24} y={ch.cy + 4} fontFamily="Inter" fontSize={11.5} fontWeight={500} fill={scheme.text.primary}>
+              {ch.title.length > 13 ? `${ch.title.slice(0, 12)}…` : ch.title}
+            </text>
+            <text x={ch.x + ch.w - 10} y={ch.cy + 4} fontFamily="Inter" fontSize={10.5} fill={scheme.text.description} textAnchor="end">
+              {ch.count}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Motion — the parallel system */}
+      <g>
+        <rect
+          x={C.padX}
+          y={layout.motionTop}
+          width={C.W - 2 * C.padX}
+          height={96}
+          rx={16}
+          fill={scheme.surface.overlay.bg}
+          stroke={scheme.surface.overlay.border}
+          strokeWidth={1}
+        />
+        <rect x={C.padX} y={layout.motionTop} width={4} height={96} rx={2} fill={TIER_COLOR.motion} />
+        <text x={C.padX + 18} y={layout.motionTop + 28} fontFamily="Inter" fontSize={15} fontWeight={700} fill={scheme.text.primary}>
+          Motion
+        </text>
+        <text x={C.padX + 92} y={layout.motionTop + 28} fontFamily="Inter" fontSize={11.5} fill={scheme.text.description}>
+          A parallel system. Components read these at runtime; the values stay separate from colour and space.
+        </text>
+        {cascade.motion.groups.map((g, i) => {
+          const gx = C.padX + 18 + i * 158;
+          const gy = layout.motionTop + 48;
+          return (
+            <g key={g.id}>
+              <rect x={gx} y={gy} width={146} height={30} rx={8} fill={scheme.surface.subtle} stroke={scheme.surface.overlay.border} strokeWidth={1} />
+              <circle cx={gx + 13} cy={gy + 15} r={3.5} fill={TIER_COLOR.motion} />
+              <text x={gx + 24} y={gy + 19} fontFamily="Inter" fontSize={11.5} fontWeight={500} fill={scheme.text.primary}>
+                {g.title}
+              </text>
+              <text x={gx + 136} y={gy + 19} fontFamily="Inter" fontSize={10.5} fill={scheme.text.description} textAnchor="end">
+                {g.count}
+              </text>
+            </g>
+          );
+        })}
+      </g>
+    </svg>
+  );
+}
+
+// ============================================================================
+// Trace panel — a token's exact alias chain to the raw value
+// ============================================================================
+
+function TraceRow({ trace }: { trace: Trace }) {
+  const { scheme } = useTheme();
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 6, paddingVertical: 4 }}>
+      {trace.steps.map((step, i) => (
+        <React.Fragment key={step.id}>
+          {i > 0 ? <Text type="caption" color={scheme.text.description}>{'→'}</Text> : null}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 6,
+              paddingHorizontal: 8,
+              paddingVertical: 4,
+              borderRadius: 7,
+              backgroundColor: scheme.surface.subtle,
+              borderWidth: 1,
+              borderColor: scheme.surface.overlay.border,
+            }}
+          >
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: step.tier === 'unknown' ? scheme.text.description : TIER_COLOR[step.tier as TierId],
+              }}
+            />
+            <Text type="caption" color={scheme.text.primary}>{step.label}</Text>
+            {i === trace.steps.length - 1 && step.value ? (
+              <>
+                {isHex(step.value) ? (
+                  <View style={{ width: 12, height: 12, borderRadius: 3, backgroundColor: step.value, borderWidth: 1, borderColor: scheme.surface.overlay.border }} />
+                ) : null}
+                <Text type="caption" color={scheme.text.description}>{step.value}</Text>
+              </>
+            ) : null}
+          </View>
+        </React.Fragment>
+      ))}
+    </View>
+  );
+}
+
+function TracePanel({ title, traces, onClose }: { title: string; traces: Trace[]; onClose: () => void }) {
+  const { scheme, colors } = useTheme();
+  const shown = traces.slice(0, 24);
+  return (
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor: scheme.surface.overlay.border,
+        borderRadius: 16,
+        backgroundColor: scheme.surface.subtle,
+        padding: 18,
+        gap: 12,
+      }}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <Text type="label-lg" color={colors.brand.subtle.default.fg}>{title}</Text>
+        <Badge size="small">{`${traces.length} token${traces.length === 1 ? '' : 's'}`}</Badge>
+        <View style={{ flex: 1 }} />
+        <Chip size="small" onRemove={onClose}>Close</Chip>
+      </View>
+      <Text type="body-sm" color={scheme.text.description}>
+        Each row follows one token through its aliases to the primitive value it lands on. It comes straight from the token files.
+      </Text>
+      <View style={{ gap: 2 }}>
+        {shown.map((t, i) => (
+          <TraceRow key={i} trace={t} />
+        ))}
+      </View>
+      {traces.length > shown.length ? (
+        <Text type="caption" color={scheme.text.description}>{`+ ${traces.length - shown.length} more`}</Text>
+      ) : null}
+    </View>
+  );
+}
+
+// ============================================================================
+// Page
+// ============================================================================
+
+type Lens = 'pipeline' | 'cascade';
+
+function Segmented({ value, onChange }: { value: Lens; onChange: (v: Lens) => void }) {
+  const { scheme, colors } = useTheme();
+  const opts: { id: Lens; label: string }[] = [
+    { id: 'pipeline', label: 'Pipeline' },
+    { id: 'cascade', label: 'Token cascade' },
+  ];
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        gap: 2,
+        padding: 3,
+        borderRadius: 11,
+        backgroundColor: scheme.surface.subtle,
+        borderWidth: 1,
+        borderColor: scheme.surface.overlay.border,
+      }}
+    >
+      {opts.map((o) => {
+        const on = value === o.id;
+        return (
+          <Pressable
+            key={o.id}
+            onPress={() => onChange(o.id)}
+            style={{
+              paddingHorizontal: 14,
+              paddingVertical: 7,
+              borderRadius: 8,
+              backgroundColor: on ? colors.brand.bold.default.bg : 'transparent',
+            }}
+          >
+            <Text type="label-md" color={on ? colors.brand.bold.default.fg : scheme.text.description}>
+              {o.label}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
 }
 
 export default function Architecture() {
-  const { scheme, colorMode } = useTheme();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [lens, setLens] = useState<'ecosystem' | 'tokens'>('ecosystem');
+  const { scheme } = useTheme();
+  const motion = useMotion();
+  const reduceMotion = !!motion.reduceMotion;
+
+  const [lens, setLens] = useState<Lens>('pipeline');
   const [query, setQuery] = useState('');
-  const [focusId, setFocusId] = useState<string | null>(null);
-  const [hoverNode, setHoverNode] = useState<GraphNode | null>(null);
+  const [hover, setHover] = useState<string | null>(null);
+  const [pinned, setPinned] = useState<string | null>(null);
+  const [trace, setTrace] = useState<{ title: string; traces: Trace[] } | null>(null);
 
-  const data = graphData as { nodes: GraphNode[]; links: GraphLink[] };
+  const pipeline = useMemo(buildPipeline, []);
+  const cascade = useMemo(buildCascade, []);
+  const matches = useMemo(() => searchNodes(query), [query]);
 
-  // The visible slice of the graph for the current lens + focus.
-  const visible = useMemo(() => {
-    let nodeIds: Set<string>;
-    if (lens === 'ecosystem') {
-      nodeIds = new Set(
-        data.nodes.filter((n) => n.kind === 'ecosystem' || n.kind === 'component').map((n) => n.id),
-      );
+  const active = hover ?? pinned;
+
+  const reset = () => {
+    setPinned(null);
+    setHover(null);
+    setTrace(null);
+  };
+
+  // Readout for the footer bar.
+  const readout = useMemo(() => {
+    if (!active) return null;
+    if (lens === 'pipeline') {
+      const n = pipeline.nodes.find((x) => x.id === active);
+      return n ? `${n.label} · ${n.blurb}` : null;
+    }
+    const chip = cascade.groups.find((g) => g.id === active) ?? cascade.motion.groups.find((g) => g.id === active);
+    if (!chip) return null;
+    const outs = cascade.bands.filter((b) => b.source === active).map((b) => b.target.split(':')[1]);
+    const ins = cascade.bands.filter((b) => b.target === active).map((b) => b.source.split(':')[1]);
+    const tail = outs.length
+      ? `resolves to ${uniq(outs).slice(0, 4).join(', ')}`
+      : ins.length
+        ? `used by ${uniq(ins).slice(0, 4).join(', ')}`
+        : 'a raw value';
+    return `${chip.title} · ${chip.count} tokens · ${tail}`;
+  }, [active, lens, pipeline.nodes, cascade]);
+
+  const onPickChip = (chip: ChipBox) => {
+    if (chip.tier === 'component') {
+      setTrace({ title: chip.title, traces: traceComponent(chip.group) });
+      setPinned(chip.id);
     } else {
-      nodeIds = new Set(data.nodes.map((n) => n.id));
+      setPinned((prev) => (prev === chip.id ? null : chip.id));
+      setTrace(null);
     }
-    let links = data.links.filter((l) => nodeIds.has(l.source) && nodeIds.has(l.target));
+  };
 
-    if (focusId && nodeIds.has(focusId)) {
-      // Two hops around the focus.
-      const keep = new Set([focusId]);
-      for (let hop = 0; hop < 2; hop++) {
-        for (const l of links) {
-          if (keep.has(l.source)) keep.add(l.target);
-          if (keep.has(l.target)) keep.add(l.source);
-        }
-      }
-      nodeIds = new Set([...nodeIds].filter((id) => keep.has(id)));
-      links = links.filter((l) => nodeIds.has(l.source) && nodeIds.has(l.target));
-    }
-
-    const nodes = data.nodes.filter((n) => nodeIds.has(n.id));
-    return { nodes, links };
-  }, [data, lens, focusId]);
-
-  const matches = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (q.length < 2) return [];
-    return data.nodes
-      .filter((n) => n.label.toLowerCase().includes(q))
-      .slice(0, 8);
-  }, [data, query]);
-
-  // --- The simulation --------------------------------------------------------
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const wrap = wrapRef.current;
-    if (!canvas || !wrap) return;
-
-    const maybeCtx = canvas.getContext('2d');
-    if (!maybeCtx) return;
-    const ctx = maybeCtx;
-
-    let width = wrap.clientWidth;
-    let height = Math.max(560, Math.min(width * 0.66, 760));
-    const dpr = window.devicePixelRatio || 1;
-    const resize = () => {
-      width = wrap.clientWidth;
-      height = Math.max(560, Math.min(width * 0.66, 760));
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-    };
-    resize();
-
-    const degree = new Map<string, number>();
-    for (const l of visible.links) {
-      degree.set(l.source, (degree.get(l.source) ?? 0) + 1);
-      degree.set(l.target, (degree.get(l.target) ?? 0) + 1);
-    }
-
-    // Seed positions: ring per kind so the layers untangle fast.
-    const kindAngle: Record<string, number> = {
-      ecosystem: 0, component: 1, 'component-token': 2, semantic: 3, primitive: 4, motion: 5,
-    };
-    const simNodes: SimNode[] = visible.nodes.map((n, i) => {
-      const ring = (kindAngle[n.kind] ?? 0) * 60 + 80;
-      const angle = (i / visible.nodes.length) * Math.PI * 2 * 7 + (kindAngle[n.kind] ?? 0);
-      return {
-        ...n,
-        x: width / 2 + Math.cos(angle) * ring * (0.6 + Math.random() * 0.5),
-        y: height / 2 + Math.sin(angle) * ring * (0.6 + Math.random() * 0.5),
-        vx: 0,
-        vy: 0,
-        r: radiusFor(n, degree.get(n.id) ?? 0),
-      };
-    });
-    const byId = new Map(simNodes.map((n) => [n.id, n]));
-    const simLinks = visible.links
-      .map((l) => ({ a: byId.get(l.source), b: byId.get(l.target), kind: l.kind }))
-      .filter((l): l is { a: SimNode; b: SimNode; kind: string } => !!l.a && !!l.b);
-
-    const big = simNodes.length > 400;
-    let alpha = 1;
-    let raf = 0;
-    let scale = big ? 0.7 : 1;
-    let offsetX = 0;
-    let offsetY = 0;
-    let dragNode: SimNode | null = null;
-    let panning = false;
-    let lastX = 0;
-    let lastY = 0;
-    let hovered: SimNode | null = null;
-
-    const linkColor = colorMode === 'dark' ? 'rgba(148,163,184,0.25)' : 'rgba(100,116,139,0.28)';
-    const flowColor = colorMode === 'dark' ? 'rgba(37,99,235,0.5)' : 'rgba(37,99,235,0.45)';
-    const labelColor = colorMode === 'dark' ? '#E2E8F0' : '#1E293B';
-
-    function tick() {
-      // Repulsion (with a cheap cutoff), springs, centring, damping.
-      const repulsion = big ? 320 : 900;
-      for (let i = 0; i < simNodes.length; i++) {
-        const a = simNodes[i];
-        for (let j = i + 1; j < simNodes.length; j++) {
-          const b = simNodes[j];
-          let dx = a.x - b.x;
-          let dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 > 40000 || d2 === 0) continue;
-          const force = (repulsion / d2) * alpha;
-          const d = Math.sqrt(d2);
-          dx /= d; dy /= d;
-          a.vx += dx * force; a.vy += dy * force;
-          b.vx -= dx * force; b.vy -= dy * force;
-        }
-      }
-      for (const { a, b, kind } of simLinks) {
-        const rest = kind === 'flow' ? 120 : kind === 'contains' ? 46 : 70;
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
-        const d = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-        const force = ((d - rest) / d) * 0.02 * alpha * (kind === 'flow' ? 2.4 : 1);
-        a.vx += dx * force; a.vy += dy * force;
-        b.vx -= dx * force; b.vy -= dy * force;
-      }
-      for (const n of simNodes) {
-        n.vx += (width / 2 - n.x) * 0.0015 * alpha;
-        n.vy += (height / 2 - n.y) * 0.0015 * alpha;
-        if (n !== dragNode) {
-          n.x += n.vx; n.y += n.vy;
-        }
-        n.vx *= 0.86; n.vy *= 0.86;
-      }
-      alpha = Math.max(alpha * 0.995, 0.06);
-    }
-
-    function draw() {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, width, height);
-      ctx.translate(offsetX, offsetY);
-      ctx.scale(scale, scale);
-
-      for (const { a, b, kind } of simLinks) {
-        ctx.strokeStyle = kind === 'flow' ? flowColor : linkColor;
-        ctx.lineWidth = kind === 'flow' ? 1.6 : 0.7;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-
-      for (const n of simNodes) {
-        ctx.fillStyle = KIND_COLOR[n.kind] ?? '#94A3B8';
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fill();
-        if (n === hovered || n.id === focusId) {
-          ctx.strokeStyle = labelColor;
-          ctx.lineWidth = 1.6;
-          ctx.stroke();
-        }
-      }
-
-      ctx.fillStyle = labelColor;
-      ctx.font = '11px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      for (const n of simNodes) {
-        const showLabel =
-          n.kind === 'ecosystem' ||
-          n.kind === 'component' ||
-          simNodes.length < 90 ||
-          n === hovered ||
-          n.id === focusId;
-        if (showLabel) ctx.fillText(n.label, n.x, n.y - n.r - 5);
-      }
-    }
-
-    function loop() {
-      tick();
-      draw();
-      raf = requestAnimationFrame(loop);
-    }
-    loop();
-
-    const toWorld = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      return {
-        x: (e.clientX - rect.left - offsetX) / scale,
-        y: (e.clientY - rect.top - offsetY) / scale,
-      };
-    };
-    const findNode = (p: { x: number; y: number }) => {
-      for (let i = simNodes.length - 1; i >= 0; i--) {
-        const n = simNodes[i];
-        const dx = n.x - p.x;
-        const dy = n.y - p.y;
-        if (dx * dx + dy * dy < (n.r + 4) * (n.r + 4)) return n;
-      }
-      return null;
-    };
-
-    const onDown = (e: MouseEvent) => {
-      const node = findNode(toWorld(e));
-      if (node) {
-        dragNode = node;
-        alpha = Math.max(alpha, 0.3);
-      } else {
-        panning = true;
-      }
-      lastX = e.clientX; lastY = e.clientY;
-    };
-    const onMove = (e: MouseEvent) => {
-      const p = toWorld(e);
-      if (dragNode) {
-        dragNode.x = p.x; dragNode.y = p.y;
-        dragNode.vx = 0; dragNode.vy = 0;
-        alpha = Math.max(alpha, 0.25);
-      } else if (panning) {
-        offsetX += e.clientX - lastX;
-        offsetY += e.clientY - lastY;
-        lastX = e.clientX; lastY = e.clientY;
-      } else {
-        hovered = findNode(p);
-        canvas.style.cursor = hovered ? 'pointer' : 'grab';
-        setHoverNode(hovered);
-      }
-    };
-    const onUp = (e: MouseEvent) => {
-      if (dragNode) {
-        const moved = Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
-        if (moved < 4) setFocusId((prev) => (prev === dragNode?.id ? null : dragNode?.id ?? null));
-      }
-      dragNode = null;
-      panning = false;
-    };
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const next = Math.min(Math.max(scale * (e.deltaY < 0 ? 1.1 : 0.9), 0.25), 3);
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      offsetX = mx - ((mx - offsetX) / scale) * next;
-      offsetY = my - ((my - offsetY) / scale) * next;
-      scale = next;
-    };
-
-    canvas.addEventListener('mousedown', onDown);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    canvas.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('resize', resize);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      canvas.removeEventListener('mousedown', onDown);
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-      canvas.removeEventListener('wheel', onWheel);
-      window.removeEventListener('resize', resize);
-    };
-  }, [visible, colorMode, focusId]);
-
-  const focusNode = focusId ? data.nodes.find((n) => n.id === focusId) : null;
+  const detail = active && lens === 'pipeline' ? pipeline.nodes.find((n) => n.id === active) : null;
 
   return (
     <Page wide>
       <PageHeader
         eyebrow="Architecture"
-        title="The whole system, as a graph"
-        lede="Every token, component, and tool is a node. Flow lines carry the pipeline from Figma to shipped apps; thin lines are real alias edges read from the token files. Drag to arrange, scroll to zoom, click a node to isolate its neighbourhood."
+        title="How Cast UI fits together"
+        lede="Cast UI is a pipeline. One source of truth in Figma flows through sync, code, and CI out to your apps. Every token resolves down a short chain to a raw value. Pick a lens, then hover a node to trace its path."
       />
+
       <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-        <Chip intent="brand" selected={lens === 'ecosystem'} onPress={() => { setLens('ecosystem'); setFocusId(null); }}>
-          Ecosystem
-        </Chip>
-        <Chip intent="brand" selected={lens === 'tokens'} onPress={() => { setLens('tokens'); setFocusId(null); }}>
-          {`All ${data.nodes.length} nodes`}
-        </Chip>
+        <Segmented value={lens} onChange={(v) => { setLens(v); reset(); }} />
         <View style={{ width: 260 }}>
           <Input
             size="small"
-            placeholder="Find a token or component…"
+            placeholder={lens === 'pipeline' ? 'Search tokens and components…' : 'Find a token or component…'}
             leadingIcon="search"
             value={query}
             onChangeText={setQuery}
           />
         </View>
-        {focusNode ? (
-          <Chip size="small" onRemove={() => setFocusId(null)}>{`Focused: ${focusNode.label}`}</Chip>
-        ) : null}
+        {pinned ? <Chip size="small" onRemove={reset}>Clear selection</Chip> : null}
+        <View style={{ flex: 1 }} />
+        <Text type="caption" color={scheme.text.description}>
+          {reduceMotion ? 'Hover to trace a path. Click to pin it.' : 'Hover to trace a path · click to pin · flow shows direction'}
+        </Text>
       </View>
+
       {matches.length > 0 ? (
         <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap' }}>
           {matches.map((m) => (
             <Chip
               key={m.id}
               size="small"
+              leadingIcon="conversion_path"
               onPress={() => {
-                setLens('tokens');
-                setFocusId(m.id);
+                setLens('cascade');
                 setQuery('');
+                if (m.kind === 'component-token' || m.kind === 'semantic' || m.kind === 'primitive' || m.kind === 'motion') {
+                  setTrace({ title: m.label, traces: [traceToken(m.id)] });
+                }
               }}
             >
-              {`${m.label} · ${KIND_LABEL[m.kind] ?? m.kind}`}
+              {m.label}
             </Chip>
           ))}
         </View>
@@ -375,47 +779,122 @@ export default function Architecture() {
         style={{
           borderWidth: 1,
           borderColor: scheme.surface.overlay.border,
-          borderRadius: 16,
+          borderRadius: 20,
           overflow: 'hidden',
           backgroundColor: scheme.surface.subtle,
         }}
       >
-        <div ref={wrapRef} style={{ width: '100%' }}>
-          <canvas ref={canvasRef} />
-        </div>
+        <View style={{ padding: 14 }}>
+          <div style={{ width: '100%' }}>
+            {lens === 'pipeline' ? (
+              <PipelineView
+                active={active}
+                selected={pinned}
+                onHover={setHover}
+                onSelect={(id) => setPinned((prev) => (prev === id ? null : id))}
+                reduceMotion={reduceMotion}
+              />
+            ) : (
+              <CascadeView active={active} onHover={setHover} onPick={onPickChip} reduceMotion={reduceMotion} />
+            )}
+          </div>
+        </View>
         <View
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
-            gap: 12,
-            padding: 12,
+            gap: 14,
+            paddingHorizontal: 16,
+            paddingVertical: 12,
             borderTopWidth: 1,
             borderTopColor: scheme.surface.overlay.border,
             alignItems: 'center',
           }}
         >
-          {Object.entries(KIND_LABEL).map(([kind, label]) => (
-            <View key={kind} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: KIND_COLOR[kind] }} />
-              <Text type="caption">{label}</Text>
+          {(lens === 'pipeline'
+            ? pipeline.stages.map((s) => ({ key: s.id, label: s.title, color: STAGE_COLOR[s.id] }))
+            : (['component', 'semantic', 'primitive', 'motion'] as TierId[]).map((t) => ({ key: t, label: TIERS[t].title, color: TIER_COLOR[t] }))
+          ).map((item) => (
+            <View key={item.key} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+              <View style={{ width: 10, height: 10, borderRadius: 3, backgroundColor: item.color }} />
+              <Text type="caption">{item.label}</Text>
             </View>
           ))}
-          <View style={{ flex: 1 }} />
-          {hoverNode ? (
-            <Badge size="small">
-              {`${hoverNode.label}${hoverNode.value !== undefined ? ` = ${String(hoverNode.value)}` : ''}`}
-            </Badge>
+          <View style={{ flex: 1, minWidth: 40 }} />
+          {readout ? (
+            <Badge size="small">{readout.length > 96 ? `${readout.slice(0, 95)}…` : readout}</Badge>
           ) : (
             <Text type="caption" color={scheme.text.description}>
-              {`${visible.nodes.length} nodes · ${visible.links.length} edges`}
+              {lens === 'pipeline'
+                ? `${pipeline.nodes.length} tools · ${pipeline.links.length} steps`
+                : `${cascade.groups.length + cascade.motion.groups.length} groups · ${NODE_COUNT} tokens`}
             </Text>
           )}
         </View>
       </View>
 
+      {detail ? <PipelineDetail node={detail} pipeline={pipeline} /> : null}
+      {trace ? <TracePanel title={trace.title} traces={trace.traces} onClose={() => setTrace(null)} /> : null}
+
       <Text type="body-sm" color={scheme.text.description} style={{ maxWidth: 760 }}>
-        The data behind this view is generated from the committed token exports by site/scripts/build-graph.mjs, so the graph is always as honest as the repo. The kit's Welcome page in Figma carries the same map for designers.
+        {`This runs on real data. site/scripts/build-graph.mjs reads the committed token files and writes graph.json (${NODE_COUNT} nodes, ${LINK_COUNT} links), which both lenses draw from. Change a token, rebuild, and the picture changes with it. The same map ships to designers on the kit's Welcome page in Figma.`}
       </Text>
     </Page>
   );
+}
+
+function PipelineDetail({ node, pipeline }: { node: PipeNode; pipeline: ReturnType<typeof buildPipeline> }) {
+  const { scheme } = useTheme();
+  const feeds = pipeline.links.filter((l) => l.source === node.id).map((l) => label(pipeline, l.target));
+  const fedBy = pipeline.links.filter((l) => l.target === node.id).map((l) => label(pipeline, l.source));
+  const accent = STAGE_COLOR[node.stage];
+  return (
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor: scheme.surface.overlay.border,
+        borderRadius: 16,
+        backgroundColor: scheme.surface.subtle,
+        padding: 18,
+        gap: 12,
+      }}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <View style={{ width: 12, height: 12, borderRadius: 3, backgroundColor: accent }} />
+        <Text type="label-lg" color={scheme.text.primary}>{node.label}</Text>
+        <Badge size="small" intent="brand" variant="subtle">{node.stage.toUpperCase()}</Badge>
+      </View>
+      <Text type="body-sm" color={scheme.text.description}>{node.blurb}</Text>
+      <View style={{ flexDirection: 'row', gap: 28, flexWrap: 'wrap' }}>
+        <ConnList heading="Fed by" items={fedBy} empty="Nothing. This is where it starts." />
+        <ConnList heading="Feeds" items={feeds} empty="Nothing. This is the end of the line." />
+      </View>
+    </View>
+  );
+}
+
+function ConnList({ heading, items, empty }: { heading: string; items: string[]; empty: string }) {
+  const { scheme, colors } = useTheme();
+  return (
+    <View style={{ gap: 6, minWidth: 220 }}>
+      <Text type="label-sm" color={colors.brand.subtle.default.fg}>{heading.toUpperCase()}</Text>
+      {items.length ? (
+        <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap' }}>
+          {items.map((it) => (
+            <Badge key={it} size="small" variant="outline">{it}</Badge>
+          ))}
+        </View>
+      ) : (
+        <Text type="caption" color={scheme.text.description}>{empty}</Text>
+      )}
+    </View>
+  );
+}
+
+function label(pipeline: ReturnType<typeof buildPipeline>, id: string): string {
+  return pipeline.nodes.find((n) => n.id === id)?.label ?? id;
+}
+
+function uniq(xs: string[]): string[] {
+  return [...new Set(xs)];
 }

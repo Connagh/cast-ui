@@ -70,10 +70,19 @@ for (const { file, set, kind } of collections) {
   }
   walk(data, '', (path, token) => {
     const id = `${set}:${path}`;
-    const value = token.$value;
+    const raw = token.$value;
+    // Colours are DTCG objects that carry a `hex`; keep it so the graph can
+    // show the real value. Other primitives (numbers, strings) pass straight
+    // through; anything else object-shaped has no single value.
+    const value =
+      raw && typeof raw === 'object'
+        ? typeof raw.hex === 'string'
+          ? raw.hex
+          : undefined
+        : raw;
     addNode(id, path, kind, {
       set,
-      value: typeof value === 'object' ? undefined : value,
+      value,
       type: token.$type,
     });
     const alias = token.$extensions?.['com.figma.aliasData'];

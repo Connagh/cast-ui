@@ -222,7 +222,7 @@ motion.transition.standard        // { duration, easing }`}
       </Section>
       <Section title="See the whole chain">
         <Prose>
-          The Architecture page renders every token as a node in a live graph. Pick any component token and walk its alias chain down to the raw primitive.
+          The Architecture page lays the tiers out as a cascade, from component tokens through semantic to primitive. Pick any component and follow its tokens down to the raw value they land on.
         </Prose>
       </Section>
     </View>

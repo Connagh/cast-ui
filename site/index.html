@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cast UI — a cross-platform design system for React Native</title>
+    <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%favicon.png" />
+    <title>Cast UI</title>
     <meta
       name="description"
       content="Cast UI is an open source design system for React Native. One set of components for iOS, Android and the web, themeable at runtime, designed in Figma and shipped as code."
@@ -51,6 +53,13 @@
       body,
       #root {
         height: 100%;
+      }
+      /* Light-mode default for the true page background (surface/base), so the
+         overscroll area matches before React mounts. Shell keeps it in sync with
+         the active colour mode after hydration. */
+      html {
+        background-color: #f9fafb;
+        color-scheme: light;
       }
       body {
         margin: 0;

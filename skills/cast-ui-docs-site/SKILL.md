@@ -6,7 +6,7 @@ description: >-
   adding or editing a component's documentation page, registry entry, live
   example, pattern, template, theme preset, motion demo, or docs guide;
   wiring a new component into the site after building it; changing the site
-  shell, navigation, or the architecture graph; or debugging why the Pages
+  shell, navigation, or the architecture diagram; or debugging why the Pages
   deploy or the SSR smoke test fails. The site renders every page with
   @castui/cast-ui itself through react-native-web, so this also covers the
   conventions that keep the site a credible showcase of the library.
@@ -86,9 +86,15 @@ just works. If you add a wholly new global to examples, add it to
 
 `scripts/build-graph.mjs` reads `design-tokens/*.tokens.json` and writes
 `src/data/graph.json` (runs automatically as `prebuild`). Token changes flow
-in on the next build. Ecosystem nodes and flow edges are declared in that
-script; component→motion edges live in its `MOTION_USE` map — extend it when
+in on the next build. Colour primitives keep their `hex`, so the page can show the
+value a token resolves to. Ecosystem nodes and flow edges are declared in that
+script; component→motion edges live in its `MOTION_USE` map, extended when
 a new component consumes a motion role.
+
+`pages/architecture/model.ts` reads `graph.json` and shapes it two ways:
+the ecosystem pipeline (tools grouped into stages) and the token cascade
+(Component to Semantic to Primitive, sized by alias volume, with per-token
+tracing).
 
 ## Conventions
 

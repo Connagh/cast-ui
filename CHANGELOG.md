@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [4.10.0] — %s
+## [4.10.1] — 2026-07-05
+
+### Fixed
+- **Menu opens when its trigger is a Button** — a `<Menu>` whose `trigger` was an interactive element, such as a `<Button>`, did not open on press. The menu wrapped the trigger in its own pressable, and React Native grants a press to a single element, so the inner Button won the gesture and the open toggle never ran. The toggle now sits on the trigger itself, so a Button, an Icon, or any trigger opens the menu on the first press. No prop or token change; mirrors the Figma `<Menu>` component. Fixes the density and brand menus in the docs-site top bar
+- **Cards no longer clip an open Menu, Select, or Autocomplete** — `<Card>` clipped all of its content to its rounded corners, so a dropdown opened inside a card (for example a `<Select>` in a form) was cut off at the card edge. The card now clips only its top media slot to the rounded corners, so an overlay can extend past the card boundary. No prop or token change; mirrors the Figma `<Card>` component
+
+## [4.10.0] — 2026-07-04
 
 ### Added
 - **Motion token system** — a two-layer motion system mirroring the colour and spacing tokens, exposed on the theme as `theme.motion` and mirrored 1:1 by the new `motion` variable collection in the Figma kit. The primitive layer is raw values: `duration` (instant/fast/base/slow = 100/150/220/320 ms), `cycle` (pulse/spin/sweep = 700/800/1200 ms), `easingBezier` (standard/entrance/exit/emphasized/linear as cubic-bezier control points, identical numbers in Figma and CSS), and `spring` (the shared overlay spring). The semantic layer is named roles components actually read: `transition` (standard/enter/exit/expand), `feedback` (press/shake/pop), and `loop` (spin/pulse/indeterminate). Easing functions build lazily on first use, so importing tokens never touches the native Easing API. All exported from the package entry point alongside `motionTokens`, `resolveMotion`, and the `MotionTokens`, `MotionTransition`, `MotionOverrides`, `MotionDurations`, `MotionCycles`, `EasingName`, `EasingBezierPoints`, and `SpringConfig` types

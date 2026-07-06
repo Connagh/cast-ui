@@ -87,7 +87,7 @@ export function CodeBlock({
   style,
   accessibilityLabel,
 }: CodeBlockProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.codeBlock[size];
   const radius = components.codeBlock.borderRadius;
   const mono = MONO_SCALE[size];
@@ -115,7 +115,7 @@ export function CodeBlock({
   const gutterDigits = String(lines.length).length;
 
   const codeTextStyle = {
-    fontFamily: fontFamily.mono,
+    fontFamily: fonts.mono,
     fontWeight: fontWeight.regular,
     fontSize: mono.fontSize,
     lineHeight: mono.lineHeight,
@@ -153,7 +153,7 @@ export function CodeBlock({
               <Text
                 numberOfLines={1}
                 style={{
-                  fontFamily: fontFamily.mono,
+                  fontFamily: fonts.mono,
                   fontWeight: fontWeight.medium,
                   fontSize: body.sm.fontSize,
                   lineHeight: body.sm.lineHeight,
@@ -166,7 +166,7 @@ export function CodeBlock({
             {language ? (
               <Text
                 style={{
-                  fontFamily: fontFamily.mono,
+                  fontFamily: fonts.mono,
                   fontWeight: fontWeight.medium,
                   fontSize: caption.fontSize,
                   lineHeight: caption.lineHeight,

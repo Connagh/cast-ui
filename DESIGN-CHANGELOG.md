@@ -12,6 +12,41 @@ variable group, or style is added and nothing breaks. Patch for value tweaks,
 recolours, new variants on existing components, and wording fixes. When an
 entry mixes buckets, the highest wins.
 
+## [1.3.1]. Focus ring is keyboard-only, everywhere. 2026-07-06
+
+Wording only. No variable, component, or style changes. The brand focus ring is a keyboard-only runtime behaviour in code (it follows the browser :focus-visible rule), including on the text fields now. Figma has no focus-visible variant, so the association lives in the component descriptions.
+
+### Pending actions
+- Add one line to the Input, Autocomplete, and Select descriptions: the brand focus ring shows on keyboard focus only; a click shows a plain border. This matches the note already planned for Button, Chip, Link, and Tabs in 1.2.3.
+- No publish needed. Nothing in the kit's variables, components, or styles changed.
+
+## [1.3.0]. Fonts are themeable. 2026-07-06
+
+A theme can now carry its own fonts, not just colour and motion. Change the font on the kit's Text Styles and cast-sync exports it, so a consuming app reskins its type with no code change. Nothing in the kit is renamed or rebound, so existing files are unaffected until you choose to change a font.
+
+### Changed
+- **cast-sync export (version 5).** The exported cast-theme.json now includes a fonts block: display, sans, and mono, read from the Text Styles. display comes from the display and heading styles, sans from body and label, mono from a code style if one exists. applyCastTheme maps this onto the ThemeProvider fonts prop.
+
+### Added
+- **Font theming from the Text Styles.** No new variables. To give a theme a display and body pairing, set the font on the kit's display and heading styles and on the body and label styles, then run cast-sync. The docs-site Themes page shows a set of these pairings live and downloadable.
+
+### Pending actions
+- Re-run cast-sync in the cast-ui-kit file to emit a version 5 file with the fonts block. Older version 4 files still load; the fonts block is simply absent.
+- No publish is needed for existing consumers, since no variable, component, or style changed. Publish only if you change the kit's own Text Style fonts.
+
+## [1.2.3]. Focus ring follows brand. 2026-07-05
+
+The focus ring now uses the brand intent instead of a fixed blue. Recolour the brand and the focus ring recolours with it. Before, control/focus-ring-colour bound a blue primitive, so the ring stayed blue after a brand change. The colour is the same in the default blue theme, so nothing moves until you change the brand. Pulling this version matches the package code, where the focus ring now reads the brand.
+
+### Changed
+- **control/focus-ring-colour.** Now binds intent/brand/default/active/border in both modes. It used to bind colours/blue/500 in light and colours/blue/400 in dark, the same values the brand active border holds, so the ring looks identical until the brand changes.
+- **intent/neutral/option/selected and selected+hover.** Rebound from raw blue primitives to intent/brand/subtle. These variables have been orphaned since 1.2.2 moved the selected states onto the brand directly, so nothing renders differently. The rebind keeps the leftover variables consistent if anything picks them up later.
+
+### Pending actions
+- Publish the cast-ui-kit library in Figma so consumers receive this version.
+- Re-export the semantic collection with cast-sync to record the new alias in the token JSON. The rendered value is unchanged in the blue theme, so apps are unaffected until then.
+- Focus on Button, Chip, Link, and Tabs is a runtime keyboard-only ring in code, the same way hover is runtime. It is not a new Figma variant. Add a line to each component description noting the focus-visible ring when you next edit them.
+
 ## [1.2.2]. Selection colours follow brand. 2026-07-05
 
 Selected list items, menu items, and select options now use the brand intent instead of a fixed blue. Recolour the brand and every selected state recolours with it. Before, these three bound a neutral option colour that happened to hold a blue value, so a selected row stayed blue after a brand change. The colours are the same in the default blue theme, so nothing moves until you change the brand. Pulling this version matches the package code, where the same selected states now read the brand subtle colour.

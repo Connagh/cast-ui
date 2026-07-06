@@ -6,11 +6,18 @@
  * Three axes, matching ThemeProvider's controls:
  *   colorMode  light | dark
  *   density    compact | default | comfortable
- *   brand      a preset colour override (the same shape cast-theme.json uses)
+ *   brand      a preset brand seed, fed to ThemeProvider's `brand` prop
+ *
+ * The brand presets carry a *seed* (base/hover/active), not a precomputed
+ * colour ramp. ThemeProvider's `brand` prop builds the correct ramp for the
+ * active colour mode, so a preset reads well in light AND dark. This is what
+ * keeps the violet/emerald/amber/rose presets legible in dark mode: their
+ * selected list items and subtle text get light-on-dark colours, not the
+ * light-mode dark seed that used to fail contrast.
  */
 
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { ThemeProvider, withAlpha, type ThemeProviderProps } from '@castui/cast-ui';
+import { ThemeProvider, type BrandSeed } from '@castui/cast-ui';
 
 type ColorMode = 'light' | 'dark';
 type Density = 'compact' | 'default' | 'comfortable';
@@ -20,38 +27,16 @@ export type BrandPreset = {
   label: string;
   /** Swatch colour shown in the picker. */
   swatch: string;
-  /** ThemeProvider `colors` override, or undefined for the built-in blue. */
-  colors?: ThemeProviderProps['colors'];
+  /** Brand seed for ThemeProvider's `brand` prop, or undefined for built-in blue. */
+  seed?: BrandSeed;
 };
-
-function makeBrand(base: string, hover: string, active: string): ThemeProviderProps['colors'] {
-  return {
-    brand: {
-      bold: {
-        default: { bg: base, fg: '#FFFFFF', border: base },
-        hover: { bg: hover, fg: '#FFFFFF', border: hover },
-        active: { bg: active, fg: '#FFFFFF', border: active },
-      },
-      default: {
-        default: { fg: base, border: base },
-        hover: { fg: hover, border: hover },
-        active: { fg: active, border: active },
-      },
-      subtle: {
-        default: { bg: 'transparent', fg: base },
-        hover: { bg: withAlpha(base, '14'), fg: hover },
-        active: { bg: withAlpha(base, '29'), fg: active },
-      },
-    },
-  };
-}
 
 export const brandPresets: BrandPreset[] = [
   { id: 'cast', label: 'Cast blue', swatch: '#2563EB' },
-  { id: 'violet', label: 'Violet', swatch: '#7C3AED', colors: makeBrand('#7C3AED', '#6D28D9', '#5B21B6') },
-  { id: 'emerald', label: 'Emerald', swatch: '#059669', colors: makeBrand('#059669', '#047857', '#065F46') },
-  { id: 'amber', label: 'Amber', swatch: '#D97706', colors: makeBrand('#D97706', '#B45309', '#92400E') },
-  { id: 'rose', label: 'Rose', swatch: '#E11D48', colors: makeBrand('#E11D48', '#BE123C', '#9F1239') },
+  { id: 'violet', label: 'Violet', swatch: '#7C3AED', seed: { base: '#7C3AED', hover: '#6D28D9', active: '#5B21B6' } },
+  { id: 'emerald', label: 'Emerald', swatch: '#059669', seed: { base: '#059669', hover: '#047857', active: '#065F46' } },
+  { id: 'amber', label: 'Amber', swatch: '#D97706', seed: { base: '#D97706', hover: '#B45309', active: '#92400E' } },
+  { id: 'rose', label: 'Rose', swatch: '#E11D48', seed: { base: '#E11D48', hover: '#BE123C', active: '#9F1239' } },
 ];
 
 type SiteThemeState = {
@@ -84,7 +69,7 @@ export function SiteThemeRoot({ children }: { children: React.ReactNode }) {
 
   return (
     <SiteThemeContext.Provider value={state}>
-      <ThemeProvider colorMode={colorMode} density={density} colors={brand.colors}>
+      <ThemeProvider colorMode={colorMode} density={density} brand={brand.seed}>
         {children}
       </ThemeProvider>
     </SiteThemeContext.Provider>

@@ -598,3 +598,206 @@ export const listColors = lightColors.list;
 export function withAlpha(hex: string, alpha: string): string {
   return /^#[0-9a-fA-F]{6}$/.test(hex) ? `${hex}${alpha}` : hex;
 }
+
+/** Parse a 6-digit "#RRGGBB" into [r, g, b], or null if it is not one. */
+function parseHex(hex: string): [number, number, number] | null {
+  const m = /^#?([0-9a-fA-F]{6})$/.exec(hex);
+  if (!m) return null;
+  const int = parseInt(m[1], 16);
+  return [(int >> 16) & 255, (int >> 8) & 255, int & 255];
+}
+
+/**
+ * Blend two solid hex colours. `t` is 0..1: 0 returns `from`, 1 returns `to`.
+ * Used to derive a brand ramp's light foregrounds and dark tinted surfaces
+ * from a single seed. Non-hex inputs return `from` unchanged.
+ */
+export function mix(from: string, to: string, t: number): string {
+  const a = parseHex(from);
+  const b = parseHex(to);
+  if (!a || !b) return from;
+  const clamp = (n: number) => Math.max(0, Math.min(255, Math.round(n)));
+  const r = clamp(a[0] + (b[0] - a[0]) * t);
+  const g = clamp(a[1] + (b[1] - a[1]) * t);
+  const bl = clamp(a[2] + (b[2] - a[2]) * t);
+  return `#${((1 << 24) | (r << 16) | (g << 8) | bl).toString(16).slice(1).toUpperCase()}`;
+}
+
+// ---------------------------------------------------------------------------
+// Brand ramp builder
+// ---------------------------------------------------------------------------
+
+/**
+ * Seed for a full brand ramp. Pass one colour or a few shades and get back a
+ * complete `brand` intent that covers every prominence and state.
+ */
+export type BrandSeed = {
+  /** Main brand colour. Used for filled buttons and checked controls. */
+  base: string;
+  /** Darker shade for hover. Defaults to `base`. */
+  hover?: string;
+  /** Darkest shade for active/pressed. Defaults to `hover`. */
+  active?: string;
+  /** Text colour on top of a filled brand surface. Defaults to white. */
+  onBrand?: string;
+  /** Resting border for the outline prominence. Defaults to `base` at ~40%. */
+  softBorder?: string;
+};
+
+/**
+ * Build a complete `brand` intent from one seed. Every prominence and state
+ * gets a bg, fg, and border, so a rebrand leaves nothing on the old colour.
+ *
+ * This is the fix for the classic "I changed the brand but the selected chip is
+ * still blue" trap: a hand-written override that only sets a few fields leaves
+ * the background tints on the base colour. `makeBrandColors` fills them all.
+ *
+ * Pass `mode` to get a ramp tuned for that colour mode. In dark mode the
+ * subtle/outline foregrounds become LIGHT tints of the brand on dark saturated
+ * surfaces, so selected list/menu items and subtle text keep their contrast.
+ * Prefer the `ThemeProvider` `brand` prop, which calls this for the active mode.
+ *
+ *   <ThemeProvider colors={makeBrandColors({ base: '#D97706', hover: '#B45309', active: '#92400E' }, 'dark')}>
+ *   <ThemeProvider brand="#D97706">
+ */
+export function makeBrandColors(
+  seed: BrandSeed | string,
+  mode: ColorMode = 'light',
+): { brand: IntentColors } {
+  const s: BrandSeed = typeof seed === 'string' ? { base: seed } : seed;
+  const base = s.base;
+  const hover = s.hover ?? base;
+  const active = s.active ?? hover;
+  const onBrand = s.onBrand ?? '#FFFFFF';
+
+  // Bold (filled) prominence is the same in both modes: the solid brand
+  // surface with white text keeps brand recognition and stays legible on a
+  // light or a dark page.
+  const bold = {
+    default: { bg: base, fg: onBrand, border: base },
+    hover: { bg: hover, fg: onBrand, border: hover },
+    active: { bg: active, fg: onBrand, border: active },
+  };
+
+  if (mode === 'dark') {
+    // On a dark surface the subtle/outline text must be a LIGHT tint of the
+    // brand, not the dark seed, or it fails contrast. The tinted backgrounds
+    // are dark and saturated (like the built-in blue's #1E3A8A), not a faint
+    // wash of the light-mode base. This is what fixes low-contrast selected
+    // list/menu items and subtle buttons after a rebrand in dark mode.
+    const anchor = '#0B1220'; // near cool-grey/950, the dark tint anchor
+    const fgDefault = mix(base, '#FFFFFF', 0.5);
+    const fgHover = mix(base, '#FFFFFF', 0.64);
+    const fgActive = mix(base, '#FFFFFF', 0.76);
+    const bgHover = mix(base, anchor, 0.74);
+    const bgActive = mix(base, anchor, 0.62);
+    const softBorder = s.softBorder ?? withAlpha(base, '80');
+    return {
+      brand: {
+        bold,
+        default: {
+          default: { bg: 'transparent', fg: fgDefault, border: softBorder },
+          hover: { bg: bgHover, fg: fgHover, border: fgDefault },
+          active: { bg: bgActive, fg: fgActive, border: fgHover },
+        },
+        subtle: {
+          default: { bg: 'transparent', fg: fgDefault, border: 'transparent' },
+          hover: { bg: bgHover, fg: fgHover, border: 'transparent' },
+          active: { bg: bgActive, fg: fgActive, border: 'transparent' },
+        },
+      },
+    };
+  }
+
+  // Light mode: dark seed text on faint brand-tinted surfaces.
+  const softBorder = s.softBorder ?? withAlpha(base, '66');
+  const tintHover = withAlpha(base, '14');
+  const tintActive = withAlpha(base, '29');
+  return {
+    brand: {
+      bold,
+      default: {
+        default: { bg: 'transparent', fg: base, border: softBorder },
+        hover: { bg: tintHover, fg: hover, border: base },
+        active: { bg: tintActive, fg: active, border: base },
+      },
+      subtle: {
+        default: { bg: 'transparent', fg: base, border: 'transparent' },
+        hover: { bg: tintHover, fg: hover, border: 'transparent' },
+        active: { bg: tintActive, fg: active, border: 'transparent' },
+      },
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Brand-dependent surface derivation
+// ---------------------------------------------------------------------------
+
+/**
+ * Recompute every brand-tinted surface from the live brand intent.
+ *
+ * Selection highlights (Select, Menu, List, Table rows), checked controls
+ * (Checkbox, Radio, Toggle), and the focus ring are not part of the `intents`
+ * map, so a `colors={{ brand }}` override can never reach them on its own. They
+ * used to be fixed blue literals, which is why a rebrand left them blue. This
+ * pass derives them from `scheme.intents.brand` so one brand change flows
+ * through the whole system.
+ *
+ * With the default blue brand it reproduces the original values exactly, so it
+ * is safe to run on every theme. Run it after the `colors` override and before
+ * any explicit `scheme` override, so a hand-set focus ring or selection colour
+ * still wins.
+ */
+export function deriveBrandDependents(scheme: ColorScheme): ColorScheme {
+  const b = scheme.intents.brand;
+  const selBg = b.subtle.hover.bg;
+  const selFg = b.subtle.hover.fg;
+  const selHoverBg = b.subtle.active.bg;
+  const checkedBg = b.bold.default.bg;
+  const checkedHoverBg = b.bold.hover.bg;
+
+  const selected = { bg: selBg, fg: selFg };
+  const selectedHover = { bg: selHoverBg, fg: selFg };
+
+  return {
+    ...scheme,
+    focusRing: { color: b.default.active.border },
+    select: {
+      ...scheme.select,
+      option: { ...scheme.select.option, selected, selectedHover },
+    },
+    menu: {
+      ...scheme.menu,
+      item: { ...scheme.menu.item, selected, selectedHover },
+    },
+    list: {
+      ...scheme.list,
+      item: { ...scheme.list.item, selected, selectedHover },
+    },
+    table: {
+      ...scheme.table,
+      selectedBg: selBg,
+      selectedHoverBg: selHoverBg,
+    },
+    checkbox: {
+      ...scheme.checkbox,
+      box: {
+        ...scheme.checkbox.box,
+        checked: { ...scheme.checkbox.box.checked, bg: checkedBg },
+      },
+    },
+    radio: {
+      ...scheme.radio,
+      indicator: {
+        ...scheme.radio.indicator,
+        checked: { ...scheme.radio.indicator.checked, bg: checkedBg },
+        checkedHover: { ...scheme.radio.indicator.checkedHover, bg: checkedHoverBg },
+      },
+    },
+    toggle: {
+      ...scheme.toggle,
+      track: { ...scheme.toggle.track, on: checkedBg, onHover: checkedHoverBg },
+    },
+  };
+}

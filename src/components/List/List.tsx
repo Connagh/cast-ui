@@ -46,7 +46,7 @@ export type ListProps = {
 };
 
 export function List({ children, style, accessibilityLabel }: ListProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const listColors = scheme.list;
   const tokens = components.list;
 
@@ -80,7 +80,7 @@ export type ListSubheaderProps = {
 };
 
 export function ListSubheader({ children, style }: ListSubheaderProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const listColors = scheme.list;
   const tokens = components.list.subheader;
 
@@ -96,7 +96,7 @@ export function ListSubheader({ children, style }: ListSubheaderProps) {
     >
       <Text
         style={{
-          fontFamily: fontFamily.sans,
+          fontFamily: fonts.sans,
           fontWeight: fontWeight.regular,
           fontSize: caption.fontSize,
           lineHeight: caption.lineHeight,
@@ -121,7 +121,7 @@ export type ListDividerProps = {
 };
 
 export function ListDivider({ style }: ListDividerProps) {
-  const { scheme } = useTheme();
+  const { scheme, fonts } = useTheme();
   const listColors = scheme.list;
 
   return (
@@ -174,7 +174,7 @@ export function ListItem({
   style,
   accessibilityLabel,
 }: ListItemProps) {
-  const { components, scheme, colors: intents } = useTheme();
+  const { components, scheme, colors: intents, fonts } = useTheme();
   const listColors = scheme.list;
   const tokens = components.list.item;
   const [isHovered, setIsHovered] = useState(false);
@@ -245,7 +245,7 @@ export function ListItem({
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: label.md.fontSize,
             lineHeight: label.md.lineHeight,
@@ -259,7 +259,7 @@ export function ListItem({
         {description ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: body.md.fontSize,
               lineHeight: body.md.lineHeight,

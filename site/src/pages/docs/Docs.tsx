@@ -96,7 +96,7 @@ function Theming() {
       <PageHeader
         eyebrow="Docs"
         title="Theming"
-        lede="ThemeProvider has five independent controls. All optional, all runtime, no rebuilds."
+        lede="ThemeProvider has seven independent controls. All optional, all runtime, no rebuilds."
       />
       <Section title="density" lede="How tight or roomy spacing feels: compact, default, or comfortable. Only padding and gaps change. Colours, radius, and type stay put.">
         <LiveDemo
@@ -122,6 +122,21 @@ const scheme = useColorScheme();
 <ThemeProvider colorMode={scheme === 'dark' ? 'dark' : 'light'}>`}
         />
       </Section>
+      <Section title="brand" lede="One seed colour, or a base/hover/active set. ThemeProvider builds a full, mode-correct ramp from it, so a rebrand reads well in light and dark with no per-mode tuning. The easiest way to recolour.">
+        <LiveDemo
+          code={`<ThemeProvider brand="#7C3AED">
+  <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+    <Button intent="brand" prominence="bold" onPress={() => {}}>Save</Button>
+    <Button intent="brand" prominence="subtle" onPress={() => {}}>Later</Button>
+    <Chip intent="brand" selected onPress={() => {}}>Pinned</Chip>
+    <Badge intent="brand">New</Badge>
+  </View>
+</ThemeProvider>`}
+        />
+        <Prose>
+          Prefer brand over a hand-written colors override. A light-only override leaves selected items and subtle text low-contrast in dark mode; brand builds the dark ramp for you, so it stays legible.
+        </Prose>
+      </Section>
       <Section title="colors" lede="Deep-partial overrides for the intent colours. Write only the slots you change.">
         <CodeSnippet
           code={`<ThemeProvider
@@ -139,6 +154,19 @@ const scheme = useColorScheme();
       </Section>
       <Section title="scheme" lede="Overrides for everything that isn't an intent: surfaces, text colours, the focus ring. Usually applyCastTheme fills this for you from a Figma export.">
         <CodeSnippet code={`<ThemeProvider scheme={{ surface: { base: '#FAF7F2' } }}>`} />
+      </Section>
+      <Section title="fonts" lede="Swap the typeface. sans covers body and label text, display the headings, mono code. Omit display and it follows sans. The families must be loaded by your app.">
+        <LiveDemo
+          code={`<ThemeProvider fonts={{ display: '"Space Grotesk", sans-serif' }}>
+  <View style={{ gap: 4 }}>
+    <Text type="heading-sm">Ship faster</Text>
+    <Text type="body-md">Headings take the display font. Body text stays on sans.</Text>
+  </View>
+</ThemeProvider>`}
+        />
+        <Prose>
+          Load the font files first (see Icons and fonts). An unloaded family falls back to the system font, with a dev-only warning on the web. A cast-theme.json carries fonts too, so applyCastTheme sets this for you.
+        </Prose>
       </Section>
       <Section title="motion" lede="Primitive-level motion overrides: durations, cycle lengths, easing beziers, springs. Semantic roles rebuild from them, so one number retimes every component that uses it.">
         <CodeSnippet
@@ -319,7 +347,7 @@ function CastSync() {
       />
       <Section title="What it does">
         <Prose>
-          cast-sync is the kit's Figma plugin. It reads the file's variables, follows every alias to its final value, and downloads cast-theme.json: colours by mode, text and surface colours, typography and shadows for reference, and since version 4, the motion block. Everything runs locally inside Figma. The plugin has no network access.
+          cast-sync is the kit's Figma plugin. It reads the file's variables, follows every alias to its final value, and downloads cast-theme.json: colours by mode, text and surface colours, typography and shadows for reference, the motion block (version 4), and the font families (version 5). Everything runs locally inside Figma. The plugin has no network access.
         </Prose>
       </Section>
       <Section title="The round trip">

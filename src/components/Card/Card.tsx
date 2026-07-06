@@ -96,7 +96,7 @@ export function Card({
   style,
   accessibilityLabel,
 }: CardProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const surfaceTokens = scheme.surface;
   const textTokens = scheme.text;
   const TITLE_FG = scheme.intents.neutral.default.default.fg;
@@ -176,7 +176,7 @@ export function Card({
                 {titleText ? (
                   <Text
                     style={{
-                      fontFamily: fontFamily.sans,
+                      fontFamily: fonts.sans,
                       fontWeight: fontWeight.medium,
                       fontSize: titleTokens.fontSize,
                       lineHeight: titleTokens.lineHeight,
@@ -191,7 +191,7 @@ export function Card({
                 {subtitle ? (
                   <Text
                     style={{
-                      fontFamily: fontFamily.sans,
+                      fontFamily: fonts.sans,
                       fontWeight: fontWeight.regular,
                       fontSize: bodyTokens.fontSize,
                       lineHeight: bodyTokens.lineHeight,
@@ -211,7 +211,7 @@ export function Card({
         {bodyText ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTokens.fontSize,
               lineHeight: bodyTokens.lineHeight,

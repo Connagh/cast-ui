@@ -562,7 +562,7 @@
           "text/muted": "colours/cool-grey/400",
           "text/description": "colours/cool-grey/400",
           "intent/disabled": "bg cool-grey/800, fg cool-grey/600, border cool-grey/700",
-          "control/focus-ring-colour": "colours/blue/400",
+          "control/focus-ring-colour": "intent/brand/default/active/border (brand-bound; resolves blue/400 dark, blue/500 light, in the default theme)",
           "intent outlined (default prominence)": "bg cool-grey/900; fg lifts to palette 400/300/200; border 600/500/400 across default/hover/active",
           "intent subtle": "transparent bg; hover/active bgs use palette 900/800 tints",
           "intent bold (brand/danger)": "unchanged from light \u2014 white-on-600 stays AA on dark surfaces",

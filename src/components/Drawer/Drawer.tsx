@@ -105,7 +105,7 @@ export function DrawerContent({
   style,
   accessibilityLabel,
 }: DrawerContentProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.drawer;
   const surface = scheme.surface;
   const titleTokens = title.md;
@@ -152,7 +152,7 @@ export function DrawerContent({
           <Text
             accessibilityRole="header"
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.medium,
               fontSize: titleTokens.fontSize,
               lineHeight: titleTokens.lineHeight,
@@ -180,7 +180,7 @@ export function Drawer({
   anchor = 'left',
   ...contentProps
 }: DrawerProps) {
-  const { scheme } = useTheme();
+  const { scheme, fonts } = useTheme();
   const motion = useMotion();
   const scrimOpacity = scheme.overlay.scrimOpacity;
 

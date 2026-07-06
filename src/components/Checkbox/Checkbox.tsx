@@ -20,6 +20,7 @@ import {
   type StyleProp,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible } from '../../hooks';
 import { Icon } from '../Icon';
 import {
   fontFamily,
@@ -64,14 +65,16 @@ export function Checkbox({
   style,
   accessibilityLabel,
 }: CheckboxProps) {
-  const { components, scheme, colors } = useTheme();
+  const { components, scheme, colors, fonts } = useTheme();
   const checkboxColors = scheme.checkbox;
   const tokens = components.checkbox;
   const sizeTokens = tokens[size];
   const labelTokens = label[LABEL_SCALE[size]];
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  // Focus ring is keyboard-only (focus-visible): a mouse click checks the box
+  // without leaving a ring; tabbing to it shows the ring.
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   const isIndeterminate = checked === 'indeterminate';
   const isChecked = checked === true;
@@ -93,13 +96,13 @@ export function Checkbox({
     boxBorderWidth = controlTokens.borderWidth;
   } else if (isOn) {
     boxBg = colors.brand.bold.default.bg;
-    boxBorderColor = isFocused
+    boxBorderColor = isFocusVisible
       ? scheme.focusRing.color
       : checkboxColors.box.checked.border;
-    boxBorderWidth = isFocused ? tokens.focusRingWidth : 0;
+    boxBorderWidth = isFocusVisible ? tokens.focusRingWidth : 0;
   } else {
     boxBg = checkboxColors.box.uncheckedDefault.bg;
-    if (isFocused) {
+    if (isFocusVisible) {
       boxBorderColor = scheme.focusRing.color;
       boxBorderWidth = tokens.focusRingWidth;
     } else if (isHovered) {
@@ -121,8 +124,8 @@ export function Checkbox({
       disabled={disabled}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole="checkbox"
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{
@@ -160,7 +163,7 @@ export function Checkbox({
       {children ? (
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTokens.fontSize,
             lineHeight: labelTokens.lineHeight,

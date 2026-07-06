@@ -100,7 +100,7 @@ export function BottomSheetContent({
   style,
   accessibilityLabel,
 }: BottomSheetContentProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.bottomSheet;
   const surface = scheme.surface;
   const textTokens = scheme.text;
@@ -154,7 +154,7 @@ export function BottomSheetContent({
           <Text
             accessibilityRole="header"
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.medium,
               fontSize: titleTokens.fontSize,
               lineHeight: titleTokens.lineHeight,
@@ -181,7 +181,7 @@ export function BottomSheet({
   closeOnBackdropPress = true,
   ...contentProps
 }: BottomSheetProps) {
-  const { scheme } = useTheme();
+  const { scheme, fonts } = useTheme();
   const motion = useMotion();
   const scrimOpacity = scheme.overlay.scrimOpacity;
 

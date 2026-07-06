@@ -30,6 +30,7 @@ import {
   type GestureResponderEvent,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible, focusRingStyle } from '../../hooks';
 import { fontFamily, fontWeight, label } from '../../tokens';
 import type { IntentName } from '../../tokens';
 import { Icon } from '../Icon';
@@ -94,8 +95,10 @@ export function Link({
   style,
   accessibilityLabel,
 }: LinkProps) {
-  const { components, colors, scheme } = useTheme();
+  const { components, colors, scheme, fonts } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  // Keyboard-only focus ring (focus-visible).
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   const { gap } = components.link[size];
   const labelTokens = label[LABEL_SCALE[size]];
@@ -133,24 +136,29 @@ export function Link({
       disabled={disabled}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole="link"
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{ disabled }}
       style={style}
     >
       <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          alignSelf: 'flex-start',
-          gap,
-        }}
+        style={[
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignSelf: 'flex-start',
+            gap,
+          },
+          focusRingStyle(isFocusVisible, scheme.focusRing.color),
+        ]}
       >
         {resolvedLeading}
         <Text
           selectable={false}
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTokens.fontSize,
             lineHeight: labelTokens.lineHeight,

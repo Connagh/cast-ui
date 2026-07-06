@@ -107,7 +107,7 @@ export function Badge({
   style,
   accessibilityLabel,
 }: BadgeProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
 
   const sizeTokens = components.badge[size];
   const labelTokens = label[LABEL_SCALE[size]];
@@ -172,7 +172,7 @@ export function Badge({
 
       <Text
         style={{
-          fontFamily: fontFamily.sans,
+          fontFamily: fonts.sans,
           fontWeight: fontWeight.medium,
           fontSize: labelTokens.fontSize,
           lineHeight: labelTokens.lineHeight,

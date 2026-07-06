@@ -14,6 +14,8 @@
  *     (`text`, `surface`, `focusRing`) are mapped into the `scheme` override
  *     prop, so they actually land instead of sitting inert. Forward-compatible:
  *     new sections flow through here with no change at the call site.
+ *   - **Fonts.** A `fonts` block (or `typography.fontFamily`) is mapped onto the
+ *     `fonts` prop, so a theme file can reskin the typeface too.
  *
  * The plugin stays a pure exporter — all interpretation lives here, in one
  * tested place, so old theme files keep working as cast-ui evolves.
@@ -35,6 +37,7 @@ import type { DeepPartial } from './types';
 import type { ThemeProviderProps } from './ThemeContext';
 import type { ColorMode, ColorScheme, IntentName } from '../tokens/colors';
 import type { EasingName, MotionOverrides } from '../tokens/motion';
+import type { FontFamilyTokens } from '../tokens/typography';
 
 /** intent → prominence → state → { bg, fg, border } */
 type FileIntentMap = Partial<
@@ -63,6 +66,13 @@ export type CastThemeFile = {
   >;
   focusRing?: Partial<Record<ColorMode, { color?: string }>>;
   typography?: Record<string, unknown>;
+  /**
+   * Font families for the theme (cast-theme version 5+). Mode-independent.
+   * `sans` covers body/label text, `display` headings, `mono` code, `serif`
+   * serif. Omit `display` and it follows `sans`. Read into the ThemeProvider
+   * `fonts` prop by applyCastTheme.
+   */
+  fonts?: Partial<FontFamilyTokens>;
   shadows?: Record<string, unknown>;
   /**
    * Motion block exported from the kit's `motion` variable collection
@@ -84,7 +94,7 @@ export type CastThemeFile = {
 /** The subset of ThemeProvider props this helper produces. */
 export type CastThemeProps = Pick<
   ThemeProviderProps,
-  'colorMode' | 'colors' | 'scheme' | 'motion'
+  'colorMode' | 'colors' | 'scheme' | 'motion' | 'fonts'
 >;
 
 const EASING_NAMES: EasingName[] = ['standard', 'entrance', 'exit', 'emphasized', 'linear'];
@@ -198,6 +208,38 @@ function mapSurface(
 }
 
 /**
+ * Map the file's fonts onto the ThemeProvider `fonts` prop. Reads a top-level
+ * `fonts` block first, then falls back to `typography.fontFamily`. Fonts are
+ * mode-independent, so this is not keyed by colour mode.
+ */
+function mapFonts(theme: CastThemeFile): Partial<FontFamilyTokens> | undefined {
+  const direct = theme?.fonts as Record<string, unknown> | undefined;
+  const typo = theme?.typography as { fontFamily?: Record<string, unknown> } | undefined;
+  const fromTypo =
+    typo && typeof typo.fontFamily === 'object' && typo.fontFamily
+      ? (typo.fontFamily as Record<string, unknown>)
+      : undefined;
+  const pick = (key: string): string | undefined => {
+    const d = direct?.[key];
+    if (typeof d === 'string' && d.trim()) return d;
+    const t = fromTypo?.[key];
+    if (typeof t === 'string' && t.trim()) return t;
+    return undefined;
+  };
+  const out: Partial<FontFamilyTokens> = {};
+  const sans = pick('sans');
+  const mono = pick('mono');
+  const serif = pick('serif');
+  const heading = typeof fromTypo?.heading === 'string' ? (fromTypo.heading as string) : undefined;
+  const display = pick('display') ?? heading;
+  if (sans) out.sans = sans;
+  if (mono) out.mono = mono;
+  if (serif) out.serif = serif;
+  if (display) out.display = display;
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
+/**
  * Build ThemeProvider props from a cast-theme file for a given colour mode.
  *
  * @param theme  The parsed `cast-theme.json` object.
@@ -222,5 +264,6 @@ export function applyCastTheme(
     colors: intents,
     scheme: Object.keys(schemeOverride).length > 0 ? schemeOverride : undefined,
     motion: mapMotion(theme?.motion),
+    fonts: mapFonts(theme),
   };
 }

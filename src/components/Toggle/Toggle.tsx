@@ -20,6 +20,7 @@ import {
   type StyleProp,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible } from '../../hooks';
 import { fontFamily, fontWeight, label } from '../../tokens';
 
 export type ToggleSize = 'small' | 'default' | 'large';
@@ -57,14 +58,15 @@ export function Toggle({
   style,
   accessibilityLabel,
 }: ToggleProps) {
-  const { components, scheme, colors } = useTheme();
+  const { components, scheme, colors, fonts } = useTheme();
   const toggleColors = scheme.toggle;
   const tokens = components.toggle;
   const sizeTokens = tokens[size];
   const labelTokens = label[LABEL_SCALE[size]];
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  // Focus ring is keyboard-only (focus-visible).
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   const handlePress = useCallback(() => {
     if (!disabled) onChange?.(!checked);
@@ -80,12 +82,12 @@ export function Toggle({
     trackBg = isHovered ? colors.brand.bold.hover.bg : colors.brand.bold.default.bg;
   } else {
     trackBg =
-      isHovered || isFocused
+      isHovered || isFocusVisible
         ? toggleColors.track.offHover
         : toggleColors.track.off;
   }
 
-  const showFocusRing = isFocused && !disabled;
+  const showFocusRing = isFocusVisible && !disabled;
 
   return (
     <Pressable
@@ -93,8 +95,8 @@ export function Toggle({
       disabled={disabled}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole="switch"
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{ checked, disabled }}
@@ -136,7 +138,7 @@ export function Toggle({
       {children ? (
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTokens.fontSize,
             lineHeight: labelTokens.lineHeight,

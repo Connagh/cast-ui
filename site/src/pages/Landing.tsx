@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useNavigate } from 'react-router-dom';
 import {
-  Avatar,
   Badge,
   Button,
   Card,
@@ -11,8 +10,6 @@ import {
   Icon,
   Input,
   Link,
-  List,
-  ListItem,
   Progress,
   Skeleton,
   Spinner,
@@ -26,109 +23,7 @@ import {
 } from '@castui/cast-ui';
 import { brandPresets, useSiteTheme } from '../theme/SiteTheme';
 import { Page } from '../ui/Page';
-
-/** A small chat window, assembled from library parts. */
-function ChatCard() {
-  const { scheme, colors } = useTheme();
-  const [draft, setDraft] = useState('');
-  return (
-    <Card variant="elevated" style={{ width: 300 }}>
-      <View style={{ gap: 12 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-          <Avatar initials="AI" size="small" />
-          <Text type="label-md">Studio assistant</Text>
-          <Badge intent="brand" size="small" dot>Live</Badge>
-        </View>
-        <Divider />
-        <View style={{ gap: 8 }}>
-          <View style={{ alignSelf: 'flex-start', maxWidth: 220, backgroundColor: scheme.surface.subtle, borderRadius: 12, padding: 10 }}>
-            <Text type="body-sm">Where's my order?</Text>
-          </View>
-          <View style={{ alignSelf: 'flex-end', maxWidth: 230, backgroundColor: colors.brand.bold.default.bg, borderRadius: 12, padding: 10 }}>
-            <Text type="body-sm" color={colors.brand.bold.default.fg}>
-              Order #1043 shipped this morning. It lands tomorrow by 8pm.
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'row', gap: 6 }}>
-            <Chip size="small" onPress={() => {}}>Track it</Chip>
-            <Chip size="small" onPress={() => {}}>Start a return</Chip>
-          </View>
-        </View>
-        <Input
-          size="small"
-          placeholder="Ask anything…"
-          value={draft}
-          onChangeText={setDraft}
-          trailingIcon="send"
-        />
-      </View>
-    </Card>
-  );
-}
-
-/** A storefront product card. */
-function ProductCard() {
-  const { colors, scheme } = useTheme();
-  const [qty, setQty] = useState<string | null>('1');
-  return (
-    <Card variant="elevated" style={{ width: 260 }}>
-      <View style={{ gap: 10 }}>
-        <View
-          style={{
-            height: 110,
-            borderRadius: 10,
-            backgroundColor: scheme.surface.subtle,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Icon name="backpack" size={56} color={colors.brand.bold.default.bg} />
-        </View>
-        <View style={{ flexDirection: 'row', gap: 6 }}>
-          <Badge intent="brand" size="small">New in</Badge>
-          <Badge size="small">Free shipping</Badge>
-        </View>
-        <Text type="title-sm">Canvas backpack</Text>
-        <Text type="body-sm" color={scheme.text.description}>Water resistant. Fits a 16-inch laptop.</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text type="title-md">£64</Text>
-          <ToggleButtonGroup size="small" value={qty} onValueChange={setQty}>
-            <ToggleButton value="1">1</ToggleButton>
-            <ToggleButton value="2">2</ToggleButton>
-            <ToggleButton value="3">3</ToggleButton>
-          </ToggleButtonGroup>
-        </View>
-        <Button intent="brand" prominence="bold" size="small" leadingIcon="add_shopping_cart" onPress={() => {}}>
-          Add to cart
-        </Button>
-      </View>
-    </Card>
-  );
-}
-
-/** A slice of dashboard. */
-function StatsCard() {
-  const { scheme } = useTheme();
-  const [notify, setNotify] = useState(true);
-  return (
-    <Card variant="elevated" style={{ width: 280 }}>
-      <View style={{ gap: 10 }}>
-        <Text type="label-sm" color={scheme.text.description}>MONTHLY REVENUE</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
-          <Text type="display-sm">£18.2k</Text>
-          <Badge intent="brand" size="small" leadingIcon="trending_up">+12%</Badge>
-        </View>
-        <Progress value={72} />
-        <Divider />
-        <List>
-          <ListItem icon="shopping_bag" description="Placed · 1:59 pm" onPress={() => {}}>Order #1043 · £248</ListItem>
-          <ListItem icon="undo" description="Refunded · 12:40 pm" onPress={() => {}}>Order #1041 · £89</ListItem>
-        </List>
-        <Toggle size="small" checked={notify} onChange={setNotify}>Notify on new orders</Toggle>
-      </View>
-    </Card>
-  );
-}
+import HeroArt from '../ui/HeroArt';
 
 function HeroControls() {
   const site = useSiteTheme();
@@ -200,38 +95,37 @@ export default function Landing() {
 
   return (
     <View>
-      <Page wide style={{ paddingTop: 64 }}>
-        {/* Hero */}
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 48, alignItems: 'center' }}>
-          <View style={{ flex: 1, minWidth: 320, gap: 20 }}>
-            <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.10 · motion tokens just landed</Badge>
-            <Text type="display-md">One design system. Every platform. Agents welcome.</Text>
-            <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 560 }}>
-              Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
-            </Text>
-            <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
-              <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
-                Get started
-              </Button>
-              <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
-            </View>
-            <Text type="caption" color={scheme.text.description}>
-              MIT licensed · zero runtime dependencies · react + react-native as peers
-            </Text>
-          </View>
-          <View style={{ flex: 1, minWidth: 340, gap: 16 }}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
-              <ChatCard />
-              <View style={{ gap: 16 }}>
-                <StatsCard />
+      {/* Hero band — full-bleed minimal backdrop behind the hero + controls */}
+      <View style={{ position: 'relative', overflow: 'hidden' }}>
+        <HeroArt />
+        <View style={{ position: 'relative', zIndex: 1 }}>
+          <Page wide style={{ paddingTop: 112, paddingBottom: 56, alignItems: 'center', gap: 36 }}>
+            {/* Hero — centred over the wave */}
+            <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
+              <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
+              <Text type="display-lg" style={{ textAlign: 'center' }}>One design system. Every platform. Agents welcome.</Text>
+              <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
+                Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
+                  Get started
+                </Button>
+                <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
               </View>
-              <ProductCard />
+              <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
+                MIT licensed · zero runtime dependencies · react + react-native as peers
+              </Text>
             </View>
-          </View>
+
+            <View style={{ maxWidth: 720, width: '100%' }}>
+              <HeroControls />
+            </View>
+          </Page>
         </View>
+      </View>
 
-        <HeroControls />
-
+      <Page wide>
         {/* Numbers */}
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 24, justifyContent: 'space-between' }}>
           {[

@@ -21,6 +21,7 @@ import {
   type GestureResponderEvent,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible, focusRingStyle } from '../../hooks';
 import { fontFamily, fontWeight, label, controlTokens } from '../../tokens';
 import type { IntentName, ProminenceName } from '../../tokens';
 import { Icon } from '../Icon';
@@ -87,8 +88,10 @@ export function Button({
   style,
   accessibilityLabel,
 }: ButtonProps) {
-  const { components, colors } = useTheme();
+  const { components, colors, scheme, fonts } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  // Keyboard-only focus ring (focus-visible).
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   // Resolve tokens for current size + density
   const sizeTokens = components.button[size];
@@ -98,18 +101,12 @@ export function Button({
   // Resolve colours based on interaction state
   const getStateColors = useCallback(
     (pressed: boolean, hovered: boolean) => {
-      if (disabled) {
-        return {
-          bg: '#F3F4F6',
-          fg: '#9CA3AF',
-          border: '#E5E7EB',
-        };
-      }
+      if (disabled) return scheme.disabled;
       if (pressed) return intentClrs[prominence].active;
       if (hovered) return intentClrs[prominence].hover;
       return intentClrs[prominence].default;
     },
-    [disabled, intentClrs, prominence],
+    [disabled, intentClrs, prominence, scheme.disabled],
   );
 
   return (
@@ -118,6 +115,8 @@ export function Button({
       disabled={disabled}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{ disabled }}
@@ -155,12 +154,12 @@ export function Button({
           );
 
         return (
-          <View style={containerStyle}>
+          <View style={[containerStyle, focusRingStyle(isFocusVisible, scheme.focusRing.color)]}>
             {resolvedLeading}
             {children ? (
               <Text
                 style={{
-                  fontFamily: fontFamily.sans,
+                  fontFamily: fonts.sans,
                   fontWeight: fontWeight.medium,
                   fontSize: labelTokens.fontSize,
                   lineHeight: labelTokens.lineHeight,

@@ -23,8 +23,6 @@ import Docs from '../src/pages/docs/Docs';
 import ComponentsIndex from '../src/pages/components/ComponentsIndex';
 import ComponentPage from '../src/pages/components/ComponentPage';
 import Patterns, { PATTERN_EXAMPLES } from '../src/pages/patterns/Patterns';
-import Templates from '../src/pages/templates/Templates';
-import TemplateScreen from '../src/pages/templates/TemplateScreen';
 import Themes from '../src/pages/themes/Themes';
 import Motion from '../src/pages/motion/Motion';
 import Playground, { STARTERS } from '../src/pages/playground/Playground';
@@ -35,11 +33,6 @@ const pageRoutes: Array<[string, React.ReactElement]> = [
   ['/components', <ComponentsIndex />],
   ...registry.map((c): [string, React.ReactElement] => [`/components/${c.slug}`, <ComponentPage />]),
   ['/patterns', <Patterns />],
-  ['/templates', <Templates />],
-  ['/templates/assistant/full', <TemplateScreen />],
-  ['/templates/dashboard/full', <TemplateScreen />],
-  ['/templates/auth/full', <TemplateScreen />],
-  ['/templates/storefront/full', <TemplateScreen />],
   ['/themes', <Themes />],
   ['/motion', <Motion />],
   ['/playground', <Playground />],
@@ -64,8 +57,6 @@ function renderRoute(route: string, element: React.ReactElement): string {
           <Route path="/components" element={element} />
           <Route path="/components/:slug" element={element} />
           <Route path="/patterns" element={element} />
-          <Route path="/templates" element={element} />
-          <Route path="/templates/:slug/full" element={element} />
           <Route path="/themes" element={element} />
           <Route path="/motion" element={element} />
           <Route path="/playground" element={element} />

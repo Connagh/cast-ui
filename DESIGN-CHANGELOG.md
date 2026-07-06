@@ -12,6 +12,18 @@ variable group, or style is added and nothing breaks. Patch for value tweaks,
 recolours, new variants on existing components, and wording fixes. When an
 entry mixes buckets, the highest wins.
 
+## [1.3.2]. Default font is Geist. 2026-07-06
+
+The kit's body and heading type is now Geist, not Inter. The font-family/sans primitive variable resolves to Geist, and every Text Style binds to it, so all 16 styles and every component that uses them render in Geist. Nothing is renamed or rebound, so existing files keep working. Geist is an open-source typeface under the SIL Open Font License 1.1, free for commercial use. Pull this version to match the package code, where the default sans font is now Geist.
+
+### Changed
+- **font-family/sans primitive.** Resolves to Geist. It held Inter. The binding is unchanged, so all 16 Text Styles and every component that uses them follow it to Geist with no rebinding. font-family/mono (JetBrains Mono) and font-family/serif (Noto Serif) are untouched.
+- **Documentation pages.** The Welcome, Components, Patterns, Motion, and Example pages held text set in Inter directly, not through a Text Style. That text is now Geist, so the whole file reads in one typeface. The cover line that told developers to load Inter now says Geist.
+
+### Pending actions
+- Publish the cast-ui-kit library in Figma so consumers receive this version.
+- Re-run cast-sync in the cast-ui-kit file so the exported cast-theme.json fonts block carries Geist as the sans family. The committed token JSON in design-tokens/ is already updated to match. Older exports still load.
+
 ## [1.3.1]. Focus ring is keyboard-only, everywhere. 2026-07-06
 
 Wording only. No variable, component, or style changes. The brand focus ring is a keyboard-only runtime behaviour in code (it follows the browser :focus-visible rule), including on the text fields now. Figma has no focus-visible variant, so the association lives in the component descriptions.

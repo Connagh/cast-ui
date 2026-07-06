@@ -6,7 +6,6 @@
  *   /docs/*        Guides — getting started, theming, tokens, and so on
  *   /components/*  Every component, generated from the registry
  *   /patterns      Composition recipes
- *   /templates/*   Full screens assembled from components
  *   /themes        Brand theming and cast-theme.json round-trip
  *   /motion        The motion system, animated
  *   /playground    Editable live code
@@ -28,8 +27,6 @@ const Docs = React.lazy(() => import('./pages/docs/Docs'));
 const ComponentsIndex = React.lazy(() => import('./pages/components/ComponentsIndex'));
 const ComponentPage = React.lazy(() => import('./pages/components/ComponentPage'));
 const Patterns = React.lazy(() => import('./pages/patterns/Patterns'));
-const Templates = React.lazy(() => import('./pages/templates/Templates'));
-const TemplateScreen = React.lazy(() => import('./pages/templates/TemplateScreen'));
 const Themes = React.lazy(() => import('./pages/themes/Themes'));
 const Motion = React.lazy(() => import('./pages/motion/Motion'));
 const Playground = React.lazy(() => import('./pages/playground/Playground'));
@@ -53,8 +50,6 @@ function PageFallback() {
 
 function Shell() {
   const { scheme, colorMode } = useTheme();
-  const location = useLocation();
-  const fullScreen = /^\/templates\/[^/]+\/full/.test(location.pathname);
 
   // Cast UI themes the React tree, not the document. The <html>/<body> element
   // sits outside it, so mirror the page-background token onto the document root
@@ -68,7 +63,7 @@ function Shell() {
 
   return (
     <View style={{ minHeight: '100vh' as never, backgroundColor: scheme.surface.base }}>
-      {!fullScreen && <TopNav />}
+      <TopNav />
       <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -76,8 +71,6 @@ function Shell() {
           <Route path="/components" element={<ComponentsIndex />} />
           <Route path="/components/:slug" element={<ComponentPage />} />
           <Route path="/patterns" element={<Patterns />} />
-          <Route path="/templates" element={<Templates />} />
-          <Route path="/templates/:slug/full" element={<TemplateScreen />} />
           <Route path="/themes" element={<Themes />} />
           <Route path="/motion" element={<Motion />} />
           <Route path="/playground" element={<Playground />} />
@@ -85,7 +78,7 @@ function Shell() {
           <Route path="*" element={<Landing />} />
         </Routes>
       </Suspense>
-      {!fullScreen && <Footer />}
+      <Footer />
     </View>
   );
 }

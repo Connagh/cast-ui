@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Text as RNText } from 'react-native';
 import { useNavigate } from 'react-router-dom';
 import {
   Badge,
@@ -90,55 +90,45 @@ function FeatureCard({ icon, title, body, action, onPress }: { icon: string; tit
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { scheme, colorMode } = useTheme();
+  const { scheme, colors } = useTheme();
   const [demoTab, setDemoTab] = useState('buttons');
-  // Surface-coloured halo so the thin hero lines stay legible over the wave.
-  const halo = colorMode === 'dark' ? 'rgba(8, 12, 20, 0.9)' : 'rgba(255, 255, 255, 0.95)';
 
   return (
     <View>
-      {/* Hero band — full-bleed minimal backdrop behind the hero + controls */}
-      <View style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Hero copy — crisp on the page surface. Nothing animated sits behind the
+          text, so it needs no readability veils or text shadows. */}
+      <Page wide style={{ paddingTop: 112, paddingBottom: 12, alignItems: 'center' }}>
+        <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
+          <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
+          {/* "Agents welcome." picks up the live brand colour, so it rethemes
+              with the switcher and stays mode-correct in light and dark. */}
+          <RNText style={{ textAlign: 'center' }}>
+            <Text type="display-lg">One design system. Every platform. </Text>
+            <Text type="display-lg" color={colors.brand.subtle.default.fg}>Agents welcome.</Text>
+          </RNText>
+          <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
+            Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
+          </Text>
+          <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
+              Get started
+            </Button>
+            <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
+          </View>
+          <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
+            MIT licensed · zero runtime dependencies · react + react-native as peers
+          </Text>
+        </View>
+      </Page>
+
+      {/* Live stage — the animated wave lives here as a bounded band, with the
+          retheme controls sitting on it. The wave is the stage the demo stands
+          on, not a backdrop behind the copy, so readability is solved by layout
+          rather than by veils and shadows fighting the animation. */}
+      <View style={{ position: 'relative', overflow: 'hidden', minHeight: 360, justifyContent: 'center' }}>
         <HeroArt />
         <View style={{ position: 'relative', zIndex: 1 }}>
-          <Page wide style={{ paddingTop: 112, paddingBottom: 56, alignItems: 'center', gap: 36 }}>
-            {/* Hero — centred over the wave */}
-            <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
-              <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
-              <Text type="display-lg" style={{ textAlign: 'center' }}>One design system. Every platform. Agents welcome.</Text>
-              <Text
-                type="body-lg"
-                color={scheme.text.description}
-                style={{
-                  maxWidth: 640,
-                  textAlign: 'center',
-                  textShadowColor: halo,
-                  textShadowOffset: { width: 0, height: 1 },
-                  textShadowRadius: 14,
-                }}
-              >
-                Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
-              </Text>
-              <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
-                  Get started
-                </Button>
-                <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
-              </View>
-              <Text
-                type="caption"
-                color={scheme.text.description}
-                style={{
-                  textAlign: 'center',
-                  textShadowColor: halo,
-                  textShadowOffset: { width: 0, height: 1 },
-                  textShadowRadius: 10,
-                }}
-              >
-                MIT licensed · zero runtime dependencies · react + react-native as peers
-              </Text>
-            </View>
-
+          <Page wide style={{ paddingTop: 24, paddingBottom: 24, alignItems: 'center' }}>
             <View style={{ maxWidth: 720, width: '100%' }}>
               <HeroControls />
             </View>

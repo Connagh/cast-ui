@@ -27,7 +27,6 @@ export const NAV_ITEMS = [
   { label: 'Docs', path: '/docs/getting-started', match: '/docs' },
   { label: 'Components', path: '/components', match: '/components' },
   { label: 'Patterns', path: '/patterns', match: '/patterns' },
-  { label: 'Templates', path: '/templates', match: '/templates' },
   { label: 'Themes', path: '/themes', match: '/themes' },
   { label: 'Motion', path: '/motion', match: '/motion' },
   { label: 'Playground', path: '/playground', match: '/playground' },

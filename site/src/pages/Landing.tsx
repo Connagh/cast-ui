@@ -99,26 +99,28 @@ export default function Landing() {
       <View style={{ position: 'relative', overflow: 'hidden' }}>
         <HeroArt />
         <View style={{ position: 'relative', zIndex: 1 }}>
-          <Page wide style={{ paddingTop: 64 }}>
-            {/* Hero */}
-            <View style={{ maxWidth: 700, gap: 20 }}>
-              <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.10 · motion tokens just landed</Badge>
-              <Text type="display-md">One design system. Every platform. Agents welcome.</Text>
-              <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 560 }}>
+          <Page wide style={{ paddingTop: 112, paddingBottom: 56, alignItems: 'center', gap: 36 }}>
+            {/* Hero — centred over the wave */}
+            <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
+              <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
+              <Text type="display-lg" style={{ textAlign: 'center' }}>One design system. Every platform. Agents welcome.</Text>
+              <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
                 Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
               </Text>
-              <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap' }}>
+              <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
                   Get started
                 </Button>
                 <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
               </View>
-              <Text type="caption" color={scheme.text.description}>
+              <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
                 MIT licensed · zero runtime dependencies · react + react-native as peers
               </Text>
             </View>
 
-            <HeroControls />
+            <View style={{ maxWidth: 720, width: '100%' }}>
+              <HeroControls />
+            </View>
           </Page>
         </View>
       </View>

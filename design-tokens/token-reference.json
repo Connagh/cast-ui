@@ -227,7 +227,7 @@
       "font-family": {
         "type": "string",
         "values": {
-          "sans": "Inter",
+          "sans": "Geist",
           "mono": "JetBrains Mono",
           "serif": "Noto Serif"
         }
@@ -699,7 +699,7 @@
           "focusRingWidth": 2,
           "focusRingOffset": 2,
           "fontWeight": "medium (500)",
-          "fontFamily": "Inter"
+          "fontFamily": "Geist"
         }
       },
       "layout": {

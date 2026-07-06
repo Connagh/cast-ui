@@ -51,13 +51,13 @@ export function App() {
       </Section>
       <Section title="3. Load the fonts">
         <Prose>
-          Cast UI ships no font files. Load Inter for text and Material Symbols Outlined for icons. If icons render as words, the symbols font is missing. In Expo:
+          Cast UI ships no font files. Load Geist for text and Material Symbols Outlined for icons. If icons render as words, the symbols font is missing. In Expo:
         </Prose>
         <CodeSnippet
           code={`import { useFonts } from 'expo-font';
 
 const [fontsLoaded] = useFonts({
-  Inter: require('./assets/Inter.ttf'),
+  Geist: require('./assets/Geist.ttf'),
   MaterialSymbolsOutlined: require('./assets/MaterialSymbolsOutlined.ttf'),
 });`}
         />
@@ -267,11 +267,11 @@ function IconsAndFonts() {
       />
       <Section title="The fonts">
         <Prose>
-          Inter carries all text. JetBrains Mono carries code. Material Symbols Outlined carries every icon as a font ligature: the Icon component renders a glyph by writing its name in the symbols font. Load them in your app shell; on the web that's two link tags:
+          Geist carries all text. JetBrains Mono carries code. Material Symbols Outlined carries every icon as a font ligature: the Icon component renders a glyph by writing its name in the symbols font. Load them in your app shell; on the web that's two link tags:
         </Prose>
         <CodeSnippet
           language="html"
-          code={`<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+          code={`<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />`}
         />
         <Alert

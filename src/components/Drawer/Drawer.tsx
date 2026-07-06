@@ -14,7 +14,7 @@
  *
  * Structure: scrim backdrop -> panel (optional title + scrolling content). The
  * panel surface reuses the shared overlay tokens; the scrim reuses
- * overlay.scrimOpacity. Fonts are consumer-loaded (Inter).
+ * overlay.scrimOpacity. Fonts are consumer-loaded (Geist).
  *
  * Exports:
  *   Drawer        — full modal (scrim + animated panel)

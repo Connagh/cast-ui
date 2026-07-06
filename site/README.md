@@ -20,7 +20,7 @@ Pages can host directly. No server, no framework lock-in.
 
 ```
 site/
-  index.html          Entry HTML. Loads Inter + Material Symbols fonts (required
+  index.html          Entry HTML. Loads Geist + Material Symbols fonts (required
                       by Cast UI, or icons render as their literal name).
   vite.config.ts      base path + the react-native-web alias.
   src/

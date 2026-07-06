@@ -56,7 +56,7 @@ export function App() {
 
 ## Fonts
 
-Cast UI ships no font files. Typography asks for **Inter** and the Icon
+Cast UI ships no font files. Typography asks for **Geist** and the Icon
 component asks for **Material Symbols Outlined**. If a font isn't loaded there
 is no error: text falls back to the system font, and icons render as their
 literal names ("star" instead of the glyph). Load both once at app start-up.
@@ -68,7 +68,7 @@ platforms:
 import { useFonts } from 'expo-font';
 
 const [fontsLoaded] = useFonts({
-  Inter: require('./assets/Inter.ttf'),
+  Geist: require('./assets/Geist.ttf'),
   MaterialSymbolsOutlined: require('./assets/MaterialSymbolsOutlined.ttf'),
 });
 ```
@@ -76,16 +76,16 @@ const [fontsLoaded] = useFonts({
 **Plain web.** Add the Google Fonts stylesheets to your HTML head:
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
 ```
 
 **Bare React Native.** Link the `.ttf` files as font assets
 (`react-native.config.js` + `npx react-native-asset`), keeping the family
-names `Inter` and `MaterialSymbolsOutlined`.
+names `Geist` and `MaterialSymbolsOutlined`.
 
 Download both from Google Fonts:
-[Inter](https://fonts.google.com/specimen/Inter) and
+[Geist](https://fonts.google.com/specimen/Geist) and
 [Material Symbols](https://fonts.google.com/icons). The Material Symbols
 variable font is about 10 MB. That's fine for web, where a CDN serves and
 caches it. For production native builds, slim it down by subsetting it to the

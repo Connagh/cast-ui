@@ -77,14 +77,14 @@ export type GalleryTheme = {
 
 // A neutral cool default, shown when a theme leaves a mode untuned (Cast).
 const FONT = {
-  inter: 'Inter, system-ui, sans-serif',
-  manrope: '"Manrope", Inter, sans-serif',
+  geist: 'Geist, system-ui, sans-serif',
+  manrope: '"Manrope", Geist, sans-serif',
   playfair: '"Playfair Display", Georgia, serif',
   fraunces: '"Fraunces", Georgia, serif',
-  space: '"Space Grotesk", Inter, sans-serif',
-  sora: '"Sora", Inter, sans-serif',
+  space: '"Space Grotesk", Geist, sans-serif',
+  sora: '"Sora", Geist, sans-serif',
   jetbrains: '"JetBrains Mono", ui-monospace, monospace',
-  bricolage: '"Bricolage Grotesque", Inter, sans-serif',
+  bricolage: '"Bricolage Grotesque", Geist, sans-serif',
 };
 
 export const galleryThemes: GalleryTheme[] = [
@@ -96,8 +96,8 @@ export const galleryThemes: GalleryTheme[] = [
     tags: ['Grotesque', 'Balanced', 'Cool'],
     seed: { base: '#2563EB', hover: '#1D4ED8', active: '#1E40AF' },
     swatch: '#2563EB',
-    fonts: { display: FONT.inter, sans: FONT.inter },
-    fontLabel: { display: 'Inter', body: 'Inter' },
+    fonts: { display: FONT.geist, sans: FONT.geist },
+    fontLabel: { display: 'Geist', body: 'Geist' },
     density: 'default',
     mode: 'light',
     // No surface/text overrides — this is the library's own cool-neutral scheme.
@@ -131,8 +131,8 @@ export const galleryThemes: GalleryTheme[] = [
     tags: ['Serif', 'Comfortable', 'Warm'],
     seed: { base: '#A21B3D', hover: '#86142F', active: '#6B0F26' },
     swatch: '#A21B3D',
-    fonts: { display: FONT.playfair, sans: FONT.inter },
-    fontLabel: { display: 'Playfair Display', body: 'Inter' },
+    fonts: { display: FONT.playfair, sans: FONT.geist },
+    fontLabel: { display: 'Playfair Display', body: 'Geist' },
     density: 'comfortable',
     mode: 'light',
     light: {
@@ -152,8 +152,8 @@ export const galleryThemes: GalleryTheme[] = [
     tags: ['Serif', 'Comfortable', 'Organic'],
     seed: { base: '#059669', hover: '#047857', active: '#065F46' },
     swatch: '#059669',
-    fonts: { display: FONT.fraunces, sans: FONT.inter },
-    fontLabel: { display: 'Fraunces', body: 'Inter' },
+    fonts: { display: FONT.fraunces, sans: FONT.geist },
+    fontLabel: { display: 'Fraunces', body: 'Geist' },
     density: 'comfortable',
     mode: 'light',
     light: {
@@ -173,8 +173,8 @@ export const galleryThemes: GalleryTheme[] = [
     tags: ['Geometric', 'Compact', 'Neon'],
     seed: { base: '#A855F7', hover: '#9333EA', active: '#7E22CE' },
     swatch: '#A855F7',
-    fonts: { display: FONT.space, sans: FONT.inter },
-    fontLabel: { display: 'Space Grotesk', body: 'Inter' },
+    fonts: { display: FONT.space, sans: FONT.geist },
+    fontLabel: { display: 'Space Grotesk', body: 'Geist' },
     density: 'compact',
     mode: 'dark',
     light: {
@@ -194,8 +194,8 @@ export const galleryThemes: GalleryTheme[] = [
     tags: ['Rounded', 'Balanced', 'Warm'],
     seed: { base: '#EA580C', hover: '#C2410C', active: '#9A3412' },
     swatch: '#EA580C',
-    fonts: { display: FONT.sora, sans: FONT.inter },
-    fontLabel: { display: 'Sora', body: 'Inter' },
+    fonts: { display: FONT.sora, sans: FONT.geist },
+    fontLabel: { display: 'Sora', body: 'Geist' },
     density: 'default',
     mode: 'light',
     light: {
@@ -236,8 +236,8 @@ export const galleryThemes: GalleryTheme[] = [
     tags: ['Editorial', 'Comfortable', 'Playful'],
     seed: { base: '#EC4899', hover: '#DB2777', active: '#BE185D' },
     swatch: '#EC4899',
-    fonts: { display: FONT.bricolage, sans: FONT.inter },
-    fontLabel: { display: 'Bricolage Grotesque', body: 'Inter' },
+    fonts: { display: FONT.bricolage, sans: FONT.geist },
+    fontLabel: { display: 'Bricolage Grotesque', body: 'Geist' },
     density: 'comfortable',
     mode: 'light',
     light: {

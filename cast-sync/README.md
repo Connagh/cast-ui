@@ -38,8 +38,8 @@ plugin has no network access at all.
     "dark":  { "primary": "#E5E7EB", "muted": "#9CA3AF", "description": "#9CA3AF" }
   },
   "typography": {
-    "body/md":    { "fontFamily": "Inter", "fontWeight": 400, "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 },
-    "heading/lg": { "fontFamily": "Inter", "fontWeight": 600, "fontSize": 36, "lineHeight": 40, "letterSpacing": -0.25 }
+    "body/md":    { "fontFamily": "Geist", "fontWeight": 400, "fontSize": 14, "lineHeight": 20, "letterSpacing": 0 },
+    "heading/lg": { "fontFamily": "Geist", "fontWeight": 600, "fontSize": 36, "lineHeight": 40, "letterSpacing": -0.25 }
   },
   "shadows": {
     "sm": [ { "color": "#0000000D", "offsetX": 0, "offsetY": 1, "blur": 2, "spread": 0 } ],

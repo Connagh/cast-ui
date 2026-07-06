@@ -34,7 +34,7 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
 }
 
 const bodyText = {
-  fontFamily: 'Inter',
+  fontFamily: 'Geist',
   fontSize: 15,
   lineHeight: 22,
   color: '#374151',

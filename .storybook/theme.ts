@@ -36,7 +36,7 @@ export const castTheme = create({
   appBorderRadius: lightColors.surface.overlay.borderRadius,
 
   // Typography (loaded via manager-head.html)
-  fontBase: '"Inter", system-ui, sans-serif',
+  fontBase: '"Geist", system-ui, sans-serif',
   fontCode: '"JetBrains Mono", ui-monospace, monospace',
 
   // Text

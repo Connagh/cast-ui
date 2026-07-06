@@ -238,7 +238,7 @@ function buildFonts(typography: ThemeFile['typography']): ThemeFile['fonts'] {
     }
     return undefined;
   };
-  const first = Object.values(typography)[0]?.fontFamily ?? 'Inter';
+  const first = Object.values(typography)[0]?.fontFamily ?? 'Geist';
   const sans =
     familyWhere((n) => n.startsWith('body')) ??
     familyWhere((n) => n.startsWith('label')) ??

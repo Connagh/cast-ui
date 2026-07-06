@@ -8,7 +8,7 @@ import { castExportNames } from './scope';
 
 const CAST_VERSION = '4.10.0';
 
-const INTER_URL = 'https://cdn.jsdelivr.net/gh/rsms/inter@v4.1/docs/font-files/InterVariable.ttf';
+const GEIST_URL = 'https://cdn.jsdelivr.net/fontsource/fonts/geist:vf@latest/latin-wght-normal.woff2';
 const SYMBOLS_URL =
   'https://cdn.jsdelivr.net/gh/google/material-design-icons@master/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.ttf';
 
@@ -42,7 +42,7 @@ ${body}
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Inter: '${INTER_URL}',
+    Geist: '${GEIST_URL}',
     MaterialSymbolsOutlined: '${SYMBOLS_URL}',
   });
   if (!fontsLoaded) return null;

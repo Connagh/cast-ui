@@ -10,7 +10,7 @@
 import { Platform } from 'react-native';
 
 export const fontFamily = {
-  sans: Platform.select({ web: 'Inter, system-ui, sans-serif', default: 'Inter' }),
+  sans: Platform.select({ web: 'Geist, system-ui, sans-serif', default: 'Geist' }),
   mono: Platform.select({
     web: '"JetBrains Mono", monospace',
     default: 'JetBrains Mono',

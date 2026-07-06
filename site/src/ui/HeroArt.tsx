@@ -51,6 +51,62 @@ function rgba(hex: string, a: number): string {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
+/* ----- HSL, so the wave can derive an in-family sibling of the brand hue ----- */
+function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  const d = max - min;
+  let h = 0;
+  let s = 0;
+  if (d !== 0) {
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h /= 6;
+  }
+  return [h, s, l];
+}
+function hue2rgb(p: number, q: number, t: number): number {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (t < 1 / 2) return q;
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
+}
+function hslToHex(h: number, s: number, l: number): string {
+  let r: number;
+  let g: number;
+  let b: number;
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
+  }
+  return toHex({ r: r * 255, g: g * 255, b: b * 255 });
+}
+/**
+ * Rotate a hex colour's hue by `deg` degrees, optionally scaling saturation and
+ * lightness. Used to give the wave a sibling tone a little off the pure brand,
+ * so the brand-coloured UI (the bold CTA, badge, chips) reads clearly against it
+ * instead of melting into a same-hue crest — and so the field is a two-tone
+ * aurora rather than flat monochrome.
+ */
+function hueShift(hex: string, deg: number, satMul = 1, lightMul = 1): string {
+  const { r, g, b } = parse(hex);
+  const [h, s, l] = rgbToHsl(r, g, b);
+  let hh = (h + deg / 360) % 1;
+  if (hh < 0) hh += 1;
+  return hslToHex(hh, Math.max(0, Math.min(1, s * satMul)), Math.max(0, Math.min(1, l * lightMul)));
+}
+
 /**
  * A tiny tiled fractal-noise texture, laid over the whole hero at a few percent
  * to break up gradient banding — the #1 tell of a cheap gradient. Built as an
@@ -67,6 +123,9 @@ const NOISE_BG =
 /** Everything the scene needs, derived from two tokens + the colour mode. */
 type SceneColors = {
   brand: [number, number, number];
+  /** A hue-shifted sibling of the brand; the wave blends brand↔brand2 across the
+      canvas so it stays in-family but doesn't sit on the exact brand-UI hue. */
+  brand2: [number, number, number];
   crest: [number, number, number];
   top: [number, number, number];
   bottom: [number, number, number];
@@ -80,6 +139,10 @@ type SceneColors = {
 function deriveScene(brandHex: string, surfaceHex: string, dark: boolean): SceneColors {
   const brand = brandHex || '#2563EB';
   const crestHex = lighten(brand, dark ? 0.55 : 0.25);
+  // The wave's sibling tone: a small hue rotation + slight desaturation off the
+  // pure brand. Enough to separate the animation from the brand UI and add a
+  // two-tone shimmer; small enough that it still clearly reads as the brand.
+  const brand2Hex = hueShift(brand, dark ? 20 : 18, 0.9, dark ? 1.06 : 1.0);
   let topHex: string;
   let botHex: string;
   if (dark) {
@@ -93,6 +156,7 @@ function deriveScene(brandHex: string, surfaceHex: string, dark: boolean): Scene
   }
   return {
     brand: rgb01(brand),
+    brand2: rgb01(brand2Hex),
     crest: rgb01(crestHex),
     top: rgb01(topHex),
     bottom: rgb01(botHex),
@@ -119,6 +183,7 @@ varying vec2 vUv;
 uniform float uTime;
 uniform vec2  uRes;
 uniform vec3  uBrand;
+uniform vec3  uBrand2;    // hue-shifted sibling; the wave blends brand↔brand2
 uniform vec3  uCrest;
 uniform vec3  uTop;
 uniform vec3  uBot;
@@ -141,9 +206,9 @@ float band(vec2 uv, float speed, float freq, float amp, float phase,
            float yoff, float width, float sharp, float side) {
   float t = uTime * uMotion;
   float angle = -t * speed * freq + (phase + uv.x) * 6.2831853 * freq;
-  // Lift the whole field a touch, then trough it down in the centre column so it
-  // rides high at the sides and dips into a calm valley behind the copy.
-  float wy = sin(angle) * amp + yoff + 0.055 - 0.155 * centerMask(uv.x);
+  // Lift the whole field up the frame, then trough it down in the centre column
+  // so it rides high at the sides and dips into a calm valley behind the copy.
+  float wy = sin(angle) * amp + yoff + 0.10 - 0.17 * centerMask(uv.x);
   // slow travelling harmonics for organic, non-repeating motion
   wy += sin(uv.x * 2.3 - t * speed * 0.7 + phase) * amp * 0.5;
   wy += sin(uv.x * 5.1 + t * speed * 0.35 + phase * 1.7) * amp * 0.2;
@@ -202,7 +267,7 @@ void main() {
 
   // vertical envelope: keep the very top calm, let the field fill more of the
   // frame, and fade before the very bottom so it meets the page fade cleanly.
-  float env = smoothstep(0.995, 0.52, uv.y) * smoothstep(0.05, 0.14, uv.y);
+  float env = smoothstep(0.995, 0.60, uv.y) * smoothstep(0.08, 0.20, uv.y);
   sheet *= env;
   crest *= env;
 
@@ -219,18 +284,23 @@ void main() {
 
   // sparkles, concentrated around the sheet, thinning toward the top, and
   // clearing before the very bottom so they meet the page fade cleanly
-  float spk = sparkles(uv) * (0.25 + 0.75 * smoothstep(0.9, 0.32, uv.y - 0.055)) * smoothstep(0.03, 0.12, uv.y);
+  float spk = sparkles(uv) * (0.25 + 0.75 * smoothstep(0.9, 0.32, uv.y - 0.10)) * smoothstep(0.03, 0.12, uv.y);
+
+  // The wave's own colour: brand on the left, its hue-shifted sibling on the
+  // right, so the field is a two-tone aurora and never sits on the exact hue of
+  // the brand UI in front of it.
+  vec3 waveCol = mix(uBrand, uBrand2, smoothstep(0.15, 0.85, uv.x));
 
   if (uDark > 0.5) {
     // additive glow over the dark gradient
-    col += uBrand * sheet * 1.2;
+    col += waveCol * sheet * 1.2;
     col += uCrest * crest * 1.5;
-    col += uCrest * spk * 0.9;
+    col += mix(uCrest, waveCol, 0.25) * spk * 0.9;
   } else {
     // ribbons read as gentle brand-tinted shading on the light gradient
-    col = mix(col, mix(col, uBrand, 0.85), sheet * 0.9);
+    col = mix(col, mix(col, waveCol, 0.85), sheet * 0.9);
     col = mix(col, uCrest, crest * 0.5);
-    col = mix(col, uBrand, spk * 0.6);
+    col = mix(col, waveCol, spk * 0.6);
   }
 
   gl_FragColor = vec4(col, 1.0);
@@ -280,6 +350,7 @@ void main() {
 
 type Params = {
   brand: [number, number, number];
+  brand2: [number, number, number];
   crest: [number, number, number];
   top: [number, number, number];
   bottom: [number, number, number];
@@ -305,6 +376,7 @@ export function HeroArt() {
   // never rebuilds the GL context.
   const paramsRef = useRef<Params>({
     brand: scene.brand,
+    brand2: scene.brand2,
     crest: scene.crest,
     top: scene.top,
     bottom: scene.bottom,
@@ -316,6 +388,7 @@ export function HeroArt() {
   useEffect(() => {
     paramsRef.current = {
       brand: scene.brand,
+      brand2: scene.brand2,
       crest: scene.crest,
       top: scene.top,
       bottom: scene.bottom,
@@ -323,7 +396,7 @@ export function HeroArt() {
       motion: reduceMotion ? 0 : 1,
     };
     dirtyRef.current = true;
-  }, [scene.brand, scene.crest, scene.top, scene.bottom, dark, reduceMotion]);
+  }, [scene.brand, scene.brand2, scene.crest, scene.top, scene.bottom, dark, reduceMotion]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -374,6 +447,7 @@ export function HeroArt() {
       time: gl.getUniformLocation(prog, 'uTime'),
       res: gl.getUniformLocation(prog, 'uRes'),
       brand: gl.getUniformLocation(prog, 'uBrand'),
+      brand2: gl.getUniformLocation(prog, 'uBrand2'),
       crest: gl.getUniformLocation(prog, 'uCrest'),
       top: gl.getUniformLocation(prog, 'uTop'),
       bot: gl.getUniformLocation(prog, 'uBot'),
@@ -447,6 +521,7 @@ export function HeroArt() {
       gl.uniform1f(uni.time, t);
       gl.uniform2f(uni.res, w, h);
       gl.uniform3fv(uni.brand, p.brand);
+      gl.uniform3fv(uni.brand2, p.brand2);
       gl.uniform3fv(uni.crest, p.crest);
       gl.uniform3fv(uni.top, p.top);
       gl.uniform3fv(uni.bot, p.bottom);

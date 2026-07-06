@@ -73,14 +73,21 @@ function mix(a,b,t){const x=parse(a),y=parse(b);return toHex({r:x.r+(y.r-x.r)*t,
 const lighten=(h,t)=>mix(h,'#ffffff',t), darken=(h,t)=>mix(h,'#000000',t);
 const rgb01=h=>{const{r,g,b}=parse(h);return [r/255,g/255,b/255];};
 const rgba=(h,a)=>{const{r,g,b}=parse(h);return `rgba(${r},${g},${b},${a})`;};
+// HSL so the wave can derive an in-family sibling of the brand hue.
+function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,d=mx-mn;let h=0,s=0;
+  if(d){s=l>0.5?d/(2-mx-mn):d/(mx+mn);h=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;h/=6;}return[h,s,l];}
+function hue2rgb(p,q,t){if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;}
+function hslToHex(h,s,l){let r,g,b;if(!s){r=g=b=l;}else{const q=l<0.5?l*(1+s):l+s-l*s,p=2*l-q;r=hue2rgb(p,q,h+1/3);g=hue2rgb(p,q,h);b=hue2rgb(p,q,h-1/3);}return toHex({r:r*255,g:g*255,b:b*255});}
+function hueShift(hex,deg,satMul=1,lightMul=1){const{r,g,b}=parse(hex);let[h,s,l]=rgbToHsl(r,g,b);h=(h+deg/360)%1;if(h<0)h+=1;return hslToHex(h,Math.max(0,Math.min(1,s*satMul)),Math.max(0,Math.min(1,l*lightMul)));}
 
 function deriveScene(brandHex, surfaceHex, dark){
   const brand=brandHex||'#2563EB';
   const crestHex=lighten(brand,dark?0.55:0.25);
+  const brand2Hex=hueShift(brand, dark?20:18, 0.9, dark?1.06:1.0);
   let topHex,botHex;
   if(dark){ topHex=mix(darken(surfaceHex,0.55),brand,0.06); botHex=mix(darken(surfaceHex,0.2),brand,0.16); }
   else { topHex=lighten(surfaceHex,0.02); botHex=mix(surfaceHex,brand,0.08); }
-  return { brand:rgb01(brand), crest:rgb01(crestHex), top:rgb01(topHex), bottom:rgb01(botHex),
+  return { brand:rgb01(brand), brand2:rgb01(brand2Hex), crest:rgb01(crestHex), top:rgb01(topHex), bottom:rgb01(botHex),
            cssGradient:`linear-gradient(180deg, ${topHex} 0%, ${mix(topHex,botHex,0.6)} 62%, ${botHex} 100%)`,
            surface:surfaceHex, dark };
 }
@@ -93,7 +100,7 @@ const FRAG=`
 precision highp float;
 varying vec2 vUv;
 uniform float uTime; uniform vec2 uRes;
-uniform vec3 uBrand,uCrest,uTop,uBot;
+uniform vec3 uBrand,uBrand2,uCrest,uTop,uBot;
 uniform float uDark,uMotion;
 uniform float uLift;                 // raises the whole sheet/crest
 uniform vec4  uEnv;                  // (topHi, topLo, botLo, botHi)
@@ -151,12 +158,13 @@ void main(){
   float edge=smoothstep(0.0,0.16,uv.x)*smoothstep(1.0,0.84,uv.x);
   sheet*=mix(0.55,1.0,edge); crest*=edge;
   float spk=sparkles(uv)*(0.25+0.75*smoothstep(0.9,0.32,uv.y-uLift))*smoothstep(0.03,0.12,uv.y);
+  vec3 waveCol=mix(uBrand,uBrand2,smoothstep(0.15,0.85,uv.x));
   if(uDark>0.5){
-    col+=uBrand*sheet*1.2; col+=uCrest*crest*1.5; col+=uCrest*spk*0.9;
+    col+=waveCol*sheet*1.2; col+=uCrest*crest*1.5; col+=mix(uCrest,waveCol,0.25)*spk*0.9;
   } else {
-    col=mix(col,mix(col,uBrand,0.85),sheet*0.9);
+    col=mix(col,mix(col,waveCol,0.85),sheet*0.9);
     col=mix(col,uCrest,crest*0.5);
-    col=mix(col,uBrand,spk*0.6);
+    col=mix(col,waveCol,spk*0.6);
   }
   gl_FragColor=vec4(col,1.0);
 }`;
@@ -174,13 +182,13 @@ gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_
 const aPos=gl.getAttribLocation(prog,'aPos');gl.enableVertexAttribArray(aPos);
 gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
 const U=n=>gl.getUniformLocation(prog,n);
-const uni={time:U('uTime'),res:U('uRes'),brand:U('uBrand'),crest:U('uCrest'),top:U('uTop'),bot:U('uBot'),
+const uni={time:U('uTime'),res:U('uRes'),brand:U('uBrand'),brand2:U('uBrand2'),crest:U('uCrest'),top:U('uTop'),bot:U('uBot'),
            dark:U('uDark'),motion:U('uMotion'),lift:U('uLift'),env:U('uEnv'),dip:U('uDip')};
 
-// OLD vs NEW knobs
-const LIFT = MODE==='new' ? 0.055 : 0.0;
-const ENV  = MODE==='new' ? [0.995,0.52,0.05,0.14] : [0.92,0.55,0.02,0.16];
-const DIP  = MODE==='new' ? 0.155 : 0.0;
+// OLD vs NEW knobs (NEW mirrors HeroArt.tsx: raised field + deeper centre valley)
+const LIFT = MODE==='new' ? 0.10 : 0.0;
+const ENV  = MODE==='new' ? [0.995,0.60,0.08,0.20] : [0.92,0.55,0.02,0.16];
+const DIP  = MODE==='new' ? 0.17 : 0.0;
 
 function resize(){
   const dpr=Math.min(window.devicePixelRatio||1,1.75);
@@ -191,7 +199,7 @@ function resize(){
 }
 function draw(t){
   gl.uniform1f(uni.time,t);
-  gl.uniform3fv(uni.brand,scene.brand);gl.uniform3fv(uni.crest,scene.crest);
+  gl.uniform3fv(uni.brand,scene.brand);gl.uniform3fv(uni.brand2,scene.brand2);gl.uniform3fv(uni.crest,scene.crest);
   gl.uniform3fv(uni.top,scene.top);gl.uniform3fv(uni.bot,scene.bottom);
   gl.uniform1f(uni.dark,scene.dark?1:0);gl.uniform1f(uni.motion,1);
   gl.uniform1f(uni.lift,LIFT);gl.uniform4f(uni.env,ENV[0],ENV[1],ENV[2],ENV[3]);

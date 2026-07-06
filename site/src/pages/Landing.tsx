@@ -90,8 +90,10 @@ function FeatureCard({ icon, title, body, action, onPress }: { icon: string; tit
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { scheme } = useTheme();
+  const { scheme, colorMode } = useTheme();
   const [demoTab, setDemoTab] = useState('buttons');
+  // Surface-coloured halo so the thin hero lines stay legible over the wave.
+  const halo = colorMode === 'dark' ? 'rgba(8, 12, 20, 0.9)' : 'rgba(255, 255, 255, 0.95)';
 
   return (
     <View>
@@ -104,7 +106,17 @@ export default function Landing() {
             <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
               <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
               <Text type="display-lg" style={{ textAlign: 'center' }}>One design system. Every platform. Agents welcome.</Text>
-              <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
+              <Text
+                type="body-lg"
+                color={scheme.text.description}
+                style={{
+                  maxWidth: 640,
+                  textAlign: 'center',
+                  textShadowColor: halo,
+                  textShadowOffset: { width: 0, height: 1 },
+                  textShadowRadius: 14,
+                }}
+              >
                 Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
               </Text>
               <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -113,7 +125,16 @@ export default function Landing() {
                 </Button>
                 <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
               </View>
-              <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
+              <Text
+                type="caption"
+                color={scheme.text.description}
+                style={{
+                  textAlign: 'center',
+                  textShadowColor: halo,
+                  textShadowOffset: { width: 0, height: 1 },
+                  textShadowRadius: 10,
+                }}
+              >
                 MIT licensed · zero runtime dependencies · react + react-native as peers
               </Text>
             </View>

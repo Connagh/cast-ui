@@ -67,9 +67,16 @@ export function SiteThemeRoot({ children }: { children: React.ReactNode }) {
   );
   const brand = brandPresets.find((p) => p.id === brandId) ?? brandPresets[0];
 
+  // Lift secondary/description text in dark mode. The library default
+  // (text.description #9CA3AF, cool-grey/400) reads a touch dim on the docs
+  // site's dark surfaces, so nudge it up to ~cool-grey/350 — clearly brighter
+  // but still a step below primary text (#E5E7EB). Light mode is unchanged.
+  const schemeOverride =
+    colorMode === 'dark' ? { text: { description: '#B8C0CC' } } : undefined;
+
   return (
     <SiteThemeContext.Provider value={state}>
-      <ThemeProvider colorMode={colorMode} density={density} brand={brand.seed}>
+      <ThemeProvider colorMode={colorMode} density={density} brand={brand.seed} scheme={schemeOverride}>
         {children}
       </ThemeProvider>
     </SiteThemeContext.Provider>

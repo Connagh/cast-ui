@@ -45,6 +45,11 @@ function rgb01(hex: string): [number, number, number] {
   const { r, g, b } = parse(hex);
   return [r / 255, g / 255, b / 255];
 }
+/** hex + alpha → css rgba(), for the readability overlays. */
+function rgba(hex: string, a: number): string {
+  const { r, g, b } = parse(hex);
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
 
 /** Everything the scene needs, derived from two tokens + the colour mode. */
 type SceneColors = {
@@ -489,13 +494,15 @@ export function HeroArt() {
         ref={canvasRef}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
       />
-      {/* soft top scrim + bottom fade into the page surface, so the centred
-          headline stays crisp and the hero joins the page seamlessly */}
+      {/* Readability veil: a soft wash of the page surface over the upper-centre,
+          where the hero text sits, so the subtitle and caption stay legible over
+          the wave. It fades out before the lower band and the edges, so the wave
+          stays vivid exactly where the veil doesn't reach. */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: `radial-gradient(120% 80% at 50% 24%, ${dark ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.35)'} 0%, rgba(0,0,0,0) 55%)`,
+          background: `radial-gradient(100% 74% at 50% 40%, ${rgba(surface, dark ? 0.55 : 0.5)} 0%, ${rgba(surface, dark ? 0.26 : 0.2)} 44%, rgba(0,0,0,0) 72%)`,
         }}
       />
       <div

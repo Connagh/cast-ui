@@ -250,7 +250,7 @@ Progress, SpeedDial, and Accordion already animate this way.
 
 Cast UI ships no font files. Two fonts must be loaded by the app:
 
-- **Inter** for all text.
+- **Geist** for all text.
 - **Material Symbols Outlined** for the `<Icon>` component and every embedded
   icon.
 
@@ -265,7 +265,7 @@ Expo (covers iOS, Android, and web):
 import { useFonts } from 'expo-font';
 
 const [fontsLoaded] = useFonts({
-  Inter: require('./assets/Inter.ttf'),
+  Geist: require('./assets/Geist.ttf'),
   MaterialSymbolsOutlined: require('./assets/MaterialSymbolsOutlined.ttf'),
 });
 ```
@@ -273,12 +273,12 @@ const [fontsLoaded] = useFonts({
 Plain web, add to the HTML head:
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
 ```
 
 Bare React Native, link the `.ttf` files as assets keeping the family names
-`Inter` and `MaterialSymbolsOutlined`. The Material Symbols variable font is
+`Geist` and `MaterialSymbolsOutlined`. The Material Symbols variable font is
 about 10 MB; for production native builds, subset it to the icons you use.
 
 ## Icons

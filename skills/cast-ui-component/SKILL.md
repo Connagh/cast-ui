@@ -52,7 +52,7 @@ Every decision downstream is constrained by these.
    outside it is silently dropped by the plugin. (§2)
 4. **Icons are the slot-based `<Icon>` component, rendering Material Symbols
    Outlined.** Code renders by font ligature; Figma uses a slot. (§3)
-5. **Fonts: Inter / JetBrains Mono / Noto Serif via `Platform.select`.**
+5. **Fonts: Geist / JetBrains Mono / Noto Serif via `Platform.select`.**
    Typography is constant across densities. (§4)
 6. **Props mirror Figma properties 1:1**. Same names, same values, both sides.
    (§5)
@@ -415,7 +415,7 @@ base-component level** so nested instances inherit.
 
 ## 4. Fonts & typography
 
-- Import families from `src/tokens/typography.ts`: `fontFamily.sans` (Inter),
+- Import families from `src/tokens/typography.ts`: `fontFamily.sans` (Geist),
   `.mono` (JetBrains Mono), `.serif` (Noto Serif). Each is a `Platform.select`.
 - Use the **typography scales**, never raw sizes: `label`, `title`, `body`,
   `heading`, `display` (each `sm/md/lg`) + `caption`. Map `size → scale` (Tabs

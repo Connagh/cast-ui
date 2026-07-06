@@ -5,7 +5,7 @@
  *   type → caption | label-sm/md/lg | body-sm/md/lg | title-sm/md/lg |
  *          heading-sm/md/lg | display-sm/md/lg
  *
- * Each `type` applies the matching Figma Text Style — Inter at the scale's
+ * Each `type` applies the matching Figma Text Style: Geist at the scale's
  * size/line-height/tracking, weighted per family: label and title render
  * medium (500), heading renders semibold (600), body, caption, and display
  * render regular (400).
@@ -15,7 +15,7 @@
  * automatically; pass `color` to override. Typography is constant across
  * densities — Text reads no density tokens.
  *
- * Requires the Inter font to be loaded — see the README "Fonts" section.
+ * Requires the Geist font to be loaded. See the README "Fonts" section.
  */
 
 import React from 'react';
@@ -117,7 +117,7 @@ export function Text({
   const { scheme, fonts } = useTheme();
   const typeStyle = TYPE_STYLES[type];
   // Headings and display type use the theme's display face; everything else
-  // uses sans. Both default to Inter, so a theme that sets only `sans` reskins
+  // uses sans. Both default to Geist, so a theme that sets only `sans` reskins
   // all text and one that adds `display` gets a heading pairing.
   const family =
     type.startsWith('display') || type.startsWith('heading') ? fonts.display : fonts.sans;

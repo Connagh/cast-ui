@@ -14,7 +14,7 @@
  * Surface styling reuses the shared overlay tokens (bg, border). The drag handle
  * is the one bespoke colour, scheme.bottomSheet.handle.
  *
- * Fonts are consumer-loaded (Inter via the typography tokens).
+ * Fonts are consumer-loaded (Geist via the typography tokens).
  *
  * Exports:
  *   BottomSheet         — full modal (scrim + animated sheet)

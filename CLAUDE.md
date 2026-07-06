@@ -16,7 +16,7 @@ Cast UI (`@castui/cast-ui`) is a cross-platform React Native design system compo
 - **Visual testing:** Chromatic
 - **Build:** `tsc` → `dist/` (CommonJS)
 - **Icons:** Material Symbols Outlined (font-based, ligature rendering)
-- **Fonts:** Inter (body/label), JetBrains Mono (mono), Noto Serif (serif)
+- **Fonts:** Geist (body/label), JetBrains Mono (mono), Noto Serif (serif)
 
 ## Project structure
 
@@ -81,7 +81,7 @@ design-tokens/           Figma-exported raw JSON (DTCG format with Figma extensi
 .storybook/
   main.ts                Webpack config: aliases react-native → react-native-web
   preview.ts             Controls config
-  preview-head.html      Loads Material Symbols Outlined + Inter from Google Fonts CDN
+  preview-head.html      Loads Material Symbols Outlined + Geist from Google Fonts CDN
 ```
 
 ## Design token system

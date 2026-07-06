@@ -296,10 +296,10 @@ function PipelineView({
               rx={16}
               fill={hexA(STAGE_COLOR[s.id], 0.04)}
             />
-            <text x={x} y={30} fontFamily="Inter" fontSize={12} fontWeight={700} fill={STAGE_COLOR[s.id]}>
+            <text x={x} y={30} fontFamily="Geist" fontSize={12} fontWeight={700} fill={STAGE_COLOR[s.id]}>
               {`${i + 1}. ${s.title.toUpperCase()}`}
             </text>
-            <text x={x} y={50} fontFamily="Inter" fontSize={11.5} fill={scheme.text.description}>
+            <text x={x} y={50} fontFamily="Geist" fontSize={11.5} fill={scheme.text.description}>
               {s.blurb}
             </text>
           </g>
@@ -367,11 +367,11 @@ function PipelineView({
             >
               {n.icon}
             </text>
-            <text x={p.x + 60} y={p.y + 30} fontFamily="Inter" fontSize={13.5} fontWeight={600} fill={scheme.text.primary}>
+            <text x={p.x + 60} y={p.y + 30} fontFamily="Geist" fontSize={13.5} fontWeight={600} fill={scheme.text.primary}>
               {n.label}
             </text>
             {lines.map((ln, li) => (
-              <text key={li} x={p.x + 18} y={p.y + 60 + li * 15} fontFamily="Inter" fontSize={11} fill={scheme.text.description}>
+              <text key={li} x={p.x + 18} y={p.y + 60 + li * 15} fontFamily="Geist" fontSize={11} fill={scheme.text.description}>
                 {ln}
               </text>
             ))}
@@ -547,13 +547,13 @@ function CascadeView({
               strokeWidth={1}
             />
             <rect x={p.x} y={p.top} width={C.panelW} height={4} rx={2} fill={accent} />
-            <text x={p.x + C.innerPad} y={p.top + 28} fontFamily="Inter" fontSize={15} fontWeight={700} fill={scheme.text.primary}>
+            <text x={p.x + C.innerPad} y={p.top + 28} fontFamily="Geist" fontSize={15} fontWeight={700} fill={scheme.text.primary}>
               {TIERS[p.tier].title}
             </text>
-            <text x={p.x + C.panelW - C.innerPad} y={p.top + 28} fontFamily="Inter" fontSize={12} fontWeight={600} fill={accent} textAnchor="end">
+            <text x={p.x + C.panelW - C.innerPad} y={p.top + 28} fontFamily="Geist" fontSize={12} fontWeight={600} fill={accent} textAnchor="end">
               {`${p.count} tokens`}
             </text>
-            <text x={p.x + C.innerPad} y={p.top + 48} fontFamily="Inter" fontSize={11.5} fill={scheme.text.description}>
+            <text x={p.x + C.innerPad} y={p.top + 48} fontFamily="Geist" fontSize={11.5} fill={scheme.text.description}>
               {TIERS[p.tier].blurb}
             </text>
           </g>
@@ -585,10 +585,10 @@ function CascadeView({
               strokeWidth={isActive ? 1.5 : 1}
             />
             <circle cx={ch.x + 13} cy={ch.cy} r={3.5} fill={accent} />
-            <text x={ch.x + 24} y={ch.cy + 4} fontFamily="Inter" fontSize={11.5} fontWeight={500} fill={scheme.text.primary}>
+            <text x={ch.x + 24} y={ch.cy + 4} fontFamily="Geist" fontSize={11.5} fontWeight={500} fill={scheme.text.primary}>
               {ch.title.length > 13 ? `${ch.title.slice(0, 12)}…` : ch.title}
             </text>
-            <text x={ch.x + ch.w - 10} y={ch.cy + 4} fontFamily="Inter" fontSize={10.5} fill={scheme.text.description} textAnchor="end">
+            <text x={ch.x + ch.w - 10} y={ch.cy + 4} fontFamily="Geist" fontSize={10.5} fill={scheme.text.description} textAnchor="end">
               {ch.count}
             </text>
           </g>
@@ -608,10 +608,10 @@ function CascadeView({
           strokeWidth={1}
         />
         <rect x={C.padX} y={layout.motionTop} width={4} height={96} rx={2} fill={TIER_COLOR.motion} />
-        <text x={C.padX + 18} y={layout.motionTop + 28} fontFamily="Inter" fontSize={15} fontWeight={700} fill={scheme.text.primary}>
+        <text x={C.padX + 18} y={layout.motionTop + 28} fontFamily="Geist" fontSize={15} fontWeight={700} fill={scheme.text.primary}>
           Motion
         </text>
-        <text x={C.padX + 92} y={layout.motionTop + 28} fontFamily="Inter" fontSize={11.5} fill={scheme.text.description}>
+        <text x={C.padX + 92} y={layout.motionTop + 28} fontFamily="Geist" fontSize={11.5} fill={scheme.text.description}>
           A parallel system. Components read these at runtime; the values stay separate from colour and space.
         </text>
         {cascade.motion.groups.map((g, i) => {
@@ -621,10 +621,10 @@ function CascadeView({
             <g key={g.id}>
               <rect x={gx} y={gy} width={146} height={30} rx={8} fill={scheme.surface.subtle} stroke={scheme.surface.overlay.border} strokeWidth={1} />
               <circle cx={gx + 13} cy={gy + 15} r={3.5} fill={TIER_COLOR.motion} />
-              <text x={gx + 24} y={gy + 19} fontFamily="Inter" fontSize={11.5} fontWeight={500} fill={scheme.text.primary}>
+              <text x={gx + 24} y={gy + 19} fontFamily="Geist" fontSize={11.5} fontWeight={500} fill={scheme.text.primary}>
                 {g.title}
               </text>
-              <text x={gx + 136} y={gy + 19} fontFamily="Inter" fontSize={10.5} fill={scheme.text.description} textAnchor="end">
+              <text x={gx + 136} y={gy + 19} fontFamily="Geist" fontSize={10.5} fill={scheme.text.description} textAnchor="end">
                 {g.count}
               </text>
             </g>

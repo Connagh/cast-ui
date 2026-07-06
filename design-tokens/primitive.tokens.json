@@ -4932,7 +4932,7 @@
   "font-family": {
     "sans": {
       "$type": "string",
-      "$value": "Inter",
+      "$value": "Geist",
       "$extensions": {
         "com.figma.variableId": "VariableID:179:49",
         "com.figma.scopes": [

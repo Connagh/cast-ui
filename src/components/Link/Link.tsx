@@ -17,7 +17,7 @@
  *
  * Links navigate. On web, passing `href` renders a real anchor through
  * react-native-web; on native it is informational and `onPress` drives
- * navigation. Fonts are consumer-loaded (Inter).
+ * navigation. Fonts are consumer-loaded (Geist).
  */
 
 import React, { useState } from 'react';

@@ -494,15 +494,15 @@ export function HeroArt() {
         ref={canvasRef}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
       />
-      {/* Gentle wash of the page surface over the upper-centre to settle the
-          scene. Kept light on purpose: the hero copy's own frosted backdrop-blur
-          now does the readability work, so the wave stays visible behind the
-          title instead of being washed out here. */}
+      {/* Readability veil: a soft wash of the page surface over the upper-centre,
+          where the hero text sits, so the subtitle and caption stay legible over
+          the wave. It fades out before the lower band and the edges, so the wave
+          stays vivid exactly where the veil doesn't reach. */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: `radial-gradient(100% 74% at 50% 40%, ${rgba(surface, dark ? 0.24 : 0.18)} 0%, ${rgba(surface, dark ? 0.1 : 0.07)} 46%, rgba(0,0,0,0) 74%)`,
+          background: `radial-gradient(100% 74% at 50% 40%, ${rgba(surface, dark ? 0.55 : 0.5)} 0%, ${rgba(surface, dark ? 0.26 : 0.2)} 44%, rgba(0,0,0,0) 72%)`,
         }}
       />
       <div

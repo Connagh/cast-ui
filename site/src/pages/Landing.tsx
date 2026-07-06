@@ -90,68 +90,39 @@ function FeatureCard({ icon, title, body, action, onPress }: { icon: string; tit
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { scheme, colors, colorMode } = useTheme();
+  const { scheme, colors } = useTheme();
   const [demoTab, setDemoTab] = useState('buttons');
-
-  // Frosted readability halo behind the hero copy: a light surface tint plus a
-  // backdrop blur, feathered with a radial mask so it's strongest behind the
-  // letters and dissolves into the sharp, moving wave at the edges.
-  const frost = colorMode === 'dark' ? 'rgba(10, 14, 22, 0.30)' : 'rgba(255, 255, 255, 0.38)';
-  const heroBlurMask = 'radial-gradient(120% 96% at 50% 44%, #000 56%, rgba(0,0,0,0) 86%)';
 
   return (
     <View>
       {/* Hero band — the animated wave runs full-bleed behind the hero and the
-          controls. A frosted backdrop-blur sits behind the copy so the title and
-          text stay readable while the wave keeps moving behind them. */}
+          controls. The copy sits over it, kept legible by HeroArt's soft surface
+          veil. */}
       <View style={{ position: 'relative', overflow: 'hidden' }}>
         <HeroArt />
         <View style={{ position: 'relative', zIndex: 1 }}>
           <Page wide style={{ paddingTop: 112, paddingBottom: 56, alignItems: 'center', gap: 36 }}>
             {/* Hero — centred over the wave */}
-            <View style={{ maxWidth: 820, alignItems: 'center', position: 'relative' }}>
-              {/* Frosted halo: blurs the wave directly behind the copy and
-                  feathers out, so the letters read crisp but the animation
-                  stays visible around them. */}
-              <div
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  top: -48,
-                  bottom: -40,
-                  left: '-10%',
-                  right: '-10%',
-                  zIndex: 0,
-                  borderRadius: 48,
-                  backgroundColor: frost,
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  maskImage: heroBlurMask,
-                  WebkitMaskImage: heroBlurMask,
-                  pointerEvents: 'none',
-                }}
-              />
-              <View style={{ gap: 22, alignItems: 'center', position: 'relative', zIndex: 1 }}>
-                <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
-                {/* "Agents welcome." picks up the live brand colour, so it rethemes
-                    with the switcher and stays mode-correct in light and dark. */}
-                <RNText style={{ textAlign: 'center' }}>
-                  <Text type="display-lg">One design system. Every platform. </Text>
-                  <Text type="display-lg" color={colors.brand.subtle.default.fg}>Agents welcome.</Text>
-                </RNText>
-                <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
-                  Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
-                </Text>
-                <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
-                  <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
-                    Get started
-                  </Button>
-                  <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
-                </View>
-                <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
-                  MIT licensed · zero runtime dependencies · react + react-native as peers
-                </Text>
+            <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
+              <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
+              {/* "Agents welcome." picks up the live brand colour, so it rethemes
+                  with the switcher and stays mode-correct in light and dark. */}
+              <RNText style={{ textAlign: 'center' }}>
+                <Text type="display-lg">One design system. Every platform. </Text>
+                <Text type="display-lg" color={colors.brand.subtle.default.fg}>Agents welcome.</Text>
+              </RNText>
+              <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
+                Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
+                  Get started
+                </Button>
+                <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
               </View>
+              <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
+                MIT licensed · zero runtime dependencies · react + react-native as peers
+              </Text>
             </View>
 
             <View style={{ maxWidth: 720, width: '100%' }}>

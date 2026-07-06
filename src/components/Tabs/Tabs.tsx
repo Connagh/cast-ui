@@ -41,6 +41,7 @@ import {
   type GestureResponderEvent,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible, focusRingStyle } from '../../hooks';
 import { controlTokens } from '../../tokens';
 import type { IntentName } from '../../tokens';
 import { Text, type TextType } from '../Text';
@@ -132,6 +133,8 @@ export function Tab({
     useTabsContext('Tab');
   const { components, colors, scheme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  // Keyboard-only focus ring (focus-visible).
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   const sizeTokens = components.tabs[size];
   const { indicatorRadius } = components.tabs;
@@ -169,20 +172,25 @@ export function Tab({
       disabled={disabled}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole="tab"
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{ selected: isSelected, disabled }}
       style={style}
     >
       <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: sizeTokens.gap,
-          paddingHorizontal: sizeTokens.paddingX,
-          paddingVertical: sizeTokens.paddingY,
-        }}
+        style={[
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: sizeTokens.gap,
+            paddingHorizontal: sizeTokens.paddingX,
+            paddingVertical: sizeTokens.paddingY,
+          },
+          focusRingStyle(isFocusVisible, scheme.focusRing.color),
+        ]}
       >
         {resolvedLeading}
         <Text type={LABEL_TYPE[size]} color={fg} selectable={false}>

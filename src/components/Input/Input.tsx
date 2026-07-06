@@ -9,7 +9,7 @@
  * Field spacing comes from the density theme's `input` tokens (shared with the
  * Select trigger). Colours come from the semantic intent system (neutral):
  *   default → neutral/default/default      hover → neutral/default/hover
- *   focus   → focus-ring border (2px)      error → danger border + red helper
+ *   focus   → focus-ring border (2px, keyboard focus)   error → danger border
  *   disabled→ shared disabled colours
  * Label uses the label scale, the value/placeholder the body scale (both
  * matched to size); helper text uses the caption scale.
@@ -27,6 +27,7 @@ import {
   type ReturnKeyTypeOptions,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible } from '../../hooks';
 import { Icon } from '../Icon';
 import {
   fontFamily,
@@ -132,13 +133,15 @@ export function Input({
   style,
   accessibilityLabel,
 }: InputProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const sizeTokens = components.input[size];
   const labelTypo = label[LABEL_SCALE[size]];
   const bodyTypo = body[BODY_SCALE[size]];
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  // Keyboard focus shows the brand ring; a mouse click shows only a subtle
+  // border. isFocusVisible is true for keyboard focus, isFocused for any.
+  const { isFocused, isFocusVisible, focusProps } = useFocusVisible();
 
   const disabledColors = scheme.disabled;
   const errorTokens = scheme.error;
@@ -153,7 +156,7 @@ export function Input({
     bg = disabledColors.bg;
     borderColor = disabledColors.border;
     borderWidth = controlTokens.borderWidth;
-  } else if (isFocused) {
+  } else if (isFocusVisible) {
     bg = neutral.default.bg;
     borderColor = scheme.focusRing.color;
     borderWidth = controlTokens.focusRingWidth;
@@ -163,6 +166,11 @@ export function Input({
     borderWidth = controlTokens.borderWidth;
   } else if (isHovered) {
     bg = neutral.hover.bg;
+    borderColor = neutral.hover.border;
+    borderWidth = controlTokens.borderWidth;
+  } else if (isFocused) {
+    // Click focus: subtle border, no ring, no bg tint.
+    bg = neutral.default.bg;
     borderColor = neutral.hover.border;
     borderWidth = controlTokens.borderWidth;
   } else {
@@ -203,7 +211,7 @@ export function Input({
       {formLabel ? (
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTypo.fontSize,
             lineHeight: labelTypo.lineHeight,
@@ -254,17 +262,17 @@ export function Input({
           returnKeyType={returnKeyType}
           onSubmitEditing={onSubmitEditing}
           onFocus={() => {
-            setIsFocused(true);
+            focusProps.onFocus();
             onFocus?.();
           }}
           onBlur={() => {
-            setIsFocused(false);
+            focusProps.onBlur();
             onBlur?.();
           }}
           accessibilityLabel={accessibilityLabel || formLabel}
           style={{
             flex: 1,
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.regular,
             fontSize: bodyTypo.fontSize,
             lineHeight: bodyTypo.lineHeight,
@@ -291,7 +299,7 @@ export function Input({
       {helperText ? (
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.regular,
             fontSize: caption.fontSize,
             lineHeight: caption.lineHeight,

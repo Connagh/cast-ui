@@ -29,6 +29,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible } from '../../hooks';
 import {
   fontFamily,
   fontWeight,
@@ -142,7 +143,7 @@ function OptionRow({
   selected: boolean;
   onSelect: (value: string) => void;
 }) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.select.option;
   const opt = scheme.select.option;
   const [isHovered, setIsHovered] = useState(false);
@@ -201,7 +202,7 @@ function OptionRow({
         <Text
           selectable={false}
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTokens.fontSize,
             lineHeight: labelTokens.lineHeight,
@@ -216,7 +217,7 @@ function OptionRow({
             numberOfLines={1}
             selectable={false}
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTokens.fontSize,
               lineHeight: bodyTokens.lineHeight,
@@ -258,7 +259,7 @@ export function Autocomplete({
   style,
   accessibilityLabel,
 }: AutocompleteProps) {
-  const { components, scheme, colors } = useTheme();
+  const { components, scheme, colors, fonts } = useTheme();
   const inputTokens = components.input[size];
   const neutral = colors.neutral.default;
 
@@ -273,7 +274,9 @@ export function Autocomplete({
 
   const [search, setSearch] = useState(selectedLabel);
   const [isOpen, setIsOpen] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  // Keyboard focus shows the brand ring; a click shows only a subtle border.
+  const { isFocused, isFocusVisible, focusProps } = useFocusVisible();
+  const [isHovered, setIsHovered] = useState(false);
 
   // Keep the field text in sync when the selected value changes externally.
   useEffect(() => {
@@ -320,13 +323,26 @@ export function Autocomplete({
     return () => document.removeEventListener('keydown', onKey);
   }, [isOpen]);
 
-  const borderColor = disabled
-    ? scheme.disabled.border
-    : error
-      ? scheme.error.border
-      : isFocused
-        ? neutral.hover.border
-        : neutral.default.border;
+  // Field border — priority disabled > keyboard focus (ring) > error > hover >
+  // click focus > default. Matches Input so the text fields share one outline
+  // treatment: the brand ring shows only on keyboard focus, a click shows a
+  // subtle border. The ring follows the brand through scheme.focusRing.color.
+  let borderColor: string;
+  let borderWidth: number = controlTokens.borderWidth;
+  if (disabled) {
+    borderColor = scheme.disabled.border;
+  } else if (isFocusVisible) {
+    borderColor = scheme.focusRing.color;
+    borderWidth = controlTokens.focusRingWidth;
+  } else if (error) {
+    borderColor = scheme.error.border;
+  } else if (isHovered) {
+    borderColor = neutral.hover.border;
+  } else if (isFocused) {
+    borderColor = neutral.hover.border;
+  } else {
+    borderColor = neutral.default.border;
+  }
   const bgColor = disabled ? scheme.disabled.bg : neutral.default.bg;
   const fgColor = disabled ? scheme.disabled.fg : neutral.default.fg;
 
@@ -345,7 +361,7 @@ export function Autocomplete({
         <Text
           selectable={false}
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTypo.fontSize,
             lineHeight: labelTypo.lineHeight,
@@ -359,6 +375,8 @@ export function Autocomplete({
 
       <View style={{ position: 'relative' }}>
         <View
+          onPointerEnter={disabled ? undefined : () => setIsHovered(true)}
+          onPointerLeave={disabled ? undefined : () => setIsHovered(false)}
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -366,7 +384,7 @@ export function Autocomplete({
             paddingHorizontal: inputTokens.paddingX,
             paddingVertical: inputTokens.paddingY,
             borderRadius: inputTokens.borderRadius,
-            borderWidth: controlTokens.borderWidth,
+            borderWidth,
             borderColor,
             backgroundColor: bgColor,
           }}
@@ -389,17 +407,17 @@ export function Autocomplete({
               if (!isOpen) setIsOpen(true);
             }}
             onFocus={() => {
-              setIsFocused(true);
+              focusProps.onFocus();
               setIsOpen(true);
             }}
-            onBlur={() => setIsFocused(false)}
+            onBlur={() => focusProps.onBlur()}
             editable={!disabled}
             placeholder={placeholder}
             placeholderTextColor={scheme.text.description}
             accessibilityLabel={accessibilityLabel || fieldLabel || 'Search'}
             style={{
               flex: 1,
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTypo.fontSize,
               lineHeight: bodyTypo.lineHeight,
@@ -495,7 +513,7 @@ export function Autocomplete({
                 <Text
                   selectable={false}
                   style={{
-                    fontFamily: fontFamily.sans,
+                    fontFamily: fonts.sans,
                     fontWeight: fontWeight.regular,
                     fontSize: bodyTypo.fontSize,
                     lineHeight: bodyTypo.lineHeight,
@@ -517,7 +535,7 @@ export function Autocomplete({
         <Text
           selectable={false}
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.regular,
             fontSize: caption.fontSize,
             lineHeight: caption.lineHeight,

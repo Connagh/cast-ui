@@ -28,6 +28,7 @@ import {
   type StyleProp,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible } from '../../hooks';
 import { fontFamily, fontWeight, label, controlTokens } from '../../tokens';
 
 export type RadioSize = 'small' | 'default' | 'large';
@@ -98,7 +99,7 @@ export function RadioGroup({
   children,
   style,
 }: RadioGroupProps) {
-  const { components } = useTheme();
+  const { components, fonts } = useTheme();
   return (
     <RadioGroupCtx.Provider value={{ value, onValueChange, size, disabled }}>
       <View
@@ -125,7 +126,7 @@ export function Radio({
   style,
   accessibilityLabel,
 }: RadioProps) {
-  const { components, scheme, colors } = useTheme();
+  const { components, scheme, colors, fonts } = useTheme();
   const radioColors = scheme.radio;
   const group = useContext(RadioGroupCtx);
 
@@ -139,7 +140,8 @@ export function Radio({
   const labelTokens = label[LABEL_SCALE[resolvedSize]];
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  // Focus ring is keyboard-only (focus-visible).
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   const handlePress = useCallback(() => {
     if (resolvedDisabled) return;
@@ -163,13 +165,13 @@ export function Radio({
     ringBg = isHovered
       ? colors.brand.bold.hover.bg
       : colors.brand.bold.default.bg;
-    ringBorderColor = isFocused
+    ringBorderColor = isFocusVisible
       ? scheme.focusRing.color
       : radioColors.indicator.checked.border;
-    ringBorderWidth = isFocused ? tokens.focusRingWidth : 0;
+    ringBorderWidth = isFocusVisible ? tokens.focusRingWidth : 0;
   } else {
     ringBg = radioColors.indicator.uncheckedDefault.bg;
-    if (isFocused) {
+    if (isFocusVisible) {
       ringBorderColor = scheme.focusRing.color;
       ringBorderWidth = tokens.focusRingWidth;
     } else if (isHovered) {
@@ -191,8 +193,8 @@ export function Radio({
       disabled={resolvedDisabled}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole="radio"
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{ checked: isChecked, disabled: resolvedDisabled }}
@@ -228,7 +230,7 @@ export function Radio({
       {children ? (
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTokens.fontSize,
             lineHeight: labelTokens.lineHeight,

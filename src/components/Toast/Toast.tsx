@@ -103,7 +103,7 @@ export function Toast({
   style,
   accessibilityLabel,
 }: ToastProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const intentColors = scheme.intents;
   const surfaceTokens = scheme.surface;
   const tokens = components.toast;
@@ -154,7 +154,7 @@ export function Toast({
       <View style={{ flex: 1 }}>
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: titleTokens.fontSize,
             lineHeight: titleTokens.lineHeight,
@@ -168,7 +168,7 @@ export function Toast({
         {children ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTokens.fontSize,
               lineHeight: bodyTokens.lineHeight,

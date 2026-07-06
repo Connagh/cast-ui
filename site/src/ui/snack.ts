@@ -58,13 +58,20 @@ export default function App() {
 }
 
 export function snackUrl(example: string, name?: string): string {
+  // Ship the entry as App.tsx (not the `code` param, which Snack always writes
+  // to App.js). Our examples are TypeScript — a .js entry gets no TS transform,
+  // so `useState<string | null>(null)` is parsed as a comparison and throws
+  // `ReferenceError: string is not defined`. A .tsx entry strips the types.
+  const files = {
+    'App.tsx': { type: 'CODE', contents: buildSnackCode(example) },
+  };
   const params = new URLSearchParams({
     name: name ? `cast-ui · ${name}` : 'cast-ui example',
     description: 'Live example from the Cast UI documentation site.',
     platform: 'web',
     supportedPlatforms: 'ios,android,web',
     dependencies: `@castui/cast-ui@${CAST_VERSION},expo-font@*`,
-    code: buildSnackCode(example),
+    files: JSON.stringify(files),
   });
   return `https://snack.expo.dev/?${params.toString()}`;
 }

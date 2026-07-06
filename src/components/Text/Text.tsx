@@ -22,7 +22,6 @@ import React from 'react';
 import { Text as RNText, type StyleProp, type TextStyle } from 'react-native';
 import { useTheme } from '../../theme';
 import {
-  fontFamily,
   fontWeight,
   label,
   title,
@@ -115,8 +114,13 @@ export function Text({
   style,
   accessibilityLabel,
 }: TextProps) {
-  const { scheme } = useTheme();
+  const { scheme, fonts } = useTheme();
   const typeStyle = TYPE_STYLES[type];
+  // Headings and display type use the theme's display face; everything else
+  // uses sans. Both default to Inter, so a theme that sets only `sans` reskins
+  // all text and one that adds `display` gets a heading pairing.
+  const family =
+    type.startsWith('display') || type.startsWith('heading') ? fonts.display : fonts.sans;
 
   return (
     <RNText
@@ -126,7 +130,7 @@ export function Text({
       accessibilityLabel={accessibilityLabel}
       style={[
         {
-          fontFamily: fontFamily.sans,
+          fontFamily: family,
           color: color ?? scheme.text.primary,
           ...typeStyle,
         },

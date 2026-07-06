@@ -18,6 +18,29 @@ export const fontFamily = {
   serif: Platform.select({ web: '"Noto Serif", serif', default: 'Noto Serif' }),
 } as const;
 
+/**
+ * Resolved font families the theme can carry. `sans` covers all body and label
+ * text, `mono` code, `serif` is available for serif faces, and `display` is
+ * used for heading and display type. Defaults make `display` follow `sans`, so
+ * setting only `sans` reskins everything and adding `display` gives a heading
+ * pairing. Fonts must be loaded by the app (see the Fonts docs); an unloaded
+ * family falls back to the platform default with a dev-only warning.
+ */
+export type FontFamilyTokens = {
+  sans: string;
+  mono: string;
+  serif: string;
+  display: string;
+};
+
+/** The built-in font families. The ThemeProvider `fonts` prop overrides these. */
+export const defaultFonts: FontFamilyTokens = {
+  sans: fontFamily.sans as string,
+  mono: fontFamily.mono as string,
+  serif: fontFamily.serif as string,
+  display: fontFamily.sans as string,
+};
+
 export const fontWeight = {
   light: '300' as const,
   regular: '400' as const,

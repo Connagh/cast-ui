@@ -88,7 +88,7 @@ export function Alert({
   style,
   accessibilityLabel,
 }: AlertProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const intentColors = scheme.intents;
   const tokens = components.alert;
   const sizeTokens = tokens[size];
@@ -146,7 +146,7 @@ export function Alert({
         {titleText ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.medium,
               fontSize: titleTokens.fontSize,
               lineHeight: titleTokens.lineHeight,
@@ -161,7 +161,7 @@ export function Alert({
         {description ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTokens.fontSize,
               lineHeight: bodyTokens.lineHeight,

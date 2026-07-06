@@ -25,6 +25,7 @@ import {
   type GestureResponderEvent,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible, focusRingStyle } from '../../hooks';
 import {
   fontFamily,
   fontWeight,
@@ -94,13 +95,15 @@ export function Chip({
   style,
   accessibilityLabel,
 }: ChipProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const intentColors = scheme.intents;
   const disabledColors = scheme.disabled;
   const sizeTokens = components.chip[size];
   const labelTokens = label[LABEL_SCALE[size]];
 
   const [isHovered, setIsHovered] = useState(false);
+  // Keyboard-only focus ring (focus-visible): shows on tab, not on mouse press.
+  const { isFocusVisible, focusProps } = useFocusVisible();
 
   const prominence = variant === 'outline' ? 'default' : 'subtle';
 
@@ -124,6 +127,8 @@ export function Chip({
       disabled={disabled || onPress == null}
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       accessibilityRole={onPress ? 'button' : 'text'}
       accessibilityLabel={accessibilityLabel || children}
       accessibilityState={{ disabled, selected }}
@@ -140,19 +145,22 @@ export function Chip({
 
         return (
           <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              alignSelf: 'flex-start',
-              gap: sizeTokens.gap,
-              paddingHorizontal: sizeTokens.paddingX,
-              paddingVertical: sizeTokens.paddingY,
-              borderRadius: components.chip.borderRadius,
-              borderWidth: controlTokens.borderWidth,
-              borderColor: colors.border,
-              backgroundColor: colors.bg,
-            }}
+            style={[
+              {
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignSelf: 'flex-start',
+                gap: sizeTokens.gap,
+                paddingHorizontal: sizeTokens.paddingX,
+                paddingVertical: sizeTokens.paddingY,
+                borderRadius: components.chip.borderRadius,
+                borderWidth: controlTokens.borderWidth,
+                borderColor: colors.border,
+                backgroundColor: colors.bg,
+              },
+              focusRingStyle(isFocusVisible, scheme.focusRing.color),
+            ]}
           >
             {resolvedLeading ? (
               <View
@@ -166,7 +174,7 @@ export function Chip({
 
             <Text
               style={{
-                fontFamily: fontFamily.sans,
+                fontFamily: fonts.sans,
                 fontWeight: fontWeight.medium,
                 fontSize: labelTokens.fontSize,
                 lineHeight: labelTokens.lineHeight,

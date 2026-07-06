@@ -16,6 +16,9 @@
  *     new sections flow through here with no change at the call site.
  *   - **Fonts.** A `fonts` block (or `typography.fontFamily`) is mapped onto the
  *     `fonts` prop, so a theme file can reskin the typeface too.
+ *   - **Density.** A `density` value (`compact` | `default` | `comfortable`) is
+ *     mapped onto the `density` prop, so a theme file carries its own spacing
+ *     and padding rhythm instead of relying on a separate global setting.
  *
  * The plugin stays a pure exporter — all interpretation lives here, in one
  * tested place, so old theme files keep working as cast-ui evolves.
@@ -33,7 +36,7 @@
  * ```
  */
 
-import type { DeepPartial } from './types';
+import type { DeepPartial, DensityTheme } from './types';
 import type { ThemeProviderProps } from './ThemeContext';
 import type { ColorMode, ColorScheme, IntentName } from '../tokens/colors';
 import type { EasingName, MotionOverrides } from '../tokens/motion';
@@ -73,6 +76,14 @@ export type CastThemeFile = {
    * `fonts` prop by applyCastTheme.
    */
   fonts?: Partial<FontFamilyTokens>;
+  /**
+   * Density for the theme (cast-theme version 6+). Sets the spacing and padding
+   * rhythm: `compact`, `default`, or `comfortable`. Mode-independent. Read into
+   * the ThemeProvider `density` prop by applyCastTheme, so a theme file carries
+   * its own spacing instead of relying on a separate global setting. Only
+   * spacing changes with density. Colours, radius and type stay constant.
+   */
+  density?: DensityTheme;
   shadows?: Record<string, unknown>;
   /**
    * Motion block exported from the kit's `motion` variable collection
@@ -94,7 +105,7 @@ export type CastThemeFile = {
 /** The subset of ThemeProvider props this helper produces. */
 export type CastThemeProps = Pick<
   ThemeProviderProps,
-  'colorMode' | 'colors' | 'scheme' | 'motion' | 'fonts'
+  'colorMode' | 'colors' | 'scheme' | 'motion' | 'fonts' | 'density'
 >;
 
 const EASING_NAMES: EasingName[] = ['standard', 'entrance', 'exit', 'emphasized', 'linear'];
@@ -259,11 +270,19 @@ export function applyCastTheme(
   const ring = theme?.focusRing?.[mode];
   if (ring && typeof ring.color === 'string') schemeOverride.focusRing = { color: ring.color };
 
+  const density =
+    theme?.density === 'compact' ||
+    theme?.density === 'default' ||
+    theme?.density === 'comfortable'
+      ? theme.density
+      : undefined;
+
   return {
     colorMode: mode,
     colors: intents,
     scheme: Object.keys(schemeOverride).length > 0 ? schemeOverride : undefined,
     motion: mapMotion(theme?.motion),
     fonts: mapFonts(theme),
+    density,
   };
 }

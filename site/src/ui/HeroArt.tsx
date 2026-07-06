@@ -51,6 +51,19 @@ function rgba(hex: string, a: number): string {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
+/**
+ * A tiny tiled fractal-noise texture, laid over the whole hero at a few percent
+ * to break up gradient banding — the #1 tell of a cheap gradient. Built as an
+ * inline SVG data-URI (SSR-safe: encodeURIComponent exists in Node and the
+ * browser; no btoa/DOM needed).
+ */
+const NOISE_BG =
+  `url("data:image/svg+xml,${encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'>" +
+      "<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter>" +
+      "<rect width='100%' height='100%' filter='url(#n)'/></svg>",
+  )}")`;
+
 /** Everything the scene needs, derived from two tokens + the colour mode. */
 type SceneColors = {
   brand: [number, number, number];
@@ -118,13 +131,19 @@ float hash12(vec2 p) {
   p3 += dot(p3, p3.yzx + 33.33);
   return fract((p3.x + p3.y) * p3.z);
 }
+// Gaussian centred on the text column: ~1 at centre, ~0 past the edges of the
+// copy. Used to trough the wave and dim it exactly where the headline/subtitle
+// sit, so the animation frames the copy instead of slicing through it.
+float centerMask(float x) { float cx = x - 0.5; return exp(-cx * cx / 0.05); }
 // One crystalline band. Returns coverage 0..1. 'side' bends the falloff so the
 // sheet is soft above and sharp below, like a surface catching light on one face.
 float band(vec2 uv, float speed, float freq, float amp, float phase,
            float yoff, float width, float sharp, float side) {
   float t = uTime * uMotion;
   float angle = -t * speed * freq + (phase + uv.x) * 6.2831853 * freq;
-  float wy = sin(angle) * amp + yoff;
+  // Lift the whole field a touch, then trough it down in the centre column so it
+  // rides high at the sides and dips into a calm valley behind the copy.
+  float wy = sin(angle) * amp + yoff + 0.055 - 0.155 * centerMask(uv.x);
   // slow travelling harmonics for organic, non-repeating motion
   wy += sin(uv.x * 2.3 - t * speed * 0.7 + phase) * amp * 0.5;
   wy += sin(uv.x * 5.1 + t * speed * 0.35 + phase * 1.7) * amp * 0.2;
@@ -181,11 +200,17 @@ void main() {
   crest += band(uv, 0.22, 1.10, 0.075, 0.60, 0.355, 0.045, 6.0, 1.0);
   crest += band(uv, 0.30, 1.55, 0.060, 2.00, 0.335, 0.035, 7.5, 1.0) * 0.8;
 
-  // vertical envelope: keep the top (headline zone) calm, richest in the lower
-  // third, and fade before the very bottom so it meets the page fade cleanly.
-  float env = smoothstep(0.92, 0.55, uv.y) * smoothstep(0.02, 0.16, uv.y);
+  // vertical envelope: keep the very top calm, let the field fill more of the
+  // frame, and fade before the very bottom so it meets the page fade cleanly.
+  float env = smoothstep(0.995, 0.52, uv.y) * smoothstep(0.05, 0.14, uv.y);
   sheet *= env;
   crest *= env;
+
+  // clear the centre column so the bright wave never competes with the copy;
+  // energy stays vivid at the sides and below. This is the readability contract.
+  float clear = mix(1.0, 0.34, centerMask(uv.x));
+  sheet *= clear;
+  crest *= clear;
 
   // horizontal edge fade so the sheet dissolves at the left/right margins
   float edge = smoothstep(0.0, 0.16, uv.x) * smoothstep(1.0, 0.84, uv.x);
@@ -194,12 +219,12 @@ void main() {
 
   // sparkles, concentrated around the sheet, thinning toward the top, and
   // clearing before the very bottom so they meet the page fade cleanly
-  float spk = sparkles(uv) * (0.25 + 0.75 * smoothstep(0.9, 0.32, uv.y)) * smoothstep(0.03, 0.12, uv.y);
+  float spk = sparkles(uv) * (0.25 + 0.75 * smoothstep(0.9, 0.32, uv.y - 0.055)) * smoothstep(0.03, 0.12, uv.y);
 
   if (uDark > 0.5) {
     // additive glow over the dark gradient
-    col += uBrand * sheet * 1.15;
-    col += uCrest * crest * 1.35;
+    col += uBrand * sheet * 1.2;
+    col += uCrest * crest * 1.5;
     col += uCrest * spk * 0.9;
   } else {
     // ribbons read as gentle brand-tinted shading on the light gradient
@@ -494,27 +519,77 @@ export function HeroArt() {
         ref={canvasRef}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
       />
-      {/* Readability veil: a soft wash of the page surface over the upper-centre,
-          where the hero text sits, so the subtitle and caption stay legible over
-          the wave. It fades out before the lower band and the edges, so the wave
-          stays vivid exactly where the veil doesn't reach. */}
+      {/* ---------------------------------------------------------------------
+          Readability + polish stack. The wave already troughs and dims in the
+          centre column (the shader's centerMask), so these layers are edgeless
+          washes — no frosted panel, no visible box. Order matters: each sits
+          over the one before.
+          --------------------------------------------------------------------- */}
+
+      {/* 1 · Brand bloom low-centre — lights the wave crest as it sweeps under
+             the CTAs, tying the copy to the animation. */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: `radial-gradient(100% 74% at 50% 40%, ${rgba(surface, dark ? 0.55 : 0.5)} 0%, ${rgba(surface, dark ? 0.26 : 0.2)} 44%, rgba(0,0,0,0) 72%)`,
+          background: `radial-gradient(50% 44% at 50% 74%, ${rgba(brandHex, dark ? 0.2 : 0.12)} 0%, rgba(0,0,0,0) 72%)`,
         }}
       />
+      {/* 2 · Mild full-width top scrim — settles the very top so the badge and
+             headline read as calm, on near-solid surface. */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(180deg, ${rgba(surface, dark ? 0.72 : 0.66)} 0%, ${rgba(surface, dark ? 0.34 : 0.3)} 26%, ${rgba(surface, 0)} 52%)`,
+        }}
+      />
+      {/* 3 · The pocket — a centre-weighted elliptical scrim that protects the
+             copy column while leaving the left/right edges clear, so the
+             side-crests still read. This replaces the old flat veil (and the
+             frosted-panel idea): legibility with no visible edge. */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(58% 52% at 50% 30%, ${rgba(surface, 0.9)} 0%, ${rgba(surface, dark ? 0.62 : 0.6)} 42%, ${rgba(surface, 0)} 72%)`,
+        }}
+      />
+      {/* 4 · Deeper, smoother bottom fade — hands the wave off to the page and
+             to the live controls card that sits over it. */}
       <div
         style={{
           position: 'absolute',
           left: 0,
           right: 0,
           bottom: 0,
-          height: '38%',
-          background: `linear-gradient(180deg, rgba(0,0,0,0) 0%, ${surface} 100%)`,
+          height: '46%',
+          background: `linear-gradient(180deg, rgba(0,0,0,0) 0%, ${rgba(surface, 0.5)} 46%, ${surface} 100%)`,
         }}
       />
+      {/* 5 · Grain — kills gradient banding. */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: NOISE_BG,
+          backgroundSize: '140px 140px',
+          opacity: dark ? 0.05 : 0.03,
+          mixBlendMode: dark ? 'overlay' : 'soft-light',
+        }}
+      />
+      {/* 6 · Dark only: a whisper of brand in the top corners so the frame feels
+             full rather than bottom-heavy — the wave no longer reads as "too
+             low". Light mode's top is clean surface and needs none. */}
+      {dark ? (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `radial-gradient(60% 50% at 8% 0%, ${rgba(brandHex, 0.16)} 0%, rgba(0,0,0,0) 60%), radial-gradient(60% 50% at 92% 0%, ${rgba(brandHex, 0.13)} 0%, rgba(0,0,0,0) 60%)`,
+          }}
+        />
+      ) : null}
     </div>
   );
 }

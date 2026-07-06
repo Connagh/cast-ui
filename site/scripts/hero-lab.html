@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cast UI — Hero Lab</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  #hero { position: relative; overflow: hidden; width: 100%; }
+  #art { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  #art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .layer { position: absolute; inset: 0; pointer-events: none; }
+  .content { position: relative; z-index: 2; width: 100%; max-width: 1400px; margin: 0 auto;
+             padding: 128px 24px 64px; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+  .col { max-width: 860px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;
+           padding: 6px 14px; border-radius: 999px; }
+  h1 { font-size: 66px; line-height: 1.04; font-weight: 800; letter-spacing: -0.025em; position: relative; }
+  h1 .brandword { position: relative; }
+  .sub { font-size: 21px; line-height: 1.5; max-width: 660px; font-weight: 450; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .btn { font-size: 16px; font-weight: 650; padding: 13px 22px; border-radius: 12px; border: 1px solid transparent; cursor: pointer; }
+  .btn.primary { color: #fff; }
+  .caption { font-size: 13px; }
+  .card { width: 100%; max-width: 720px; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; text-align: left; }
+  .cardhead { display: flex; align-items: center; gap: 8px; font-weight: 650; font-size: 14px; }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid transparent; }
+  .cardnote { font-size: 12.5px; }
+  .below { max-width: 1400px; margin: 0 auto; padding: 44px 24px; display: flex; gap: 28px; flex-wrap: wrap; }
+  .stat b { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; display: block; }
+  .stat span { font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="hero">
+  <div id="art"><canvas id="cv"></canvas></div>
+  <!-- legibility + polish layers injected by JS -->
+  <div class="content" id="content"></div>
+</div>
+<div class="below" id="below"></div>
+
+<script>
+/* -------- read config from URL -------- */
+const q = new URLSearchParams(location.search);
+const MODE = q.get('mode') || 'new';           // 'old' | 'new'
+const DARK = (q.get('cm') || 'light') === 'dark';
+const BRAND = q.get('brand') || '#2563EB';
+const HERO_H = parseInt(q.get('h') || '760', 10);
+const T = parseFloat(q.get('t') || '9.2');     // fixed frame for deterministic shots
+const ANIMATE = q.get('animate') === '1';
+
+/* -------- token stand-ins (mirror the real scheme) -------- */
+const TOK = DARK ? {
+  surface: '#0b0f19', card: '#131a27', border: 'rgba(255,255,255,0.12)',
+  textPrimary: '#E9EDF3', textDesc: '#B8C0CC', subtleText: '#C6CDD8',
+} : {
+  surface: '#ffffff', card: '#F7F8FA', border: 'rgba(17,24,39,0.10)',
+  textPrimary: '#0F172A', textDesc: '#5A6473', subtleText: '#3F4a5a',
+};
+
+/* -------- colour helpers (ported from HeroArt.tsx) -------- */
+const clamp=n=>Math.max(0,Math.min(255,Math.round(n)));
+function parse(hex){const h=(hex||'#000').replace('#','');const s=h.length===3?h.split('').map(c=>c+c).join(''):h;
+  return {r:parseInt(s.slice(0,2),16)||0,g:parseInt(s.slice(2,4),16)||0,b:parseInt(s.slice(4,6),16)||0};}
+const toHex=({r,g,b})=>'#'+[r,g,b].map(v=>clamp(v).toString(16).padStart(2,'0')).join('');
+function mix(a,b,t){const x=parse(a),y=parse(b);return toHex({r:x.r+(y.r-x.r)*t,g:x.g+(y.g-x.g)*t,b:x.b+(y.b-x.b)*t});}
+const lighten=(h,t)=>mix(h,'#ffffff',t), darken=(h,t)=>mix(h,'#000000',t);
+const rgb01=h=>{const{r,g,b}=parse(h);return [r/255,g/255,b/255];};
+const rgba=(h,a)=>{const{r,g,b}=parse(h);return `rgba(${r},${g},${b},${a})`;};
+
+function deriveScene(brandHex, surfaceHex, dark){
+  const brand=brandHex||'#2563EB';
+  const crestHex=lighten(brand,dark?0.55:0.25);
+  let topHex,botHex;
+  if(dark){ topHex=mix(darken(surfaceHex,0.55),brand,0.06); botHex=mix(darken(surfaceHex,0.2),brand,0.16); }
+  else { topHex=lighten(surfaceHex,0.02); botHex=mix(surfaceHex,brand,0.08); }
+  return { brand:rgb01(brand), crest:rgb01(crestHex), top:rgb01(topHex), bottom:rgb01(botHex),
+           cssGradient:`linear-gradient(180deg, ${topHex} 0%, ${mix(topHex,botHex,0.6)} 62%, ${botHex} 100%)`,
+           surface:surfaceHex, dark };
+}
+const scene = deriveScene(BRAND, TOK.surface, DARK);
+
+/* ================= SHADERS (ported verbatim, env/lift parameterised) ================= */
+const VERT=`attribute vec2 aPos;varying vec2 vUv;void main(){vUv=aPos*0.5+0.5;gl_Position=vec4(aPos,0.,1.);}`;
+
+const FRAG=`
+precision highp float;
+varying vec2 vUv;
+uniform float uTime; uniform vec2 uRes;
+uniform vec3 uBrand,uCrest,uTop,uBot;
+uniform float uDark,uMotion;
+uniform float uLift;                 // raises the whole sheet/crest
+uniform vec4  uEnv;                  // (topHi, topLo, botLo, botHi)
+uniform float uDip;                  // NEW: how far the wave troughs in the centre column
+float hash12(vec2 p){vec3 p3=fract(vec3(p.xyx)*0.1031);p3+=dot(p3,p3.yzx+33.33);return fract((p3.x+p3.y)*p3.z);}
+// gaussian centred on the text column — 1 at centre, ~0 past the edges of the copy
+float centerMask(float x){float cx=x-0.5;return exp(-cx*cx/0.05);}
+float band(vec2 uv,float speed,float freq,float amp,float phase,float yoff,float width,float sharp,float side){
+  float t=uTime*uMotion;
+  float angle=-t*speed*freq+(phase+uv.x)*6.2831853*freq;
+  // trough the wave down in the centre (behind the copy) and let it ride high at the sides
+  float wy=sin(angle)*amp+yoff+uLift-uDip*centerMask(uv.x);
+  wy+=sin(uv.x*2.3-t*speed*0.7+phase)*amp*0.5;
+  wy+=sin(uv.x*5.1+t*speed*0.35+phase*1.7)*amp*0.2;
+  float dy=wy-uv.y; float dist=abs(dy);
+  if(side*dy<0.0) dist*=4.0;
+  float s=smoothstep(width,0.0,dist);
+  return pow(s,sharp);
+}
+float starLayer(vec2 uv,float ar,float scale,float thr,float t,float seed,vec2 drift){
+  vec2 p=vec2(uv.x*ar,uv.y)*scale+drift*t; vec2 cell=floor(p); vec2 f=fract(p);
+  float h=hash12(cell+seed); if(h<thr) return 0.0;
+  float bright=(h-thr)/(1.0-thr);
+  vec2 sp=vec2(hash12(cell+seed+3.1),hash12(cell+seed+7.7));
+  float d=length(f-sp); float radius=0.05+0.16*bright;
+  float pt=pow(smoothstep(radius,0.0,d),1.6);
+  float tw=0.4+0.6*sin(t*(1.6+bright*3.0)+h*62.83);
+  return pt*max(tw,0.0)*bright;
+}
+float sparkles(vec2 uv){
+  float ar=uRes.x/max(uRes.y,1.0); float t=uTime*uMotion; float s=0.0;
+  s+=starLayer(uv,ar,24.0,0.90,t,11.0,vec2(0.34,-0.14));
+  s+=starLayer(uv,ar,40.0,0.93,t,47.0,vec2(0.22,-0.09))*0.7;
+  return s;
+}
+void main(){
+  vec2 uv=vUv;
+  float g=smoothstep(0.0,1.0,uv.y);
+  vec3 col=mix(uBot,uTop,g);
+  float sheet=0.0;
+  sheet+=band(uv,0.20,1.00,0.070,0.00,0.34,0.230,2.2, 1.0)*0.55;
+  sheet+=band(uv,0.32,1.30,0.055,1.30,0.32,0.180,2.6, 1.0)*0.55;
+  sheet+=band(uv,0.26,1.70,0.050,2.40,0.30,0.150,3.0,-1.0)*0.50;
+  sheet+=band(uv,0.16,0.80,0.090,3.10,0.28,0.120,3.4,-1.0)*0.45;
+  sheet+=band(uv,0.40,2.10,0.035,4.20,0.36,0.100,4.0, 1.0)*0.40;
+  float crest=0.0;
+  crest+=band(uv,0.22,1.10,0.075,0.60,0.355,0.045,6.0,1.0);
+  crest+=band(uv,0.30,1.55,0.060,2.00,0.335,0.035,7.5,1.0)*0.8;
+  float env=smoothstep(uEnv.x,uEnv.y,uv.y)*smoothstep(uEnv.z,uEnv.w,uv.y);
+  sheet*=env; crest*=env;
+  // clear the centre column so the bright wave never competes with the copy;
+  // energy stays vivid at the sides and below.
+  float clear=mix(1.0,0.34,centerMask(uv.x));
+  sheet*=clear; crest*=clear;
+  float edge=smoothstep(0.0,0.16,uv.x)*smoothstep(1.0,0.84,uv.x);
+  sheet*=mix(0.55,1.0,edge); crest*=edge;
+  float spk=sparkles(uv)*(0.25+0.75*smoothstep(0.9,0.32,uv.y-uLift))*smoothstep(0.03,0.12,uv.y);
+  if(uDark>0.5){
+    col+=uBrand*sheet*1.2; col+=uCrest*crest*1.5; col+=uCrest*spk*0.9;
+  } else {
+    col=mix(col,mix(col,uBrand,0.85),sheet*0.9);
+    col=mix(col,uCrest,crest*0.5);
+    col=mix(col,uBrand,spk*0.6);
+  }
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+/* -------- render one deterministic frame (or animate) -------- */
+const cv=document.getElementById('cv');
+const gl=cv.getContext('webgl',{alpha:false,antialias:true,premultipliedAlpha:false});
+function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);
+  if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) console.warn(gl.getShaderInfoLog(o));return o;}
+const prog=gl.createProgram();
+gl.attachShader(prog,sh(gl.VERTEX_SHADER,VERT));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FRAG));
+gl.linkProgram(prog);gl.useProgram(prog);
+const quad=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,quad);
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+const aPos=gl.getAttribLocation(prog,'aPos');gl.enableVertexAttribArray(aPos);
+gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
+const U=n=>gl.getUniformLocation(prog,n);
+const uni={time:U('uTime'),res:U('uRes'),brand:U('uBrand'),crest:U('uCrest'),top:U('uTop'),bot:U('uBot'),
+           dark:U('uDark'),motion:U('uMotion'),lift:U('uLift'),env:U('uEnv'),dip:U('uDip')};
+
+// OLD vs NEW knobs
+const LIFT = MODE==='new' ? 0.055 : 0.0;
+const ENV  = MODE==='new' ? [0.995,0.52,0.05,0.14] : [0.92,0.55,0.02,0.16];
+const DIP  = MODE==='new' ? 0.155 : 0.0;
+
+function resize(){
+  const dpr=Math.min(window.devicePixelRatio||1,1.75);
+  const w=Math.max(2,Math.floor(document.getElementById('art').clientWidth*dpr));
+  const h=Math.max(2,Math.floor(document.getElementById('art').clientHeight*dpr));
+  cv.width=w;cv.height=h;gl.viewport(0,0,w,h);
+  gl.uniform2f(uni.res,w,h);
+}
+function draw(t){
+  gl.uniform1f(uni.time,t);
+  gl.uniform3fv(uni.brand,scene.brand);gl.uniform3fv(uni.crest,scene.crest);
+  gl.uniform3fv(uni.top,scene.top);gl.uniform3fv(uni.bot,scene.bottom);
+  gl.uniform1f(uni.dark,scene.dark?1:0);gl.uniform1f(uni.motion,1);
+  gl.uniform1f(uni.lift,LIFT);gl.uniform4f(uni.env,ENV[0],ENV[1],ENV[2],ENV[3]);
+  gl.uniform1f(uni.dip,DIP);
+  gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+}
+
+/* ================= LEGIBILITY + POLISH LAYERS ================= */
+const hero=document.getElementById('hero');
+hero.style.height=HERO_H+'px';
+const art=document.getElementById('art');
+art.style.background=scene.cssGradient;   // SSR/no-webgl fallback parity
+
+// grain (kills banding) — tiny tiled svg noise
+const NOISE="data:image/svg+xml;base64,"+btoa(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`);
+
+function addLayer(css){const d=document.createElement('div');d.className='layer';Object.assign(d.style,css);hero.appendChild(d);return d;}
+
+if(MODE==='old'){
+  // single soft veil (current)
+  addLayer({background:`radial-gradient(100% 74% at 50% 40%, ${rgba(scene.surface,DARK?0.55:0.5)} 0%, ${rgba(scene.surface,DARK?0.26:0.2)} 44%, rgba(0,0,0,0) 72%)`, zIndex:1});
+  addLayer({left:0,right:0,bottom:0,top:'auto',height:'38%',background:`linear-gradient(180deg, rgba(0,0,0,0) 0%, ${scene.surface} 100%)`, zIndex:1});
+} else {
+  // 1) brand bloom low-centre — lights the wave crest as it sweeps under the CTAs
+  addLayer({background:`radial-gradient(50% 44% at 50% 74%, ${rgba(BRAND,DARK?0.20:0.12)} 0%, rgba(0,0,0,0) 72%)`, zIndex:1});
+  // 2) mild full-width top scrim — settles the very top so the badge/headline are calm
+  addLayer({background:`linear-gradient(180deg, ${rgba(scene.surface,DARK?0.72:0.66)} 0%, ${rgba(scene.surface,DARK?0.34:0.30)} 26%, ${rgba(scene.surface,0)} 52%)`, zIndex:1});
+  // 3) THE POCKET — a centre-weighted elliptical scrim that protects the copy column
+  //    while leaving the left/right edges clear, so the side-crests still read.
+  addLayer({background:`radial-gradient(58% 52% at 50% 30%, ${rgba(scene.surface,DARK?0.9:0.9)} 0%, ${rgba(scene.surface,DARK?0.62:0.6)} 42%, ${rgba(scene.surface,0)} 72%)`, zIndex:1});
+  // 4) deeper, smoother bottom fade — hands the wave off to the page + controls card
+  addLayer({left:0,right:0,bottom:0,top:'auto',height:'46%',background:`linear-gradient(180deg, rgba(0,0,0,0) 0%, ${rgba(scene.surface,0.5)} 46%, ${scene.surface} 100%)`, zIndex:1});
+  // 5) grain — kills gradient banding (the #1 tell of a cheap gradient)
+  addLayer({backgroundImage:`url("${NOISE}")`, backgroundSize:'140px 140px', opacity:DARK?0.05:0.03, mixBlendMode:DARK?'overlay':'soft-light', zIndex:1});
+  // 6) dark only: a whisper of brand in the top corners so the frame feels full,
+  //    not bottom-heavy — fixes the "animation sits too low" read.
+  if(DARK){
+    addLayer({background:`radial-gradient(60% 50% at 8% 0%, ${rgba(BRAND,0.16)} 0%, rgba(0,0,0,0) 60%), radial-gradient(60% 50% at 92% 0%, ${rgba(BRAND,0.13)} 0%, rgba(0,0,0,0) 60%)`, zIndex:1});
+  }
+}
+
+/* ================= CONTENT ================= */
+const brandFg = DARK ? lighten(BRAND,0.35) : darken(BRAND,0.05);
+const headShadow = MODE==='new'
+  ? (DARK ? '0 2px 40px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.35)' : '0 1px 1px rgba(255,255,255,0.6)')
+  : 'none';
+const subColor = MODE==='new' ? TOK.subtleText : TOK.textDesc;
+const subShadow = MODE==='new' ? (DARK?'0 1px 12px rgba(0,0,0,0.5)':'0 1px 0 rgba(255,255,255,0.5)') : 'none';
+
+document.getElementById('content').innerHTML = `
+  <div class="col">
+    <span class="badge" style="background:${rgba(BRAND,DARK?0.18:0.10)};color:${brandFg};border:1px solid ${rgba(BRAND,0.28)}">⚡ v4.11 · motion tokens just landed</span>
+    <h1 style="color:${TOK.textPrimary};text-shadow:${headShadow}">One design system. Every platform.
+      <span class="brandword" style="color:${brandFg}">Agents welcome.</span></h1>
+    <p class="sub" style="color:${subColor};text-shadow:${subShadow}">Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.</p>
+    <div class="ctas">
+      <button class="btn primary" style="background:${BRAND};box-shadow:${MODE==='new'?`0 8px 24px ${rgba(BRAND,0.35)}`:'none'}">🚀 Get started</button>
+      <button class="btn" style="background:${DARK?'#1a2230':'#fff'};color:${TOK.textPrimary};border-color:${TOK.border}">Browse components</button>
+    </div>
+    <p class="caption" style="color:${TOK.textDesc}">MIT licensed · zero runtime dependencies · react + react-native as peers</p>
+  </div>
+  <div class="card" style="background:${MODE==='new'?TOK.card:rgba(scene.surface,0.6)};border:1px solid ${TOK.border};box-shadow:${MODE==='new'?(DARK?'0 12px 40px rgba(0,0,0,0.45)':'0 12px 34px rgba(15,23,42,0.10)'):'none'};${MODE==='old'?'backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);':''}">
+    <div class="cardhead" style="color:${TOK.textPrimary}">⚙️ This hero is live. Retheme it.</div>
+    <div class="pills">
+      <span class="pill" style="border-color:${TOK.border};color:${TOK.textPrimary}">Light / Dark</span>
+      <span class="pill" style="border-color:${TOK.border};color:${TOK.textPrimary}">Density</span>
+      <span class="pill" style="background:${rgba(BRAND,0.12)};border-color:${rgba(BRAND,0.4)};color:${brandFg}">● Cast blue</span>
+    </div>
+    <div class="cardnote" style="color:${TOK.textDesc}">Every component on this page reads the same theme. Brand colour flows from one token.</div>
+  </div>`;
+
+/* below-fold sample so the bottom fade has something to hand off to */
+const below=document.getElementById('below');
+below.style.background=scene.surface;
+below.innerHTML=['37|components','3|platforms, one codebase','864|design tokens','0|runtime deps']
+  .map(s=>{const[n,l]=s.split('|');return `<div class="stat"><b style="color:${TOK.textPrimary}">${n}</b><span style="color:${TOK.textDesc}">${l}</span></div>`;}).join('');
+document.body.style.background=scene.surface;
+
+/* ---- run ---- */
+resize();
+if(ANIMATE){
+  const start=performance.now();
+  (function loop(now){requestAnimationFrame(loop);draw((now-start)/1000);})(start);
+} else {
+  draw(T);
+}
+window.__ready=true;
+</script>
+</body>
+</html>

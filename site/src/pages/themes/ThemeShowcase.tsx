@@ -1,12 +1,15 @@
 /**
  * ThemeShowcase — a believable SaaS product screen assembled entirely from
  * Cast UI. It reads only from useTheme(), so wrapping it in a ThemeProvider
- * with a `brand` seed and `fonts` restyles every pixel. This is the live
- * proof on the Themes page: one theme object, a whole product reskinned.
+ * built from a theme file restyles every pixel. This is the live proof on the
+ * Themes page: one theme object, a whole product reskinned.
  *
  * Nothing here is hardcoded colour. Surfaces, text, borders and the brand all
- * come from the active scheme, and headings pick up the theme's display font
- * through the Text component.
+ * come from the active scheme, headings pick up the theme's display font
+ * through the Text component, and every structural gap and gutter comes from
+ * `theme.spacing` (the density-aware layout scale). So a theme's spacing lives
+ * in the file too: switch to a compact theme and the whole rhythm tightens,
+ * not just the buttons.
  */
 
 import React from 'react';
@@ -120,11 +123,11 @@ function Kpi({
   up: boolean;
   data: number[];
 }) {
-  const { colors, scheme } = useTheme();
+  const { colors, scheme, spacing } = useTheme();
   const brand = colors.brand.bold.default.bg;
   return (
     <Card variant="elevated" size="small" style={{ flex: 1, minWidth: 190 }}>
-      <View style={{ gap: 10 }}>
+      <View style={{ gap: spacing.sm }}>
         <Text type="label-sm" color={scheme.text.description}>{label}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <Text type="heading-sm">{value}</Text>
@@ -143,7 +146,7 @@ function Kpi({
 // ---------------------------------------------------------------------------
 
 export function ThemeShowcase() {
-  const { scheme, colors } = useTheme();
+  const { scheme, colors, spacing } = useTheme();
   const wide = useMinWidth('md');
   const brand = colors.brand.bold.default.bg;
   const onBrand = colors.brand.bold.default.fg;
@@ -163,20 +166,21 @@ export function ThemeShowcase() {
       {wide ? (
         <View
           style={{
-            width: 232,
+            width: 236,
             backgroundColor: scheme.surface.overlay.bg,
             borderRightWidth: 1,
             borderRightColor: scheme.surface.overlay.border,
-            padding: 16,
+            padding: spacing.md,
             justifyContent: 'space-between',
           }}
         >
-          <View style={{ gap: 18 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          <View style={{ gap: spacing.lg }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
               <View style={{ width: 32, height: 32, borderRadius: 9, backgroundColor: brand, alignItems: 'center', justifyContent: 'center' }}>
                 <Icon name="bolt" size="small" color={onBrand} fill />
               </View>
-              <Text type="title-sm">Northwind</Text>
+              {/* Wordmark in the theme's display face — changes dramatically per theme. */}
+              <Text type="heading-sm">Northwind</Text>
             </View>
             <List>
               <ListSubheader>Workspace</ListSubheader>
@@ -187,8 +191,8 @@ export function ThemeShowcase() {
               ))}
             </List>
           </View>
-          <View style={{ gap: 14 }}>
-            <View style={{ gap: 6 }}>
+          <View style={{ gap: spacing.md }}>
+            <View style={{ gap: spacing.xs }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text type="caption" color={scheme.text.description}>Storage</Text>
                 <Text type="caption" color={scheme.text.description}>68%</Text>
@@ -196,7 +200,7 @@ export function ThemeShowcase() {
               <Progress value={68} size="small" />
             </View>
             <Divider />
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
               <Avatar initials="AV" size="small" />
               <View style={{ flex: 1 }}>
                 <Text type="label-sm">Ava Marchetti</Text>
@@ -209,14 +213,14 @@ export function ThemeShowcase() {
       ) : null}
 
       {/* Main */}
-      <View style={{ flex: 1, padding: wide ? 24 : 16, gap: 18, minWidth: 0 }}>
+      <View style={{ flex: 1, padding: wide ? spacing.lg : spacing.md, gap: spacing.lg, minWidth: 0 }}>
         {/* Top bar */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm }}>
           <View style={{ minWidth: 0 }}>
             <Text type="label-sm" color={colors.brand.subtle.default.fg}>OVERVIEW</Text>
-            <Text type="heading-sm">Good morning, Ava</Text>
+            <Text type="heading-md">Good morning, Ava</Text>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
             {wide ? <Input size="small" placeholder="Search" leadingIcon="search" style={{ width: 180 }} /> : null}
             <Button intent="neutral" prominence="subtle" size="small" leadingIcon="notifications" accessibilityLabel="Notifications" onPress={() => {}}>{''}</Button>
             <Avatar initials="AV" size="small" />
@@ -224,35 +228,35 @@ export function ThemeShowcase() {
         </View>
 
         {/* Controls row */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm, flexWrap: 'wrap' }}>
           <ToggleButtonGroup size="small" value="week" onValueChange={() => {}}>
             <ToggleButton value="day">Day</ToggleButton>
             <ToggleButton value="week">Week</ToggleButton>
             <ToggleButton value="month">Month</ToggleButton>
           </ToggleButtonGroup>
-          <View style={{ flexDirection: 'row', gap: 8 }}>
+          <View style={{ flexDirection: 'row', gap: spacing.sm }}>
             <Button intent="neutral" prominence="default" size="small" leadingIcon="ios_share" onPress={() => {}}>Export</Button>
             <Button intent="brand" prominence="bold" size="small" leadingIcon="add" onPress={() => {}}>New report</Button>
           </View>
         </View>
 
         {/* KPI row */}
-        <View style={{ flexDirection: 'row', gap: 14, flexWrap: 'wrap' }}>
+        <View style={{ flexDirection: 'row', gap: spacing.md, flexWrap: 'wrap' }}>
           <Kpi label="REVENUE" value="£128.4k" delta="12.5%" up data={[30, 44, 38, 52, 60, 58, 72, 90]} />
           <Kpi label="ACTIVE USERS" value="8,942" delta="4.2%" up data={[50, 48, 55, 53, 62, 66, 70, 74]} />
           <Kpi label="CHURN" value="1.8%" delta="0.4%" up={false} data={[40, 38, 42, 36, 30, 28, 24, 22]} />
         </View>
 
         {/* Chart + goal */}
-        <View style={{ flexDirection: wide ? 'row' : 'column', gap: 14 }}>
+        <View style={{ flexDirection: wide ? 'row' : 'column', gap: spacing.md }}>
           <Card variant="elevated" style={{ flex: 2, minWidth: 0 }}>
-            <View style={{ gap: 16 }}>
+            <View style={{ gap: spacing.md }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <View>
                   <Text type="title-sm">Revenue</Text>
                   <Text type="body-sm" color={scheme.text.description}>Last 12 months</Text>
                 </View>
-                <View style={{ flexDirection: 'row', gap: 6 }}>
+                <View style={{ flexDirection: 'row', gap: spacing.xs }}>
                   <Chip size="small" intent="brand" selected onPress={() => {}}>MRR</Chip>
                   <Chip size="small" onPress={() => {}}>New</Chip>
                 </View>
@@ -262,9 +266,9 @@ export function ThemeShowcase() {
           </Card>
 
           <Card variant="elevated" style={{ flex: 1, minWidth: 220 }}>
-            <View style={{ gap: 14 }}>
+            <View style={{ gap: spacing.md }}>
               <Text type="title-sm">Monthly goal</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: spacing.sm }}>
                 <Text type="heading-md">82%</Text>
                 <View style={{ paddingBottom: 6 }}>
                   <Badge intent="brand" variant="subtle" size="small">on track</Badge>
@@ -272,7 +276,7 @@ export function ThemeShowcase() {
               </View>
               <Progress value={82} />
               <Divider />
-              <View style={{ gap: 10 }}>
+              <View style={{ gap: spacing.sm }}>
                 {[
                   { label: 'New signups', value: '1,204' },
                   { label: 'Conversions', value: '318' },
@@ -290,7 +294,7 @@ export function ThemeShowcase() {
 
         {/* Table */}
         <Card variant="elevated">
-          <View style={{ gap: 14 }}>
+          <View style={{ gap: spacing.md }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Text type="title-sm">Recent customers</Text>
               <Button intent="neutral" prominence="subtle" size="small" trailingIcon="chevron_right" onPress={() => {}}>View all</Button>
@@ -308,7 +312,7 @@ export function ThemeShowcase() {
                 {CUSTOMERS.map((c) => (
                   <TableRow key={c.email}>
                     <TableCell flex={3}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
                         <Avatar initials={c.initials} size="small" />
                         <View style={{ minWidth: 0 }}>
                           <Text type="label-sm">{c.name}</Text>

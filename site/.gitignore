@@ -6,6 +6,7 @@ dist-ssr-*/
 
 # Ad-hoc production build-check output dirs (e.g. .dist-xmb-check)
 .dist*/
+dist-yosh/
 
 # Throwaway render-check helper (could not be deleted in sandbox; safe to remove locally)
 scripts/themeDump.tsx

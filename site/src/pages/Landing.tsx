@@ -24,10 +24,12 @@ import {
 import { brandPresets, useSiteTheme } from '../theme/SiteTheme';
 import { Page } from '../ui/Page';
 import HeroArt from '../ui/HeroArt';
+import { Reveal } from '../ui/Reveal';
 
 function HeroControls() {
   const site = useSiteTheme();
-  const { scheme } = useTheme();
+  const { scheme, colorMode } = useTheme();
+  const dark = colorMode === 'dark';
   return (
     <View
       style={{
@@ -36,7 +38,14 @@ function HeroControls() {
         borderColor: scheme.surface.overlay.border,
         borderRadius: 14,
         padding: 16,
+        // A solid, elevated card — not a frosted panel. It reads as a crisp
+        // object resting on the wave, which is what makes the "this hero is
+        // live, retheme it" payoff land instead of muddying the animation.
         backgroundColor: scheme.surface.subtle,
+        shadowColor: '#000',
+        shadowOpacity: dark ? 0.44 : 0.12,
+        shadowRadius: 30,
+        shadowOffset: { width: 0, height: 14 },
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -90,8 +99,19 @@ function FeatureCard({ icon, title, body, action, onPress }: { icon: string; tit
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { scheme, colors } = useTheme();
+  const { scheme, colors, colorMode } = useTheme();
   const [demoTab, setDemoTab] = useState('buttons');
+  const dark = colorMode === 'dark';
+
+  // Subtle, mode-aware text legibility for the copy that sits over the wave.
+  // Dark: a soft dark halo separates light text from the crest. Light: a faint
+  // light halo lifts dark text off the tinted valley. Barely visible, always felt.
+  const headShadow = dark
+    ? { textShadowColor: 'rgba(0,0,0,0.55)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 28 }
+    : { textShadowColor: 'rgba(255,255,255,0.65)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 3 };
+  const subShadow = dark
+    ? { textShadowColor: 'rgba(0,0,0,0.5)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 12 }
+    : { textShadowColor: 'rgba(255,255,255,0.6)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 2 };
 
   return (
     <View>
@@ -101,33 +121,49 @@ export default function Landing() {
       <View style={{ position: 'relative', overflow: 'hidden' }}>
         <HeroArt />
         <View style={{ position: 'relative', zIndex: 1 }}>
-          <Page wide style={{ paddingTop: 112, paddingBottom: 56, alignItems: 'center', gap: 36 }}>
-            {/* Hero — centred over the wave */}
+          <Page wide style={{ paddingTop: 120, paddingBottom: 72, alignItems: 'center', gap: 36 }}>
+            {/* Hero — centred over the wave. The copy sits in the wave's calm
+                centre valley; each piece rises in on a short staggered reveal. */}
             <View style={{ maxWidth: 820, gap: 22, alignItems: 'center' }}>
-              <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
+              <Reveal delay={0}>
+                <Badge intent="brand" variant="subtle" leadingIcon="bolt">v4.11 · motion tokens just landed</Badge>
+              </Reveal>
               {/* "Agents welcome." picks up the live brand colour, so it rethemes
                   with the switcher and stays mode-correct in light and dark. */}
-              <RNText style={{ textAlign: 'center' }}>
-                <Text type="display-lg">One design system. Every platform. </Text>
-                <Text type="display-lg" color={colors.brand.subtle.default.fg}>Agents welcome.</Text>
-              </RNText>
-              <Text type="body-lg" color={scheme.text.description} style={{ maxWidth: 640, textAlign: 'center' }}>
-                Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
-              </Text>
-              <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
-                  Get started
-                </Button>
-                <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
-              </View>
-              <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
-                MIT licensed · zero runtime dependencies · react + react-native as peers
-              </Text>
+              <Reveal delay={80}>
+                <RNText style={{ textAlign: 'center' }}>
+                  <Text type="display-lg" style={headShadow}>One design system. Every platform. </Text>
+                  <Text type="display-lg" color={colors.brand.subtle.default.fg} style={headShadow}>Agents welcome.</Text>
+                </RNText>
+              </Reveal>
+              {/* Promoted to primary text: this subtitle used to be muted grey and
+                  was the hardest thing to read over the wave. Full-contrast + the
+                  centre pocket + a faint halo keeps it crisp in every theme. */}
+              <Reveal delay={160}>
+                <Text type="body-lg" color={scheme.text.primary} style={{ maxWidth: 640, textAlign: 'center', ...subShadow }}>
+                  Cast UI is an open source React Native design system: 37 components that run on iOS, Android, and the web from one codebase, themed at runtime by tokens that live in Figma and ship as code.
+                </Text>
+              </Reveal>
+              <Reveal delay={240}>
+                <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <Button intent="brand" prominence="bold" size="large" leadingIcon="rocket_launch" onPress={() => navigate('/docs/getting-started')}>
+                    Get started
+                  </Button>
+                  <Button size="large" onPress={() => navigate('/components')}>Browse components</Button>
+                </View>
+              </Reveal>
+              <Reveal delay={320}>
+                <Text type="caption" color={scheme.text.description} style={{ textAlign: 'center' }}>
+                  MIT licensed · zero runtime dependencies · react + react-native as peers
+                </Text>
+              </Reveal>
             </View>
 
-            <View style={{ maxWidth: 720, width: '100%' }}>
-              <HeroControls />
-            </View>
+            <Reveal delay={400}>
+              <View style={{ maxWidth: 720, width: '100%' }}>
+                <HeroControls />
+              </View>
+            </Reveal>
           </Page>
         </View>
       </View>

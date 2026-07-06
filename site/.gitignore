@@ -1,1 +1,11 @@
 dist-ssr/
+dist-ssr-*/
+
+# Ad-hoc SSR smoke / verification output dirs
+.smoke*/
+
+# Ad-hoc production build-check output dirs (e.g. .dist-xmb-check)
+.dist*/
+
+# Throwaway render-check helper (could not be deleted in sandbox; safe to remove locally)
+scripts/themeDump.tsx

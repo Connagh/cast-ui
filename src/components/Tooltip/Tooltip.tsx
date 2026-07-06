@@ -91,7 +91,7 @@ export function Tooltip({
   style,
   accessibilityLabel,
 }: TooltipProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.tooltip;
   const sizeTokens = tokens[size];
   const labelTokens = label[LABEL_SCALE[size]];
@@ -126,7 +126,7 @@ export function Tooltip({
       <Text
         selectable={false}
         style={{
-          fontFamily: fontFamily.sans,
+          fontFamily: fonts.sans,
           fontWeight: fontWeight.medium,
           fontSize: labelTokens.fontSize,
           lineHeight: labelTokens.lineHeight,

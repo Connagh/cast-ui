@@ -91,12 +91,19 @@ type ThemeFile = {
   name: string;
   description: string;
   generatedAt: string;
-  version: 4;
+  version: 5;
   colors: Partial<Record<'light' | 'dark', IntentColorMap>>;
   text: Partial<Record<'light' | 'dark', TextColorMap>>;
   surface: Partial<Record<'light' | 'dark', SurfaceMap>>;
   focusRing: Partial<Record<'light' | 'dark', FocusRingMap>>;
   typography: Record<string, TypographyStyle>;
+  /**
+   * Font families for the theme, derived from the Text Styles. sans covers
+   * body/label text, display headings, mono code. applyCastTheme reads this
+   * onto the ThemeProvider `fonts` prop, so changing a Text Style's font in
+   * the kit reskins the type in consuming apps.
+   */
+  fonts: { display: string; sans: string; mono?: string; serif?: string };
   shadows: Record<string, ShadowLayer[]>;
   motion?: MotionMap;
 };
@@ -216,6 +223,34 @@ async function buildTypography(warnings: string[]): Promise<ThemeFile['typograph
     };
   }
   return typography;
+}
+
+/**
+ * Derive the theme's font families from the exported Text Styles. sans is the
+ * body/label face, display the heading/display face, mono a code face if the
+ * kit has one. A designer changes a font by changing it on the Text Styles;
+ * this reads it back out, so no extra variables are needed.
+ */
+function buildFonts(typography: ThemeFile['typography']): ThemeFile['fonts'] {
+  const familyWhere = (test: (name: string) => boolean): string | undefined => {
+    for (const [name, style] of Object.entries(typography)) {
+      if (test(name.toLowerCase())) return style.fontFamily;
+    }
+    return undefined;
+  };
+  const first = Object.values(typography)[0]?.fontFamily ?? 'Inter';
+  const sans =
+    familyWhere((n) => n.startsWith('body')) ??
+    familyWhere((n) => n.startsWith('label')) ??
+    first;
+  const display =
+    familyWhere((n) => n.startsWith('display')) ??
+    familyWhere((n) => n.startsWith('heading')) ??
+    sans;
+  const mono = familyWhere((n) => n.includes('mono') || n.includes('code'));
+  const fonts: ThemeFile['fonts'] = { display, sans };
+  if (mono) fonts.mono = mono;
+  return fonts;
 }
 
 /** Export the shadow/* effect styles as ordered drop-shadow layer lists. */
@@ -421,6 +456,7 @@ async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
     focusRing[key] = ring !== null ? { color: ring } : {};
   }
 
+  const typographyExport = await buildTypography(warnings);
   const theme: ThemeFile = {
     name: figma.root.name,
     description:
@@ -428,15 +464,17 @@ async function buildTheme(): Promise<{ theme: ThemeFile; warnings: string[] }> {
       'applyCastTheme(theme, mode) and spread the result into ThemeProvider. ' +
       'colors/text/surface/focusRing are mode-keyed and consumed at runtime; ' +
       'typography/shadows mirror the kit Text Styles and shadow effect styles ' +
-      'for reference. motion carries the primitive motion values ' +
+      'for reference. fonts carries the theme font families, read onto the ' +
+      'ThemeProvider fonts prop. motion carries the primitive motion values ' +
       '(mode-independent). The version field is the schema version.',
     generatedAt: new Date().toISOString(),
-    version: 4,
+    version: 5,
     colors,
     text,
     surface,
     focusRing,
-    typography: await buildTypography(warnings),
+    typography: typographyExport,
+    fonts: buildFonts(typographyExport),
     shadows: await buildShadows(warnings),
   };
   const motion = await buildMotion(warnings);

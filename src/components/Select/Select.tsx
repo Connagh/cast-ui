@@ -38,6 +38,7 @@ import {
   type StyleProp,
 } from 'react-native';
 import { useTheme } from '../../theme';
+import { useFocusVisible, focusRingStyle } from '../../hooks';
 import { Icon } from '../Icon';
 import {
   fontFamily,
@@ -186,7 +187,7 @@ const SHADOW_NATIVE: ViewStyle = {
 // ---------------------------------------------------------------------------
 
 export function SelectTag({ children, onRemove, disabled = false }: SelectTagProps) {
-  const { scheme } = useTheme();
+  const { scheme, fonts } = useTheme();
   const tagTokens = scheme.tag;
 
   return (
@@ -203,7 +204,7 @@ export function SelectTag({ children, onRemove, disabled = false }: SelectTagPro
     >
       <Text
         style={{
-          fontFamily: fontFamily.sans,
+          fontFamily: fonts.sans,
           fontWeight: fontWeight.regular,
           fontSize: caption.fontSize,
           lineHeight: caption.lineHeight,
@@ -233,7 +234,7 @@ export function SelectTag({ children, onRemove, disabled = false }: SelectTagPro
 // ---------------------------------------------------------------------------
 
 export function SelectSeparator() {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.select.separator;
   const selectColors = scheme.select;
 
@@ -254,7 +255,7 @@ export function SelectSeparator() {
 // ---------------------------------------------------------------------------
 
 export function SelectGroup({ label: groupLabel, children }: SelectGroupProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.select.group;
   const textTokens = scheme.text;
 
@@ -268,7 +269,7 @@ export function SelectGroup({ label: groupLabel, children }: SelectGroupProps) {
       >
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.regular,
             fontSize: caption.fontSize,
             lineHeight: caption.lineHeight,
@@ -298,7 +299,7 @@ export function SelectOption({
   disabled = false,
 }: SelectOptionProps) {
   const ctx = useSelectContext();
-  const { components, scheme, colors: intents } = useTheme();
+  const { components, scheme, colors: intents, fonts } = useTheme();
   const tokens = components.select.option;
   const selectColors = scheme.select;
   const textTokens = scheme.text;
@@ -371,7 +372,7 @@ export function SelectOption({
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text
           style={{
-            fontFamily: fontFamily.sans,
+            fontFamily: fonts.sans,
             fontWeight: fontWeight.medium,
             fontSize: labelTokens.fontSize,
             lineHeight: labelTokens.lineHeight,
@@ -385,7 +386,7 @@ export function SelectOption({
         {description ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTokens.fontSize,
               lineHeight: bodyTokens.lineHeight,
@@ -423,7 +424,7 @@ export type SelectContentProps = {
 };
 
 export function SelectContent({ children, style }: SelectContentProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const tokens = components.select.content;
   const surfaceTokens = scheme.surface;
 
@@ -476,7 +477,7 @@ export function Select({
   style,
   accessibilityLabel,
 }: SelectProps) {
-  const { components, scheme } = useTheme();
+  const { components, scheme, fonts } = useTheme();
   const inputTokens = components.input[size];
   const intentColors = scheme.intents;
   const disabledColors = scheme.disabled;
@@ -484,6 +485,9 @@ export function Select({
   const textTokens = scheme.text;
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  // Keyboard-only focus ring for the trigger (a click target, so it follows
+  // the focus-visible rule: ring on tab, not on mouse press).
+  const triggerFocus = useFocusVisible();
   const optionRegistry = useRef<Map<string, OptionInfo>>(new Map());
   const [, forceUpdate] = useState(0);
 
@@ -601,7 +605,7 @@ export function Select({
         {formLabel ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.medium,
               fontSize: labelTypo.fontSize,
               lineHeight: labelTypo.lineHeight,
@@ -622,23 +626,28 @@ export function Select({
           }}
           onHoverIn={() => setIsHovered(true)}
           onHoverOut={() => setIsHovered(false)}
+          onFocus={triggerFocus.focusProps.onFocus}
+          onBlur={triggerFocus.focusProps.onBlur}
           disabled={disabled}
           accessibilityRole="button"
           accessibilityLabel={
             accessibilityLabel || formLabel || 'Select option'
           }
           accessibilityState={{ disabled, expanded: isOpen }}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: inputTokens.gap,
-            paddingHorizontal: inputTokens.paddingX,
-            paddingVertical: inputTokens.paddingY,
-            borderRadius: inputTokens.borderRadius,
-            borderWidth: controlTokens.borderWidth,
-            borderColor: triggerBorderColor,
-            backgroundColor: triggerBgColor,
-          }}
+          style={[
+            {
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: inputTokens.gap,
+              paddingHorizontal: inputTokens.paddingX,
+              paddingVertical: inputTokens.paddingY,
+              borderRadius: inputTokens.borderRadius,
+              borderWidth: controlTokens.borderWidth,
+              borderColor: triggerBorderColor,
+              backgroundColor: triggerBgColor,
+            },
+            focusRingStyle(triggerFocus.isFocusVisible, scheme.focusRing.color),
+          ]}
         >
           {/* Leading icon */}
           {resolvedLeadingIcon ? (
@@ -684,7 +693,7 @@ export function Select({
                       </SelectTag>
                     );
                   })
-                : renderPlaceholder(placeholder, bodyTypo, textTokens.description)}
+                : renderPlaceholder(placeholder, bodyTypo, textTokens.description, fonts.sans)}
             </View>
           ) : type === 'combobox' ? (
             <TextInput
@@ -701,7 +710,7 @@ export function Select({
               editable={!disabled}
               style={{
                 flex: 1,
-                fontFamily: fontFamily.sans,
+                fontFamily: fonts.sans,
                 fontWeight: fontWeight.regular,
                 fontSize: bodyTypo.fontSize,
                 lineHeight: bodyTypo.lineHeight,
@@ -719,7 +728,7 @@ export function Select({
               <Text
                 numberOfLines={1}
                 style={{
-                  fontFamily: fontFamily.sans,
+                  fontFamily: fonts.sans,
                   fontWeight: fontWeight.regular,
                   fontSize: bodyTypo.fontSize,
                   lineHeight: bodyTypo.lineHeight,
@@ -801,7 +810,7 @@ export function Select({
         {helperText ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: caption.fontSize,
               lineHeight: caption.lineHeight,
@@ -826,11 +835,12 @@ function renderPlaceholder(
   text: string,
   typo: { fontSize: number; lineHeight: number; letterSpacing: number },
   color: string,
+  family: string,
 ) {
   return (
     <Text
       style={{
-        fontFamily: fontFamily.sans,
+        fontFamily: family,
         fontWeight: fontWeight.regular,
         fontSize: typo.fontSize,
         lineHeight: typo.lineHeight,

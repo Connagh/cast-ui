@@ -1,188 +1,385 @@
-import React, { useRef, useState } from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, Pressable, Text as RNText, View } from 'react-native';
 import {
   Alert,
   Badge,
   Button,
-  Card,
-  Chip,
   Divider,
-  Input,
-  Progress,
+  Icon,
   Text,
   ThemeProvider,
-  Toggle,
   applyCastTheme,
-  easingBezier,
-  motionTokens,
+  useMinWidth,
   useTheme,
   type CastThemeFile,
 } from '@castui/cast-ui';
-import { brandPresets, useSiteTheme } from '../../theme/SiteTheme';
-import { Page, PageHeader, Prose, Section } from '../../ui/Page';
+import { Page, PageHeader, Section } from '../../ui/Page';
 import { CodeSnippet } from '../../ui/CodeSnippet';
+import { ThemeShowcase } from './ThemeShowcase';
+import { galleryThemes, downloadThemeFile, type GalleryTheme } from './themeGallery';
 
-/** A swatch of components used to preview a theme. */
-function PreviewSlice({ label }: { label: string }) {
-  const { scheme } = useTheme();
+const FIGMA_KIT_URL =
+  'https://www.figma.com/community/file/1648821010844688421/cast-ui-kit-for-react-native';
+
+type PreviewMode = 'light' | 'dark';
+type Selection = { kind: 'gallery'; id: string } | { kind: 'imported' };
+
+/** A single theme in the left library rail. */
+function ThemeCard({
+  theme,
+  active,
+  onSelect,
+}: {
+  theme: GalleryTheme;
+  active: boolean;
+  onSelect: () => void;
+}) {
+  const { scheme, colors } = useTheme();
+  const [hover, setHover] = useState(false);
+  const borderColor = active ? colors.brand.default.default.border : scheme.surface.overlay.border;
+  const bg = active
+    ? colors.brand.subtle.hover.bg
+    : hover
+      ? scheme.surface.subtle
+      : scheme.surface.overlay.bg;
+
   return (
-    <Card variant="elevated" style={{ flex: 1, minWidth: 280 }}>
-      <View style={{ gap: 10 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text type="label-md">{label}</Text>
-          <Badge intent="brand" size="small" dot>Active</Badge>
+    <Pressable
+      onPress={onSelect}
+      onHoverIn={() => setHover(true)}
+      onHoverOut={() => setHover(false)}
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        padding: 12,
+        borderRadius: 14,
+        borderWidth: active ? 2 : 1,
+        borderColor,
+        backgroundColor: bg,
+      }}
+    >
+      {/* Brand swatch — base with hover/active pips */}
+      <View style={{ width: 44, height: 44, borderRadius: 11, backgroundColor: theme.seed.base, padding: 5, justifyContent: 'flex-end', gap: 3 }}>
+        <View style={{ flexDirection: 'row', gap: 3 }}>
+          <View style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: theme.seed.hover ?? theme.seed.base }} />
+          <View style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: theme.seed.active ?? theme.seed.base }} />
         </View>
-        <Input size="small" label="Email" placeholder="you@example.com" />
-        <Progress value={64} size="small" />
-        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-          <Button size="small" intent="brand" prominence="bold" onPress={() => {}}>Save</Button>
-          <Button size="small" onPress={() => {}}>Cancel</Button>
-          <Chip size="small" intent="brand" selected onPress={() => {}}>Pinned</Chip>
-        </View>
-        <Toggle size="small" checked onChange={() => {}}>Notifications</Toggle>
-        <Text type="caption" color={scheme.text.description}>Everything above reads one theme object.</Text>
       </View>
-    </Card>
+
+      <View style={{ flex: 1, minWidth: 0, gap: 3 }}>
+        <RNText
+          style={{ fontFamily: theme.fonts.display, fontSize: 17, fontWeight: '600', color: scheme.text.primary }}
+          numberOfLines={1}
+        >
+          {theme.name}
+        </RNText>
+        <Text type="caption" color={scheme.text.description} numberOfLines={2}>{theme.tagline}</Text>
+        <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap', marginTop: 2 }}>
+          <RNText style={{ fontFamily: theme.fonts.display, fontSize: 11, color: scheme.text.description }} numberOfLines={1}>
+            {`Aa ${theme.fontLabel.display}`}
+          </RNText>
+          <RNText style={{ fontFamily: theme.fonts.sans, fontSize: 11, color: scheme.text.description }} numberOfLines={1}>
+            {`· ${theme.fontLabel.body}`}
+          </RNText>
+        </View>
+      </View>
+
+      <Button
+        intent="neutral"
+        prominence="subtle"
+        size="small"
+        leadingIcon="download"
+        accessibilityLabel={`Download ${theme.name} theme`}
+        onPress={() => downloadThemeFile(theme)}
+      >
+        {''}
+      </Button>
+    </Pressable>
   );
 }
 
-function downloadJson(name: string, data: unknown) {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  a.click();
-  URL.revokeObjectURL(url);
+/** Fake browser chrome so the preview reads as a real product window. */
+function WindowFrame({ url, children }: { url: string; children: React.ReactNode }) {
+  const { scheme } = useTheme();
+  return (
+    <View
+      style={{
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: scheme.surface.overlay.border,
+        overflow: 'hidden',
+        backgroundColor: scheme.surface.base,
+        // Soft product-shot shadow (web only).
+        boxShadow: '0 24px 60px -24px rgba(2, 6, 23, 0.35)' as unknown as undefined,
+      }}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          paddingHorizontal: 14,
+          paddingVertical: 10,
+          backgroundColor: scheme.surface.overlay.bg,
+          borderBottomWidth: 1,
+          borderBottomColor: scheme.surface.overlay.border,
+        }}
+      >
+        {/* Decorative traffic lights — deliberately fixed colours, not themed. */}
+        <View style={{ flexDirection: 'row', gap: 7 }}>
+          <View style={{ width: 11, height: 11, borderRadius: 6, backgroundColor: '#FF5F57' }} />
+          <View style={{ width: 11, height: 11, borderRadius: 6, backgroundColor: '#FEBC2E' }} />
+          <View style={{ width: 11, height: 11, borderRadius: 6, backgroundColor: '#28C840' }} />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            maxWidth: 320,
+            alignSelf: 'center',
+            backgroundColor: scheme.surface.subtle,
+            borderRadius: 8,
+            paddingVertical: 4,
+            paddingHorizontal: 10,
+          }}
+        >
+          <Icon name="lock" size="xs" color={scheme.text.description} />
+          <Text type="caption" color={scheme.text.description} numberOfLines={1}>{url}</Text>
+        </View>
+        <Icon name="more_horiz" size="small" color={scheme.text.description} />
+      </View>
+      {children}
+    </View>
+  );
 }
 
 export default function Themes() {
-  const site = useSiteTheme();
-  const { scheme } = useTheme();
+  const { scheme, colors } = useTheme();
+  const wide = useMinWidth('lg');
+  const [selection, setSelection] = useState<Selection>({ kind: 'gallery', id: 'cast' });
+  const [previewMode, setPreviewMode] = useState<PreviewMode>('light');
   const [imported, setImported] = useState<CastThemeFile | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
-  const [importedMode, setImportedMode] = useState<'light' | 'dark'>('light');
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const activeTheme: GalleryTheme =
+    galleryThemes.find((t) => selection.kind === 'gallery' && t.id === selection.id) ?? galleryThemes[0];
+
+  // Fade + lift the preview whenever the applied theme or mode changes, so the
+  // reskin reads as a deliberate transition rather than a jump.
+  const anim = useRef(new Animated.Value(1)).current;
+  const transitionKey = selection.kind === 'imported' ? `imported-${previewMode}` : `${activeTheme.id}-${previewMode}`;
+  useEffect(() => {
+    anim.setValue(0);
+    Animated.timing(anim, { toValue: 1, duration: 420, useNativeDriver: false }).start();
+  }, [transitionKey, anim]);
+  const animStyle = {
+    opacity: anim,
+    transform: [{ translateY: anim.interpolate({ inputRange: [0, 1], outputRange: [10, 0] }) }],
+  };
+
+  const selectGallery = (theme: GalleryTheme) => {
+    setSelection({ kind: 'gallery', id: theme.id });
+    setPreviewMode(theme.mode);
+  };
 
   const onFile = (file: File | undefined) => {
     if (!file) return;
     file
       .text()
       .then((text) => {
-        const parsed = JSON.parse(text) as CastThemeFile;
-        setImported(parsed);
+        setImported(JSON.parse(text) as CastThemeFile);
         setImportError(null);
+        setSelection({ kind: 'imported' });
       })
       .catch(() => setImportError('That file is not valid JSON. Export it again from cast-sync.'));
   };
 
-  const exportCurrent = () => {
-    const preset = brandPresets.find((p) => p.id === site.brandId) ?? brandPresets[0];
-    const brand = preset.colors?.brand;
-    const file = {
-      name: `cast-ui site · ${preset.label}`,
-      description: 'Example theme exported from the Cast UI docs site. Shaped like a cast-sync export.',
-      generatedAt: new Date().toISOString(),
-      version: 4,
-      colors: brand ? { light: { brand }, dark: { brand } } : {},
-      motion: {
-        duration: motionTokens.duration,
-        cycle: motionTokens.cycle,
-        easing: easingBezier,
-        spring: motionTokens.spring,
-      },
-    };
-    downloadJson('cast-theme.json', file);
-  };
+  // Preview provider props: gallery themes apply brand + fonts directly (the
+  // real consumer API); an imported file goes through applyCastTheme.
+  const previewProps =
+    selection.kind === 'imported' && imported
+      ? applyCastTheme(imported, previewMode)
+      : { colorMode: previewMode, brand: activeTheme.seed, fonts: activeTheme.fonts };
+
+  const applyCode = useMemo(
+    () =>
+      selection.kind === 'imported'
+        ? `import theme from './cast-theme.json';
+import { ThemeProvider, applyCastTheme } from '@castui/cast-ui';
+
+<ThemeProvider {...applyCastTheme(theme, '${previewMode}')}>
+  <App />
+</ThemeProvider>`
+        : `import theme from './cast-theme-${activeTheme.id}.json';
+import { ThemeProvider, applyCastTheme } from '@castui/cast-ui';
+
+// One object drives brand colour, light/dark and the type pairing.
+<ThemeProvider {...applyCastTheme(theme, '${previewMode}')}>
+  <App />
+</ThemeProvider>`,
+    [selection.kind, activeTheme.id, previewMode],
+  );
+
+  const ModeToggle = (
+    <View style={{ flexDirection: 'row', gap: 4, backgroundColor: scheme.surface.subtle, borderRadius: 10, padding: 3 }}>
+      {(['light', 'dark'] as const).map((m) => {
+        const on = previewMode === m;
+        return (
+          <Pressable
+            key={m}
+            onPress={() => setPreviewMode(m)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: on }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 6,
+              paddingVertical: 6,
+              paddingHorizontal: 12,
+              borderRadius: 8,
+              backgroundColor: on ? scheme.surface.overlay.bg : 'transparent',
+            }}
+          >
+            <Icon name={m === 'light' ? 'light_mode' : 'dark_mode'} size="xs" color={on ? colors.brand.subtle.default.fg : scheme.text.description} />
+            <Text type="label-sm" color={on ? scheme.text.primary : scheme.text.description}>{m === 'light' ? 'Light' : 'Dark'}</Text>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
 
   return (
     <Page wide>
       <PageHeader
         eyebrow="Themes"
-        title="One theme object, everywhere"
-        lede="Colour, surfaces, and motion are all runtime theme inputs. Change a preset here and the whole site follows, or load a cast-theme.json straight from the Figma kit."
+        title="One object. A whole product, reskinned."
+        lede="Every theme below is a brand colour and a font pairing in a single object. Pick one and the product on the right restyles live, in light and dark. Download any theme as a cast-theme.json and drop it into your own app."
       />
 
-      <Section title="Presets" lede="These drive the global theme controls in the top bar. The same object could ship to an app unchanged.">
-        <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
-          {brandPresets.map((preset) => (
-            <Chip
-              key={preset.id}
-              intent="brand"
-              selected={site.brandId === preset.id}
-              onPress={() => site.setBrandId(preset.id)}
-            >
-              {preset.label}
-            </Chip>
+      <View style={{ flexDirection: wide ? 'row' : 'column', gap: 20, alignItems: 'flex-start' }}>
+        {/* Left rail — the theme library */}
+        <View style={{ width: wide ? 340 : '100%', gap: 12, ...(wide ? { position: 'sticky' as never, top: 80 } : null) }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Text type="label-sm" color={scheme.text.description}>THEME LIBRARY</Text>
+            <Badge intent="neutral" variant="subtle" size="small">{`${galleryThemes.length}`}</Badge>
+          </View>
+
+          {galleryThemes.map((theme) => (
+            <ThemeCard
+              key={theme.id}
+              theme={theme}
+              active={selection.kind === 'gallery' && selection.id === theme.id}
+              onSelect={() => selectGallery(theme)}
+            />
           ))}
-        </View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 16 }}>
-          <PreviewSlice label="Your current theme" />
-          <ThemeProvider colorMode={site.colorMode === 'light' ? 'dark' : 'light'} colors={(brandPresets.find((p) => p.id === site.brandId) ?? brandPresets[0]).colors}>
-            <PreviewSlice label={site.colorMode === 'light' ? 'Same theme, dark' : 'Same theme, light'} />
-          </ThemeProvider>
-        </View>
-        <View style={{ flexDirection: 'row', gap: 8 }}>
-          <Button size="small" leadingIcon="download" onPress={exportCurrent}>Download as cast-theme.json</Button>
-        </View>
-      </Section>
 
-      <Section
-        title="Load a cast-theme.json"
-        lede="Run cast-sync in the Figma kit, download the file, and drop it here. The preview below applies it with applyCastTheme, exactly as an app would."
-      >
-        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-          <Button intent="brand" leadingIcon="upload_file" onPress={() => fileRef.current?.click()}>
-            Choose file
-          </Button>
+          {/* Imported theme, once a file is loaded */}
           {imported ? (
-            <>
-              <Badge intent="brand" leadingIcon="check">{imported.name ?? 'theme loaded'}</Badge>
-              <Chip size="small" selected={importedMode === 'light'} onPress={() => setImportedMode('light')}>light</Chip>
-              <Chip size="small" selected={importedMode === 'dark'} onPress={() => setImportedMode('dark')}>dark</Chip>
-              <Button size="small" prominence="subtle" leadingIcon="close" onPress={() => setImported(null)}>Clear</Button>
-            </>
+            <Pressable
+              onPress={() => setSelection({ kind: 'imported' })}
+              accessibilityRole="button"
+              accessibilityState={{ selected: selection.kind === 'imported' }}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 12,
+                padding: 12,
+                borderRadius: 14,
+                borderWidth: selection.kind === 'imported' ? 2 : 1,
+                borderColor: selection.kind === 'imported' ? colors.brand.default.default.border : scheme.surface.overlay.border,
+                backgroundColor: selection.kind === 'imported' ? colors.brand.subtle.hover.bg : scheme.surface.overlay.bg,
+              }}
+            >
+              <View style={{ width: 44, height: 44, borderRadius: 11, backgroundColor: scheme.surface.subtle, alignItems: 'center', justifyContent: 'center' }}>
+                <Icon name="upload_file" color={colors.brand.subtle.default.fg} />
+              </View>
+              <View style={{ flex: 1, minWidth: 0 }}>
+                <Text type="label-md" numberOfLines={1}>{imported.name ?? 'Imported theme'}</Text>
+                <Text type="caption" color={scheme.text.description}>From your cast-theme.json</Text>
+              </View>
+              <Button intent="neutral" prominence="subtle" size="small" leadingIcon="close" accessibilityLabel="Clear imported theme" onPress={() => { setImported(null); setSelection({ kind: 'gallery', id: 'cast' }); }}>{''}</Button>
+            </Pressable>
           ) : null}
-          <input
-            ref={fileRef}
-            type="file"
-            accept="application/json,.json"
-            style={{ display: 'none' }}
-            onChange={(e) => onFile(e.target.files?.[0])}
-          />
-        </View>
-        {importError ? <Alert intent="danger" title="Couldn't read that file" description={importError} /> : null}
-        {imported ? (
-          <ThemeProvider {...applyCastTheme(imported, importedMode)}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 16 }}>
-              <PreviewSlice label="Imported theme" />
+
+          {/* Create your own — cast-sync callback */}
+          <View
+            style={{
+              gap: 10,
+              padding: 16,
+              borderRadius: 14,
+              borderWidth: 1,
+              borderStyle: 'dashed' as const,
+              borderColor: scheme.surface.overlay.border,
+              backgroundColor: scheme.surface.subtle,
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Icon name="brush" size="small" color={colors.brand.subtle.default.fg} />
+              <Text type="label-md">Create your own</Text>
             </View>
-          </ThemeProvider>
-        ) : (
-          <Text type="body-sm" color={scheme.text.description}>
-            No file yet. The Download button above gives you a valid example to try.
-          </Text>
-        )}
-      </Section>
+            <Text type="body-sm" color={scheme.text.description}>
+              Recolour and swap fonts on the cast-ui kit in Figma, run the cast-sync plugin, and export a cast-theme.json. It drops straight into the preview.
+            </Text>
+            <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+              <Button intent="brand" prominence="bold" size="small" leadingIcon="open_in_new" onPress={() => window.open(FIGMA_KIT_URL, '_blank', 'noopener')}>
+                Open in Figma
+              </Button>
+              <Button intent="neutral" prominence="default" size="small" leadingIcon="upload_file" onPress={() => fileRef.current?.click()}>
+                Import a file
+              </Button>
+            </View>
+            {importError ? <Alert intent="danger" size="small" title="Couldn't read that file" description={importError} /> : null}
+            <input ref={fileRef} type="file" accept="application/json,.json" style={{ display: 'none' }} onChange={(e) => onFile(e.target.files?.[0])} />
+          </View>
+        </View>
 
-      <Section title="Apply it in an app">
-        <CodeSnippet
-          title="App.tsx"
-          code={`import theme from './cast-theme.json';
-import { ThemeProvider, applyCastTheme } from '@castui/cast-ui';
+        {/* Right — the live product preview */}
+        <View style={{ flex: 1, minWidth: 0, width: '100%', gap: 16 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <Text type="title-sm">
+                {selection.kind === 'imported' ? (imported?.name ?? 'Imported') : activeTheme.name}
+              </Text>
+              <Badge intent="brand" variant="subtle" size="small" dot>Live</Badge>
+            </View>
+            {ModeToggle}
+          </View>
 
-<ThemeProvider {...applyCastTheme(theme, mode)}>
-  <App />
-</ThemeProvider>`}
-        />
-        <Prose>
-          applyCastTheme maps the file's colours onto the intent system, its text, surface, and focus ring onto the scheme, and its motion block onto the motion tokens. Old files without newer sections load without complaint.
-        </Prose>
-        <Divider />
-        <Prose>
-          The full pipeline: variables in Figma, cast-sync export, one JSON file in your repo, ThemeProvider at the root. Recolour and retime a shipped app without a build.
-        </Prose>
-      </Section>
+          <Animated.View style={animStyle}>
+            <ThemeProvider {...previewProps}>
+              <WindowFrame url="app.northwind.io">
+                <ThemeShowcase />
+              </WindowFrame>
+            </ThemeProvider>
+          </Animated.View>
+
+          <Section title="Apply this theme in your app">
+            <CodeSnippet title="App.tsx" code={applyCode} />
+            <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+              {selection.kind === 'imported' ? (
+                <Text type="body-sm" color={scheme.text.description}>Your imported file applies exactly like a gallery theme.</Text>
+              ) : (
+                <Button intent="brand" prominence="bold" leadingIcon="download" onPress={() => downloadThemeFile(activeTheme)}>
+                  {`Download ${activeTheme.name} theme`}
+                </Button>
+              )}
+              <Button intent="neutral" prominence="subtle" leadingIcon="menu_book" onPress={() => window.open(FIGMA_KIT_URL, '_blank', 'noopener')}>
+                About cast-sync
+              </Button>
+            </View>
+            <Text type="body-sm" color={scheme.text.description}>
+              The file carries the brand colours for light and dark plus the font families. Load the fonts in your app, then applyCastTheme maps the rest onto ThemeProvider.
+            </Text>
+          </Section>
+        </View>
+      </View>
     </Page>
   );
 }

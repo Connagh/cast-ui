@@ -138,7 +138,7 @@ export function DialogContent({
   style,
   accessibilityLabel,
 }: DialogContentProps) {
-  const { components, colors, scheme } = useTheme();
+  const { components, colors, scheme, fonts } = useTheme();
   const surfaceTokens = scheme.surface;
   const textTokens = scheme.text;
   const sizeTokens = components.dialog[size];
@@ -183,7 +183,7 @@ export function DialogContent({
           <Text
             accessibilityRole="header"
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.medium,
               fontSize: titleTokens.fontSize,
               lineHeight: titleTokens.lineHeight,
@@ -197,7 +197,7 @@ export function DialogContent({
         {description ? (
           <Text
             style={{
-              fontFamily: fontFamily.sans,
+              fontFamily: fonts.sans,
               fontWeight: fontWeight.regular,
               fontSize: bodyTokens.fontSize,
               lineHeight: bodyTokens.lineHeight,
@@ -257,7 +257,7 @@ export function Dialog({
   onClose,
   ...contentProps
 }: DialogProps) {
-  const { scheme } = useTheme();
+  const { scheme, fonts } = useTheme();
   const overlayTokens = scheme.overlay;
 
   return (

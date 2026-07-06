@@ -23,6 +23,9 @@ export {
   sliderColors,
   tableColors,
   withAlpha,
+  makeBrandColors,
+  deriveBrandDependents,
+  type BrandSeed,
   type IntentName,
   type ProminenceName,
   type StateName,
@@ -31,6 +34,8 @@ export {
 } from './colors';
 export {
   fontFamily,
+  defaultFonts,
+  type FontFamilyTokens,
   fontWeight,
   label,
   title,

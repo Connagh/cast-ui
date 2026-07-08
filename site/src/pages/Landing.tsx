@@ -50,7 +50,7 @@ function HeroControls() {
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Icon name="tune" size="small" />
-        <Text type="label-md">This hero is live. Retheme it.</Text>
+        <Text type="label-md">Theme controls</Text>
       </View>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
         <ToggleButtonGroup size="small" value={site.colorMode} onValueChange={(v) => v && site.setColorMode(v as 'light' | 'dark')}>

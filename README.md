@@ -77,8 +77,15 @@ const [fontsLoaded] = useFonts({
 
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet" />
 ```
+
+Use **`display=block`** on the Material Symbols link, not `swap`. With `swap` the
+browser shows the ligature name as text (like `search`) until the icon font
+downloads, so icons flash as words for a moment, and because the `<Icon>` box is
+glyph-width the text wraps and stacks vertically. `block` keeps the glyph hidden
+until the font loads, so you get a brief blank in the right size instead. Keep
+`swap` on the text fonts, where a short fallback of real text is fine.
 
 **Bare React Native.** Link the `.ttf` files as font assets
 (`react-native.config.js` + `npx react-native-asset`), keeping the family

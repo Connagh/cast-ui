@@ -274,8 +274,24 @@ Plain web, add to the HTML head:
 
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet" />
 ```
+
+Use **`display=block`** for the Material Symbols link, not `swap`. This is the
+setting that stops the icon flash. With `swap` the browser shows fallback text
+(the ligature name, like `search`) while the icon font downloads, so icons show
+as words for a moment. Because the `<Icon>` box is only as wide as the glyph, a
+long name like `keyboard_arrow_down` wraps and stacks vertically. `block` hides
+the glyph until the font is ready, so you get a brief blank in the right size
+instead of stray text. Keep `swap` on the text fonts (Geist, JetBrains Mono): a
+short fallback of real text there is fine, and it avoids invisible body text on a
+slow connection.
+
+You do not need `<Skeleton>` for the icon flash. Gating content on the font with
+the CSS Font Loading API and showing `<Skeleton>` until it resolves is possible,
+but it is heavier, shows a placeholder even when the font is cached, and solves
+with JavaScript what one CSS keyword already fixes. Reach for a font gate only
+when you want a deliberate first-paint splash for the whole app.
 
 Bare React Native, link the `.ttf` files as assets keeping the family names
 `Geist` and `MaterialSymbolsOutlined`. The Material Symbols variable font is

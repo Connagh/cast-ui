@@ -442,10 +442,7 @@ import { ThemeProvider, applyCastTheme } from '@castui/cast-ui';
         <View style={{ flex: 1, minWidth: 0, width: '100%', gap: 16 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-              <Text type="title-sm">
-                {selection.kind === 'imported' ? (imported?.name ?? 'Imported') : activeTheme.name}
-              </Text>
-              <Badge intent="brand" variant="subtle" size="small" dot>Live</Badge>
+              <Text type="title-sm">Live preview</Text>
             </View>
             {ModeToggle}
           </View>

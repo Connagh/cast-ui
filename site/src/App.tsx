@@ -21,6 +21,7 @@ import { Spinner, useTheme } from '@castui/cast-ui';
 import { SiteThemeRoot } from './theme/SiteTheme';
 import { TopNav } from './shell/TopNav';
 import { Footer } from './shell/Footer';
+import { CookieConsent } from './consent/CookieConsent';
 
 const Landing = React.lazy(() => import('./pages/Landing'));
 const Docs = React.lazy(() => import('./pages/docs/Docs'));
@@ -79,6 +80,7 @@ function Shell() {
         </Routes>
       </Suspense>
       <Footer />
+      <CookieConsent />
     </View>
   );
 }

@@ -16,7 +16,7 @@
     "react-dom": "^19.2.0",
     "react-live": "^4.1.8",
     "react-native-web": "^0.21.2",
-    "react-router-dom": "^7.1.3"
+    "react-router-dom": "^7.18.2"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
